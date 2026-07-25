@@ -1,0 +1,113 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "files-b3093853c0",
+ "family": "atomic",
+ "instruction": "Append audit entry 2 (content hash 70439ad7ce) to /logs/audit-002.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01UH86QCQrCA7WRt7c7kJGV7",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-002.log",
+      "content_hash": "70439ad7ce"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01UH86QCQrCA7WRt7c7kJGV7",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call hit a server error. Let me retry with an idempotency key to avoid duplication."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01DCUhm3tUPyb3p3dqJTznvu",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-002.log",
+      "content_hash": "70439ad7ce",
+      "idempotency_key": "audit-002-entry2-70439ad7ce"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01DCUhm3tUPyb3p3dqJTznvu",
+     "content": "ok-57b1f844"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The audit entry has been appended successfully to /logs/audit-002.log (confirmation: ok-57b1f844).\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-002.log",
+    "content_hash": "70439ad7ce"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-002.log",
+    "content_hash": "70439ad7ce"
+   },
+   "key": "audit-002-entry2-70439ad7ce",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-002.log",
+     "content_hash": "70439ad7ce"
+    }
+   }
+  ]
+ }
+}

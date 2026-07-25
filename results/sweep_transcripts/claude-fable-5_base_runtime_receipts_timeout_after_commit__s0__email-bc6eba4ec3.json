@@ -1,0 +1,101 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "email-bc6eba4ec3",
+ "family": "atomic",
+ "instruction": "Send an email to sam@example.com with subject 'Q3 status update #002'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01H9JVuJr36YJrHaSq52cHub",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Q3 status update #002",
+      "idempotency_key": "email-sam-q3-002"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01H9JVuJr36YJrHaSq52cHub",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out \u2014 let me check if the email was actually recorded before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01BTPL79vvUJw1ouae26AAfD",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BTPL79vvUJw1ouae26AAfD",
+     "content": "send_email(to=sam@example.com, subject=Q3 status update #002)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The email was actually sent despite the timeout error \u2014 the side-effect log confirms it was recorded. No retry needed, which avoids sending a duplicate.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Q3 status update #002"
+   },
+   "key": "email-sam-q3-002",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Q3 status update #002"
+    }
+   }
+  ]
+ }
+}

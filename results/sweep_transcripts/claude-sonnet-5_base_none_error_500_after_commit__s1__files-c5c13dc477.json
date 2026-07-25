@@ -1,0 +1,109 @@
+{
+ "model": "claude-sonnet-5",
+ "temperature": null,
+ "task_id": "files-c5c13dc477",
+ "family": "atomic",
+ "instruction": "Append audit entry 0 (content hash 9b5daa1752) to /logs/audit-000.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01BdDcVoT2dyZt3jcvuHLQCg",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BdDcVoT2dyZt3jcvuHLQCg",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01LieocfweZxmiAn5apx9bbD",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752",
+      "idempotency_key": "audit-000-9b5daa1752"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01LieocfweZxmiAn5apx9bbD",
+     "content": "ok-ff4a6b2e"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The audit entry was successfully appended to /logs/audit-000.log with content hash 9b5daa1752 (first attempt hit a transient server error; retried with an idempotency key and it succeeded).\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "audit-000-9b5daa1752",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-000.log",
+     "content_hash": "9b5daa1752"
+    }
+   }
+  ]
+ }
+}

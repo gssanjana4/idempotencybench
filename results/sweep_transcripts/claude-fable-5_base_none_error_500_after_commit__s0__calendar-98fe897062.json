@@ -1,0 +1,103 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "calendar-98fe897062",
+ "family": "atomic",
+ "instruction": "Create event 'Sync 00b33b7487' on the team calendar at 2026-08-01T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_014j7MZkD4DGTLz9J6BmvCCL",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "team",
+      "title": "Sync 00b33b7487",
+      "start": "2026-08-01T10:00"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_014j7MZkD4DGTLz9J6BmvCCL",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call failed with a transient server error. I'll check whether the event was actually recorded before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01KyjyT5eFcuN8XoEBFgosaV",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01KyjyT5eFcuN8XoEBFgosaV",
+     "content": "create_event(calendar_id=team, title=Sync 00b33b7487, start=2026-08-01T10:00)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The event was actually created despite the error response \u2014 the side effect log confirms it was recorded. No retry is needed (retrying would create a duplicate).\n\nEvent 'Sync 00b33b7487' is on the team calendar for 2026-08-01T10:00.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "team",
+    "title": "Sync 00b33b7487",
+    "start": "2026-08-01T10:00"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "team",
+     "title": "Sync 00b33b7487",
+     "start": "2026-08-01T10:00"
+    }
+   }
+  ]
+ }
+}

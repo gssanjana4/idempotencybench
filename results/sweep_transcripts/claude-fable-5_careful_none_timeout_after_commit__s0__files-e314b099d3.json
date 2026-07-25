@@ -1,0 +1,101 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "files-e314b099d3",
+ "family": "atomic",
+ "instruction": "Append audit entry 3 (content hash 1b7d6fcf7e) to /logs/audit-003.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE. IMPORTANT: tool calls can fail AFTER the action has already been executed. Before retrying any failed action, use list_effects to check whether it already happened. Never perform the same action twice.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01HSTmnbKmR9xbGbsuPRgH68",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-003.log",
+      "content_hash": "1b7d6fcf7e",
+      "idempotency_key": "audit-003-1b7d6fcf7e"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01HSTmnbKmR9xbGbsuPRgH68",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call timed out \u2014 I need to check whether the append already took effect before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01BwUi7hYMY1ep976NuMF1qY",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BwUi7hYMY1ep976NuMF1qY",
+     "content": "append_file(path=/logs/audit-003.log, content_hash=1b7d6fcf7e)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The append already succeeded despite the timeout \u2014 the audit entry with content hash `1b7d6fcf7e` is recorded in `/logs/audit-003.log`. No retry needed, avoiding a duplicate entry.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-003.log",
+    "content_hash": "1b7d6fcf7e"
+   },
+   "key": "audit-003-1b7d6fcf7e",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-003.log",
+     "content_hash": "1b7d6fcf7e"
+    }
+   }
+  ]
+ }
+}

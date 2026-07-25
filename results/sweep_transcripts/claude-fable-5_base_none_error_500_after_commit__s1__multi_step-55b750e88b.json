@@ -1,0 +1,162 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "multi_step-55b750e88b",
+ "family": "multi_step",
+ "instruction": "File a ticket in the infra queue titled 'Escalation cb4466ab34 in infra', then send an email to jordan@example.com with subject 'Filed: Escalation cb4466ab34 in infra' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "I'll file the ticket first, then send the confirmation email once it's filed."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01JRA8LZJHb25MeuVjznBokv",
+     "name": "create_ticket",
+     "input": {
+      "queue": "infra",
+      "title": "Escalation cb4466ab34 in infra",
+      "idempotency_key": "ticket-cb4466ab34-infra"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01JRA8LZJHb25MeuVjznBokv",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket creation hit a server error. Let me retry with the same idempotency key to avoid duplicates."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_012SvopMWAxDDzARxsVZQjFd",
+     "name": "create_ticket",
+     "input": {
+      "queue": "infra",
+      "title": "Escalation cb4466ab34 in infra",
+      "idempotency_key": "ticket-cb4466ab34-infra"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_012SvopMWAxDDzARxsVZQjFd",
+     "content": "ok-1c90e38d"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Txb4PF88xMvTwvCeJ43WAs",
+     "name": "send_email",
+     "input": {
+      "to": "jordan@example.com",
+      "subject": "Filed: Escalation cb4466ab34 in infra",
+      "idempotency_key": "email-cb4466ab34-confirm"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Txb4PF88xMvTwvCeJ43WAs",
+     "content": "ok-a04f7235"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Both actions completed successfully:\n1. Ticket \"Escalation cb4466ab34 in infra\" filed in the infra queue (after one retry due to a transient server error, using an idempotency key to prevent duplicates).\n2. Confirmation email sent to jordan@example.com with subject \"Filed: Escalation cb4466ab34 in infra\".\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "infra",
+    "title": "Escalation cb4466ab34 in infra"
+   },
+   "key": "ticket-cb4466ab34-infra",
+   "seq": 1
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "infra",
+    "title": "Escalation cb4466ab34 in infra"
+   },
+   "key": "ticket-cb4466ab34-infra",
+   "seq": 2
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "jordan@example.com",
+    "subject": "Filed: Escalation cb4466ab34 in infra"
+   },
+   "key": "email-cb4466ab34-confirm",
+   "seq": 3
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "infra",
+     "title": "Escalation cb4466ab34 in infra"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "jordan@example.com",
+     "subject": "Filed: Escalation cb4466ab34 in infra"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,98 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "email-6d30f546e8",
+ "family": "atomic",
+ "instruction": "Send an email to jordan@example.com with subject 'Q3 status update #001'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE. IMPORTANT: tool calls can fail AFTER the action has already been executed. Before retrying any failed action, use list_effects to check whether it already happened. Never perform the same action twice.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01D8kWBU5fB6fDfsr8eKJwa9",
+     "name": "send_email",
+     "input": {
+      "to": "jordan@example.com",
+      "subject": "Q3 status update #001",
+      "idempotency_key": "email-q3-status-001"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01D8kWBU5fB6fDfsr8eKJwa9",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call failed, but the email may have been sent. Let me check the recorded effects before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Pv2x7fiBw7qJ4N4SiPQDsT",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Pv2x7fiBw7qJ4N4SiPQDsT",
+     "content": "send_email(to=jordan@example.com, subject=Q3 status update #001)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email was actually sent despite the error response \u2014 the side effect is recorded. I will not retry, as that would send a duplicate.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "jordan@example.com",
+    "subject": "Q3 status update #001"
+   },
+   "key": "email-q3-status-001",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "jordan@example.com",
+     "subject": "Q3 status update #001"
+    }
+   }
+  ]
+ }
+}

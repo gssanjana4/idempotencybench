@@ -1,0 +1,133 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "files-c5c13dc477",
+ "family": "atomic",
+ "instruction": "Append audit entry 0 (content hash 9b5daa1752) to /logs/audit-000.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01YcCVxouMBLMdpeBzzugvWm",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01YcCVxouMBLMdpeBzzugvWm",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call failed with a server error. Retrying with an idempotency key to safely retry:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_011o8br9h3aNB6JutPtcJFG8",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752",
+      "idempotency_key": "audit-000-entry-0"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_011o8br9h3aNB6JutPtcJFG8",
+     "content": "ok-214f31b1"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "Let me verify the recorded side effects to ensure no duplicate append occurred from the failed call:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01PFu4rioLdo9tkLc81iULPn",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01PFu4rioLdo9tkLc81iULPn",
+     "content": "append_file(path=/logs/audit-000.log, content_hash=9b5daa1752)\nappend_file(path=/logs/audit-000.log, content_hash=9b5daa1752)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": []
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "audit-000-entry-0",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-000.log",
+     "content_hash": "9b5daa1752"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,129 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "files-c5c13dc477",
+ "family": "atomic",
+ "instruction": "Append audit entry 0 (content hash 9b5daa1752) to /logs/audit-000.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01DMdQ6e2cxe6CnEVGPpfGVj",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01DMdQ6e2cxe6CnEVGPpfGVj",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out; I'll retry with an idempotency key to avoid duplicating the append if the first attempt actually succeeded."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Tic4p1VVwUDfvMXHesfCKW",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752",
+      "idempotency_key": "audit-000-entry-0"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Tic4p1VVwUDfvMXHesfCKW",
+     "content": "ok-6ed60938"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "Let me verify the recorded effects to check whether the timed-out first attempt also went through."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01WT5pb5DpxKw9tajmYu9bjL",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01WT5pb5DpxKw9tajmYu9bjL",
+     "content": "append_file(path=/logs/audit-000.log, content_hash=9b5daa1752)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Only one append was recorded, so the timed-out attempt did not go through and the log contains exactly one audit entry 0 (hash 9b5daa1752) as intended.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "audit-000-entry-0",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-000.log",
+     "content_hash": "9b5daa1752"
+    }
+   }
+  ]
+ }
+}

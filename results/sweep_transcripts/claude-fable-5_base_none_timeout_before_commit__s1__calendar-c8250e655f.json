@@ -1,0 +1,133 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "calendar-c8250e655f",
+ "family": "atomic",
+ "instruction": "Create event 'Sync eba7d760b9' on the oncall calendar at 2026-08-03T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_012MpwtZ6EfpbQCKE2yjVmQH",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "oncall",
+      "title": "Sync eba7d760b9",
+      "start": "2026-08-03T10:00"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_012MpwtZ6EfpbQCKE2yjVmQH",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out. Let me check whether the event was actually recorded before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01PX4Tnc6kQ4DRiUusqJhvxc",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01PX4Tnc6kQ4DRiUusqJhvxc",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No event was recorded, so I'll retry with an idempotency key to prevent duplication."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01AXZ2C331Byu3USivoNhXtW",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "oncall",
+      "title": "Sync eba7d760b9",
+      "start": "2026-08-03T10:00",
+      "idempotency_key": "create-event-sync-eba7d760b9-20260803T1000"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01AXZ2C331Byu3USivoNhXtW",
+     "content": "ok-2e9ed2a2"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The event 'Sync eba7d760b9' has been successfully created on the oncall calendar for 2026-08-03T10:00.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "oncall",
+    "title": "Sync eba7d760b9",
+    "start": "2026-08-03T10:00"
+   },
+   "key": "create-event-sync-eba7d760b9-20260803T1000",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "oncall",
+     "title": "Sync eba7d760b9",
+     "start": "2026-08-03T10:00"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,133 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "calendar-301d72eca4",
+ "family": "atomic",
+ "instruction": "Create event 'Sync aae67e3d2f' on the planning calendar at 2026-08-04T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01SuZCnMhjkgpDst9zXQ4RW7",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "planning",
+      "title": "Sync aae67e3d2f",
+      "start": "2026-08-04T10:00"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01SuZCnMhjkgpDst9zXQ4RW7",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out, so I'll check whether the event was actually recorded before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_015w5xhV7ZrQBYs6n9LGCHWD",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015w5xhV7ZrQBYs6n9LGCHWD",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No event was created. Retrying with an idempotency key to prevent duplicates:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01UnZUEY9BojVHfe2EEr3tXc",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "planning",
+      "title": "Sync aae67e3d2f",
+      "start": "2026-08-04T10:00",
+      "idempotency_key": "sync-aae67e3d2f-20260804T1000"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01UnZUEY9BojVHfe2EEr3tXc",
+     "content": "ok-99e6fc18"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The event 'Sync aae67e3d2f' has been successfully created on the planning calendar for 2026-08-04T10:00.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "planning",
+    "title": "Sync aae67e3d2f",
+    "start": "2026-08-04T10:00"
+   },
+   "key": "sync-aae67e3d2f-20260804T1000",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "planning",
+     "title": "Sync aae67e3d2f",
+     "start": "2026-08-04T10:00"
+    }
+   }
+  ]
+ }
+}

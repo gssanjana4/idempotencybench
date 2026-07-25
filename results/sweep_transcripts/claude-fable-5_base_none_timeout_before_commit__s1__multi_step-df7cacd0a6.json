@@ -1,0 +1,181 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "multi_step-df7cacd0a6",
+ "family": "multi_step",
+ "instruction": "File a ticket in the support queue titled 'Escalation 955c770cd4 in support', then send an email to sam@example.com with subject 'Filed: Escalation 955c770cd4 in support' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "I'll file the ticket first, then send the confirmation email once it's filed."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_011gBLxDiX8KnPRy53YvhHuE",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Escalation 955c770cd4 in support",
+      "idempotency_key": "ticket-955c770cd4-support"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_011gBLxDiX8KnPRy53YvhHuE",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out \u2014 let me check whether the ticket was actually recorded before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Nxpm6uue89Sfpugxqn1YeC",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Nxpm6uue89Sfpugxqn1YeC",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No ticket was created, so I'll retry with the same idempotency key."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01WXAiUQ2k8gAtxC38EKCpFQ",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Escalation 955c770cd4 in support",
+      "idempotency_key": "ticket-955c770cd4-support"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01WXAiUQ2k8gAtxC38EKCpFQ",
+     "content": "ok-d6b36333"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01TBHYfwmtVrkSgGiCUZCSRp",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Filed: Escalation 955c770cd4 in support",
+      "idempotency_key": "email-955c770cd4-confirmation"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01TBHYfwmtVrkSgGiCUZCSRp",
+     "content": "ok-c889c117"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Both actions completed successfully:\n1. Ticket \"Escalation 955c770cd4 in support\" filed in the support queue (after retrying a timed-out request that was confirmed not to have gone through).\n2. Confirmation email sent to sam@example.com with subject \"Filed: Escalation 955c770cd4 in support\".\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Escalation 955c770cd4 in support"
+   },
+   "key": "ticket-955c770cd4-support",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Filed: Escalation 955c770cd4 in support"
+   },
+   "key": "email-955c770cd4-confirmation",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "support",
+     "title": "Escalation 955c770cd4 in support"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Filed: Escalation 955c770cd4 in support"
+    }
+   }
+  ]
+ }
+}

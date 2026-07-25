@@ -1,0 +1,163 @@
+{
+ "model": "claude-sonnet-5",
+ "temperature": null,
+ "task_id": "multi_step-df7cacd0a6",
+ "family": "multi_step",
+ "instruction": "File a ticket in the support queue titled 'Escalation 955c770cd4 in support', then send an email to sam@example.com with subject 'Filed: Escalation 955c770cd4 in support' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01LxM3XyDvuPbktwzasgEu8j",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01LxM3XyDvuPbktwzasgEu8j",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_017YbCD1tT27be6WtHiB2Qa6",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Escalation 955c770cd4 in support",
+      "idempotency_key": "ticket-955c770cd4"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_017YbCD1tT27be6WtHiB2Qa6",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Kezy1yUJ35gKk57xUNhPVQ",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Kezy1yUJ35gKk57xUNhPVQ",
+     "content": "create_ticket(queue=support, title=Escalation 955c770cd4 in support)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The ticket was successfully created despite the timeout error. Now I'll send the confirmation email."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_018becqaUEiQLjsXzFQmLozV",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Filed: Escalation 955c770cd4 in support",
+      "idempotency_key": "email-955c770cd4"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_018becqaUEiQLjsXzFQmLozV",
+     "content": "ok-58fae60e"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Both actions completed successfully:\n1. Ticket \"Escalation 955c770cd4 in support\" was filed in the support queue.\n2. Confirmation email sent to sam@example.com with subject \"Filed: Escalation 955c770cd4 in support\".\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Escalation 955c770cd4 in support"
+   },
+   "key": "ticket-955c770cd4",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Filed: Escalation 955c770cd4 in support"
+   },
+   "key": "email-955c770cd4",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "support",
+     "title": "Escalation 955c770cd4 in support"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Filed: Escalation 955c770cd4 in support"
+    }
+   }
+  ]
+ }
+}

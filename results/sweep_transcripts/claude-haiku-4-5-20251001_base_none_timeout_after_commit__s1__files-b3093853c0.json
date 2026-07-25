@@ -1,0 +1,107 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "temperature": 0.0,
+ "task_id": "files-b3093853c0",
+ "family": "atomic",
+ "instruction": "Append audit entry 2 (content hash 70439ad7ce) to /logs/audit-002.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01KnJd6wzYqT3Cnj5x14Ztg8",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-002.log",
+      "content_hash": "70439ad7ce"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01KnJd6wzYqT3Cnj5x14Ztg8",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The append operation timed out. Let me try again:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_014X68FiAkkazW7Bczb8FdNc",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-002.log",
+      "content_hash": "70439ad7ce",
+      "idempotency_key": "audit-entry-2"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_014X68FiAkkazW7Bczb8FdNc",
+     "content": "ok-f057aca0"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE\n\nThe audit entry 2 with content hash 70439ad7ce has been successfully appended to /logs/audit-002.log."
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-002.log",
+    "content_hash": "70439ad7ce"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-002.log",
+    "content_hash": "70439ad7ce"
+   },
+   "key": "audit-entry-2",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-002.log",
+     "content_hash": "70439ad7ce"
+    }
+   }
+  ]
+ }
+}

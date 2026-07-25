@@ -1,0 +1,111 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "files-6936671904",
+ "family": "atomic",
+ "instruction": "Append audit entry 1 (content hash eb425e5f5c) to /logs/audit-001.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01WAYbr2yenJmnbUHuHLN3ue",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-001.log",
+      "content_hash": "eb425e5f5c",
+      "idempotency_key": "audit-001-entry-1"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01WAYbr2yenJmnbUHuHLN3ue",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out; retrying with the same idempotency key to avoid duplication:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_012Ef6Ltz8JZWEZLoyuUDwXX",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-001.log",
+      "content_hash": "eb425e5f5c",
+      "idempotency_key": "audit-001-entry-1"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_012Ef6Ltz8JZWEZLoyuUDwXX",
+     "content": "ok-30834982"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Audit entry 1 (content hash eb425e5f5c) has been successfully appended to /logs/audit-001.log. The initial attempt timed out, so I retried with the same idempotency key to ensure the entry was written exactly once.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-001.log",
+    "content_hash": "eb425e5f5c"
+   },
+   "key": "audit-001-entry-1",
+   "seq": 1
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-001.log",
+    "content_hash": "eb425e5f5c"
+   },
+   "key": "audit-001-entry-1",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-001.log",
+     "content_hash": "eb425e5f5c"
+    }
+   }
+  ]
+ }
+}

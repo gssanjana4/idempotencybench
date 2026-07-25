@@ -1,0 +1,114 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "email-bc6eba4ec3",
+ "family": "atomic",
+ "instruction": "Send an email to sam@example.com with subject 'Q3 status update #002'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01SR1xVcXSf9HX13t7g8ECew",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Q3 status update #002",
+      "idempotency_key": "email-sam-q3-status-002"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01SR1xVcXSf9HX13t7g8ECew",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call failed with an internal server error. Let me retry with the same idempotency key to safely avoid duplicates."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01PcyVR7fNZKLg5sp9dhxRCL",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Q3 status update #002",
+      "idempotency_key": "email-sam-q3-status-002"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01PcyVR7fNZKLg5sp9dhxRCL",
+     "content": "ok-ab1a254b"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email to sam@example.com with subject 'Q3 status update #002' was sent successfully.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Q3 status update #002"
+   },
+   "key": "email-sam-q3-status-002",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Q3 status update #002"
+   },
+   "key": "email-sam-q3-status-002",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Q3 status update #002"
+    }
+   }
+  ]
+ }
+}

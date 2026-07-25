@@ -1,0 +1,170 @@
+{
+ "model": "claude-sonnet-5",
+ "temperature": null,
+ "task_id": "multi_step-55b750e88b",
+ "family": "multi_step",
+ "instruction": "File a ticket in the infra queue titled 'Escalation cb4466ab34 in infra', then send an email to jordan@example.com with subject 'Filed: Escalation cb4466ab34 in infra' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01KfbTU1hrSRN7kKBBvn9d8W",
+     "name": "create_ticket",
+     "input": {
+      "queue": "infra",
+      "title": "Escalation cb4466ab34 in infra"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01KfbTU1hrSRN7kKBBvn9d8W",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_0148wh8ujecjFHp3PbdZr1Mr",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_0148wh8ujecjFHp3PbdZr1Mr",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "No effect recorded yet, so I'll retry the ticket creation with an idempotency key, then send the confirmation email."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01XUTkoWpHJtB7TVB5nEywqJ",
+     "name": "create_ticket",
+     "input": {
+      "queue": "infra",
+      "title": "Escalation cb4466ab34 in infra",
+      "idempotency_key": "ticket-cb4466ab34-infra"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01XUTkoWpHJtB7TVB5nEywqJ",
+     "content": "ok-55342bf5"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Ticket created successfully. Now I'll send the confirmation email."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01MgWkeKF6SBY7jhnkxLhQyi",
+     "name": "send_email",
+     "input": {
+      "to": "jordan@example.com",
+      "subject": "Filed: Escalation cb4466ab34 in infra",
+      "idempotency_key": "email-cb4466ab34-infra"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01MgWkeKF6SBY7jhnkxLhQyi",
+     "content": "ok-14042640"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Both actions completed successfully:\n1. Created ticket \"Escalation cb4466ab34 in infra\" in the infra queue.\n2. Sent confirmation email to jordan@example.com with subject \"Filed: Escalation cb4466ab34 in infra\".\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "infra",
+    "title": "Escalation cb4466ab34 in infra"
+   },
+   "key": "ticket-cb4466ab34-infra",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "jordan@example.com",
+    "subject": "Filed: Escalation cb4466ab34 in infra"
+   },
+   "key": "email-cb4466ab34-infra",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "infra",
+     "title": "Escalation cb4466ab34 in infra"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "jordan@example.com",
+     "subject": "Filed: Escalation cb4466ab34 in infra"
+    }
+   }
+  ]
+ }
+}

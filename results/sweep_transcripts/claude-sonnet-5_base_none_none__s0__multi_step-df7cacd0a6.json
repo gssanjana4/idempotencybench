@@ -1,0 +1,137 @@
+{
+ "model": "claude-sonnet-5",
+ "temperature": null,
+ "task_id": "multi_step-df7cacd0a6",
+ "family": "multi_step",
+ "instruction": "File a ticket in the support queue titled 'Escalation 955c770cd4 in support', then send an email to sam@example.com with subject 'Filed: Escalation 955c770cd4 in support' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01JrR8WHSHFTiGKmLCU3w9Vo",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01JrR8WHSHFTiGKmLCU3w9Vo",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_014if1gAekdrmWoi8t1MG1qv",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Escalation 955c770cd4 in support",
+      "idempotency_key": "ticket-955c770cd4"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_014if1gAekdrmWoi8t1MG1qv",
+     "content": "ok-c66e23d2"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01GW9XdQZcuBmpzs7TxadXGA",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Filed: Escalation 955c770cd4 in support",
+      "idempotency_key": "email-955c770cd4"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01GW9XdQZcuBmpzs7TxadXGA",
+     "content": "ok-38210518"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Escalation 955c770cd4 in support"
+   },
+   "key": "ticket-955c770cd4",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Filed: Escalation 955c770cd4 in support"
+   },
+   "key": "email-955c770cd4",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "support",
+     "title": "Escalation 955c770cd4 in support"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Filed: Escalation 955c770cd4 in support"
+    }
+   }
+  ]
+ }
+}

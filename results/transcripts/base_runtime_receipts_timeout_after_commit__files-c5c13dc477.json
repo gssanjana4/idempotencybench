@@ -1,0 +1,99 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "files-c5c13dc477",
+ "family": "atomic",
+ "instruction": "Append audit entry 0 (content hash 9b5daa1752) to /logs/audit-000.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01Uesy1hBmVa9PzfjtkTVJCR",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Uesy1hBmVa9PzfjtkTVJCR",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out \u2014 let me check whether the append was actually recorded before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01M5bnyA2rAbm88nfCvsmnt2",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01M5bnyA2rAbm88nfCvsmnt2",
+     "content": "append_file(path=/logs/audit-000.log, content_hash=9b5daa1752)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The append was actually recorded despite the timeout \u2014 audit entry 0 (hash 9b5daa1752) is present in /logs/audit-000.log. No retry needed, which avoids a duplicate entry.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-000.log",
+     "content_hash": "9b5daa1752"
+    }
+   }
+  ]
+ }
+}

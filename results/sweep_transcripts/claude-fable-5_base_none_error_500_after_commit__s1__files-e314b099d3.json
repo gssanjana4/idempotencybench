@@ -1,0 +1,101 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "files-e314b099d3",
+ "family": "atomic",
+ "instruction": "Append audit entry 3 (content hash 1b7d6fcf7e) to /logs/audit-003.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01TiyhssC66HQmZ5bYjKBGv1",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-003.log",
+      "content_hash": "1b7d6fcf7e",
+      "idempotency_key": "audit-entry-3-1b7d6fcf7e"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01TiyhssC66HQmZ5bYjKBGv1",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call failed with a server error. Let me check whether the effect was recorded before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01P7AHVQQcSpLfDoqHi9zj2h",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01P7AHVQQcSpLfDoqHi9zj2h",
+     "content": "append_file(path=/logs/audit-003.log, content_hash=1b7d6fcf7e)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The effect log shows the append was actually recorded despite the error response \u2014 the audit entry (hash 1b7d6fcf7e) is already in /logs/audit-003.log. Retrying is unnecessary and could risk duplication without the idempotency guarantee being honored.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-003.log",
+    "content_hash": "1b7d6fcf7e"
+   },
+   "key": "audit-entry-3-1b7d6fcf7e",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-003.log",
+     "content_hash": "1b7d6fcf7e"
+    }
+   }
+  ]
+ }
+}

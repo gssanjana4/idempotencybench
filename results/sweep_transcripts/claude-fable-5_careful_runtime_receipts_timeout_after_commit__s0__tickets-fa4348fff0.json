@@ -1,0 +1,98 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "tickets-fa4348fff0",
+ "family": "atomic",
+ "instruction": "File a ticket in the support queue titled 'Incident 2a3b4eda6f: retry storm in support'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE. IMPORTANT: tool calls can fail AFTER the action has already been executed. Before retrying any failed action, use list_effects to check whether it already happened. Never perform the same action twice.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01KPfqwz7dnzsTqTi1ue1ZaC",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Incident 2a3b4eda6f: retry storm in support",
+      "idempotency_key": "ticket-2a3b4eda6f"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01KPfqwz7dnzsTqTi1ue1ZaC",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out \u2014 the ticket may have been created anyway. Let me check before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01JXtV52zQtwk4SBgy3abQCf",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01JXtV52zQtwk4SBgy3abQCf",
+     "content": "create_ticket(queue=support, title=Incident 2a3b4eda6f: retry storm in support)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The ticket was actually created despite the timeout error \u2014 no retry needed.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Incident 2a3b4eda6f: retry storm in support"
+   },
+   "key": "ticket-2a3b4eda6f",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "support",
+     "title": "Incident 2a3b4eda6f: retry storm in support"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,170 @@
+{
+ "model": "claude-sonnet-5",
+ "temperature": null,
+ "task_id": "multi_step-df7cacd0a6",
+ "family": "multi_step",
+ "instruction": "File a ticket in the support queue titled 'Escalation 955c770cd4 in support', then send an email to sam@example.com with subject 'Filed: Escalation 955c770cd4 in support' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Aoa9PbZQCqX8HmhFnpLWhg",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Escalation 955c770cd4 in support"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Aoa9PbZQCqX8HmhFnpLWhg",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01CqgTamYB7fYBuDYCgqgRRb",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01CqgTamYB7fYBuDYCgqgRRb",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "No effects recorded yet, so the ticket wasn't created. I'll retry filing the ticket."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_011nX2h9LSxibGU1wKUdrur2",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Escalation 955c770cd4 in support",
+      "idempotency_key": "escalation-955c770cd4-support"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_011nX2h9LSxibGU1wKUdrur2",
+     "content": "ok-3405f963"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Ticket filed successfully. Now sending the confirmation email."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01UreYEzY8Z83Uu6MzAaCvWE",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Filed: Escalation 955c770cd4 in support",
+      "idempotency_key": "email-escalation-955c770cd4-confirm"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01UreYEzY8Z83Uu6MzAaCvWE",
+     "content": "ok-a153b35c"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Both tasks completed successfully:\n\n1. **Ticket filed** \u2014 Created in the \"support\" queue with title \"Escalation 955c770cd4 in support\" (confirmation ID: ok-3405f963).\n2. **Email sent** \u2014 To sam@example.com with subject \"Filed: Escalation 955c770cd4 in support\" confirming the ticket was filed (confirmation ID: ok-a153b35c).\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Escalation 955c770cd4 in support"
+   },
+   "key": "escalation-955c770cd4-support",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Filed: Escalation 955c770cd4 in support"
+   },
+   "key": "email-escalation-955c770cd4-confirm",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "support",
+     "title": "Escalation 955c770cd4 in support"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Filed: Escalation 955c770cd4 in support"
+    }
+   }
+  ]
+ }
+}
