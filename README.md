@@ -45,7 +45,7 @@ python3 src/harness.py --fable5
 - **Per-episode transcripts** for all real-model runs, so scoring is
   auditable.
 
-## Substrate map (scripted harness validation; model results TBD)
+## Substrate map (scripted harness validation)
 
 | | transport retry | agent retry | whole-run (on failure) | at-least-once |
 |---|---|---|---|---|
@@ -58,26 +58,17 @@ Exactly-once behavior is a property of the execution substrate, not the model.
 
 ## Leaderboard
 
-| Model | IVR ↓ (agent retry) | IVR ↓ (whole-run) | Success ↑ |
+IVR with 95% Wilson intervals, base prompt, 64 episodes per cell
+(`results/sweep_summary.csv`). The first two columns use no mitigation.
+Task success is 1.00 in every cell.
+
+| Model | IVR ↓ (HTTP 500 after commit) | IVR ↓ (timeout after commit) | IVR ↓ (timeout after commit, runtime receipts) |
 |---|---|---|---|
-| *results pending — PRs welcome* | | | |
+| Claude Haiku 4.5 | 0.69 [0.57, 0.79] | 0.94 [0.85, 0.98] | 0.00 [0.00, 0.06] |
+| Claude Sonnet 5 | 0.64 [0.52, 0.75] | 0.02 [0.00, 0.08] | 0.00 [0.00, 0.06] |
+| Claude Fable 5 | 0.58 [0.46, 0.69] | 0.14 [0.08, 0.25] | 0.00 [0.00, 0.06] |
 
-## Citation
-
-```bibtex
-@misc{idempotencybench2026,
-  title={Do LLM Agents Act Exactly Once? Measuring Idempotency Violations Under Retries},
-  author={[Author]},
-  year={2026},
-  eprint={[arXiv ID TBD]},
-  archivePrefix={arXiv}
-}
-```
-
-## License
-
-MIT (code) / CC-BY 4.0 (tasks)
-
+PRs adding other models are welcome.
 
 ## Author
 
