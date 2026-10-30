@@ -1,12 +1,12 @@
 """Model-results figure: IVR by failure mode per model, Wilson 95% CIs.
 Source: results/sweep_summary.csv (base prompt, mitigation=none cells).
-Usage: python3 src/plot_sweep.py [--paper]
+Usage (repo root): PYTHONPATH=src python3 -m idempotencybench.plot_sweep [--paper]
 """
 import csv
 import os
 import sys
 
-HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HERE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 MODEL_LABELS = {
     "claude-haiku-4-5-20251001": "Haiku 4.5",

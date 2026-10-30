@@ -9,11 +9,11 @@ Cells per model (budget-conscious):
   by-failure:  base x none @ {none, timeout_before_commit, error_500_after_commit}
   => 8 cells x 32 tasks x 2 samples = 512 episodes per model.
 
-Usage:
-  python3 src/sweep.py --dry-run          # counts only; no key, no spend
-  python3 src/sweep.py --launch           # runs (requires ANTHROPIC_API_KEY);
-                                          # resumable: completed episodes skipped
-  python3 src/sweep.py --aggregate        # raw JSONL -> results/sweep_summary.csv
+Usage (repo root):
+  PYTHONPATH=src python3 -m idempotencybench.sweep --dry-run    # counts only; no key, no spend
+  PYTHONPATH=src python3 -m idempotencybench.sweep --launch     # runs (requires ANTHROPIC_API_KEY);
+                                                         # resumable: completed episodes skipped
+  PYTHONPATH=src python3 -m idempotencybench.sweep --aggregate  # raw JSONL -> results/sweep_summary.csv
 
 Models: env IBENCH_SWEEP_MODELS (comma-separated), default below.
 NEVER launched automatically — requires the author's explicit go (budget).
@@ -26,10 +26,8 @@ import math
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(__file__))
-
-from world import World
-from tasks import generate_tasks
+from .world import World
+from .tasks import generate_tasks
 
 DEFAULT_MODELS = "claude-fable-5,claude-sonnet-5,claude-haiku-4-5-20251001"
 MODELS = [m for m in os.environ.get(
@@ -53,7 +51,7 @@ CELLS = [
     ("careful", "none",             "error_500_after_commit"),
 ]
 
-HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HERE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 RAW_PATH = os.path.join(HERE, "results", "sweep_raw.jsonl")
 SUMMARY_PATH = os.path.join(HERE, "results", "sweep_summary.csv")
 TRANSCRIPT_DIR = os.path.join(HERE, "results", "sweep_transcripts")
@@ -111,7 +109,7 @@ def dry_run():
 
 
 def launch():
-    from model_agent import (run_model_episode, _score_and_log,
+    from .model_agent import (run_model_episode, _score_and_log,
                              BASE_SYSTEM, CAREFUL_SYSTEM)
     import anthropic
     client = anthropic.Anthropic()

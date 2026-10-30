@@ -21,8 +21,8 @@ from __future__ import annotations
 import hashlib
 import uuid
 
-from world import World, ToolTimeout, ToolServerError
-from tasks import Task
+from .world import World, ToolTimeout, ToolServerError
+from .tasks import Task
 
 RETRY_MODES = ("no_retry", "tool_retry", "agent_retry", "whole_run",
                "at_least_once")

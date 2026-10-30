@@ -5,8 +5,8 @@ as small-multiple heatmaps -- one panel per agent, rows = retry mode,
 columns = world-side mitigation, cell color/label = Idempotency Violation Rate.
 
 Usage:
-    python3 src/plot_results.py                # summary.csv -> figures/ivr_matrix.png
-    python3 src/plot_results.py --input results/summary_by_failure.csv \
+    PYTHONPATH=src python3 -m idempotencybench.plot_results   # summary.csv -> figures/ivr_matrix.png
+    PYTHONPATH=src python3 -m idempotencybench.plot_results --input results/summary_by_failure.csv \
             --output figures/ivr_matrix_by_failure.png
 
 Zero-cost: reads only local CSVs, makes no API calls. Requires matplotlib.
@@ -130,7 +130,7 @@ def plot(rows, out_path, title=None, paper=False):
 
 
 def main():
-    here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    here = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     ap = argparse.ArgumentParser(description="Plot IdempotencyBench IVR matrix.")
     ap.add_argument("--input", default=os.path.join(here, "results", "summary.csv"))
     ap.add_argument("--output", default=os.path.join(here, "figures", "ivr_matrix.png"))

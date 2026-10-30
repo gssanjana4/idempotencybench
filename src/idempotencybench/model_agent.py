@@ -18,8 +18,8 @@ import csv
 import json
 import os
 
-from world import World, ToolTimeout, ToolServerError, EFFECTFUL_TOOLS
-from tasks import generate_tasks, TEMPLATE_COUNT
+from .world import World, ToolTimeout, ToolServerError, EFFECTFUL_TOOLS
+from .tasks import generate_tasks, TEMPLATE_COUNT
 
 MODEL_ID = os.environ.get("IBENCH_MODEL", "claude-fable-5")  # pin dated id for camera-ready
 MAX_TURNS = 8          # hard cap per episode (cost control)
@@ -155,7 +155,7 @@ def run_fable5_pilot(out_path: str,
     import anthropic
     client = anthropic.Anthropic()
 
-    here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    here = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     transcript_dir = os.path.join(here, "results", "transcripts")
 
     tasks = generate_tasks(per_domain=1)[:n_tasks]

@@ -16,9 +16,20 @@ email, and tickets.
 ## Quickstart (no API key, no dependencies)
 
 ```
-python3 run_tests.py        # 31 tests
+python3 run_tests.py        # 43 tests (2 skipped without the mcp package)
 python3 src/harness.py      # full 320-task scripted grid -> results/summary.csv
 ```
+
+As a package (Python 3.10+):
+
+```
+pip install .
+idempotencybench scripted           # scripted grid, IVR per failure mode
+pip install '.[mcp]'
+idempotencybench serve-mcp --task <id> --failure timeout_after_commit --out result.json
+```
+
+`serve-mcp` evaluates any MCP-capable agent; see [docs/mcp.md](docs/mcp.md).
 
 Real-model pilot (Claude Fable 5, cost-capped):
 
