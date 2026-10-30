@@ -1,5 +1,7 @@
 # IdempotencyBench
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23813526.svg)](https://doi.org/10.5281/zenodo.23813526)
+
 **Do LLM agents act exactly once?** IdempotencyBench measures how often
 tool-using LLM agents cause *duplicate side effects* when infrastructure
 retries — timeouts, transport re-issues, orchestrator re-runs.
@@ -94,7 +96,8 @@ Sanjana Gopnal Swamy — [github.com/gssanjana4](https://github.com/gssanjana4)
   title  = {Do LLM Agents Act Exactly Once? Measuring Idempotency Violations Under Retries},
   author = {Gopnal Swamy, Sanjana},
   year   = {2026},
-  note   = {Under review at ACL Rolling Review; code and transcripts at github.com/gssanjana4/idempotencybench}
+  doi    = {10.5281/zenodo.23813526},
+  url    = {https://doi.org/10.5281/zenodo.23813526}
 }
 ```
 
