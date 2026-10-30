@@ -130,6 +130,14 @@ class TestAgentsUnderRetry(unittest.TestCase):
         v, _ = self._run("naive", "whole_run", mitigation="idem_keys")
         self.assertGreater(v, 0)
 
+    def test_keyless_retries_are_not_deduplicated(self):
+        t = make_task()
+        for key in ("", None):
+            w = World(mitigation="idem_keys")
+            w.call(t.tool, t.args, key, t.task_id)
+            w.call(t.tool, t.args, key, t.task_id)
+            self.assertEqual(w.ledger.violations(t.task_id), 1, repr(key))
+
     def test_receipts_robust_for_all_agents_and_modes(self):
         for agent in ("naive", "careful", "stable_key"):
             for mode in ("agent_retry", "tool_retry", "whole_run",

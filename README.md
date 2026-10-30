@@ -69,9 +69,11 @@ Exactly-once behavior is a property of the execution substrate, not the model.
 
 ## Leaderboard
 
-IVR with 95% Wilson intervals, base prompt, 64 episodes per cell
-(`results/sweep_summary.csv`). The first two columns use no mitigation.
-Task success is 1.00 in every cell.
+IVR with 95% Wilson intervals, base prompt, 64 episodes per cell (32 tasks ×
+2 samples, `results/sweep_summary.csv`). The first two columns use no
+mitigation. Task success is 1.00 in every cell. Haiku 4.5 ran at temperature 0,
+so its two samples per task are often identical and its intervals are too
+narrow; Sonnet 5 and Fable 5 ran at the API default temperature.
 
 | Model | IVR ↓ (HTTP 500 after commit) | IVR ↓ (timeout after commit) | IVR ↓ (timeout after commit, runtime receipts) |
 |---|---|---|---|

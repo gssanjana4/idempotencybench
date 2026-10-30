@@ -169,7 +169,7 @@ class World:
             if sid in self._receipts:
                 return "ok-deduped-receipt"
             self._receipts.add(sid)
-        if self.mitigation == "idem_keys":
+        if self.mitigation == "idem_keys" and key:  # keyless calls are never deduplicated
             kk = (tool, key)
             if kk in self._seen_keys:
                 return self._seen_keys[kk]  # cached; nothing committed
