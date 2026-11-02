@@ -6,7 +6,7 @@
 tool-using LLM agents cause *duplicate side effects* when infrastructure
 retries — timeouts, transport re-issues, orchestrator re-runs.
 
-📄 Paper: [PDF in this repo](paper.pdf) (under review, ARR August 2026; arXiv link coming) · 📊 Metric: **IVR** (Idempotency Violation Rate)
+📄 Paper: under review (arXiv link coming) · 📊 Metric: **IVR** (Idempotency Violation Rate)
 
 ## Why
 
