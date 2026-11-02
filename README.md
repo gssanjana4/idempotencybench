@@ -83,7 +83,8 @@ narrow; Sonnet 5 and Fable 5 ran at the API default temperature.
 | Claude Sonnet 5 | 0.64 [0.52, 0.75] | 0.02 [0.00, 0.08] | 0.00 [0.00, 0.06] |
 | Claude Fable 5 | 0.58 [0.46, 0.69] | 0.14 [0.08, 0.25] | 0.00 [0.00, 0.06] |
 
-PRs adding other models are welcome.
+PRs adding other models, scenarios or framework adapters are welcome; see
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Author
 
