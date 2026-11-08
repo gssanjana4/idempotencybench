@@ -6,7 +6,7 @@
 tool-using LLM agents cause *duplicate side effects* when infrastructure
 retries — timeouts, transport re-issues, orchestrator re-runs.
 
-📄 Paper: under review (arXiv link coming) · 📊 Metric: **IVR** (Idempotency Violation Rate)
+📄 Paper: *Exactly Once Across Retries and Restarts: Measuring Duplicate and Stale Side Effects in Tool-Using LLM Agents* (arXiv link coming) · 📊 Metric: **IVR** (Idempotency Violation Rate)
 
 ## Why
 
@@ -83,6 +83,26 @@ narrow; Sonnet 5 and Fable 5 ran at the API default temperature.
 | Claude Sonnet 5 | 0.64 [0.52, 0.75] | 0.02 [0.00, 0.08] | 0.00 [0.00, 0.06] |
 | Claude Fable 5 | 0.58 [0.46, 0.69] | 0.14 [0.08, 0.25] | 0.00 [0.00, 0.06] |
 
+## Results files
+
+| File | What it holds |
+|---|---|
+| `results/sweep_raw_v2.jsonl` | Per-episode scores the paper and `sweep_summary.csv` use (v2). |
+| `results/sweep_raw.jsonl` | Scores as logged during the July 2026 run (v1). Kept for the record. |
+| `results/sweep_summary.csv` | Per-cell IVR and intervals, aggregated from v2. |
+| `results/sweep_transcripts/` | One transcript per episode, with provider tool-use ids. |
+
+v1 and v2 differ in one cell. The July run's world deduplicated *keyless*
+calls under idempotency keys, which hid duplicates in the Claude Haiku 4.5
+keys / timeout cell (v1: 17/64). v2 replays every logged transcript through
+the fixed world (v2: 59/64 = 0.92). The model calls are unchanged; only the
+scoring is. To reproduce:
+
+```
+PYTHONPATH=src python3 -m idempotencybench.sweep --rescore     # transcripts -> sweep_raw_v2.jsonl
+PYTHONPATH=src python3 -m idempotencybench.sweep --aggregate   # -> sweep_summary.csv
+```
+
 PRs adding other models, scenarios or framework adapters are welcome; see
 [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -94,7 +114,7 @@ Sanjana Gopnal Swamy — [github.com/gssanjana4](https://github.com/gssanjana4)
 
 ```bibtex
 @misc{gopnalswamy2026idempotencybench,
-  title  = {Do LLM Agents Act Exactly Once? Measuring Idempotency Violations Under Retries},
+  title  = {Exactly Once Across Retries and Restarts: Measuring Duplicate and Stale Side Effects in Tool-Using LLM Agents},
   author = {Gopnal Swamy, Sanjana},
   year   = {2026},
   doi    = {10.5281/zenodo.23813526},

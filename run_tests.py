@@ -425,6 +425,38 @@ def _mcp_installed():
 
 
 @unittest.skipUnless(_mcp_installed(), "mcp not installed (pip install '.[mcp]')")
+class TestPublishedSweep(unittest.TestCase):
+    """The v2 raw file must reproduce the published summary exactly."""
+
+    def test_v2_raw_matches_summary(self):
+        import csv, json
+        from idempotencybench.sweep import RAW_V2_PATH, SUMMARY_PATH
+        if not os.path.exists(RAW_V2_PATH):
+            self.skipTest("no sweep_raw_v2.jsonl")
+        cells = {}
+        with open(RAW_V2_PATH) as f:
+            for line in f:
+                r = json.loads(line)
+                k = (r["model"], r["prompt"], r["mitigation"], r["failure_mode"])
+                v, n = cells.get(k, (0, 0))
+                cells[k] = (v + (r["violations"] > 0), n + 1)
+        with open(SUMMARY_PATH) as f:
+            for row in csv.DictReader(f):
+                v, n = cells[(row["model"], row["prompt"], row["mitigation"],
+                              row["failure_mode"])]
+                self.assertEqual(n, int(row["n_episodes"]))
+                self.assertEqual(round(v / n, 4), float(row["ivr"]))
+
+    def test_keyless_retries_not_deduplicated(self):
+        # The July run's world deduplicated keyless calls under idem_keys
+        # (the v1 scoring bug); a keyless retry must commit again.
+        w = World(mitigation="idem_keys", failure_mode="none")
+        args = {"to": "a@example.com", "subject": "s"}
+        w.call("send_email", args, "", "t1")
+        w.call("send_email", args, "", "t1")
+        self.assertEqual(w.ledger.violations("t1"), 1)
+
+
 class TestMCPServer(unittest.TestCase):
     def test_tool_schemas_match_world_tools(self):
         import asyncio

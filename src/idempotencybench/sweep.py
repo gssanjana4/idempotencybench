@@ -13,7 +13,14 @@ Usage (repo root):
   PYTHONPATH=src python3 -m idempotencybench.sweep --dry-run    # counts only; no key, no spend
   PYTHONPATH=src python3 -m idempotencybench.sweep --launch     # runs (requires ANTHROPIC_API_KEY);
                                                          # resumable: completed episodes skipped
-  PYTHONPATH=src python3 -m idempotencybench.sweep --aggregate  # raw JSONL -> results/sweep_summary.csv
+  PYTHONPATH=src python3 -m idempotencybench.sweep --rescore    # transcripts -> results/sweep_raw_v2.jsonl
+  PYTHONPATH=src python3 -m idempotencybench.sweep --aggregate  # v2 raw JSONL -> results/sweep_summary.csv
+
+Raw files: sweep_raw.jsonl (v1) holds the scores logged during the July run.
+That run's world deduplicated keyless calls under idem_keys, which hid
+duplicates in the Haiku 4.5 keys cell (v1: 17/64). sweep_raw_v2.jsonl (v2)
+replays every logged transcript through the fixed world (v2: 59/64); no
+other cell changes. The summary CSV and the paper use v2.
 
 Models: env IBENCH_SWEEP_MODELS (comma-separated), default below.
 NEVER launched automatically — requires the author's explicit go (budget).
@@ -52,7 +59,8 @@ CELLS = [
 ]
 
 HERE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-RAW_PATH = os.path.join(HERE, "results", "sweep_raw.jsonl")
+RAW_PATH = os.path.join(HERE, "results", "sweep_raw.jsonl")        # v1, as logged
+RAW_V2_PATH = os.path.join(HERE, "results", "sweep_raw_v2.jsonl")  # v2, re-scored
 SUMMARY_PATH = os.path.join(HERE, "results", "sweep_summary.csv")
 TRANSCRIPT_DIR = os.path.join(HERE, "results", "sweep_transcripts")
 
@@ -142,11 +150,56 @@ def launch():
     aggregate()
 
 
-def aggregate():
-    if not os.path.exists(RAW_PATH):
-        print(f"no raw data at {RAW_PATH}"); return
-    cells: dict[tuple, list] = {}
+def _replay(transcript: dict, mitigation: str, failure_mode: str) -> World:
+    """Re-execute a logged transcript's effectful calls, in order, through a
+    fresh world. The model's calls are fixed, so only the scoring changes."""
+    from .world import EFFECTFUL_TOOLS
+    world = World(mitigation=mitigation, failure_mode=failure_mode)
+    for turn in transcript["turns"]:
+        if turn["role"] != "assistant":
+            continue
+        for block in turn["content"]:
+            if block.get("type") != "tool_use" or block["name"] not in EFFECTFUL_TOOLS:
+                continue
+            args = dict(block["input"])
+            key = args.pop("idempotency_key", "") or ""
+            try:
+                world.call(block["name"], args, key, transcript["task_id"])
+            except Exception:  # injected timeout / 500; the commit already happened or not
+                pass
+    return world
+
+
+def rescore():
+    """v1 raw + transcripts -> sweep_raw_v2.jsonl (same rows, re-scored)."""
+    tasks = {t.task_id: t for t in generate_tasks(per_domain=PER_TEMPLATE)}
+    rows, changed = [], 0
     with open(RAW_PATH) as f:
+        for line in f:
+            r = json.loads(line)
+            cell = f"{r['model']}_{r['prompt']}_{r['mitigation']}_{r['failure_mode']}"
+            path = os.path.join(TRANSCRIPT_DIR,
+                                f"{cell}__s{r['sample']}__{r['task_id']}.json")
+            with open(path) as tf:
+                transcript = json.load(tf)
+            world = _replay(transcript, r["mitigation"], r["failure_mode"])
+            task = tasks[r["task_id"]]
+            v = world.ledger.violations(task.task_id)
+            ok = all(world.ledger.achieved(task.task_id, g) for g in task.goals)
+            changed += (v > 0) != (r["violations"] > 0)
+            rows.append({**r, "violations": v, "achieved": ok})
+    with open(RAW_V2_PATH, "w") as f:
+        for r in rows:
+            f.write(json.dumps(r) + "\n")
+    print(f"{len(rows)} episodes re-scored, {changed} changed -> {RAW_V2_PATH}")
+
+
+def aggregate():
+    raw = RAW_V2_PATH if os.path.exists(RAW_V2_PATH) else RAW_PATH
+    if not os.path.exists(raw):
+        print(f"no raw data at {raw}"); return
+    cells: dict[tuple, list] = {}
+    with open(raw) as f:
         for line in f:
             r = json.loads(line)
             key = (r["model"], r["prompt"], r["mitigation"], r["failure_mode"])
@@ -188,6 +241,8 @@ def aggregate():
 if __name__ == "__main__":
     if "--launch" in sys.argv:
         launch()
+    elif "--rescore" in sys.argv:
+        rescore()
     elif "--aggregate" in sys.argv:
         aggregate()
     else:
