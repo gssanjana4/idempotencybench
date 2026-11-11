@@ -81,14 +81,16 @@ dependency graph of actions.
 
 - `controls/`: the content-free note control for restarts (QX1): its plan, pushed to this
   repository before the first episode, the launch files, the launcher and the analysis
-  script (`qx1_analysis.py`). Results are in `controls/results_qx1_note_control/` (the run's
+  script (`qx1_analysis.py`; with `--tex` it writes the control's numbers for the paper,
+  taking the push times from `qx1_provenance.json`). Results are in `controls/results_qx1_note_control/` (the run's
   `out_dir`, kept there so that the file counts of `results/` stay as printed in the paper):
   raw rows, one transcript per episode, the run log and the analysis output. The run covered
   Haiku 4.5 (128 episodes). Fable 5 stopped after 42 of its 128 episodes when the API
   account ran out of credit, and the three OpenRouter models were not launched. It ran on
   the harness as used for R2 to R5, whose environment variables start with `IBENCH_`.
-- `paper-v34/`: `make_figures_v34.py` draws the results figure of the current version of
-  the paper; `lit_numbers_v34.tex` holds the numbers quoted from other papers.
+- `paper-v34/`: `make_figures_v34b.py` draws the results figure of the current version of
+  the paper (`make_figures_v34.py`: the same figure, taller); `lit_numbers_v34.tex` holds the
+  numbers quoted from other papers.
 
 ## Not in this copy
 

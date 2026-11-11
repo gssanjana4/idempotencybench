@@ -146,6 +146,24 @@ def kn(k, n):
     return f"{k}/{n}"
 
 
+def sweep(folder):
+    """Regex sweep of every file under the run's out_dir: e-mail addresses outside
+    example.com, phone-number-shaped strings and URLs. Returns (n_files, findings)."""
+    import re
+    email = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
+    url = re.compile(r"https?://[^\s\"'<>)]+")
+    phone = re.compile(r"(?<!\d)(?:\+?\d{1,3}[\s.-])?(?:\(\d{3}\)|\d{3})[\s.-]\d{3}[\s.-]\d{4}(?!\d)")
+    n, found = 0, []
+    for root, _, files in os.walk(folder):
+        for f in sorted(files):
+            n += 1
+            t = open(os.path.join(root, f), errors="replace").read()
+            found += [("email", f, e) for e in email.findall(t) if not e.lower().endswith("@example.com")]
+            found += [("url", f, u) for u in url.findall(t)]
+            found += [("phone", f, x) for x in phone.findall(t)]
+    return n, found
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     _here_raw = os.path.join(HERE, "results_qx1_note_control", "raw.jsonl")   # where this repository keeps the run's out_dir
@@ -308,10 +326,41 @@ def main(argv=None):
             else:
                 c = (lambda x: cs.get(x, x))(t["contrast"].split(" > ")[0].replace(", keys honoured", ""))
                 put(f"{s}:{c}:hon:p", fp(t["p"]))
+        def pe(p):
+            return "n/a" if p is None else ("$p<0.001$" if p < 0.001 else f"$p={p:.3f}$")
+        for t in trows:
+            s = short(t["model"])
+            c = (lambda x: cs.get(x, x))(t["contrast"].split(" > ")[0].split(" vs ")[0].replace(", keys honoured", ""))
+            if t["kind"].startswith("H "):
+                put(f"{s}:{c}:holm:pe", pe(t["holm_p"]))
+            elif t["kind"].startswith("descriptive"):
+                put(f"{s}:{c}:amn:pe", pe(t["p"]))
         for m in models:
             put(f"{short(m)}:verdict", num[f"{m}|verdict"])
+            done = sum(r["n"] + r["refusals"] for r in crows if r["model"] == m)
+            put(f"{short(m)}:n", done)
+            put(f"{short(m)}:planned", PLANNED * len(conds))
+            put(f"{short(m)}:kn", kn(done, PLANNED * len(conds)))
+            for c in conds:
+                put(f"{short(m)}:{cs.get(c, c)}:n", num[f"{m}|{c}"]["n"])
         put("episodes", sum(r["n"] + r["refusals"] for r in crows))
         put("models:n", len(models))
+        put("spend", "\\$%.2f" % sum((r.get("cost_usd") or 0) for r in rows))
+        st = sorted(r["started_utc"] for r in rows if r.get("started_utc"))
+        fin = sorted(r["finished_utc"] for r in rows if r.get("finished_utc"))
+        if st and fin:
+            put("first_hm", st[0][11:16] + " UTC"); put("last_hm", fin[-1][11:16] + " UTC")
+            put("date", "%d November %s" % (int(st[0][8:10]), st[0][:4]) if st[0][5:7] == "11" else st[0][:10])
+        pv = os.path.join(HERE, "qx1_provenance.json")
+        if os.path.exists(pv):
+            j = json.load(open(pv))
+            put("plan_push_hm", j["plan_pushed_utc"][11:16] + " UTC")
+            put("plan_commit", j["plan_commit"]); put("script_commit", j["analysis_script_commit"])
+            put("script_hm", j["analysis_script_committed_utc"][11:16] + " UTC")
+            assert st and j["plan_pushed_utc"] < st[0], "plan must precede the first episode"
+        nf, found = sweep(os.path.dirname(a.raw))
+        assert not found, found[:5]
+        put("files", nf)
         open(a.tex, "w").write("\n".join(L) + "\n")
         print("wrote", a.tex)
     return 0

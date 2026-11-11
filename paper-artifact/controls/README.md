@@ -10,7 +10,10 @@ It was pushed here before the first episode of that run.
 - `analyze_qx.py`: per-cell counts and paired tests for a tier-1 raw file.
 - `qx1_analysis.py`: the analysis the plan fixes (cells, the two one-sided tests
   with Holm correction, the descriptive contrasts). Pushed while the run was in
-  progress, before any of its results were read.
+  progress, before any of its results were read. Later commits only added output
+  for the paper (`--tex`), a sweep of the result files and the stored location of the
+  results; the cells and tests are as first pushed.
+- `qx1_provenance.json`: the push times and commits above, for `--tex`.
 
 ## What ran (11 November 2026)
 
