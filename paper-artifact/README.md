@@ -110,6 +110,11 @@ do not accept them, so clone on Linux, macOS or WSL.
 
 ## Run the tests (Python >= 3.9, no network, no API key)
 
+Inside this repository, prefix the commands with `GIT_DIR=/dev/null`, for example
+`GIT_DIR=/dev/null python3 tests_independent.py`. The review archive had no git history,
+and two scripts would otherwise read this repository's commit dates as the registration
+dates. See "Not in this copy" for the checks that need the registration file.
+
 ```
 python3 run_tests.py          # tool world, tasks, scripted agents, sweep
 python3 run_tests2.py         # resume substrate
