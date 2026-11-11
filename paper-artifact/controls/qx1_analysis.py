@@ -2,10 +2,10 @@
 """QX1: content-free note control for restarts. Analysis fixed by
 QX1_PLAN_content-free-note.md (pushed before the first episode).
 
-Reads  results/response_v31/qx1_note_control/raw.jsonl and transcripts/ only.
-Writes results/response_v31/qx1_note_control/analysis/{qx1_cells.csv,
-       qx1_tests.csv, qx1_numbers.json}; with --tex PATH also a file of
-       \\defnum{qx1:...}{...} lines for the paper.
+Reads  the run's out_dir (results/response_v31/qx1_note_control/, stored in this
+       repository as controls/results_qx1_note_control/): raw.jsonl and transcripts/.
+Writes analysis/{qx1_cells.csv, qx1_tests.csv, qx1_numbers.json} inside it; with
+       --tex PATH also a file of \\defnum{qx1:...}{...} lines for the paper.
 
 Per model, cells amnesiac, bare_hint, note_null, note_irrelevant
 (built exactly as analysis/r2_wording.py builds its restart cells):
@@ -148,7 +148,9 @@ def kn(k, n):
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("--raw", default=os.path.join(ROOT, "results", "response_v31", "qx1_note_control", "raw.jsonl"))
+    _here_raw = os.path.join(HERE, "results_qx1_note_control", "raw.jsonl")   # where this repository keeps the run's out_dir
+    ap.add_argument("--raw", default=_here_raw if os.path.exists(_here_raw) else
+                    os.path.join(ROOT, "results", "response_v31", "qx1_note_control", "raw.jsonl"))
     ap.add_argument("--controls", default="note_null,note_irrelevant")
     ap.add_argument("--tex", default="")
     ap.add_argument("--out", default="")

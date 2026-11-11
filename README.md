@@ -32,7 +32,7 @@ email, and tickets.
 ## Quickstart (no API key, no dependencies)
 
 ```
-python3 run_tests.py        # 43 tests (2 skipped without the mcp package)
+python3 run_tests.py        # 46 tests (2 skipped without the mcp package)
 python3 src/harness.py      # full 320-task scripted grid -> results/summary.csv
 ```
 

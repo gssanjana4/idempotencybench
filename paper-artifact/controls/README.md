@@ -20,7 +20,8 @@ It was pushed here before the first episode of that run.
   sessions) when the API account ran out of credit. By the plan's rule its incomplete
   cells are reported and not tested.
 - GPT-5.5, Gemini and Qwen3.6-27B: not launched.
-- Results and analysis output: `../results/response_v31/qx1_note_control/`.
+- Results and analysis output: `results_qx1_note_control/` (the run's `out_dir`,
+  `results/response_v31/qx1_note_control/`, stored here).
 - The run used the harness as run for R2 to R5, whose environment variables start with
   `IBENCH_`. The copy in `../src` and `../src2` is the same code with neutral names, so
   with it the launcher's `IBENCH_REPO` and the harness's `BENCH_...` variables apply.

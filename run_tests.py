@@ -424,7 +424,6 @@ def _mcp_installed():
         return False
 
 
-@unittest.skipUnless(_mcp_installed(), "mcp not installed (pip install '.[mcp]')")
 class TestPublishedSweep(unittest.TestCase):
     """The v2 raw file must reproduce the published summary exactly."""
 
@@ -457,6 +456,7 @@ class TestPublishedSweep(unittest.TestCase):
         self.assertEqual(w.ledger.violations("t1"), 1)
 
 
+@unittest.skipUnless(_mcp_installed(), "mcp not installed (pip install '.[mcp]')")
 class TestMCPServer(unittest.TestCase):
     def test_tool_schemas_match_world_tools(self):
         import asyncio
