@@ -8,5 +8,8 @@ It was pushed here before the first episode of that run.
 - `run_qx.py`: launcher. It adds the new note texts to the harness's wording
   tables in memory and then runs the unchanged `src/tier1.py`.
 - `analyze_qx.py`: per-cell counts and paired tests for a tier-1 raw file.
+- `qx1_analysis.py`: the analysis the plan fixes (cells, the two one-sided tests
+  with Holm correction, the descriptive contrasts). Pushed while the run was in
+  progress, before any of its results were read.
 
 The harness these files run on, and the results, are added with the paper artifact.
