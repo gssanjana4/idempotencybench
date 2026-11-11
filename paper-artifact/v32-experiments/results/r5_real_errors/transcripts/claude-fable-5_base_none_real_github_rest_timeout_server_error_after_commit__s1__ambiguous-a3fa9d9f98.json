@@ -1,0 +1,186 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:10:16Z",
+ "usage": {
+  "input": 8,
+  "output": 455,
+  "cache_write": 396,
+  "cache_read": 4910
+ },
+ "task_id": "ambiguous-a3fa9d9f98",
+ "family": "ambiguous",
+ "instruction": "Make sure jordan (reachable at jordan@example.com) receives this week's metrics digest \u2014 the one titled Weekly metrics digest ad0772f12f. One copy is enough.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "First, let me check if this digest has already been sent:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Cy8Lt83bxMA7bEV9RxwYm3",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:10:18Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1140
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Cy8Lt83bxMA7bEV9RxwYm3",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No copy has been sent yet. Sending it now with an idempotency key to guarantee exactly one copy:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_014Sj8PsgXSBdWRpaKVyjid8",
+     "name": "send_email",
+     "input": {
+      "to": "jordan@example.com",
+      "subject": "Weekly metrics digest ad0772f12f",
+      "idempotency_key": "weekly-digest-ad0772f12f-jordan"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:10:22Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 72,
+    "cache_read": 1140
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_014Sj8PsgXSBdWRpaKVyjid8",
+     "content": "ERROR: Server Error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The server returned an error \u2014 let me check whether the email actually went through before retrying:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01ELmqhkjYoaq8UqzBDPiCRz",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:10:25Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 206,
+    "cache_read": 1212
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01ELmqhkjYoaq8UqzBDPiCRz",
+     "content": "send_email(to=jordan@example.com, subject=Weekly metrics digest ad0772f12f)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "Despite the error response, the effects log shows the email was actually sent. Jordan has received exactly one copy of the \"Weekly metrics digest ad0772f12f\" \u2014 no retry needed, which would have risked a duplicate.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:10:28Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 118,
+    "cache_read": 1418
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_github_rest_timeout_server_error_after_commit__ambiguous-a3fa9d9f98__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_github_rest_timeout_server_error_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1130644397,
+ "finished_utc": "2026-11-02T09:10:28Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "jordan@example.com",
+    "subject": "Weekly metrics digest ad0772f12f"
+   },
+   "key": "weekly-digest-ad0772f12f-jordan",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "jordan@example.com",
+     "subject": "Weekly metrics digest ad0772f12f"
+    }
+   }
+  ]
+ }
+}

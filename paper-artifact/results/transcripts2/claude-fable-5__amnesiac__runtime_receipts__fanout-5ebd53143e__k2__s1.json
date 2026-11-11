@@ -1,0 +1,218 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "amnesiac",
+ "mitigation": "runtime_receipts",
+ "graph_id": "fanout-5ebd53143e",
+ "topology": "fanout",
+ "interrupt_node": 2,
+ "sample": 1,
+ "instruction": "File a ticket in the support queue titled 'Rollout 53da2b978a in support'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 53da2b978a in support' on the oncall calendar at 2026-09-03T09:00; 'Check 2: Rollout 53da2b978a in support' on the planning calendar at 2026-09-04T09:00; 'Check 3: Rollout 53da2b978a in support' on the team calendar at 2026-09-05T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll start by filing the ticket, since the events depend on it being created first."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Bx1ozfcKuuJ2BjnoA7sYai",
+       "name": "create_ticket",
+       "input": {
+        "queue": "support",
+        "title": "Rollout 53da2b978a in support",
+        "idempotency_key": "ticket-rollout-53da2b978a-support"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Bx1ozfcKuuJ2BjnoA7sYai",
+       "content": "ok-af5b3379"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket is filed. Now I'll create the three reminder events, which are independent of each other:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_019E8gpPLYvem8szezGhe99x",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 1: Rollout 53da2b978a in support",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "event-check1-rollout-53da2b978a"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_017igFkdDFha9adcBwReoWMy",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 2: Rollout 53da2b978a in support",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "event-check2-rollout-53da2b978a"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Mi5BQvUc26YwAQkZ1AfAjH",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 53da2b978a in support",
+        "start": "2026-09-05T09:00",
+        "idempotency_key": "event-check3-rollout-53da2b978a"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 2,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1
+   ]
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "First, I'll file the ticket:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01L2jPetuPxez9Vmx7DP5zDE",
+       "name": "create_ticket",
+       "input": {
+        "queue": "support",
+        "title": "Rollout 53da2b978a in support",
+        "idempotency_key": "ticket-rollout-53da2b978a-support"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01L2jPetuPxez9Vmx7DP5zDE",
+       "content": "ok-deduped-receipt"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "Ticket filed. Now I'll create the three reminder events (independent of each other):"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_0115keo6yZjJXMNLgW25qMMV",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 1: Rollout 53da2b978a in support",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "event-check1-rollout-53da2b978a"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Uix1QNJiUC1r6BTsFCyxZB",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 2: Rollout 53da2b978a in support",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "event-check2-rollout-53da2b978a"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01YF6GU8fmnvXGNZmNJZ2tYQ",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 53da2b978a in support",
+        "start": "2026-09-05T09:00",
+        "idempotency_key": "event-check3-rollout-53da2b978a"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_0115keo6yZjJXMNLgW25qMMV",
+       "content": "ok-deduped-receipt"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Uix1QNJiUC1r6BTsFCyxZB",
+       "content": "ok-deduped-receipt"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01YF6GU8fmnvXGNZmNJZ2tYQ",
+       "content": "ok-5fdf5bec"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "All actions completed \u2014 the ticket was filed and all three reminder events were created exactly once (idempotency keys ensured no duplicates).\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

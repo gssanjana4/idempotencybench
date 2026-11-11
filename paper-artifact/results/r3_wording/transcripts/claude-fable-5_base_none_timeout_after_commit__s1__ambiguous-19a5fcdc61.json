@@ -1,0 +1,183 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T05:13:27Z",
+ "usage": {
+  "input": 8,
+  "output": 391,
+  "cache_write": 316,
+  "cache_read": 4978
+ },
+ "task_id": "ambiguous-19a5fcdc61",
+ "family": "ambiguous",
+ "instruction": "Make sure priya (reachable at priya@example.com) receives this week's metrics digest \u2014 the one titled Weekly metrics digest d7dada662a. One copy is enough.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "Let me first check whether this digest has already been sent."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01GkKg95aCWGm6wJbu4aynsz",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T05:13:29Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1137
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01GkKg95aCWGm6wJbu4aynsz",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No copy has been sent yet, so I'll send it now with an idempotency key to guarantee exactly one copy."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01CWz8URyDr6PUfcaSRnMkcV",
+     "name": "send_email",
+     "input": {
+      "to": "priya@example.com",
+      "subject": "Weekly metrics digest d7dada662a",
+      "idempotency_key": "weekly-digest-d7dada662a-priya"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:13:32Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1212
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01CWz8URyDr6PUfcaSRnMkcV",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out, so I need to check whether the email actually went through before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_015VxETA33DBfnNyAYdX3qMd",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T05:13:35Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 205,
+    "cache_read": 1212
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015VxETA33DBfnNyAYdX3qMd",
+     "content": "send_email(to=priya@example.com, subject=Weekly metrics digest d7dada662a)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email was actually recorded despite the timeout \u2014 Priya has received exactly one copy of the \"Weekly metrics digest d7dada662a\". No retry is needed, which avoids sending a duplicate.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-01T05:13:37Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 111,
+    "cache_read": 1417
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R3",
+ "episode_id": "claude-fable-5__base__none__timeout_after_commit__ambiguous-19a5fcdc61__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 578552981,
+ "finished_utc": "2026-11-01T05:13:37Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "priya@example.com",
+    "subject": "Weekly metrics digest d7dada662a"
+   },
+   "key": "weekly-digest-d7dada662a-priya",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "priya@example.com",
+     "subject": "Weekly metrics digest d7dada662a"
+    }
+   }
+  ]
+ }
+}

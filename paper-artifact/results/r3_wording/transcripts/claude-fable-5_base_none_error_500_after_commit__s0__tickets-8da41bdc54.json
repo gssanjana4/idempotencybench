@@ -1,0 +1,191 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T05:14:07Z",
+ "usage": {
+  "input": 8,
+  "output": 647,
+  "cache_write": 462,
+  "cache_read": 4876
+ },
+ "task_id": "tickets-8da41bdc54",
+ "family": "atomic",
+ "instruction": "File a ticket in the infra queue titled 'Incident a63d7b7faa: retry storm in infra'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01T5VdyQkM8PKTy4EUvSZMgY",
+     "name": "create_ticket",
+     "input": {
+      "queue": "infra",
+      "title": "Incident a63d7b7faa: retry storm in infra"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:14:09Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1117
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01T5VdyQkM8PKTy4EUvSZMgY",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The first attempt hit a server error. I'll retry with an idempotency key to avoid duplicates:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01JNSYu7CMX8mjucsUebzq46",
+     "name": "create_ticket",
+     "input": {
+      "queue": "infra",
+      "title": "Incident a63d7b7faa: retry storm in infra",
+      "idempotency_key": "ticket-a63d7b7faa-infra"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:14:13Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 110,
+    "cache_read": 1117
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01JNSYu7CMX8mjucsUebzq46",
+     "content": "ok-c98127bf"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "Let me verify no duplicate was created from the failed first attempt:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Jqbd3cEgmU6Yw4fV4x2CwB",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T05:14:16Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 188,
+    "cache_read": 1227
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Jqbd3cEgmU6Yw4fV4x2CwB",
+     "content": "create_ticket(queue=infra, title=Incident a63d7b7faa: retry storm in infra)\ncreate_ticket(queue=infra, title=Incident a63d7b7faa: retry storm in infra)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket has been filed in the infra queue. However, I discovered that the initial call \u2014 which returned a server error \u2014 actually succeeded on the backend, so there are now two identical tickets recorded:\n\n1. `create_ticket(queue=infra, title=Incident a63d7b7faa: retry storm in infra)` \u2014 from the errored first attempt\n2. `create_ticket(queue=infra, title=Incident a63d7b7faa: retry storm in infra)` \u2014 from the retry (ok-c98127bf)\n\nI don't have a tool to delete tickets, so you may want to close the duplicate manually.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-01T05:14:21Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 164,
+    "cache_read": 1415
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R3",
+ "episode_id": "claude-fable-5__base__none__error_500_after_commit__tickets-8da41bdc54__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1358117180,
+ "finished_utc": "2026-11-01T05:14:21Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "infra",
+    "title": "Incident a63d7b7faa: retry storm in infra"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "infra",
+    "title": "Incident a63d7b7faa: retry storm in infra"
+   },
+   "key": "ticket-a63d7b7faa-infra",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "infra",
+     "title": "Incident a63d7b7faa: retry storm in infra"
+    }
+   }
+  ]
+ }
+}

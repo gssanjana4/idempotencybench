@@ -1,0 +1,127 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T06:44:18Z",
+ "usage": {
+  "input": 2570,
+  "output": 204
+ },
+ "task_id": "multi_step-2077485cf2",
+ "family": "multi_step",
+ "instruction": "File a ticket in the billing queue titled 'Escalation 2005b96f51 in billing', then send an email to alex@example.com with subject 'Filed: Escalation 2005b96f51 in billing' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_018SgFTw6djSow5RS5VzE4zu",
+     "name": "create_ticket",
+     "input": {
+      "queue": "billing",
+      "title": "Escalation 2005b96f51 in billing"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01RLLe2vJQoD2gQaBNqwYzac",
+     "name": "send_email",
+     "input": {
+      "to": "alex@example.com",
+      "subject": "Filed: Escalation 2005b96f51 in billing"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:44:19Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_018SgFTw6djSow5RS5VzE4zu",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01RLLe2vJQoD2gQaBNqwYzac",
+     "content": "ok-d1e4931b"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email was successfully sent to alex@example.com, but there was an error filing the ticket in the billing queue. The ticket creation encountered an internal server error. \n\nWould you like me to try filing the ticket again?"
+    }
+   ],
+   "at_utc": "2026-10-26T06:44:20Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-3",
+ "episode_id": "claude-haiku-4-5-20251001__base__idem_keys__error_500_after_commit__multi_step-2077485cf2__s0",
+ "prompt": "base",
+ "mitigation": "idem_keys",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3142440031,
+ "finished_utc": "2026-10-26T06:44:20Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "billing",
+    "title": "Escalation 2005b96f51 in billing"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "alex@example.com",
+    "subject": "Filed: Escalation 2005b96f51 in billing"
+   },
+   "key": "",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "billing",
+     "title": "Escalation 2005b96f51 in billing"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "alex@example.com",
+     "subject": "Filed: Escalation 2005b96f51 in billing"
+    }
+   }
+  ]
+ }
+}

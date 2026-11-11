@@ -1,0 +1,254 @@
+{
+ "model": "claude-sonnet-5",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "chain4-e87600c577",
+ "topology": "chain4",
+ "interrupt_node": 1,
+ "sample": 0,
+ "instruction": "Pay vendor-01 $405.00 for contract-4034f7f071; then email a receipt to yuki@example.com with subject 'Receipt: contract-4034f7f071'; then create event 'Follow-up: contract-4034f7f071' on the personal calendar at 2026-11-06T11:00; then append a closing entry (content hash d1e0f918f6) to /logs/contract-005.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01HS7H4G5kzcrxWc5BvChJPw",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-11-01T03:52:14Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 217,
+      "cache_read": 1097
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01HS7H4G5kzcrxWc5BvChJPw",
+       "content": "(no effects recorded)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01VFu2jrq24vkusNiSooRry6",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-01",
+        "amount": "405.00",
+        "memo": "contract-4034f7f071",
+        "idempotency_key": "pay-contract-4034f7f071"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T03:52:16Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 93,
+      "cache_read": 1314
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01VFu2jrq24vkusNiSooRry6",
+       "content": "ok-cf3b0754"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_01Xh6G8JYbDMT9tWbrxsWNrC",
+       "name": "send_email",
+       "input": {
+        "to": "yuki@example.com",
+        "subject": "Receipt: contract-4034f7f071",
+        "idempotency_key": "email-receipt-contract-4034f7f071"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T03:52:17Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 216,
+      "cache_read": 1407
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 1,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-sonnet-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 6,
+     "output": 411,
+     "cache_write": 526,
+     "cache_read": 3818
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Cy1SNfdQJGirpaSKGCuY69",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-11-01T03:52:19Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 275,
+      "cache_read": 1097
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Cy1SNfdQJGirpaSKGCuY69",
+       "content": "send_payment(payee=vendor-01, amount=405.00, memo=contract-4034f7f071)\nsend_email(to=yuki@example.com, subject=Receipt: contract-4034f7f071)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01QXpt2shjWzMgyBZgrEP4fA",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Follow-up: contract-4034f7f071",
+        "start": "2026-11-06T11:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01KuhSoUPxN1X1FSt9oWwtuh",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-005.log",
+        "content_hash": "d1e0f918f6"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T03:52:21Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 146,
+      "cache_read": 1372
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01QXpt2shjWzMgyBZgrEP4fA",
+       "content": "ok-e831d4c7"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01KuhSoUPxN1X1FSt9oWwtuh",
+       "content": "ok-43f98c02"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All four steps are now confirmed complete:\n\n1. \u2705 Payment of $405.00 to vendor-01 for contract-4034f7f071 (already done previously)\n2. \u2705 Receipt email sent to yuki@example.com (already done previously)\n3. \u2705 Follow-up event created on personal calendar for 2026-11-06T11:00\n4. \u2705 Closing entry appended to /logs/contract-005.log\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-11-01T03:52:22Z",
+     "stop_reason": "end_turn",
+     "provider_meta": {
+      "cache_write": 300,
+      "cache_read": 1518
+     }
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-sonnet-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 6,
+     "output": 446,
+     "cache_write": 721,
+     "cache_read": 3987
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-11-01T03:52:12Z",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ },
+ "exp": "R2",
+ "kind": "restart",
+ "episode_id": "claude-sonnet-5__plan_only__none__chain4-e87600c577__k1__s0",
+ "max_tokens": 1024,
+ "finished_utc": "2026-11-01T03:52:22Z"
+}

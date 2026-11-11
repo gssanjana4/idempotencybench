@@ -1,0 +1,187 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:23:46Z",
+ "usage": {
+  "input": 8,
+  "output": 555,
+  "cache_write": 436,
+  "cache_read": 4850
+ },
+ "task_id": "files-c5c13dc477",
+ "family": "atomic",
+ "instruction": "Append audit entry 0 (content hash 9b5daa1752) to /logs/audit-000.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_015xWsYKrQ87883vxipcfbRp",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:48Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1115
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015xWsYKrQ87883vxipcfbRp",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call failed with a server error. I'll retry with an idempotency key to safely avoid duplicates:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01QNzjSQfhpGV8Medtc9wp6N",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752",
+      "idempotency_key": "audit-000-entry-0"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:52Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 106,
+    "cache_read": 1115
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01QNzjSQfhpGV8Medtc9wp6N",
+     "content": "ok-4212b45f"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01CRzNTFJGPC6U4hCAcYLYBF",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:55Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 178,
+    "cache_read": 1221
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01CRzNTFJGPC6U4hCAcYLYBF",
+     "content": "append_file(path=/logs/audit-000.log, content_hash=9b5daa1752)\nappend_file(path=/logs/audit-000.log, content_hash=9b5daa1752)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The audit entry was appended to /logs/audit-000.log. \n\nNote: the first attempt returned an internal server error, but the effects log shows it actually recorded the append, so there are now two identical entries (content hash 9b5daa1752) in the file. I have no tool available to remove the duplicate \u2014 you may want to flag this for cleanup. In the future, I'll include an idempotency key on the first attempt to prevent this.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:24:00Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 152,
+    "cache_read": 1399
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__error_500_after_commit__files-c5c13dc477__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 214950896,
+ "finished_utc": "2026-11-02T09:24:00Z",
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "audit-000-entry-0",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-000.log",
+     "content_hash": "9b5daa1752"
+    }
+   }
+  ]
+ }
+}

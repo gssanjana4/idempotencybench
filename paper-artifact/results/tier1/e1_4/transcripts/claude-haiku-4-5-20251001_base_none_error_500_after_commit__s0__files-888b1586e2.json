@@ -1,0 +1,137 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:15:51Z",
+ "usage": {
+  "input": 3784,
+  "output": 260
+ },
+ "task_id": "files-888b1586e2",
+ "family": "atomic",
+ "instruction": "Append audit entry 10 (content hash 60f762fa38) to /logs/audit-010.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_013zDUJUmWVSqV4FBh3zvxwY",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-010.log",
+      "content_hash": "60f762fa38"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:15:52Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_013zDUJUmWVSqV4FBh3zvxwY",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The operation encountered an internal server error. Let me try again with an idempotency key to help ensure the operation can be properly tracked:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01ShZJGX5bvD6HcBrLgadYvy",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-010.log",
+      "content_hash": "60f762fa38",
+      "idempotency_key": "audit-entry-10"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:15:54Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01ShZJGX5bvD6HcBrLgadYvy",
+     "content": "ok-81a2ed73"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE\n\nThe audit entry 10 (content hash 60f762fa38) has been successfully appended to /logs/audit-010.log."
+    }
+   ],
+   "at_utc": "2026-10-26T07:15:54Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-4",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__error_500_after_commit__files-888b1586e2__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3598868176,
+ "finished_utc": "2026-10-26T07:15:54Z",
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-010.log",
+    "content_hash": "60f762fa38"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-010.log",
+    "content_hash": "60f762fa38"
+   },
+   "key": "audit-entry-10",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-010.log",
+     "content_hash": "60f762fa38"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,199 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "fanout-ab09fe326a",
+ "topology": "fanout",
+ "interrupt_node": 1,
+ "sample": 0,
+ "instruction": "File a ticket in the billing queue titled 'Rollout 367e611f55 in billing'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 367e611f55 in billing' on the personal calendar at 2026-09-06T09:00; 'Check 2: Rollout 367e611f55 in billing' on the oncall calendar at 2026-09-07T09:00; 'Check 3: Rollout 367e611f55 in billing' on the planning calendar at 2026-09-08T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll first file the ticket, then create the three reminder events once it's filed."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_011b4tE4QN2G4fCtPNUFQJSQ",
+       "name": "create_ticket",
+       "input": {
+        "queue": "billing",
+        "title": "Rollout 367e611f55 in billing",
+        "idempotency_key": "ticket-rollout-367e611f55-billing"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_011b4tE4QN2G4fCtPNUFQJSQ",
+       "content": "ok-9ab60eae"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket is filed. Now creating the three reminder events (independent of each other, so in parallel):"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_016WgeMHdu9PS1AiYno5sUuv",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 1: Rollout 367e611f55 in billing",
+        "start": "2026-09-06T09:00",
+        "idempotency_key": "check1-rollout-367e611f55"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_019UzCf7UZhfdJcQy4qiJKcE",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 2: Rollout 367e611f55 in billing",
+        "start": "2026-09-07T09:00",
+        "idempotency_key": "check2-rollout-367e611f55"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01P4Na1kub6AHLjY44Kt2FCy",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 3: Rollout 367e611f55 in billing",
+        "start": "2026-09-08T09:00",
+        "idempotency_key": "check3-rollout-367e611f55"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 1,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ]
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll first check what side effects were already recorded from the previous session."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01AvX4F8KYMsfECRfgiU4AqW",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01AvX4F8KYMsfECRfgiU4AqW",
+       "content": "create_ticket(queue=billing, title=Rollout 367e611f55 in billing)\ncreate_event(calendar_id=personal, title=Check 1: Rollout 367e611f55 in billing, start=2026-09-06T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01WTZGK4qtYBCYQ4cXGFWbaS",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 2: Rollout 367e611f55 in billing",
+        "start": "2026-09-07T09:00",
+        "idempotency_key": "rollout-367e611f55-check2"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01X4zitmYWU7Ue7Qzm8sa76F",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 3: Rollout 367e611f55 in billing",
+        "start": "2026-09-08T09:00",
+        "idempotency_key": "rollout-367e611f55-check3"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01WTZGK4qtYBCYQ4cXGFWbaS",
+       "content": "ok-a8449bd9"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01X4zitmYWU7Ue7Qzm8sa76F",
+       "content": "ok-5264a2f3"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All steps are complete:\n- Ticket 'Rollout 367e611f55 in billing' in the billing queue (already filed)\n- Check 1 event on personal calendar at 2026-09-06T09:00 (already created)\n- Check 2 event on oncall calendar at 2026-09-07T09:00 \u2713\n- Check 3 event on planning calendar at 2026-09-08T09:00 \u2713\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

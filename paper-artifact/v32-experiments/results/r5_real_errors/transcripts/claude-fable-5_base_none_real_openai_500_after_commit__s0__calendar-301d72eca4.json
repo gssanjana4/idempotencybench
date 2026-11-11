@@ -1,0 +1,192 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:12:26Z",
+ "usage": {
+  "input": 8,
+  "output": 603,
+  "cache_write": 491,
+  "cache_read": 4959
+ },
+ "task_id": "calendar-301d72eca4",
+ "family": "atomic",
+ "instruction": "Create event 'Sync aae67e3d2f' on the planning calendar at 2026-08-04T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01HtCJaBrFifYcKwiQxjYbsh",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "planning",
+      "title": "Sync aae67e3d2f",
+      "start": "2026-08-04T10:00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:29Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1118
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01HtCJaBrFifYcKwiQxjYbsh",
+     "content": "ERROR: The server had an error while processing your request",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The server errored; retrying with an idempotency key to avoid duplication:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01FvqAppCCn1gCE9Z63vSqsA",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "planning",
+      "title": "Sync aae67e3d2f",
+      "start": "2026-08-04T10:00",
+      "idempotency_key": "create-sync-aae67e3d2f-20260804T1000"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:33Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 139,
+    "cache_read": 1118
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01FvqAppCCn1gCE9Z63vSqsA",
+     "content": "ok-4fe49ba1"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_018RLWc2TtsjGhEUTRkTZfTS",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:36Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 209,
+    "cache_read": 1257
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_018RLWc2TtsjGhEUTRkTZfTS",
+     "content": "create_event(calendar_id=planning, title=Sync aae67e3d2f, start=2026-08-04T10:00)\ncreate_event(calendar_id=planning, title=Sync aae67e3d2f, start=2026-08-04T10:00)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The event was created, but I noticed the first attempt actually succeeded on the server despite returning an error, so there are now two identical events (\"Sync aae67e3d2f\" on the planning calendar at 2026-08-04T10:00). I don't have a tool to delete events, so you may want to remove the duplicate manually.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:41Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 143,
+    "cache_read": 1466
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_openai_500_after_commit__calendar-301d72eca4__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_openai_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 824619836,
+ "finished_utc": "2026-11-02T09:12:41Z",
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "planning",
+    "title": "Sync aae67e3d2f",
+    "start": "2026-08-04T10:00"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "planning",
+    "title": "Sync aae67e3d2f",
+    "start": "2026-08-04T10:00"
+   },
+   "key": "create-sync-aae67e3d2f-20260804T1000",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "planning",
+     "title": "Sync aae67e3d2f",
+     "start": "2026-08-04T10:00"
+    }
+   }
+  ]
+ }
+}

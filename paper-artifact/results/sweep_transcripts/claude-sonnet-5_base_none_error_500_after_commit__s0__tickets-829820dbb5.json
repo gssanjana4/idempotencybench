@@ -1,0 +1,131 @@
+{
+ "model": "claude-sonnet-5",
+ "temperature": null,
+ "task_id": "tickets-829820dbb5",
+ "family": "atomic",
+ "instruction": "File a ticket in the billing queue titled 'Incident b9d19372af: retry storm in billing'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01ReiEMgcPp51VjdwEZoyFvg",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01ReiEMgcPp51VjdwEZoyFvg",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_013UvrJEvy15bJ4dxq8xzTYb",
+     "name": "create_ticket",
+     "input": {
+      "queue": "billing",
+      "title": "Incident b9d19372af: retry storm in billing",
+      "idempotency_key": "incident-b9d19372af-billing"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_013UvrJEvy15bJ4dxq8xzTYb",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01QWCaUk9Ucf33hSHgWk6A25",
+     "name": "create_ticket",
+     "input": {
+      "queue": "billing",
+      "title": "Incident b9d19372af: retry storm in billing",
+      "idempotency_key": "incident-b9d19372af-billing"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01QWCaUk9Ucf33hSHgWk6A25",
+     "content": "ok-1e91bb25"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The ticket has been successfully filed in the billing queue with the title 'Incident b9d19372af: retry storm in billing' (confirmation: ok-1e91bb25). The first attempt hit a transient server error, but the retry using the same idempotency key succeeded without risk of duplication.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "billing",
+    "title": "Incident b9d19372af: retry storm in billing"
+   },
+   "key": "incident-b9d19372af-billing",
+   "seq": 1
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "billing",
+    "title": "Incident b9d19372af: retry storm in billing"
+   },
+   "key": "incident-b9d19372af-billing",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "billing",
+     "title": "Incident b9d19372af: retry storm in billing"
+    }
+   }
+  ]
+ }
+}

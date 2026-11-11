@@ -1,0 +1,187 @@
+{
+ "model": "claude-sonnet-5",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "fanout-bda1830e69",
+ "topology": "fanout",
+ "interrupt_node": 2,
+ "sample": 0,
+ "instruction": "File a ticket in the infra queue titled 'Rollout 37a5b0c1b3 in infra'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 37a5b0c1b3 in infra' on the oncall calendar at 2026-09-07T09:00; 'Check 2: Rollout 37a5b0c1b3 in infra' on the planning calendar at 2026-09-08T09:00; 'Check 3: Rollout 37a5b0c1b3 in infra' on the team calendar at 2026-09-09T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_016FLBQr7Fi4MjgndFVZDvVP",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_016FLBQr7Fi4MjgndFVZDvVP",
+       "content": "(no effects recorded)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_01STcMWM3ja9pb8CiNSa1DBx",
+       "name": "create_ticket",
+       "input": {
+        "queue": "infra",
+        "title": "Rollout 37a5b0c1b3 in infra",
+        "idempotency_key": "ticket-rollout-37a5b0c1b3"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01STcMWM3ja9pb8CiNSa1DBx",
+       "content": "ok-830ef68c"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_016NS4DRx5v2EjXSSsBmSfnB",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 1: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-07T09:00",
+        "idempotency_key": "event-check1-rollout-37a5b0c1b3"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01L9aQPHcTeAZaQJFaAWhJV7",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 2: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-08T09:00",
+        "idempotency_key": "event-check2-rollout-37a5b0c1b3"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01CTitBUfZJivjsDPvepEzaX",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-09T09:00",
+        "idempotency_key": "event-check3-rollout-37a5b0c1b3"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 2,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1
+   ]
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01LELFEtF5kJD5M8MpSF8LQ6",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01LELFEtF5kJD5M8MpSF8LQ6",
+       "content": "create_ticket(queue=infra, title=Rollout 37a5b0c1b3 in infra)\ncreate_event(calendar_id=oncall, title=Check 1: Rollout 37a5b0c1b3 in infra, start=2026-09-07T09:00)\ncreate_event(calendar_id=planning, title=Check 2: Rollout 37a5b0c1b3 in infra, start=2026-09-08T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Ticket already filed, and events 1 and 2 already created. Only the third reminder event remains."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01EZeAguM5WFsF22THEgc85S",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-09T09:00"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01EZeAguM5WFsF22THEgc85S",
+       "content": "ok-fb4e14cb"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All required actions are now complete: the ticket was filed, and all three reminder events (Check 1, Check 2, Check 3) have been created on their respective calendars.\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

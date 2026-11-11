@@ -1,0 +1,199 @@
+{
+ "model": "openrouter:qwen/qwen3.6-27b-20260422",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "fanout-68ceba7706",
+ "topology": "fanout",
+ "interrupt_node": 3,
+ "sample": 1,
+ "instruction": "File a ticket in the support queue titled 'Rollout 6ecd38c552 in support'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 6ecd38c552 in support' on the planning calendar at 2026-09-08T09:00; 'Check 2: Rollout 6ecd38c552 in support' on the team calendar at 2026-09-09T09:00; 'Check 3: Rollout 6ecd38c552 in support' on the personal calendar at 2026-09-10T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_a2d34a110b0a60626b294b9d",
+       "name": "create_ticket",
+       "input": {
+        "queue": "support",
+        "title": "Rollout 6ecd38c552 in support",
+        "idempotency_key": "ticket-6ecd38c552-support"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T22:17:00Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "reasoning_tokens": 303,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_a2d34a110b0a60626b294b9d",
+       "content": "ok-08ccd0f7"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_e89195dd811f03453b4e079d",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 1: Rollout 6ecd38c552 in support",
+        "start": "2026-09-08T09:00",
+        "idempotency_key": "event-check1-6ecd38c552"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_5f282a0c4aaaed5e7279b8f0",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 2: Rollout 6ecd38c552 in support",
+        "start": "2026-09-09T09:00",
+        "idempotency_key": "event-check2-6ecd38c552"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_39ef24ff2db7d83d8712643b",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 3: Rollout 6ecd38c552 in support",
+        "start": "2026-09-10T09:00",
+        "idempotency_key": "event-check3-6ecd38c552"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T22:17:05Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "reasoning_tokens": 58,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "qwen/qwen3.6-27b @Reka",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 2553,
+     "output": 956
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_b288b8be873c5ca5154afe59",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-25T22:17:08Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "reasoning_tokens": 168,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_b288b8be873c5ca5154afe59",
+       "content": "create_ticket(queue=support, title=Rollout 6ecd38c552 in support)\ncreate_event(calendar_id=planning, title=Check 1: Rollout 6ecd38c552 in support, start=2026-09-08T09:00)\ncreate_event(calendar_id=team, title=Check 2: Rollout 6ecd38c552 in support, start=2026-09-09T09:00)\ncreate_event(calendar_id=personal, title=Check 3: Rollout 6ecd38c552 in support, start=2026-09-10T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "\n\nBased on the list_effects output, all required actions have already been completed in the previous session:\n- The ticket was filed in the support queue with title 'Rollout 6ecd38c552 in support'\n- All three reminder events were created on their respective calendars (planning, team, and personal) at the specified times\n\nNo further actions are needed.\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-25T22:17:14Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "stop",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "reasoning_tokens": 180,
+      "reasoning_details_n": 1
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "qwen/qwen3.6-27b @Reka",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 2534,
+     "output": 561
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-25T22:16:53Z",
+ "provider": "openrouter",
+ "model_served": "qwen/qwen3.6-27b @Reka",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

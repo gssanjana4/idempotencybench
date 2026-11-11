@@ -1,0 +1,251 @@
+{
+ "model": "openrouter:openai/gpt-5.5-20260423",
+ "resume_context": "bare_hint",
+ "mitigation": "none",
+ "graph_id": "chain4-27d504eba1",
+ "topology": "chain4",
+ "interrupt_node": 2,
+ "sample": 0,
+ "instruction": "Pay vendor-14 $222.00 for contract-fb2be04dc0; then email a receipt to tunde@example.com with subject 'Receipt: contract-fb2be04dc0'; then create event 'Follow-up: contract-fb2be04dc0' on the oncall calendar at 2026-11-03T11:00; then append a closing entry (content hash e9b14f4304) to /logs/contract-002.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_g1StozQJUH5yW0opslw8ZIJb",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-14",
+        "amount": "222.00",
+        "memo": "contract-fb2be04dc0",
+        "idempotency_key": "contract-fb2be04dc0-payment-vendor-14-22200"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T17:32:20Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "cost": 0.006785,
+      "reasoning_tokens": 93,
+      "reasoning_details_n": 2
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_g1StozQJUH5yW0opslw8ZIJb",
+       "content": "ok-c302c8b2"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_8NsNiORuP9zoZr2jKG3fetNK",
+       "name": "send_email",
+       "input": {
+        "to": "tunde@example.com",
+        "subject": "Receipt: contract-fb2be04dc0",
+        "idempotency_key": "contract-fb2be04dc0-email-receipt-tunde"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T17:32:22Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "cost": 0.00462,
+      "reasoning_tokens": 0
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_8NsNiORuP9zoZr2jKG3fetNK",
+       "content": "ok-6ee4308c"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_ygyNPtuUfLTKsZl8UvgvikVp",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Follow-up: contract-fb2be04dc0",
+        "start": "2026-11-03T11:00",
+        "idempotency_key": "contract-fb2be04dc0-event-followup-oncall-20261103T1100"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T17:32:23Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "cost": 0.00555,
+      "reasoning_tokens": 0
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 2,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "openai/gpt-5.5 @OpenAI",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 1699,
+     "output": 282
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_r85LxrEPJvHkWdbBEzP3bVr7",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-11-01T17:32:25Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "cost": 0.003305,
+      "reasoning_tokens": 19,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_r85LxrEPJvHkWdbBEzP3bVr7",
+       "content": "send_payment(payee=vendor-14, amount=222.00, memo=contract-fb2be04dc0)\nsend_email(to=tunde@example.com, subject=Receipt: contract-fb2be04dc0)\ncreate_event(calendar_id=oncall, title=Follow-up: contract-fb2be04dc0, start=2026-11-03T11:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_uXZmChJJQ5Wjz8KMd5Uzv17f",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-002.log",
+        "content_hash": "e9b14f4304",
+        "idempotency_key": "contract-fb2be04dc0-append-closing"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T17:32:29Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "cost": 0.005395,
+      "reasoning_tokens": 29,
+      "reasoning_details_n": 2
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_uXZmChJJQ5Wjz8KMd5Uzv17f",
+       "content": "ok-7ef4aeb9"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-11-01T17:33:01Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "cost": 0.00354,
+      "reasoning_tokens": 0
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "openai/gpt-5.5 @OpenAI",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 1698,
+     "output": 125
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-11-01T17:32:17Z",
+ "provider": "openrouter",
+ "model_served": "openai/gpt-5.5 @OpenAI",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ },
+ "exp": "R3",
+ "kind": "restart",
+ "episode_id": "openrouter:openai/gpt-5.5-20260423__bare_hint__none__chain4-27d504eba1__k2__s0",
+ "max_tokens": 4096,
+ "finished_utc": "2026-11-01T17:33:01Z"
+}

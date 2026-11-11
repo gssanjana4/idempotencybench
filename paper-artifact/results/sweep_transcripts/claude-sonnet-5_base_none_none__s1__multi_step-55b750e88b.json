@@ -1,0 +1,134 @@
+{
+ "model": "claude-sonnet-5",
+ "temperature": null,
+ "task_id": "multi_step-55b750e88b",
+ "family": "multi_step",
+ "instruction": "File a ticket in the infra queue titled 'Escalation cb4466ab34 in infra', then send an email to jordan@example.com with subject 'Filed: Escalation cb4466ab34 in infra' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_011CPqe6z3GXyLA7VJoGSdG9",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_011CPqe6z3GXyLA7VJoGSdG9",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01CsSEWgwEzDcrMczHEwzmFh",
+     "name": "create_ticket",
+     "input": {
+      "queue": "infra",
+      "title": "Escalation cb4466ab34 in infra",
+      "idempotency_key": "ticket-cb4466ab34-infra"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01CsSEWgwEzDcrMczHEwzmFh",
+     "content": "ok-7ee38ab3"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01BkXqWdZtph7Bw1gmzXPKJx",
+     "name": "send_email",
+     "input": {
+      "to": "jordan@example.com",
+      "subject": "Filed: Escalation cb4466ab34 in infra",
+      "idempotency_key": "email-cb4466ab34-infra"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BkXqWdZtph7Bw1gmzXPKJx",
+     "content": "ok-c5f84afc"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "infra",
+    "title": "Escalation cb4466ab34 in infra"
+   },
+   "key": "ticket-cb4466ab34-infra",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "jordan@example.com",
+    "subject": "Filed: Escalation cb4466ab34 in infra"
+   },
+   "key": "email-cb4466ab34-infra",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "infra",
+     "title": "Escalation cb4466ab34 in infra"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "jordan@example.com",
+     "subject": "Filed: Escalation cb4466ab34 in infra"
+    }
+   }
+  ]
+ }
+}

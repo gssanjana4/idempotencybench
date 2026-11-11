@@ -1,0 +1,143 @@
+{
+ "model": "claude-sonnet-5",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "fanout-7ef0f16441",
+ "topology": "fanout",
+ "interrupt_node": 0,
+ "sample": 1,
+ "instruction": "File a ticket in the billing queue titled 'Rollout c1094d2a3d in billing'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout c1094d2a3d in billing' on the team calendar at 2026-09-01T09:00; 'Check 2: Rollout c1094d2a3d in billing' on the personal calendar at 2026-09-02T09:00; 'Check 3: Rollout c1094d2a3d in billing' on the oncall calendar at 2026-09-03T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_012rN1hwMbGnbNieBD19p426",
+       "name": "create_ticket",
+       "input": {
+        "queue": "billing",
+        "title": "Rollout c1094d2a3d in billing"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": []
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01DJVwfdVmdAsDU2oRFvoJTz",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01DJVwfdVmdAsDU2oRFvoJTz",
+       "content": "create_ticket(queue=billing, title=Rollout c1094d2a3d in billing)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_011QCtKXV7tDQJYgCK53twS5",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 1: Rollout c1094d2a3d in billing",
+        "start": "2026-09-01T09:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01XbYbX4Thw8DNbcB3oWg9XP",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 2: Rollout c1094d2a3d in billing",
+        "start": "2026-09-02T09:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_015S8v3oHP35jGKFfKzxL2mt",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 3: Rollout c1094d2a3d in billing",
+        "start": "2026-09-03T09:00"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_011QCtKXV7tDQJYgCK53twS5",
+       "content": "ok-567f27a2"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01XbYbX4Thw8DNbcB3oWg9XP",
+       "content": "ok-8545ba74"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_015S8v3oHP35jGKFfKzxL2mt",
+       "content": "ok-de809911"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

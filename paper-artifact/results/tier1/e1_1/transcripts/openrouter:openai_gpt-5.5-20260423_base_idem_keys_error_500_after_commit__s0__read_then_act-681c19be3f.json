@@ -1,0 +1,178 @@
+{
+ "model": "openrouter:openai/gpt-5.5-20260423",
+ "provider": "openrouter",
+ "model_served": "openai/gpt-5.5 @OpenAI",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "started_utc": "2026-10-26T01:25:41Z",
+ "usage": {
+  "input": 1877,
+  "output": 152
+ },
+ "task_id": "read_then_act-681c19be3f",
+ "family": "read_then_act",
+ "instruction": "First use list_effects to check whether the payment of $259.00 to vendor-09 for renewal-2130f92ad5 has already been made. Only if it has NOT been made, pay vendor-09 $259.00 for renewal-2130f92ad5. Never pay twice.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_ajczFyKDLF9pT6ImEKKk8Hwl",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T01:25:42Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "cost": 0.002735,
+    "reasoning_tokens": 13,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_ajczFyKDLF9pT6ImEKKk8Hwl",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_lZN53hxxInbCASiSo9a8Nq9n",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-09",
+      "amount": "259.00",
+      "memo": "renewal-2130f92ad5",
+      "idempotency_key": "payment-vendor-09-259.00-renewal-2130f92ad5"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T01:26:17Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "cost": 0.004555,
+    "reasoning_tokens": 17,
+    "reasoning_details_n": 2
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_lZN53hxxInbCASiSo9a8Nq9n",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_kybp81jXFmR6hwAHIZjRU3mg",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T01:26:20Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "cost": 0.00358,
+    "reasoning_tokens": 17,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_kybp81jXFmR6hwAHIZjRU3mg",
+     "content": "send_payment(payee=vendor-09, amount=259.00, memo=renewal-2130f92ad5)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE"
+    }
+   ],
+   "at_utc": "2026-10-26T01:26:21Z",
+   "stop_reason": "stop",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "cost": 0.003075,
+    "reasoning_tokens": 0
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-1",
+ "episode_id": "openrouter:openai/gpt-5.5-20260423__base__idem_keys__error_500_after_commit__read_then_act-681c19be3f__s0",
+ "prompt": "base",
+ "mitigation": "idem_keys",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 4096,
+ "ack_seed": 1421573532,
+ "finished_utc": "2026-10-26T01:26:21Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-09",
+    "amount": "259.00",
+    "memo": "renewal-2130f92ad5"
+   },
+   "key": "payment-vendor-09-259.00-renewal-2130f92ad5",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-09",
+     "amount": "259.00",
+     "memo": "renewal-2130f92ad5"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,253 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "amnesiac",
+ "mitigation": "none",
+ "graph_id": "fanout-6b37a8a46f",
+ "topology": "fanout",
+ "interrupt_node": 3,
+ "sample": 0,
+ "instruction": "File a ticket in the security queue titled 'Rollout 131f9945f6 in security'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 131f9945f6 in security' on the planning calendar at 2026-09-04T09:00; 'Check 2: Rollout 131f9945f6 in security' on the team calendar at 2026-09-05T09:00; 'Check 3: Rollout 131f9945f6 in security' on the personal calendar at 2026-09-06T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll first file the ticket, then create the three reminder events."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01E3Nyf423cjHb6ANhPuGyC3",
+       "name": "create_ticket",
+       "input": {
+        "queue": "security",
+        "title": "Rollout 131f9945f6 in security",
+        "idempotency_key": "ticket-rollout-131f9945f6-security"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:23:09Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01E3Nyf423cjHb6ANhPuGyC3",
+       "content": "ok-55c13365"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "The ticket is filed. Now I'll create the three reminder events in parallel since they don't depend on each other:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01W2Txh8Qjz6RiZkgS23j3b2",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 1: Rollout 131f9945f6 in security",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "check1-rollout-131f9945f6"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01AQHXAqwcdrAQFs9ijrdyav",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 2: Rollout 131f9945f6 in security",
+        "start": "2026-09-05T09:00",
+        "idempotency_key": "check2-rollout-131f9945f6"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_011eW8KRDMPRxs74t1kvmWgU",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 3: Rollout 131f9945f6 in security",
+        "start": "2026-09-06T09:00",
+        "idempotency_key": "check3-rollout-131f9945f6"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:23:14Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 2739,
+     "output": 666
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll first file the ticket, since the events depend on it being filed."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Di4FyyNgnQXiHgqDESHZ9y",
+       "name": "create_ticket",
+       "input": {
+        "queue": "security",
+        "title": "Rollout 131f9945f6 in security",
+        "idempotency_key": "ticket-rollout-131f9945f6-security"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:23:18Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Di4FyyNgnQXiHgqDESHZ9y",
+       "content": "ok-50fd0619"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "The ticket is filed. Now I'll create the three reminder events, which are independent of each other:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_019CUNmYSv3nu2pfSsq4SeV4",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 1: Rollout 131f9945f6 in security",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "event-check1-rollout-131f9945f6"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_018RMAuYA3YenS4Y3vMP4ZFE",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 2: Rollout 131f9945f6 in security",
+        "start": "2026-09-05T09:00",
+        "idempotency_key": "event-check2-rollout-131f9945f6"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_013KMMAACKkCFSfqwWTP4Zmi",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 3: Rollout 131f9945f6 in security",
+        "start": "2026-09-06T09:00",
+        "idempotency_key": "event-check3-rollout-131f9945f6"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:23:23Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_019CUNmYSv3nu2pfSsq4SeV4",
+       "content": "ok-f55c855d"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_018RMAuYA3YenS4Y3vMP4ZFE",
+       "content": "ok-d05af38d"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_013KMMAACKkCFSfqwWTP4Zmi",
+       "content": "ok-c249591d"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All steps completed successfully:\n1. Ticket 'Rollout 131f9945f6 in security' filed in the security queue\n2. Check 1 event created on the planning calendar (2026-09-04T09:00)\n3. Check 2 event created on the team calendar (2026-09-05T09:00)\n4. Check 3 event created on the personal calendar (2026-09-06T09:00)\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-26T05:23:26Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 4819,
+     "output": 805
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-26T05:23:05Z",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 4,
+  "givr_hit": 1,
+  "completion": 1,
+  "order_violation": 1
+ }
+}

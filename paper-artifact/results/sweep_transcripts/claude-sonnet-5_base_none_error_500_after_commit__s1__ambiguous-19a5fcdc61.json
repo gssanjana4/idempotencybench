@@ -1,0 +1,150 @@
+{
+ "model": "claude-sonnet-5",
+ "temperature": null,
+ "task_id": "ambiguous-19a5fcdc61",
+ "family": "ambiguous",
+ "instruction": "Make sure priya (reachable at priya@example.com) receives this week's metrics digest \u2014 the one titled Weekly metrics digest d7dada662a. One copy is enough.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01JVrW1RRqCDyzy865FG9Z6Z",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01JVrW1RRqCDyzy865FG9Z6Z",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "No prior record of this being sent. I'll send it now."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01SJkJAYgL3zHgPZ24k2MdHg",
+     "name": "send_email",
+     "input": {
+      "to": "priya@example.com",
+      "subject": "Weekly metrics digest d7dada662a",
+      "idempotency_key": "weekly-metrics-digest-d7dada662a-priya"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01SJkJAYgL3zHgPZ24k2MdHg",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Lsii1Xh1WbjCuqzknxCsyv",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Lsii1Xh1WbjCuqzknxCsyv",
+     "content": "send_email(to=priya@example.com, subject=Weekly metrics digest d7dada662a)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The email has already been recorded as sent (despite the error response), so no need to resend."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_011H3wu8sDg9KBRRcrh7FwbM",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_011H3wu8sDg9KBRRcrh7FwbM",
+     "content": "send_email(to=priya@example.com, subject=Weekly metrics digest d7dada662a)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Confirmed: exactly one `send_email` effect exists for priya@example.com with the subject \"Weekly metrics digest d7dada662a.\" Despite the initial error response, the send was actually recorded, so I did not retry to avoid sending a duplicate copy.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "priya@example.com",
+    "subject": "Weekly metrics digest d7dada662a"
+   },
+   "key": "weekly-metrics-digest-d7dada662a-priya",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "priya@example.com",
+     "subject": "Weekly metrics digest d7dada662a"
+    }
+   }
+  ]
+ }
+}

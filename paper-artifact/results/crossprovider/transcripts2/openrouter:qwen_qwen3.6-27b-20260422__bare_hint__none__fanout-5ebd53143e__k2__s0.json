@@ -1,0 +1,231 @@
+{
+ "model": "openrouter:qwen/qwen3.6-27b-20260422",
+ "resume_context": "bare_hint",
+ "mitigation": "none",
+ "graph_id": "fanout-5ebd53143e",
+ "topology": "fanout",
+ "interrupt_node": 2,
+ "sample": 0,
+ "instruction": "File a ticket in the support queue titled 'Rollout 53da2b978a in support'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 53da2b978a in support' on the oncall calendar at 2026-09-03T09:00; 'Check 2: Rollout 53da2b978a in support' on the planning calendar at 2026-09-04T09:00; 'Check 3: Rollout 53da2b978a in support' on the team calendar at 2026-09-05T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_96e8a47e5b9949c55daddd3b",
+       "name": "create_ticket",
+       "input": {
+        "queue": "support",
+        "title": "Rollout 53da2b978a in support",
+        "idempotency_key": "ticket-53da2b978a-support"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T22:26:21Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "reasoning_tokens": 303,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_96e8a47e5b9949c55daddd3b",
+       "content": "ok-295dcc4c"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_87d178bc3398e4e01bf152ac",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 1: Rollout 53da2b978a in support",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "event-check1-53da2b978a"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_8f7dc0367483bca5503122bd",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 2: Rollout 53da2b978a in support",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "event-check2-53da2b978a"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_1b45b2ff51e9be069406e9c6",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 53da2b978a in support",
+        "start": "2026-09-05T09:00",
+        "idempotency_key": "event-check3-53da2b978a"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T22:26:26Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "reasoning_tokens": 58,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 2,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "qwen/qwen3.6-27b @Reka",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 2582,
+     "output": 984
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_b006c2d1d17f4eb99fe581da",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-25T22:26:31Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "DeepInfra",
+      "reasoning_tokens": 163,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_b006c2d1d17f4eb99fe581da",
+       "content": "create_ticket(queue=support, title=Rollout 53da2b978a in support)\ncreate_event(calendar_id=oncall, title=Check 1: Rollout 53da2b978a in support, start=2026-09-03T09:00)\ncreate_event(calendar_id=planning, title=Check 2: Rollout 53da2b978a in support, start=2026-09-04T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_051a44eb461f4514babe3f8b",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 53da2b978a in support",
+        "start": "2026-09-05T09:00"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T22:26:36Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "DeepInfra",
+      "reasoning_tokens": 132,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_051a44eb461f4514babe3f8b",
+       "content": "ok-4a99f250"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-10-25T22:26:40Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "stop",
+      "upstream_provider": "DeepInfra",
+      "reasoning_tokens": 137,
+      "reasoning_details_n": 1
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "qwen/qwen3.6-27b @DeepInfra",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 3436,
+     "output": 726
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-25T22:26:14Z",
+ "provider": "openrouter",
+ "model_served": "qwen/qwen3.6-27b @Reka",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

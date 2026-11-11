@@ -1,0 +1,137 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T15:28:37Z",
+ "usage": {
+  "input": 3780,
+  "output": 246
+ },
+ "task_id": "files-c5c13dc477",
+ "family": "atomic",
+ "instruction": "Append audit entry 0 (content hash 9b5daa1752) to /logs/audit-000.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01CFk8cCCd1eFN3sSUefZLHr",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T15:28:38Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01CFk8cCCd1eFN3sSUefZLHr",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The append operation timed out. Let me try again:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01PvFZ3cv26kis5EmYTTykh8",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752",
+      "idempotency_key": "audit-entry-0"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T15:28:40Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01PvFZ3cv26kis5EmYTTykh8",
+     "content": "ok-8f489432"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE\n\nThe audit entry with content hash 9b5daa1752 has been successfully appended to /logs/audit-000.log."
+    }
+   ],
+   "at_utc": "2026-10-26T15:28:40Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-6-oct",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__timeout_after_commit__files-c5c13dc477__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 788602503,
+ "finished_utc": "2026-10-26T15:28:40Z",
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "audit-entry-0",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-000.log",
+     "content_hash": "9b5daa1752"
+    }
+   }
+  ]
+ }
+}

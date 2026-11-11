@@ -1,0 +1,233 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:16:37Z",
+ "usage": {
+  "input": 10,
+  "output": 913,
+  "cache_write": 651,
+  "cache_read": 6574
+ },
+ "task_id": "ambiguous-334d29db7d",
+ "family": "ambiguous",
+ "instruction": "Make sure sam (reachable at sam@example.com) receives this week's metrics digest \u2014 the one titled Weekly metrics digest fbb5e6be26. One copy is enough.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "I'll first check if this digest was already sent, to avoid duplicates."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Xewg9FLfUQoZTWQt86KBB5",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:16:40Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1139
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Xewg9FLfUQoZTWQt86KBB5",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No copy has been sent yet, so I'll send it now with an idempotency key to guarantee exactly one copy."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Tt5S6nX7dJu4t6MnjRShWi",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Weekly metrics digest fbb5e6be26",
+      "idempotency_key": "weekly-digest-fbb5e6be26-sam"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:16:44Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 82,
+    "cache_read": 1139
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Tt5S6nX7dJu4t6MnjRShWi",
+     "content": "ERROR: The server is currently unavailable.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The server was unavailable. I'll retry with the same idempotency key so that even if the first attempt partially succeeded, sam still receives only one copy."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Hy8QKThxokTL7N9oUK1PAL",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Weekly metrics digest fbb5e6be26",
+      "idempotency_key": "weekly-digest-fbb5e6be26-sam"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:16:47Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 209,
+    "cache_read": 1221
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Hy8QKThxokTL7N9oUK1PAL",
+     "content": "ok-54e0fb85"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The retry succeeded. Let me verify exactly one copy was recorded."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Uc3ZtAahRJsh6S2xFK1bW4",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:16:50Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 215,
+    "cache_read": 1430
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Uc3ZtAahRJsh6S2xFK1bW4",
+     "content": "send_email(to=sam@example.com, subject=Weekly metrics digest fbb5e6be26)\nsend_email(to=sam@example.com, subject=Weekly metrics digest fbb5e6be26)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "Sam has received the digest \u2014 however, the effects log shows two copies were recorded. The first attempt returned a server error but was actually processed, and despite reusing the same idempotency key on the retry, the server did not deduplicate the calls. There is no tool available to recall an email, so I can't retract the duplicate.\n\nSummary:\n- Goal achieved: sam@example.com received \"Weekly metrics digest fbb5e6be26\".\n- Caveat: a duplicate was delivered due to the server recording a call it reported as failed and not honoring the idempotency key.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:16:57Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 145,
+    "cache_read": 1645
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_shopify_503_after_commit__ambiguous-334d29db7d__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_shopify_503_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 4270935622,
+ "finished_utc": "2026-11-02T09:16:57Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Weekly metrics digest fbb5e6be26"
+   },
+   "key": "weekly-digest-fbb5e6be26-sam",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Weekly metrics digest fbb5e6be26"
+   },
+   "key": "weekly-digest-fbb5e6be26-sam",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Weekly metrics digest fbb5e6be26"
+    }
+   }
+  ]
+ }
+}

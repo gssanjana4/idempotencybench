@@ -1,0 +1,137 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T06:38:50Z",
+ "usage": {
+  "input": 3760,
+  "output": 249
+ },
+ "task_id": "email-6d30f546e8",
+ "family": "atomic",
+ "instruction": "Send an email to jordan@example.com with subject 'Q3 status update #001'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01Lwj8yT2nCV2DpVtqeMDwGE",
+     "name": "send_email",
+     "input": {
+      "to": "jordan@example.com",
+      "subject": "Q3 status update #001"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:38:51Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Lwj8yT2nCV2DpVtqeMDwGE",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email send request timed out. Let me try again with an idempotency key to ensure the request is properly handled:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Nktdi2zbnBZdQEWBEAzjC7",
+     "name": "send_email",
+     "input": {
+      "to": "jordan@example.com",
+      "subject": "Q3 status update #001",
+      "idempotency_key": "q3_status_update_001"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:38:53Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Nktdi2zbnBZdQEWBEAzjC7",
+     "content": "ok-be63d59c"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE\n\nThe email has been successfully sent to jordan@example.com with the subject 'Q3 status update #001'."
+    }
+   ],
+   "at_utc": "2026-10-26T06:38:53Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-0",
+ "episode_id": "claude-haiku-4-5-20251001__base__idem_keys__timeout_after_commit__email-6d30f546e8__s0",
+ "prompt": "base",
+ "mitigation": "idem_keys",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3031668502,
+ "finished_utc": "2026-10-26T06:38:53Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "jordan@example.com",
+    "subject": "Q3 status update #001"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "jordan@example.com",
+    "subject": "Q3 status update #001"
+   },
+   "key": "q3_status_update_001",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "jordan@example.com",
+     "subject": "Q3 status update #001"
+    }
+   }
+  ]
+ }
+}

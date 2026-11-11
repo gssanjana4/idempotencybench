@@ -1,0 +1,164 @@
+{
+ "model": "openrouter:qwen/qwen3.6-27b-20260422",
+ "provider": "openrouter",
+ "model_served": "qwen/qwen3.6-27b @Alibaba",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "started_utc": "2026-11-01T04:54:35Z",
+ "usage": {
+  "input": 3196,
+  "output": 467
+ },
+ "task_id": "payments-18aa8e1466",
+ "family": "atomic",
+ "instruction": "Pay vendor-02 $174.00 for invoice-152de9d68a.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_825c22b8702d22ef6708fb12",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-02",
+      "amount": "174.00",
+      "memo": "invoice-152de9d68a"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T04:54:39Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "tool_calls",
+    "upstream_provider": "Reka",
+    "system_fingerprint": "vllm-0.27.1-04e62f3f",
+    "cost": 0.0008712,
+    "reasoning_tokens": 115,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_825c22b8702d22ef6708fb12",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_1e0991d4b8a9d9fc61feac2f",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-02",
+      "amount": "174.00",
+      "memo": "invoice-152de9d68a",
+      "idempotency_key": "pay-vendor-02-inv-152de9d68a-001"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T04:54:42Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "tool_calls",
+    "upstream_provider": "Reka",
+    "system_fingerprint": "vllm-0.27.1-04e62f3f",
+    "cost": 0.0007242,
+    "reasoning_tokens": 71,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_1e0991d4b8a9d9fc61feac2f",
+     "content": "ok-bf12e88f"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE"
+    }
+   ],
+   "at_utc": "2026-11-01T04:54:45Z",
+   "stop_reason": "stop",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "stop",
+    "upstream_provider": "Alibaba",
+    "cost": 0.00074565,
+    "reasoning_tokens": 57,
+    "reasoning_details_n": 1
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R3",
+ "episode_id": "openrouter:qwen/qwen3.6-27b-20260422__base__none__timeout_after_commit__payments-18aa8e1466__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 4096,
+ "ack_seed": 2545665784,
+ "finished_utc": "2026-11-01T04:54:45Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-02",
+    "amount": "174.00",
+    "memo": "invoice-152de9d68a"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-02",
+    "amount": "174.00",
+    "memo": "invoice-152de9d68a"
+   },
+   "key": "pay-vendor-02-inv-152de9d68a-001",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-02",
+     "amount": "174.00",
+     "memo": "invoice-152de9d68a"
+    }
+   }
+  ]
+ }
+}

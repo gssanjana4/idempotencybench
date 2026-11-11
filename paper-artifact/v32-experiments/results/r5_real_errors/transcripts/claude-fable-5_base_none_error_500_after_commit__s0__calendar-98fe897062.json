@@ -1,0 +1,240 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:24:08Z",
+ "usage": {
+  "input": 10,
+  "output": 841,
+  "cache_write": 863,
+  "cache_read": 6573
+ },
+ "task_id": "calendar-98fe897062",
+ "family": "atomic",
+ "instruction": "Create event 'Sync 00b33b7487' on the team calendar at 2026-08-01T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_016vcMHbW88AR6YYZhsAgaGV",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "team",
+      "title": "Sync 00b33b7487",
+      "start": "2026-08-01T10:00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:24:11Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1116
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_016vcMHbW88AR6YYZhsAgaGV",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The first attempt hit a server error. Retrying with an idempotency key to avoid duplicates:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Ey9vP1ciLC67MP42YrA21Z",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "team",
+      "title": "Sync 00b33b7487",
+      "start": "2026-08-01T10:00",
+      "idempotency_key": "sync-00b33b7487-20260801T1000"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:24:15Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 131,
+    "cache_read": 1116
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Ey9vP1ciLC67MP42YrA21Z",
+     "content": "ok-d9352364"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "Let me verify no duplicate was created from the failed first attempt:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01P52Y188zQMkNhqEg6MAoyo",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:24:18Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 208,
+    "cache_read": 1247
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01P52Y188zQMkNhqEg6MAoyo",
+     "content": "create_event(calendar_id=team, title=Sync 00b33b7487, start=2026-08-01T10:00)\ncreate_event(calendar_id=team, title=Sync 00b33b7487, start=2026-08-01T10:00)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "It appears the first call actually recorded the event despite returning an error, so there's now a duplicate. Since I have no delete tool, I'll file a ticket to flag the duplicate for cleanup:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Hm9RR1eZx1iZHZGN6G8Snf",
+     "name": "create_ticket",
+     "input": {
+      "queue": "calendar-ops",
+      "title": "Duplicate event 'Sync 00b33b7487' on team calendar at 2026-08-01T10:00 \u2014 please remove one copy",
+      "idempotency_key": "dup-sync-00b33b7487"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:24:23Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 184,
+    "cache_read": 1455
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Hm9RR1eZx1iZHZGN6G8Snf",
+     "content": "ok-c62b5df5"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The event 'Sync 00b33b7487' was created on the team calendar for 2026-08-01T10:00. Note: the first attempt returned a server error but still recorded the event, resulting in a duplicate. I've filed a cleanup ticket (ok-c62b5df5) to have the duplicate removed.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:24:26Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 340,
+    "cache_read": 1639
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__error_500_after_commit__calendar-98fe897062__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2989896900,
+ "finished_utc": "2026-11-02T09:24:26Z",
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "team",
+    "title": "Sync 00b33b7487",
+    "start": "2026-08-01T10:00"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "team",
+    "title": "Sync 00b33b7487",
+    "start": "2026-08-01T10:00"
+   },
+   "key": "sync-00b33b7487-20260801T1000",
+   "seq": 2
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "calendar-ops",
+    "title": "Duplicate event 'Sync 00b33b7487' on team calendar at 2026-08-01T10:00 \u2014 please remove one copy"
+   },
+   "key": "dup-sync-00b33b7487",
+   "seq": 3
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "team",
+     "title": "Sync 00b33b7487",
+     "start": "2026-08-01T10:00"
+    }
+   }
+  ]
+ }
+}

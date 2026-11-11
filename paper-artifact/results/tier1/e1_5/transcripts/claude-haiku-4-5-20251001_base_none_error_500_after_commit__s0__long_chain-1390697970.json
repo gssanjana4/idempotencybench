@@ -1,0 +1,203 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T06:55:49Z",
+ "usage": {
+  "input": 4442,
+  "output": 495
+ },
+ "task_id": "long_chain-1390697970",
+ "family": "long_chain",
+ "instruction": "Pay vendor-07 $594.00 for order-aef1d442c2; then email a receipt to tunde@example.com with subject 'Receipt: order-aef1d442c2'; then append an audit entry (content hash 45827c44b7) to /logs/order-l3-011.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "I'll complete these three tasks in order. Let me start by making the payment, then send the email, and finally append the audit entry."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01WscvMTJhAiNjkoYpBe8M8P",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-07",
+      "amount": "$594.00",
+      "memo": "order-aef1d442c2"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01BfbsqB4eWxjj6yiCCQU6oY",
+     "name": "send_email",
+     "input": {
+      "to": "tunde@example.com",
+      "subject": "Receipt: order-aef1d442c2"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01VT8SkLnthrWPZbPWsXMEib",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/order-l3-011.log",
+      "content_hash": "45827c44b7"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:55:52Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01WscvMTJhAiNjkoYpBe8M8P",
+     "content": "ok-ecffd8f1"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BfbsqB4eWxjj6yiCCQU6oY",
+     "content": "ok-2386df0a"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01VT8SkLnthrWPZbPWsXMEib",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment and email were successful, but the audit log append encountered an error. Let me retry the append operation:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Y1VPeLzVKo7UemZXFETtQF",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/order-l3-011.log",
+      "content_hash": "45827c44b7"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:55:53Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Y1VPeLzVKo7UemZXFETtQF",
+     "content": "ok-aa2a4113"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Perfect! All three tasks have been completed successfully:\n\n1. \u2713 Payment sent to vendor-07 for $594.00 with memo \"order-aef1d442c2\"\n2. \u2713 Receipt email sent to tunde@example.com with subject \"Receipt: order-aef1d442c2\"\n3. \u2713 Audit entry appended to /logs/order-l3-011.log with content hash 45827c44b7\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T06:55:55Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-5",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__error_500_after_commit__long_chain-1390697970__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 3,
+ "failure_fired": true,
+ "max_turns": 12,
+ "max_tokens": 1024,
+ "ack_seed": 332869345,
+ "finished_utc": "2026-10-26T06:55:55Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-07",
+    "amount": "$594.00",
+    "memo": "order-aef1d442c2"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "tunde@example.com",
+    "subject": "Receipt: order-aef1d442c2"
+   },
+   "key": "",
+   "seq": 2
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/order-l3-011.log",
+    "content_hash": "45827c44b7"
+   },
+   "key": "",
+   "seq": 3
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/order-l3-011.log",
+    "content_hash": "45827c44b7"
+   },
+   "key": "",
+   "seq": 4
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-07",
+     "amount": "594.00",
+     "memo": "order-aef1d442c2"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "tunde@example.com",
+     "subject": "Receipt: order-aef1d442c2"
+    }
+   },
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/order-l3-011.log",
+     "content_hash": "45827c44b7"
+    }
+   }
+  ]
+ }
+}

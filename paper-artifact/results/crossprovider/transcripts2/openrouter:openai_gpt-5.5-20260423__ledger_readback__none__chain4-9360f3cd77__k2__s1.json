@@ -1,0 +1,239 @@
+{
+ "model": "openrouter:openai/gpt-5.5-20260423",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "chain4-9360f3cd77",
+ "topology": "chain4",
+ "interrupt_node": 2,
+ "sample": 1,
+ "instruction": "Pay vendor-08 $466.00 for contract-74fa10cf0a; then email a receipt to sam@example.com with subject 'Receipt: contract-74fa10cf0a'; then create event 'Follow-up: contract-74fa10cf0a' on the oncall calendar at 2026-11-07T11:00; then append a closing entry (content hash 7d11516cb9) to /logs/contract-006.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_3GQlp5UBojmWYm6ETMHmIC8x",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-08",
+        "amount": "466.00",
+        "memo": "contract-74fa10cf0a",
+        "idempotency_key": "pay-contract-74fa10cf0a-vendor-08-46600"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T23:08:10Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "reasoning_tokens": 52,
+      "reasoning_details_n": 2
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_3GQlp5UBojmWYm6ETMHmIC8x",
+       "content": "ok-a69dfed7"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_Kt80herCJRtXfy2lBtQEaCcb",
+       "name": "send_email",
+       "input": {
+        "to": "sam@example.com",
+        "subject": "Receipt: contract-74fa10cf0a",
+        "idempotency_key": "email-receipt-contract-74fa10cf0a-sam"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T23:08:11Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "reasoning_tokens": 0
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_Kt80herCJRtXfy2lBtQEaCcb",
+       "content": "ok-aa100b3e"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_yLeGCVWjjHqe2Ig7iV8hdmj4",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Follow-up: contract-74fa10cf0a",
+        "start": "2026-11-07T11:00",
+        "idempotency_key": "event-followup-contract-74fa10cf0a-oncall-20261107T1100"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T23:08:13Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "reasoning_tokens": 0
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 2,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "openai/gpt-5.5 @OpenAI",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 1610,
+     "output": 240
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_J8PBYhC4aSOG7dE3KO2AMzoR",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-25T23:08:14Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "reasoning_tokens": 0
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_J8PBYhC4aSOG7dE3KO2AMzoR",
+       "content": "send_payment(payee=vendor-08, amount=466.00, memo=contract-74fa10cf0a)\nsend_email(to=sam@example.com, subject=Receipt: contract-74fa10cf0a)\ncreate_event(calendar_id=oncall, title=Follow-up: contract-74fa10cf0a, start=2026-11-07T11:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_F6l7LmmoSEpy0WC4qIvla16L",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-006.log",
+        "content_hash": "7d11516cb9",
+        "idempotency_key": "append-closing-contract-74fa10cf0a-logs-contract-006"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T23:08:17Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "reasoning_tokens": 24,
+      "reasoning_details_n": 2
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_F6l7LmmoSEpy0WC4qIvla16L",
+       "content": "ok-a2c74c44"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-10-25T23:08:18Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "reasoning_tokens": 0
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "openai/gpt-5.5 @OpenAI",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 1821,
+     "output": 102
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-25T23:07:52Z",
+ "provider": "openrouter",
+ "model_served": "openai/gpt-5.5 @OpenAI",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

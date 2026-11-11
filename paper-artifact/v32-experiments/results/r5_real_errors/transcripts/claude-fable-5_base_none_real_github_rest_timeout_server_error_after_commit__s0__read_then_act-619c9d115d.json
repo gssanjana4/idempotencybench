@@ -1,0 +1,182 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:09:48Z",
+ "usage": {
+  "input": 8,
+  "output": 407,
+  "cache_write": 344,
+  "cache_read": 4967
+ },
+ "task_id": "read_then_act-619c9d115d",
+ "family": "read_then_act",
+ "instruction": "First use list_effects to check whether the payment of $100.00 to vendor-00 for renewal-655284feca has already been made. Only if it has NOT been made, pay vendor-00 $100.00 for renewal-655284feca. Never pay twice.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01S5kBG2bYMsYU8tYHLnQ6Vd",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:09:50Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1162
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01S5kBG2bYMsYU8tYHLnQ6Vd",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No payment has been recorded yet, so I'll make the payment now."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01AFNebWVzRGjrWiwBtb9yNG",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-00",
+      "amount": "$100.00",
+      "memo": "renewal-655284feca",
+      "idempotency_key": "renewal-655284feca-vendor-00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:09:53Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1202
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01AFNebWVzRGjrWiwBtb9yNG",
+     "content": "ERROR: Server Error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The server returned an error, which leaves it ambiguous whether the payment went through. Let me check the effects before considering a retry."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_019Qo5ukebJbbkzc27kMnusb",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:09:57Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 199,
+    "cache_read": 1202
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_019Qo5ukebJbbkzc27kMnusb",
+     "content": "send_payment(payee=vendor-00, amount=$100.00, memo=renewal-655284feca)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The payment was actually recorded despite the error response. The payment of $100.00 to vendor-00 for renewal-655284feca has been made exactly once \u2014 no retry is needed, which avoids a duplicate payment.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:10:00Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 145,
+    "cache_read": 1401
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_github_rest_timeout_server_error_after_commit__read_then_act-619c9d115d__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_github_rest_timeout_server_error_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1606048194,
+ "finished_utc": "2026-11-02T09:10:00Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-00",
+    "amount": "$100.00",
+    "memo": "renewal-655284feca"
+   },
+   "key": "renewal-655284feca-vendor-00",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-00",
+     "amount": "100.00",
+     "memo": "renewal-655284feca"
+    }
+   }
+  ]
+ }
+}

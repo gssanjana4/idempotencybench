@@ -1,0 +1,147 @@
+{
+ "model": "openrouter:openai/gpt-5.5-20260423",
+ "provider": "openrouter",
+ "model_served": "openai/gpt-5.5 @OpenAI",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "started_utc": "2026-10-25T22:29:36Z",
+ "usage": {
+  "input": 1333,
+  "output": 144
+ },
+ "task_id": "multi_step-55b750e88b",
+ "family": "multi_step",
+ "instruction": "File a ticket in the infra queue titled 'Escalation cb4466ab34 in infra', then send an email to jordan@example.com with subject 'Filed: Escalation cb4466ab34 in infra' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_zRTBzhS1eyPfQLlQkclovYHf",
+     "name": "create_ticket",
+     "input": {
+      "queue": "infra",
+      "title": "Escalation cb4466ab34 in infra",
+      "idempotency_key": "create-ticket-infra-escalation-cb4466ab34"
+     }
+    }
+   ],
+   "at_utc": "2026-10-25T22:29:39Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "reasoning_tokens": 28,
+    "reasoning_details_n": 2
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_zRTBzhS1eyPfQLlQkclovYHf",
+     "content": "ok-62c78729"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_RuhMEvpDbDvh6d7t1hLbYB9V",
+     "name": "send_email",
+     "input": {
+      "to": "jordan@example.com",
+      "subject": "Filed: Escalation cb4466ab34 in infra",
+      "idempotency_key": "send-email-jordan-filed-escalation-cb4466ab34-infra"
+     }
+    }
+   ],
+   "at_utc": "2026-10-25T22:29:40Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "reasoning_tokens": 0
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_RuhMEvpDbDvh6d7t1hLbYB9V",
+     "content": "ok-06dfaa5d"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE"
+    }
+   ],
+   "at_utc": "2026-10-25T22:29:41Z",
+   "stop_reason": "stop",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "reasoning_tokens": 0
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "infra",
+    "title": "Escalation cb4466ab34 in infra"
+   },
+   "key": "create-ticket-infra-escalation-cb4466ab34",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "jordan@example.com",
+    "subject": "Filed: Escalation cb4466ab34 in infra"
+   },
+   "key": "send-email-jordan-filed-escalation-cb4466ab34-infra",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "infra",
+     "title": "Escalation cb4466ab34 in infra"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "jordan@example.com",
+     "subject": "Filed: Escalation cb4466ab34 in infra"
+    }
+   }
+  ]
+ }
+}

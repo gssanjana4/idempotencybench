@@ -1,0 +1,191 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T05:11:51Z",
+ "usage": {
+  "input": 8,
+  "output": 587,
+  "cache_write": 560,
+  "cache_read": 4763
+ },
+ "task_id": "files-c5c13dc477",
+ "family": "atomic",
+ "instruction": "Append audit entry 0 (content hash 9b5daa1752) to /logs/audit-000.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_014HZ2vHQCzW4L1dbAwNt7ou",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:11:53Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 106,
+    "cache_read": 1009
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_014HZ2vHQCzW4L1dbAwNt7ou",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out; I'll retry with an idempotency key to avoid a duplicate append."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_015jpGWTto9TGLjQMjbpbaie",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752",
+      "idempotency_key": "audit-000-entry-0-9b5daa1752"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:11:56Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 106,
+    "cache_read": 1115
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015jpGWTto9TGLjQMjbpbaie",
+     "content": "ok-b4eb5fec"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "Let me verify no duplicate was recorded from the timed-out attempt:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_0189o91pdSTx3XPtDRWgFT1Z",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T05:11:59Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 197,
+    "cache_read": 1221
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_0189o91pdSTx3XPtDRWgFT1Z",
+     "content": "append_file(path=/logs/audit-000.log, content_hash=9b5daa1752)\nappend_file(path=/logs/audit-000.log, content_hash=9b5daa1752)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The audit entry (content hash 9b5daa1752) has been appended to /logs/audit-000.log.\n\nNote: the effects log shows the initial call that timed out had actually succeeded on the server, so the retry resulted in a duplicate append of the same entry. There's no tool available to remove the duplicate, so you may want to deduplicate the log or flag it for your audit team. Both entries are identical (same path and content hash).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-01T05:12:04Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 151,
+    "cache_read": 1418
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R3",
+ "episode_id": "claude-fable-5__base__none__timeout_after_commit__files-c5c13dc477__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 827735647,
+ "finished_utc": "2026-11-01T05:12:04Z",
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "audit-000-entry-0-9b5daa1752",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-000.log",
+     "content_hash": "9b5daa1752"
+    }
+   }
+  ]
+ }
+}

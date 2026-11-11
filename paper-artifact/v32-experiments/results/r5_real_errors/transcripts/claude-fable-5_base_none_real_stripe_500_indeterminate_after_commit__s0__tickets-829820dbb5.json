@@ -1,0 +1,145 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:05:09Z",
+ "usage": {
+  "input": 6,
+  "output": 312,
+  "cache_write": 307,
+  "cache_read": 3530
+ },
+ "task_id": "tickets-829820dbb5",
+ "family": "atomic",
+ "instruction": "File a ticket in the billing queue titled 'Incident b9d19372af: retry storm in billing'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01FANbPtsszzbEGxknYZfYwV",
+     "name": "create_ticket",
+     "input": {
+      "queue": "billing",
+      "title": "Incident b9d19372af: retry storm in billing",
+      "idempotency_key": "ticket-b9d19372af-retry-storm"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:05:12Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1115
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01FANbPtsszzbEGxknYZfYwV",
+     "content": "ERROR: Treat the outcome of a request that returns 500 as indeterminate: the operation might have produced side effects even though you received an error.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request returned an indeterminate error, so I'll check whether the ticket was actually created before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01R8SPLnb29tN1pJU6NBvCCV",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:05:15Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 185,
+    "cache_read": 1115
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01R8SPLnb29tN1pJU6NBvCCV",
+     "content": "create_ticket(queue=billing, title=Incident b9d19372af: retry storm in billing)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The effects log shows the ticket was actually created despite the 500 error \u2014 the ticket \"Incident b9d19372af: retry storm in billing\" exists in the billing queue. No retry is needed, which avoids creating a duplicate.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:05:18Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 122,
+    "cache_read": 1300
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_stripe_500_indeterminate_after_commit__tickets-829820dbb5__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_stripe_500_indeterminate_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3882853150,
+ "finished_utc": "2026-11-02T09:05:18Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "billing",
+    "title": "Incident b9d19372af: retry storm in billing"
+   },
+   "key": "ticket-b9d19372af-retry-storm",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "billing",
+     "title": "Incident b9d19372af: retry storm in billing"
+    }
+   }
+  ]
+ }
+}

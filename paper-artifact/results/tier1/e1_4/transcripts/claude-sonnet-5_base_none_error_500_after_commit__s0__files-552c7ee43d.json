@@ -1,0 +1,163 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:26:16Z",
+ "usage": {
+  "input": 5593,
+  "output": 434
+ },
+ "task_id": "files-552c7ee43d",
+ "family": "atomic",
+ "instruction": "Append audit entry 11 (content hash f89552f4da) to /logs/audit-011.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01NcxYo6SXRYGVWP2gJdf3d2",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:26:18Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01NcxYo6SXRYGVWP2gJdf3d2",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_015xRstRridP6Jq9LayDihtH",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-011.log",
+      "content_hash": "f89552f4da",
+      "idempotency_key": "audit-011-append"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:26:19Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015xRstRridP6Jq9LayDihtH",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_015eWfcnNhgiWqiZARVCtbWX",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-011.log",
+      "content_hash": "f89552f4da",
+      "idempotency_key": "audit-011-append"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:26:21Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015eWfcnNhgiWqiZARVCtbWX",
+     "content": "ok-b193e82e"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The append operation succeeded on retry (log file /logs/audit-011.log now has audit entry 11 with content hash f89552f4da).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:26:22Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-4",
+ "episode_id": "claude-sonnet-5__base__none__error_500_after_commit__files-552c7ee43d__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2607693886,
+ "finished_utc": "2026-10-26T07:26:22Z",
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-011.log",
+    "content_hash": "f89552f4da"
+   },
+   "key": "audit-011-append",
+   "seq": 1
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-011.log",
+    "content_hash": "f89552f4da"
+   },
+   "key": "audit-011-append",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-011.log",
+     "content_hash": "f89552f4da"
+    }
+   }
+  ]
+ }
+}

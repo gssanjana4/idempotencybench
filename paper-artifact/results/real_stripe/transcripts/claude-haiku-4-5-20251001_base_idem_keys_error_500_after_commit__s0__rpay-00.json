@@ -1,0 +1,224 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-30T15:22:59Z",
+ "usage": {
+  "input": 2555,
+  "output": 315
+ },
+ "task_id": "rpay-00",
+ "family": "atomic",
+ "instruction": "Pay vendor-00 $100.00 for invoice-26989cb3aa.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01Rtfk6YgX3f55gMRuCAvSFC",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-00",
+      "amount": "$100.00",
+      "memo": "invoice-26989cb3aa"
+     }
+    }
+   ],
+   "at_utc": "2026-10-30T15:23:00Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Rtfk6YgX3f55gMRuCAvSFC",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "I encountered an internal server error while attempting to send the payment. Let me try again:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_011FG9LFsju9H3fZ8pbaPKZR",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-00",
+      "amount": "$100.00",
+      "memo": "invoice-26989cb3aa",
+      "idempotency_key": "invoice-26989cb3aa-vendor-00"
+     }
+    }
+   ],
+   "at_utc": "2026-10-30T15:23:02Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_011FG9LFsju9H3fZ8pbaPKZR",
+     "content": "ok-pi_anonjc7qfNbCj50HKT3QhhIH"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE\n\nThe payment has been successfully processed. A payment of $100.00 has been sent to vendor-00 for invoice-26989cb3aa. The payment ID is: ok-pi_anonjc7qfNbCj50HKT3QhhIH"
+    }
+   ],
+   "at_utc": "2026-10-30T15:23:04Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "real_stripe",
+ "episode_id": "claude-haiku-4-5-20251001__base__idem_keys__error_500_after_commit__rpay-00__s0",
+ "kind": "retry",
+ "prompt": "base",
+ "mitigation": "idem_keys",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "finished_utc": "2026-10-30T15:23:04Z",
+ "backend": "stripe_test_mode",
+ "stripe": {
+  "api_version": "2024-06-20",
+  "base": "https://api.stripe.com",
+  "customer": "cus_anon3X6DLnZFAk",
+  "attempt_id": "1a3e5bd62e-023102ed22",
+  "events": [
+   {
+    "tool": "send_payment",
+    "call_index": 1,
+    "args": {
+     "payee": "vendor-00",
+     "amount": "$100.00",
+     "memo": "invoice-26989cb3aa"
+    },
+    "model_key": "",
+    "amount_cents": 10000,
+    "injected": "error_500_after_commit",
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-1a3e5bd62e-023102ed22-call1",
+    "pi": "pi_anonFc7aOCBh2I5d1JjHhX2a",
+    "status": "succeeded",
+    "replayed": false
+   },
+   {
+    "tool": "send_payment",
+    "call_index": 2,
+    "args": {
+     "payee": "vendor-00",
+     "amount": "$100.00",
+     "memo": "invoice-26989cb3aa"
+    },
+    "model_key": "invoice-26989cb3aa-vendor-00",
+    "amount_cents": 10000,
+    "sent": true,
+    "forwarded_key": true,
+    "stripe_key": "ib-1a3e5bd62e-023102ed22-m-invoice-26989cb3aa-vendor-00",
+    "pi": "pi_anonjc7qfNbCj50HKT3QhhIH",
+    "status": "succeeded",
+    "replayed": false
+   }
+  ],
+  "ground_truth": {
+   "customer": "cus_anon3X6DLnZFAk",
+   "attempt_id": "1a3e5bd62e-023102ed22",
+   "n_payment_intents": 2,
+   "n_committed": 2,
+   "statuses": {
+    "succeeded": 2
+   },
+   "violations": 1,
+   "ivr_hit": true,
+   "per_goal": [
+    2
+   ],
+   "achieved": true,
+   "order_violation": false,
+   "payment_intents": [
+    {
+     "id": "pi_anonFc7aOCBh2I5d1JjHhX2a",
+     "status": "succeeded",
+     "amount": 10000,
+     "created": 1793373780,
+     "livemode": false,
+     "payee": "vendor-00",
+     "memo": "invoice-26989cb3aa",
+     "call_index": "1"
+    },
+    {
+     "id": "pi_anonjc7qfNbCj50HKT3QhhIH",
+     "status": "succeeded",
+     "amount": 10000,
+     "created": 1793373783,
+     "livemode": false,
+     "payee": "vendor-00",
+     "memo": "invoice-26989cb3aa",
+     "call_index": null
+    }
+   ]
+  }
+ },
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-00",
+    "amount": "$100.00",
+    "memo": "invoice-26989cb3aa"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-00",
+    "amount": "$100.00",
+    "memo": "invoice-26989cb3aa"
+   },
+   "key": "invoice-26989cb3aa-vendor-00",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-00",
+     "amount": "100.00",
+     "memo": "invoice-26989cb3aa"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,222 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T08:48:28Z",
+ "usage": {
+  "input": 10,
+  "output": 473,
+  "cache_write": 582,
+  "cache_read": 6911
+ },
+ "task_id": "multi_step-df7cacd0a6",
+ "family": "multi_step",
+ "instruction": "File a ticket in the support queue titled 'Escalation 955c770cd4 in support', then send an email to sam@example.com with subject 'Filed: Escalation 955c770cd4 in support' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01WL5F8aC6boo4124ZyyVnjf",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:48:30Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1220
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01WL5F8aC6boo4124ZyyVnjf",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_011fLTwnURuPCfj9uL7TH87G",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Escalation 955c770cd4 in support",
+      "idempotency_key": "ticket-955c770cd4"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T08:48:31Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 127,
+    "cache_read": 1220
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_011fLTwnURuPCfj9uL7TH87G",
+     "content": "ERROR: Treat the outcome of a request that returns 500 as indeterminate: the operation might have produced side effects even though you received an error.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01MkDdi8X8ckzj4EPa3ZGvqW",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:48:32Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 175,
+    "cache_read": 1347
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01MkDdi8X8ckzj4EPa3ZGvqW",
+     "content": "create_ticket(queue=support, title=Escalation 955c770cd4 in support)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket was actually created despite the error message (confirmed via list_effects). Now I'll send the confirmation email."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01BBGkcTqpUZDPAHXdh72WzC",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Filed: Escalation 955c770cd4 in support",
+      "idempotency_key": "email-955c770cd4"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T08:48:34Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 80,
+    "cache_read": 1522
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BBGkcTqpUZDPAHXdh72WzC",
+     "content": "ok-4815e54b"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE"
+    }
+   ],
+   "at_utc": "2026-11-02T08:48:35Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 200,
+    "cache_read": 1602
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-sonnet-5__base__none__real_stripe_500_indeterminate_after_commit__multi_step-df7cacd0a6__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_stripe_500_indeterminate_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1742203686,
+ "finished_utc": "2026-11-02T08:48:35Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Escalation 955c770cd4 in support"
+   },
+   "key": "ticket-955c770cd4",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Filed: Escalation 955c770cd4 in support"
+   },
+   "key": "email-955c770cd4",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "support",
+     "title": "Escalation 955c770cd4 in support"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Filed: Escalation 955c770cd4 in support"
+    }
+   }
+  ]
+ }
+}

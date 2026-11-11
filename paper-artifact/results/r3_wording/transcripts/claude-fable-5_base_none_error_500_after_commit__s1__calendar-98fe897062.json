@@ -1,0 +1,147 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T05:14:46Z",
+ "usage": {
+  "input": 6,
+  "output": 253,
+  "cache_write": 250,
+  "cache_read": 3479
+ },
+ "task_id": "calendar-98fe897062",
+ "family": "atomic",
+ "instruction": "Create event 'Sync 00b33b7487' on the team calendar at 2026-08-01T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_014nwVLMuQ9Cu3dQa6SL6ZC2",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "team",
+      "title": "Sync 00b33b7487",
+      "start": "2026-08-01T10:00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:14:49Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1116
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_014nwVLMuQ9Cu3dQa6SL6ZC2",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call failed with a server error. Let me check if the effect was actually recorded before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01KZHSVEdfbe7qPx3kNqQfke",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T05:14:52Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 131,
+    "cache_read": 1116
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01KZHSVEdfbe7qPx3kNqQfke",
+     "content": "create_event(calendar_id=team, title=Sync 00b33b7487, start=2026-08-01T10:00)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The event was actually created despite the error response \u2014 the side effect was recorded. No retry is needed, which avoids creating a duplicate event.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-01T05:14:55Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 119,
+    "cache_read": 1247
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R3",
+ "episode_id": "claude-fable-5__base__none__error_500_after_commit__calendar-98fe897062__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1180230077,
+ "finished_utc": "2026-11-01T05:14:55Z",
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "team",
+    "title": "Sync 00b33b7487",
+    "start": "2026-08-01T10:00"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "team",
+     "title": "Sync 00b33b7487",
+     "start": "2026-08-01T10:00"
+    }
+   }
+  ]
+ }
+}

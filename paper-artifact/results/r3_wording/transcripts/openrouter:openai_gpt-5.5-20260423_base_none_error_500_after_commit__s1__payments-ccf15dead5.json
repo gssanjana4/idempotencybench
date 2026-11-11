@@ -1,0 +1,147 @@
+{
+ "model": "openrouter:openai/gpt-5.5-20260423",
+ "provider": "openrouter",
+ "model_served": "openai/gpt-5.5 @OpenAI",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "started_utc": "2026-11-01T04:02:53Z",
+ "usage": {
+  "input": 1238,
+  "output": 126
+ },
+ "task_id": "payments-ccf15dead5",
+ "family": "atomic",
+ "instruction": "Pay vendor-03 $211.00 for invoice-a46a7e6869.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_jeUrocdKhLQQZY13kIwUQpJj",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-03",
+      "amount": "211.00",
+      "memo": "invoice-a46a7e6869",
+      "idempotency_key": "pay-vendor-03-invoice-a46a7e6869-21100"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T04:03:02Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "cost": 0.00404,
+    "reasoning_tokens": 18,
+    "reasoning_details_n": 2
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_jeUrocdKhLQQZY13kIwUQpJj",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_18qdx91ZtUoIkPZJtVBsRb7L",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T04:03:04Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "cost": 0.003295,
+    "reasoning_tokens": 23,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_18qdx91ZtUoIkPZJtVBsRb7L",
+     "content": "send_payment(payee=vendor-03, amount=211.00, memo=invoice-a46a7e6869)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE"
+    }
+   ],
+   "at_utc": "2026-11-01T04:03:06Z",
+   "stop_reason": "stop",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "cost": 0.002635,
+    "reasoning_tokens": 0
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R3",
+ "episode_id": "openrouter:openai/gpt-5.5-20260423__base__none__error_500_after_commit__payments-ccf15dead5__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 4096,
+ "ack_seed": 846063272,
+ "finished_utc": "2026-11-01T04:03:06Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-03",
+    "amount": "211.00",
+    "memo": "invoice-a46a7e6869"
+   },
+   "key": "pay-vendor-03-invoice-a46a7e6869-21100",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-03",
+     "amount": "211.00",
+     "memo": "invoice-a46a7e6869"
+    }
+   }
+  ]
+ }
+}

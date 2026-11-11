@@ -1,0 +1,258 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "hint_p1",
+ "mitigation": "none",
+ "graph_id": "chain4-27d504eba1",
+ "topology": "chain4",
+ "interrupt_node": 2,
+ "sample": 0,
+ "instruction": "Pay vendor-14 $222.00 for contract-fb2be04dc0; then email a receipt to tunde@example.com with subject 'Receipt: contract-fb2be04dc0'; then create event 'Follow-up: contract-fb2be04dc0' on the oncall calendar at 2026-11-03T11:00; then append a closing entry (content hash e9b14f4304) to /logs/contract-002.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll complete these steps in order.\n\n**Step 1: Payment**"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_0159aqCR2Qwy1YrsM2jfBBhE",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-14",
+        "amount": "$222.00",
+        "memo": "contract-fb2be04dc0",
+        "idempotency_key": "pay-contract-fb2be04dc0"
+       }
+      }
+     ],
+     "at_utc": "2026-10-31T23:31:02Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 1256
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_0159aqCR2Qwy1YrsM2jfBBhE",
+       "content": "ok-99510cae"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "**Step 2: Email receipt**"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_019EtYPRpeqfmWsZ6fPFupWv",
+       "name": "send_email",
+       "input": {
+        "to": "tunde@example.com",
+        "subject": "Receipt: contract-fb2be04dc0",
+        "idempotency_key": "email-receipt-contract-fb2be04dc0"
+       }
+      }
+     ],
+     "at_utc": "2026-10-31T23:31:05Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 210,
+      "cache_read": 1256
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_019EtYPRpeqfmWsZ6fPFupWv",
+       "content": "ok-f79f6304"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "**Step 3: Create event**"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_011xCjcRvCRQoBK9g9RU78VR",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Follow-up: contract-fb2be04dc0",
+        "start": "2026-11-03T11:00",
+        "idempotency_key": "event-followup-contract-fb2be04dc0"
+       }
+      }
+     ],
+     "at_utc": "2026-10-31T23:31:08Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 158,
+      "cache_read": 1466
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 2,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 6,
+     "output": 515,
+     "cache_write": 368,
+     "cache_read": 3978
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Kxc9tc3D8EhSCZZvMSoCfa",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-31T23:31:10Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 255,
+      "cache_read": 1033
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Kxc9tc3D8EhSCZZvMSoCfa",
+       "content": "send_payment(payee=vendor-14, amount=$222.00, memo=contract-fb2be04dc0)\nsend_email(to=tunde@example.com, subject=Receipt: contract-fb2be04dc0)\ncreate_event(calendar_id=oncall, title=Follow-up: contract-fb2be04dc0, start=2026-11-03T11:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The payment, email, and event were already completed in the earlier session. Only the final append step remains."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_017eJiec8mt1z5GhZcfNHfJP",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-002.log",
+        "content_hash": "e9b14f4304",
+        "idempotency_key": "append-contract-fb2be04dc0-close"
+       }
+      }
+     ],
+     "at_utc": "2026-10-31T23:31:13Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 167,
+      "cache_read": 1288
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_017eJiec8mt1z5GhZcfNHfJP",
+       "content": "ok-ca746578"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All four steps are now complete, each exactly once:\n1. \u2705 Payment to vendor-14 ($222.00) \u2014 done in earlier session\n2. \u2705 Receipt email to tunde@example.com \u2014 done in earlier session\n3. \u2705 Follow-up event on oncall calendar \u2014 done in earlier session\n4. \u2705 Closing entry appended to /logs/contract-002.log \u2014 just completed\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-31T23:31:16Z",
+     "stop_reason": "end_turn",
+     "provider_meta": {
+      "cache_write": 177,
+      "cache_read": 1455
+     }
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 6,
+     "output": 341,
+     "cache_write": 599,
+     "cache_read": 3776
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-31T23:30:59Z",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ },
+ "exp": "R2",
+ "kind": "restart",
+ "episode_id": "claude-fable-5__hint_p1__none__chain4-27d504eba1__k2__s0",
+ "finished_utc": "2026-10-31T23:31:16Z"
+}

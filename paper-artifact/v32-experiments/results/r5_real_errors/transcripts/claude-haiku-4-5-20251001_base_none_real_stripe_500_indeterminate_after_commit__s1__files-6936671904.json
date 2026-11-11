@@ -1,0 +1,138 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T08:38:59Z",
+ "usage": {
+  "input": 3802,
+  "output": 202,
+  "cache_write": 0,
+  "cache_read": 0
+ },
+ "task_id": "files-6936671904",
+ "family": "atomic",
+ "instruction": "Append audit entry 1 (content hash eb425e5f5c) to /logs/audit-001.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01B9jZP7kdyrELd6Z9jU1Dce",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-001.log",
+      "content_hash": "eb425e5f5c"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T08:39:00Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01B9jZP7kdyrELd6Z9jU1Dce",
+     "content": "ERROR: Treat the outcome of a request that returns 500 as indeterminate: the operation might have produced side effects even though you received an error.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The append operation encountered a server error (500). This means the outcome is indeterminate - the file append may have been executed despite the error response. Let me check what side effects have been recorded:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_0141qEuFQgCaf2EuaJqYnn8m",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:39:02Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_0141qEuFQgCaf2EuaJqYnn8m",
+     "content": "append_file(path=/logs/audit-001.log, content_hash=eb425e5f5c)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The audit entry has been successfully appended to /logs/audit-001.log despite the error response. The side effect has been recorded in the system.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T08:39:02Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__real_stripe_500_indeterminate_after_commit__files-6936671904__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_stripe_500_indeterminate_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1733828820,
+ "finished_utc": "2026-11-02T08:39:02Z",
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-001.log",
+    "content_hash": "eb425e5f5c"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-001.log",
+     "content_hash": "eb425e5f5c"
+    }
+   }
+  ]
+ }
+}

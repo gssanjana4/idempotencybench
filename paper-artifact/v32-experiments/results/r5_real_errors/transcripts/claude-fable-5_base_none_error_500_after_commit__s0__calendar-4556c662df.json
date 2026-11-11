@@ -1,0 +1,192 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:24:14Z",
+ "usage": {
+  "input": 8,
+  "output": 610,
+  "cache_write": 478,
+  "cache_read": 4933
+ },
+ "task_id": "calendar-4556c662df",
+ "family": "atomic",
+ "instruction": "Create event 'Sync feeb37d468' on the personal calendar at 2026-08-02T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01C5aa79Fu28x9s72NC28hCX",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "personal",
+      "title": "Sync feeb37d468",
+      "start": "2026-08-02T10:00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:24:17Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1116
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01C5aa79Fu28x9s72NC28hCX",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call failed with a server error. I'll retry with an idempotency key to avoid duplicates."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01T8bLZ7F5X7js9An1WJuKKw",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "personal",
+      "title": "Sync feeb37d468",
+      "start": "2026-08-02T10:00",
+      "idempotency_key": "sync-feeb37d468-20260802T1000"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:24:20Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 131,
+    "cache_read": 1116
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01T8bLZ7F5X7js9An1WJuKKw",
+     "content": "ok-f985279c"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_015JvtdAE5hwaUGzeDZJuraY",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:24:23Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 207,
+    "cache_read": 1247
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015JvtdAE5hwaUGzeDZJuraY",
+     "content": "create_event(calendar_id=personal, title=Sync feeb37d468, start=2026-08-02T10:00)\ncreate_event(calendar_id=personal, title=Sync feeb37d468, start=2026-08-02T10:00)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The event 'Sync feeb37d468' was created on the personal calendar for 2026-08-02T10:00.\n\nNote: the first attempt returned a server error but actually succeeded, so a duplicate event was recorded. There is no delete tool available, so you may want to remove the duplicate manually.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:24:28Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 140,
+    "cache_read": 1454
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__error_500_after_commit__calendar-4556c662df__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 918060460,
+ "finished_utc": "2026-11-02T09:24:28Z",
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "personal",
+    "title": "Sync feeb37d468",
+    "start": "2026-08-02T10:00"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "personal",
+    "title": "Sync feeb37d468",
+    "start": "2026-08-02T10:00"
+   },
+   "key": "sync-feeb37d468-20260802T1000",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "personal",
+     "title": "Sync feeb37d468",
+     "start": "2026-08-02T10:00"
+    }
+   }
+  ]
+ }
+}

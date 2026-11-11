@@ -1,0 +1,220 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "fanout-5ebd53143e",
+ "topology": "fanout",
+ "interrupt_node": 2,
+ "sample": 0,
+ "instruction": "File a ticket in the support queue titled 'Rollout 53da2b978a in support'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 53da2b978a in support' on the oncall calendar at 2026-09-03T09:00; 'Check 2: Rollout 53da2b978a in support' on the planning calendar at 2026-09-04T09:00; 'Check 3: Rollout 53da2b978a in support' on the team calendar at 2026-09-05T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "First, I'll file the ticket since the events depend on it:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_014T276XbsMDVFLKrEFJzW4S",
+       "name": "create_ticket",
+       "input": {
+        "queue": "support",
+        "title": "Rollout 53da2b978a in support",
+        "idempotency_key": "ticket-rollout-53da2b978a-support"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:01:18Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_014T276XbsMDVFLKrEFJzW4S",
+       "content": "ok-8e007de2"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket is filed. Now I'll create the three reminder events (independent of each other):"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01ABJGTMU4sjfBGcTokvpFqp",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 1: Rollout 53da2b978a in support",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "event-check1-rollout-53da2b978a"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_013QU4F4bv2o8mH5BCfymBDe",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 2: Rollout 53da2b978a in support",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "event-check2-rollout-53da2b978a"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Jz23oaYcKRRyscdv3ZUezC",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 53da2b978a in support",
+        "start": "2026-09-05T09:00",
+        "idempotency_key": "event-check3-rollout-53da2b978a"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:01:23Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 2,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 2716,
+     "output": 658
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll first check what side effects have already been recorded, since a previous session may have completed some steps."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01B9W13i3hHqrEK68MsgJAko",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-25T21:01:26Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01B9W13i3hHqrEK68MsgJAko",
+       "content": "create_ticket(queue=support, title=Rollout 53da2b978a in support)\ncreate_event(calendar_id=oncall, title=Check 1: Rollout 53da2b978a in support, start=2026-09-03T09:00)\ncreate_event(calendar_id=planning, title=Check 2: Rollout 53da2b978a in support, start=2026-09-04T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket and the first two reminder events are already created. Only the third event remains:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01SLHPesMAPXrjTjd7C1P6F4",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 53da2b978a in support",
+        "start": "2026-09-05T09:00",
+        "idempotency_key": "rollout-53da2b978a-check3"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:01:30Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01SLHPesMAPXrjTjd7C1P6F4",
+       "content": "ok-44405b71"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All steps are now complete:\n- \u2705 Ticket filed in support queue (done previously)\n- \u2705 Check 1 event on oncall calendar (done previously)\n- \u2705 Check 2 event on planning calendar (done previously)\n- \u2705 Check 3 event on team calendar (just created)\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-25T21:01:33Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 4637,
+     "output": 384
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-25T21:01:14Z",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

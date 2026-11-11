@@ -1,0 +1,155 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T05:13:40Z",
+ "usage": {
+  "input": 6,
+  "output": 312,
+  "cache_write": 310,
+  "cache_read": 3458
+ },
+ "task_id": "email-bc6eba4ec3",
+ "family": "atomic",
+ "instruction": "Send an email to sam@example.com with subject 'Q3 status update #002'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01QFaeXw7jmDxfWUd1o1YeRL",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Q3 status update #002",
+      "idempotency_key": "email-sam-q3-status-002"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:13:43Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1107
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01QFaeXw7jmDxfWUd1o1YeRL",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call failed with a server error; retrying with the same idempotency key to avoid duplicates:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_011WAfEcabQsT6CMHkNuSXUJ",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Q3 status update #002",
+      "idempotency_key": "email-sam-q3-status-002"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:13:46Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 137,
+    "cache_read": 1107
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_011WAfEcabQsT6CMHkNuSXUJ",
+     "content": "ok-68366e8e"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email to sam@example.com with subject \"Q3 status update #002\" was sent successfully.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-01T05:13:48Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 173,
+    "cache_read": 1244
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R3",
+ "episode_id": "claude-fable-5__base__none__error_500_after_commit__email-bc6eba4ec3__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1036982185,
+ "finished_utc": "2026-11-01T05:13:48Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Q3 status update #002"
+   },
+   "key": "email-sam-q3-status-002",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Q3 status update #002"
+   },
+   "key": "email-sam-q3-status-002",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Q3 status update #002"
+    }
+   }
+  ]
+ }
+}

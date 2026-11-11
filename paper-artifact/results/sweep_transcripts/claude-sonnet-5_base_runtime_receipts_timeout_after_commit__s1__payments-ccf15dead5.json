@@ -1,0 +1,124 @@
+{
+ "model": "claude-sonnet-5",
+ "temperature": null,
+ "task_id": "payments-ccf15dead5",
+ "family": "atomic",
+ "instruction": "Pay vendor-03 $211.00 for invoice-a46a7e6869.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Nx1UGsc28psRNDHqVLPVyt",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Nx1UGsc28psRNDHqVLPVyt",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_011v3QvU5VYCuSzdUPCM3L3A",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-03",
+      "amount": "211.00",
+      "memo": "invoice-a46a7e6869",
+      "idempotency_key": "vendor-03-invoice-a46a7e6869"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_011v3QvU5VYCuSzdUPCM3L3A",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01NDY2U7BnesHVN7Y526zmJC",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01NDY2U7BnesHVN7Y526zmJC",
+     "content": "send_payment(payee=vendor-03, amount=211.00, memo=invoice-a46a7e6869)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The payment was successfully recorded (the timeout error was just a response issue, but the payment did go through as confirmed by the effects list).\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-03",
+    "amount": "211.00",
+    "memo": "invoice-a46a7e6869"
+   },
+   "key": "vendor-03-invoice-a46a7e6869",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-03",
+     "amount": "211.00",
+     "memo": "invoice-a46a7e6869"
+    }
+   }
+  ]
+ }
+}

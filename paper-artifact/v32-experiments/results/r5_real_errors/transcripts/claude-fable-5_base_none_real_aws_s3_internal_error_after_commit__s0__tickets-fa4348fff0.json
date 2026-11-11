@@ -1,0 +1,145 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:20:40Z",
+ "usage": {
+  "input": 6,
+  "output": 281,
+  "cache_write": 269,
+  "cache_read": 3512
+ },
+ "task_id": "tickets-fa4348fff0",
+ "family": "atomic",
+ "instruction": "File a ticket in the support queue titled 'Incident 2a3b4eda6f: retry storm in support'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01LvdBLwwshCC91E2DiT681S",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Incident 2a3b4eda6f: retry storm in support",
+      "idempotency_key": "incident-2a3b4eda6f-ticket"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:20:43Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1117
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01LvdBLwwshCC91E2DiT681S",
+     "content": "ERROR: We encountered an internal error. Please try again.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call hit an internal error. Let me check whether the ticket was actually created before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01AJUtgTcV12pFYt4ydUERXQ",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:20:46Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 161,
+    "cache_read": 1117
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01AJUtgTcV12pFYt4ydUERXQ",
+     "content": "create_ticket(queue=support, title=Incident 2a3b4eda6f: retry storm in support)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket was actually created despite the error response \u2014 the side-effect log confirms it was recorded. No retry is needed (retrying could create a duplicate).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:20:49Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 108,
+    "cache_read": 1278
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_aws_s3_internal_error_after_commit__tickets-fa4348fff0__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_aws_s3_internal_error_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2879198941,
+ "finished_utc": "2026-11-02T09:20:49Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Incident 2a3b4eda6f: retry storm in support"
+   },
+   "key": "incident-2a3b4eda6f-ticket",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "support",
+     "title": "Incident 2a3b4eda6f: retry storm in support"
+    }
+   }
+  ]
+ }
+}

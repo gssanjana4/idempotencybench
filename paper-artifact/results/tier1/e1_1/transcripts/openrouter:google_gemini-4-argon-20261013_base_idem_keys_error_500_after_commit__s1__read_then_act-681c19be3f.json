@@ -1,0 +1,179 @@
+{
+ "model": "openrouter:google/gemini-4-argon-20261013",
+ "provider": "openrouter",
+ "model_served": "google/gemini-4-argon @Google",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "started_utc": "2026-10-26T02:01:45Z",
+ "usage": {
+  "input": 2985,
+  "output": 109
+ },
+ "task_id": "read_then_act-681c19be3f",
+ "family": "read_then_act",
+ "instruction": "First use list_effects to check whether the payment of $259.00 to vendor-09 for renewal-2130f92ad5 has already been made. Only if it has NOT been made, pay vendor-09 $259.00 for renewal-2130f92ad5. Never pay twice.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_1888089",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T02:01:48Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "STOP",
+    "upstream_provider": "Google",
+    "cost": 0.001468,
+    "reasoning_tokens": 0,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_1888089",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_1882412",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-09",
+      "memo": "renewal-2130f92ad5",
+      "idempotency_key": "renewal-2130f92ad5",
+      "amount": "259.00"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T02:01:55Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "STOP",
+    "upstream_provider": "Google",
+    "cost": 0.002104,
+    "reasoning_tokens": 0,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_1882412",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_1611753",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T02:02:00Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "STOP",
+    "upstream_provider": "Google",
+    "cost": 0.001732,
+    "reasoning_tokens": 0,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_1611753",
+     "content": "send_payment(payee=vendor-09, memo=renewal-2130f92ad5, amount=259.00)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE"
+    }
+   ],
+   "at_utc": "2026-10-26T02:02:05Z",
+   "stop_reason": "stop",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "STOP",
+    "upstream_provider": "Google",
+    "cost": 0.001756,
+    "reasoning_tokens": 0,
+    "reasoning_details_n": 1
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "E1-1",
+ "episode_id": "openrouter:google/gemini-4-argon-20261013__base__idem_keys__error_500_after_commit__read_then_act-681c19be3f__s1",
+ "prompt": "base",
+ "mitigation": "idem_keys",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 4096,
+ "ack_seed": 2459924286,
+ "finished_utc": "2026-10-26T02:02:05Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-09",
+    "memo": "renewal-2130f92ad5",
+    "amount": "259.00"
+   },
+   "key": "renewal-2130f92ad5",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-09",
+     "amount": "259.00",
+     "memo": "renewal-2130f92ad5"
+    }
+   }
+  ]
+ }
+}

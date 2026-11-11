@@ -8,6 +8,20 @@ retries — timeouts, transport re-issues, orchestrator re-runs.
 
 📄 Paper: *Exactly Once Across Retries and Restarts: Measuring Duplicate and Stale Side Effects in Tool-Using LLM Agents* (arXiv link coming) · 📊 Metric: **IVR** (Idempotency Violation Rate)
 
+## Paper artifact
+
+[`paper-artifact/`](paper-artifact/) holds what is behind the paper: the code as it was run,
+every result file and per-episode transcript (the July and October 2026 grids, the follow-up
+experiments, the wording runs R2–R5, the Stripe test-mode check R1 and the content-free note
+control), and the scripts that compute the paper's numbers. It was built for anonymous
+review, so identifiers are neutral inside it. Start with
+[`paper-artifact/README.md`](paper-artifact/README.md), which also lists the four files that
+are not in this public copy.
+
+The paper is a measurement study run on this harness. The package, the scripted grid and
+the leaderboard below are the benchmark side of the repository. The leaderboard's intervals
+are episode-level Wilson intervals; the paper reports task-level ones, which are wider.
+
 ## Why
 
 Success-rate metrics (e.g. τ-bench's pass^k) can't see duplication: a run

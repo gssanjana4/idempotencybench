@@ -1,0 +1,255 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:05:13Z",
+ "usage": {
+  "input": 10101,
+  "output": 959
+ },
+ "task_id": "long_chain-f190b1e1f8",
+ "family": "long_chain",
+ "instruction": "Pay vendor-04 $422.00 for order-01c52d4ac3; then email a receipt to sam@example.com with subject 'Receipt: order-01c52d4ac3'; then append an audit entry (content hash 3715287b8f) to /logs/order-l3-007.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01JaCvN4LthdKAmkd77JPnVX",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:05:16Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01JaCvN4LthdKAmkd77JPnVX",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01QPN5y4oYMAHWDEfiPtTUUG",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-04",
+      "amount": "422.00",
+      "memo": "order-01c52d4ac3",
+      "idempotency_key": "pay-order-01c52d4ac3"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:05:19Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01QPN5y4oYMAHWDEfiPtTUUG",
+     "content": "ok-2fa7e4c7"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01WRN9HErvFDGzHa5mh2Fzq5",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Receipt: order-01c52d4ac3",
+      "idempotency_key": "email-receipt-order-01c52d4ac3"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:05:20Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01WRN9HErvFDGzHa5mh2Fzq5",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01AKMrd19FnrCZQyFmhavGhG",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Receipt: order-01c52d4ac3",
+      "idempotency_key": "email-receipt-order-01c52d4ac3"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:05:23Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01AKMrd19FnrCZQyFmhavGhG",
+     "content": "ok-ff1cc92c"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_012EwpttK4cqqhvKMPYyYEjj",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/order-l3-007.log",
+      "content_hash": "3715287b8f",
+      "idempotency_key": "audit-order-01c52d4ac3"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:05:25Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_012EwpttK4cqqhvKMPYyYEjj",
+     "content": "ok-964b6241"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "All three steps completed successfully:\n\n1. Paid vendor-04 $422.00 for order-01c52d4ac3 (confirmation: ok-2fa7e4c7)\n2. Emailed receipt to sam@example.com with subject \"Receipt: order-01c52d4ac3\" (confirmation: ok-ff1cc92c, after a transient server error on the first attempt was retried successfully)\n3. Appended audit entry (hash 3715287b8f) to /logs/order-l3-007.log (confirmation: ok-964b6241)\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:05:27Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-5",
+ "episode_id": "claude-sonnet-5__base__none__error_500_after_commit__long_chain-f190b1e1f8__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 2,
+ "failure_fired": true,
+ "max_turns": 12,
+ "max_tokens": 1024,
+ "ack_seed": 2888206568,
+ "finished_utc": "2026-10-26T07:05:27Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-04",
+    "amount": "422.00",
+    "memo": "order-01c52d4ac3"
+   },
+   "key": "pay-order-01c52d4ac3",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Receipt: order-01c52d4ac3"
+   },
+   "key": "email-receipt-order-01c52d4ac3",
+   "seq": 2
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Receipt: order-01c52d4ac3"
+   },
+   "key": "email-receipt-order-01c52d4ac3",
+   "seq": 3
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/order-l3-007.log",
+    "content_hash": "3715287b8f"
+   },
+   "key": "audit-order-01c52d4ac3",
+   "seq": 4
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-04",
+     "amount": "422.00",
+     "memo": "order-01c52d4ac3"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Receipt: order-01c52d4ac3"
+    }
+   },
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/order-l3-007.log",
+     "content_hash": "3715287b8f"
+    }
+   }
+  ]
+ }
+}

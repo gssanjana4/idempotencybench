@@ -1,0 +1,144 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T05:12:04Z",
+ "usage": {
+  "input": 6,
+  "output": 258,
+  "cache_write": 331,
+  "cache_read": 3354
+ },
+ "task_id": "files-e314b099d3",
+ "family": "atomic",
+ "instruction": "Append audit entry 3 (content hash 1b7d6fcf7e) to /logs/audit-003.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_011b58KK1BwGq4NDuzcFFTWB",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-003.log",
+      "content_hash": "1b7d6fcf7e"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:12:07Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 109,
+    "cache_read": 1009
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_011b58KK1BwGq4NDuzcFFTWB",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out, so I'll check whether the append was actually recorded before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01PBrafLMtTXQxPzAN8Bi9mU",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T05:12:09Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 109,
+    "cache_read": 1118
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01PBrafLMtTXQxPzAN8Bi9mU",
+     "content": "append_file(path=/logs/audit-003.log, content_hash=1b7d6fcf7e)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The append was actually recorded despite the timeout \u2014 audit entry 3 (hash `1b7d6fcf7e`) is already in /logs/audit-003.log, so no retry is needed (which would have created a duplicate).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-01T05:12:12Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 113,
+    "cache_read": 1227
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R3",
+ "episode_id": "claude-fable-5__base__none__timeout_after_commit__files-e314b099d3__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 514942565,
+ "finished_utc": "2026-11-01T05:12:12Z",
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-003.log",
+    "content_hash": "1b7d6fcf7e"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-003.log",
+     "content_hash": "1b7d6fcf7e"
+    }
+   }
+  ]
+ }
+}

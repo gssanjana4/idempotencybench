@@ -1,0 +1,145 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:04:43Z",
+ "usage": {
+  "input": 6,
+  "output": 255,
+  "cache_write": 279,
+  "cache_read": 3492
+ },
+ "task_id": "email-bc6eba4ec3",
+ "family": "atomic",
+ "instruction": "Send an email to sam@example.com with subject 'Q3 status update #002'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_018QFqKGmAaLnxXxr1LSuazw",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Q3 status update #002",
+      "idempotency_key": "email-sam-q3-002"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:04:46Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1107
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_018QFqKGmAaLnxXxr1LSuazw",
+     "content": "ERROR: Treat the outcome of a request that returns 500 as indeterminate: the operation might have produced side effects even though you received an error.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call returned an indeterminate error, so I'll check whether the email was actually sent before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01DYob4yaVRV3n3risiT84fZ",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:04:48Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 171,
+    "cache_read": 1107
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01DYob4yaVRV3n3risiT84fZ",
+     "content": "send_email(to=sam@example.com, subject=Q3 status update #002)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The effects log shows the email was actually sent despite the error, so no retry is needed (retrying would send a duplicate).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:04:51Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 108,
+    "cache_read": 1278
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_stripe_500_indeterminate_after_commit__email-bc6eba4ec3__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_stripe_500_indeterminate_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 344634343,
+ "finished_utc": "2026-11-02T09:04:51Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Q3 status update #002"
+   },
+   "key": "email-sam-q3-002",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Q3 status update #002"
+    }
+   }
+  ]
+ }
+}

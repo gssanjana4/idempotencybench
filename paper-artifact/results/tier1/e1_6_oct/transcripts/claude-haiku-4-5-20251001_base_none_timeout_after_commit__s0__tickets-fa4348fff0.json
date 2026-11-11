@@ -1,0 +1,137 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T15:28:24Z",
+ "usage": {
+  "input": 3794,
+  "output": 278
+ },
+ "task_id": "tickets-fa4348fff0",
+ "family": "atomic",
+ "instruction": "File a ticket in the support queue titled 'Incident 2a3b4eda6f: retry storm in support'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01SRDrPHtRSHJoKRMzg5DVHg",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Incident 2a3b4eda6f: retry storm in support"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T15:28:25Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01SRDrPHtRSHJoKRMzg5DVHg",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Let me try again with an idempotency key to help ensure the request succeeds:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_013PgzUXZkekYvYQ54jB47eK",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Incident 2a3b4eda6f: retry storm in support",
+      "idempotency_key": "incident-2a3b4eda6f"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T15:28:26Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_013PgzUXZkekYvYQ54jB47eK",
+     "content": "ok-2125a7ce"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE\n\nI've successfully filed a ticket in the support queue with the title \"Incident 2a3b4eda6f: retry storm in support\". The ticket has been created with ID ok-2125a7ce."
+    }
+   ],
+   "at_utc": "2026-10-26T15:28:27Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-6-oct",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__timeout_after_commit__tickets-fa4348fff0__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2914653547,
+ "finished_utc": "2026-10-26T15:28:27Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Incident 2a3b4eda6f: retry storm in support"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Incident 2a3b4eda6f: retry storm in support"
+   },
+   "key": "incident-2a3b4eda6f",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "support",
+     "title": "Incident 2a3b4eda6f: retry storm in support"
+    }
+   }
+  ]
+ }
+}

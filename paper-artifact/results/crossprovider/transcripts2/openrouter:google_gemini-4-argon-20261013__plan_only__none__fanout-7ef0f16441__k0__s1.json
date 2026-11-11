@@ -1,0 +1,200 @@
+{
+ "model": "openrouter:google/gemini-4-argon-20261013",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "fanout-7ef0f16441",
+ "topology": "fanout",
+ "interrupt_node": 0,
+ "sample": 1,
+ "instruction": "File a ticket in the billing queue titled 'Rollout c1094d2a3d in billing'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout c1094d2a3d in billing' on the team calendar at 2026-09-01T09:00; 'Check 2: Rollout c1094d2a3d in billing' on the personal calendar at 2026-09-02T09:00; 'Check 3: Rollout c1094d2a3d in billing' on the oncall calendar at 2026-09-03T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1485217",
+       "name": "create_ticket",
+       "input": {
+        "title": "Rollout c1094d2a3d in billing",
+        "queue": "billing",
+        "idempotency_key": "ticket-c1094d2a3d"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:32:24Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 761,
+     "output": 62
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_685575",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-26T00:32:37Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google AI Studio",
+      "reasoning_tokens": 18,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_685575",
+       "content": "create_ticket(title=Rollout c1094d2a3d in billing, queue=billing)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1087907",
+       "name": "create_event",
+       "input": {
+        "title": "Check 1: Rollout c1094d2a3d in billing",
+        "calendar_id": "team",
+        "start": "2026-09-01T09:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_1087919",
+       "name": "create_event",
+       "input": {
+        "start": "2026-09-02T09:00",
+        "title": "Check 2: Rollout c1094d2a3d in billing",
+        "calendar_id": "personal"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_1087925",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "start": "2026-09-03T09:00",
+        "title": "Check 3: Rollout c1094d2a3d in billing"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:32:43Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google AI Studio",
+      "reasoning_tokens": 30,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1087907",
+       "content": "ok-3c8a6f37"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1087919",
+       "content": "ok-5e84ea20"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1087925",
+       "content": "ok-6934b2e9"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-10-26T00:32:46Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google AI Studio",
+      "reasoning_tokens": 6,
+      "reasoning_details_n": 1
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google AI Studio",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 2862,
+     "output": 272
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-26T00:32:17Z",
+ "provider": "openrouter",
+ "model_served": "google/gemini-4-argon @Google",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

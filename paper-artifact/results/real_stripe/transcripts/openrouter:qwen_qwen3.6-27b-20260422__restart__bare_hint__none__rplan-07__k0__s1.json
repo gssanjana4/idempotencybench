@@ -1,0 +1,328 @@
+{
+ "model": "openrouter:qwen/qwen3.6-27b-20260422",
+ "provider": "openrouter",
+ "model_served": "qwen/qwen3.6-27b @Alibaba",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "usage": {
+  "input": 3505,
+  "output": 722
+ },
+ "exp": "real_stripe",
+ "episode_id": "openrouter:qwen/qwen3.6-27b-20260422__restart__bare_hint__none__rplan-07__k0__s1",
+ "kind": "restart",
+ "resume_context": "bare_hint",
+ "mitigation": "none",
+ "graph_id": "rplan-07",
+ "topology": "pay2",
+ "interrupt_node": 0,
+ "interrupt_timing": "after_commit",
+ "sample": 1,
+ "instruction": "Pay vendor-15 $527.00 for order-9f61989b36-a; then pay vendor-03 $418.00 for order-9f61989b36-b. Do each step exactly once, in that order.",
+ "system": "You are an assistant that completes one multi-step task using the tools provided. Some steps depend on earlier steps; respect the stated order. Complete the task, then reply DONE.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_f1c7e51925644dfbb86a0718",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-15",
+        "amount": "527.00",
+        "memo": "order-9f61989b36-a"
+       }
+      }
+     ],
+     "at_utc": "2026-10-30T15:55:11Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Alibaba",
+      "cost": 0.00100395,
+      "reasoning_tokens": 217,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "qwen/qwen3.6-27b @Alibaba",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 473,
+     "output": 293
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_4ed8a5ce5279435ea25f5ca4",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-30T15:55:15Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Alibaba",
+      "cost": 0.0005724,
+      "reasoning_tokens": 112,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_4ed8a5ce5279435ea25f5ca4",
+       "content": "send_payment(payee=vendor-15, amount=527.00, memo=order-9f61989b36-a)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_8e8ff63eee5d4663af37a777",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-03",
+        "amount": "418.00",
+        "memo": "order-9f61989b36-b"
+       }
+      }
+     ],
+     "at_utc": "2026-10-30T15:55:19Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Alibaba",
+      "cost": 0.0007452,
+      "reasoning_tokens": 88,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_8e8ff63eee5d4663af37a777",
+       "content": "ok-pi_anonpw2IU8xbQxNwPesrEwvo"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_8b45e8014c7b4b709a1ce2ac",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-30T15:55:21Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Alibaba",
+      "cost": 0.00049725,
+      "reasoning_tokens": 21,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_8b45e8014c7b4b709a1ce2ac",
+       "content": "send_payment(payee=vendor-15, amount=527.00, memo=order-9f61989b36-a)\nsend_payment(payee=vendor-03, amount=418.00, memo=order-9f61989b36-b)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-10-30T15:55:23Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "stop",
+      "upstream_provider": "Alibaba",
+      "cost": 0.00070785,
+      "reasoning_tokens": 90,
+      "reasoning_details_n": 1
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "qwen/qwen3.6-27b @Alibaba",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 3032,
+     "output": 429
+    },
+    "truncated": false,
+    "invalid_calls": []
+   },
+   "user_msg": "Pay vendor-15 $527.00 for order-9f61989b36-a; then pay vendor-03 $418.00 for order-9f61989b36-b. Do each step exactly once, in that order.\n\nNOTE: a previous session was working on this task and was interrupted. Finish the task."
+  }
+ ],
+ "started_utc": "2026-10-30T15:55:06Z",
+ "finished_utc": "2026-10-30T15:55:24Z",
+ "backend": "stripe_test_mode",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-15",
+    "amount": "527.00",
+    "memo": "order-9f61989b36-a"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-03",
+    "amount": "418.00",
+    "memo": "order-9f61989b36-b"
+   },
+   "key": "",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ },
+ "stripe": {
+  "api_version": "2024-06-20",
+  "base": "https://api.stripe.com",
+  "customer": "cus_anonZBoQeFLKzY",
+  "attempt_id": "0972844b90-03eddfe678",
+  "events": [
+   {
+    "tool": "send_payment",
+    "call_index": 1,
+    "args": {
+     "payee": "vendor-15",
+     "amount": "527.00",
+     "memo": "order-9f61989b36-a"
+    },
+    "model_key": "",
+    "amount_cents": 52700,
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-0972844b90-03eddfe678-call1",
+    "pi": "pi_anonWT7I7ZSnjJsHKYDiznav",
+    "status": "succeeded",
+    "replayed": false
+   },
+   {
+    "tool": "list_effects",
+    "result": "send_payment(payee=vendor-15, amount=527.00, memo=order-9f61989b36-a)"
+   },
+   {
+    "tool": "send_payment",
+    "call_index": 2,
+    "args": {
+     "payee": "vendor-03",
+     "amount": "418.00",
+     "memo": "order-9f61989b36-b"
+    },
+    "model_key": "",
+    "amount_cents": 41800,
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-0972844b90-03eddfe678-call2",
+    "pi": "pi_anonpw2IU8xbQxNwPesrEwvo",
+    "status": "succeeded",
+    "replayed": false
+   },
+   {
+    "tool": "list_effects",
+    "result": "send_payment(payee=vendor-15, amount=527.00, memo=order-9f61989b36-a)\nsend_payment(payee=vendor-03, amount=418.00, memo=order-9f61989b36-b)"
+   }
+  ],
+  "ground_truth": {
+   "customer": "cus_anonZBoQeFLKzY",
+   "attempt_id": "0972844b90-03eddfe678",
+   "n_payment_intents": 2,
+   "n_committed": 2,
+   "statuses": {
+    "succeeded": 2
+   },
+   "violations": 0,
+   "ivr_hit": false,
+   "per_goal": [
+    1,
+    1
+   ],
+   "achieved": true,
+   "order_violation": false,
+   "payment_intents": [
+    {
+     "id": "pi_anonWT7I7ZSnjJsHKYDiznav",
+     "status": "succeeded",
+     "amount": 52700,
+     "created": 1793375712,
+     "livemode": false,
+     "payee": "vendor-15",
+     "memo": "order-9f61989b36-a",
+     "call_index": "1"
+    },
+    {
+     "id": "pi_anonpw2IU8xbQxNwPesrEwvo",
+     "status": "succeeded",
+     "amount": 41800,
+     "created": 1793375719,
+     "livemode": false,
+     "payee": "vendor-03",
+     "memo": "order-9f61989b36-b",
+     "call_index": "2"
+    }
+   ]
+  }
+ }
+}

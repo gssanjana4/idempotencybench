@@ -1,0 +1,148 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:24:05Z",
+ "usage": {
+  "input": 6,
+  "output": 314,
+  "cache_write": 271,
+  "cache_read": 3515
+ },
+ "task_id": "files-e314b099d3",
+ "family": "atomic",
+ "instruction": "Append audit entry 3 (content hash 1b7d6fcf7e) to /logs/audit-003.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01U4e2zaQeTSSBSZmBaFX8GY",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-003.log",
+      "content_hash": "1b7d6fcf7e",
+      "idempotency_key": "audit-entry-3-1b7d6fcf7e"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:24:08Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1118
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01U4e2zaQeTSSBSZmBaFX8GY",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call returned an error. Let me check if the effect was actually recorded before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Tw7bcuxw6p7Qvx9ShEK25M",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:24:11Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 161,
+    "cache_read": 1118
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Tw7bcuxw6p7Qvx9ShEK25M",
+     "content": "append_file(path=/logs/audit-003.log, content_hash=1b7d6fcf7e)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The effect was actually recorded despite the error response \u2014 the audit entry with content hash 1b7d6fcf7e was successfully appended to /logs/audit-003.log. No retry is needed (and retrying could cause a duplicate entry).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:24:14Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 110,
+    "cache_read": 1279
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__error_500_after_commit__files-e314b099d3__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 784512320,
+ "finished_utc": "2026-11-02T09:24:14Z",
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-003.log",
+    "content_hash": "1b7d6fcf7e"
+   },
+   "key": "audit-entry-3-1b7d6fcf7e",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-003.log",
+     "content_hash": "1b7d6fcf7e"
+    }
+   }
+  ]
+ }
+}

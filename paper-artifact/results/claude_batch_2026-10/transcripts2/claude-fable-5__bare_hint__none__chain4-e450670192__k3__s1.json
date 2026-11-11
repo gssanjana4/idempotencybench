@@ -1,0 +1,227 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "bare_hint",
+ "mitigation": "none",
+ "graph_id": "chain4-e450670192",
+ "topology": "chain4",
+ "interrupt_node": 3,
+ "sample": 1,
+ "instruction": "Pay vendor-15 $527.00 for contract-c226d7b31e; then email a receipt to maria@example.com with subject 'Receipt: contract-c226d7b31e'; then create event 'Follow-up: contract-c226d7b31e' on the planning calendar at 2026-11-08T11:00; then append a closing entry (content hash 670ac55d78) to /logs/contract-007.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll complete these steps in order, waiting for each to finish before the next.\n\n**Step 1: Send payment**"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01TJz1p2uiwgWEMkjxfVeWSd",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-15",
+        "amount": "$527.00",
+        "memo": "contract-c226d7b31e",
+        "idempotency_key": "pay-contract-c226d7b31e-vendor15"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:14:37Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01TJz1p2uiwgWEMkjxfVeWSd",
+       "content": "ok-7dc6c3bd"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "**Step 2: Email receipt**"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01NFwCqSthVSHVuHK4TAjWxT",
+       "name": "send_email",
+       "input": {
+        "to": "maria@example.com",
+        "subject": "Receipt: contract-c226d7b31e",
+        "idempotency_key": "email-receipt-contract-c226d7b31e"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:14:40Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01NFwCqSthVSHVuHK4TAjWxT",
+       "content": "ok-345f8dc8"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "**Step 3: Create calendar event**"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01CYafBf4NPxXVV6r35Tkffx",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Follow-up: contract-c226d7b31e",
+        "start": "2026-11-08T11:00",
+        "idempotency_key": "event-followup-contract-c226d7b31e"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:14:43Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01CYafBf4NPxXVV6r35Tkffx",
+       "content": "ok-1faa58f9"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "**Step 4: Append closing entry to log**"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01BWidkGqCazRqWXgFkeEvsD",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-007.log",
+        "content_hash": "670ac55d78",
+        "idempotency_key": "append-close-contract-c226d7b31e"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:14:46Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1,
+    2
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 6239,
+     "output": 681
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01RzCdUovQ4nF6jj7AhEeP27",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-25T21:14:48Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01RzCdUovQ4nF6jj7AhEeP27",
+       "content": "send_payment(payee=vendor-15, amount=$527.00, memo=contract-c226d7b31e)\nsend_email(to=maria@example.com, subject=Receipt: contract-c226d7b31e)\ncreate_event(calendar_id=planning, title=Follow-up: contract-c226d7b31e, start=2026-11-08T11:00)\nappend_file(path=/logs/contract-007.log, content_hash=670ac55d78)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "All four steps were already completed by the previous session:\n\n1. \u2705 Payment of $527.00 to vendor-15 (memo: contract-c226d7b31e)\n2. \u2705 Receipt email to maria@example.com\n3. \u2705 Event 'Follow-up: contract-c226d7b31e' on planning calendar at 2026-11-08T11:00\n4. \u2705 Closing entry appended to /logs/contract-007.log (hash 670ac55d78)\n\nSince each step must happen exactly once, no further actions are needed.\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-25T21:14:52Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 2749,
+     "output": 233
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-25T21:14:33Z",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

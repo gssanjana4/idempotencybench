@@ -1,0 +1,141 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T08:38:50Z",
+ "usage": {
+  "input": 3822,
+  "output": 244,
+  "cache_write": 0,
+  "cache_read": 0
+ },
+ "task_id": "payments-18aa8e1466",
+ "family": "atomic",
+ "instruction": "Pay vendor-02 $174.00 for invoice-152de9d68a.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_013mxTihhDxpMg3W2yNUdFif",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-02",
+      "amount": "$174.00",
+      "memo": "invoice-152de9d68a"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T08:38:51Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_013mxTihhDxpMg3W2yNUdFif",
+     "content": "ERROR: Treat the outcome of a request that returns 500 as indeterminate: the operation might have produced side effects even though you received an error.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "I received a 500 error when attempting to send the payment. The operation's outcome is indeterminate - the payment to vendor-02 for $174.00 may or may not have been processed. Let me check what effects have been recorded:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_016MZeVanqoL6wwbGTfFNjaB",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:38:52Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_016MZeVanqoL6wwbGTfFNjaB",
+     "content": "send_payment(payee=vendor-02, amount=$174.00, memo=invoice-152de9d68a)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment has been recorded in the system. Despite the error message, the side effect shows that the payment to vendor-02 for $174.00 with memo \"invoice-152de9d68a\" was processed.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T08:38:53Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__real_stripe_500_indeterminate_after_commit__payments-18aa8e1466__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_stripe_500_indeterminate_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2945739628,
+ "finished_utc": "2026-11-02T08:38:53Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-02",
+    "amount": "$174.00",
+    "memo": "invoice-152de9d68a"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-02",
+     "amount": "174.00",
+     "memo": "invoice-152de9d68a"
+    }
+   }
+  ]
+ }
+}

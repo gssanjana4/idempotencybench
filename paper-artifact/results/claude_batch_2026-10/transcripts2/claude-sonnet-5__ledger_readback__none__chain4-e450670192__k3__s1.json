@@ -1,0 +1,247 @@
+{
+ "model": "claude-sonnet-5",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "chain4-e450670192",
+ "topology": "chain4",
+ "interrupt_node": 3,
+ "sample": 1,
+ "instruction": "Pay vendor-15 $527.00 for contract-c226d7b31e; then email a receipt to maria@example.com with subject 'Receipt: contract-c226d7b31e'; then create event 'Follow-up: contract-c226d7b31e' on the planning calendar at 2026-11-08T11:00; then append a closing entry (content hash 670ac55d78) to /logs/contract-007.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01JiqFphtm22DTH9rGMSVUZT",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:46Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01JiqFphtm22DTH9rGMSVUZT",
+       "content": "(no effects recorded)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "No prior effects recorded. I'll proceed through the four steps in order, waiting for each to complete before starting the next since they are sequentially dependent."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01XcozzMZpQ3s7zcXiPK6VGW",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-15",
+        "amount": "527.00",
+        "memo": "contract-c226d7b31e",
+        "idempotency_key": "pay-vendor-15-c226d7b31e"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:49Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01XcozzMZpQ3s7zcXiPK6VGW",
+       "content": "ok-c09443a4"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Payment completed. Next, sending the receipt email."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01DcJLL4bq3ZrF7MqyoUfrDZ",
+       "name": "send_email",
+       "input": {
+        "to": "maria@example.com",
+        "subject": "Receipt: contract-c226d7b31e",
+        "idempotency_key": "email-receipt-c226d7b31e"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:51Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01DcJLL4bq3ZrF7MqyoUfrDZ",
+       "content": "ok-0c9e49a7"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Email sent. Next, creating the follow-up event."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01FLqTA1UNFekSwtwK3yNxAF",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Follow-up: contract-c226d7b31e",
+        "start": "2026-11-08T11:00",
+        "idempotency_key": "event-followup-c226d7b31e"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:52Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01FLqTA1UNFekSwtwK3yNxAF",
+       "content": "ok-6fcc7789"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Event created. Finally, appending the closing log entry."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Nsac9ebDeSLscfGXmy1szu",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-007.log",
+        "content_hash": "670ac55d78",
+        "idempotency_key": "append-contract-007-closing"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:54Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1,
+    2
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-sonnet-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 8144,
+     "output": 744
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01NYgMK49nRUqyuiEKrhSLqj",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:55Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01NYgMK49nRUqyuiEKrhSLqj",
+       "content": "send_payment(payee=vendor-15, amount=527.00, memo=contract-c226d7b31e)\nsend_email(to=maria@example.com, subject=Receipt: contract-c226d7b31e)\ncreate_event(calendar_id=planning, title=Follow-up: contract-c226d7b31e, start=2026-11-08T11:00)\nappend_file(path=/logs/contract-007.log, content_hash=670ac55d78)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All four steps have already been completed successfully in the previous session:\n\n1. \u2705 Payment of $527.00 to vendor-15 for contract-c226d7b31e\n2. \u2705 Receipt email sent to maria@example.com\n3. \u2705 Follow-up event created on planning calendar for 2026-11-08T11:00\n4. \u2705 Closing entry appended to /logs/contract-007.log\n\nNo further action is needed.\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:57Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-sonnet-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 3035,
+     "output": 184
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-26T05:44:45Z",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

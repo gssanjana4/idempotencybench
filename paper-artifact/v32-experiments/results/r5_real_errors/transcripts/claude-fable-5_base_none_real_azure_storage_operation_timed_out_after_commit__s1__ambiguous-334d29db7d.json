@@ -1,0 +1,183 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:01:39Z",
+ "usage": {
+  "input": 8,
+  "output": 419,
+  "cache_write": 581,
+  "cache_read": 4856
+ },
+ "task_id": "ambiguous-334d29db7d",
+ "family": "ambiguous",
+ "instruction": "Make sure sam (reachable at sam@example.com) receives this week's metrics digest \u2014 the one titled Weekly metrics digest fbb5e6be26. One copy is enough.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "First, let me check if this digest was already sent."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_012j8T8N1jpqxHfjk4QfQvfv",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:01:42Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 130,
+    "cache_read": 1009
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_012j8T8N1jpqxHfjk4QfQvfv",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No copy has been sent yet, so I'll send it now with an idempotency key to guarantee only one copy goes out."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Py3EDqPzg1poGXcA4hGYCB",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Weekly metrics digest fbb5e6be26",
+      "idempotency_key": "weekly-digest-fbb5e6be26-sam"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:01:45Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 89,
+    "cache_read": 1139
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Py3EDqPzg1poGXcA4hGYCB",
+     "content": "ERROR: The operation could not be completed within the permitted time. The operation may or may not have succeeded on the server side. Please query the server state before retrying the operation.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call timed out ambiguously. Let me check the server state before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01H6NNCzhun52y2BdVDLSLDe",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:01:48Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 252,
+    "cache_read": 1228
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01H6NNCzhun52y2BdVDLSLDe",
+     "content": "send_email(to=sam@example.com, subject=Weekly metrics digest fbb5e6be26)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email was actually sent successfully despite the timeout error \u2014 the server state confirms sam@example.com received exactly one copy of \"Weekly metrics digest fbb5e6be26\". No retry is needed, which avoids sending a duplicate.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:01:50Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 110,
+    "cache_read": 1480
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_azure_storage_operation_timed_out_after_commit__ambiguous-334d29db7d__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_azure_storage_operation_timed_out_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2229477986,
+ "finished_utc": "2026-11-02T09:01:50Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Weekly metrics digest fbb5e6be26"
+   },
+   "key": "weekly-digest-fbb5e6be26-sam",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Weekly metrics digest fbb5e6be26"
+    }
+   }
+  ]
+ }
+}

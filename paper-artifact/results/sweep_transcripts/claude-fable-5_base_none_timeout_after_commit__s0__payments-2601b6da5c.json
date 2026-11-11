@@ -1,0 +1,107 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "payments-2601b6da5c",
+ "family": "atomic",
+ "instruction": "Pay vendor-01 $137.00 for invoice-33482b206f.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01PAtbTMxLERKPcz44zEtggb",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-01",
+      "amount": "$137.00",
+      "memo": "invoice-33482b206f",
+      "idempotency_key": "pay-vendor-01-invoice-33482b206f"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01PAtbTMxLERKPcz44zEtggb",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out, which means the payment may or may not have been recorded. Let me check the recorded side effects before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01BnuoYhPD2TEfZdPjiRCafX",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BnuoYhPD2TEfZdPjiRCafX",
+     "content": "send_payment(payee=vendor-01, amount=$137.00, memo=invoice-33482b206f)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The payment was actually recorded despite the timeout \u2014 vendor-01 has been paid $137.00 for invoice-33482b206f. No retry is needed, which avoids a duplicate payment.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-01",
+    "amount": "$137.00",
+    "memo": "invoice-33482b206f"
+   },
+   "key": "pay-vendor-01-invoice-33482b206f",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-01",
+     "amount": "137.00",
+     "memo": "invoice-33482b206f"
+    }
+   }
+  ]
+ }
+}

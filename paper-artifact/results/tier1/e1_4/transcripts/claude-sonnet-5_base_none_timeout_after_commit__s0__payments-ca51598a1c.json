@@ -1,0 +1,130 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:18:39Z",
+ "usage": {
+  "input": 4290,
+  "output": 419
+ },
+ "task_id": "payments-ca51598a1c",
+ "family": "atomic",
+ "instruction": "Pay vendor-06 $322.00 for invoice-e1b759eca9.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_017KMQ6Cop6DYFtuWzGknWbm",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-06",
+      "amount": "322.00",
+      "memo": "invoice-e1b759eca9",
+      "idempotency_key": "pay-vendor-06-invoice-e1b759eca9"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:18:42Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_017KMQ6Cop6DYFtuWzGknWbm",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Phws24V2dMoLYYn6gfp9aZ",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:18:43Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Phws24V2dMoLYYn6gfp9aZ",
+     "content": "send_payment(payee=vendor-06, amount=322.00, memo=invoice-e1b759eca9)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment was already recorded successfully despite the timeout error, so I won't resubmit it.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:18:45Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-4",
+ "episode_id": "claude-sonnet-5__base__none__timeout_after_commit__payments-ca51598a1c__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 568277572,
+ "finished_utc": "2026-10-26T07:18:45Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-06",
+    "amount": "322.00",
+    "memo": "invoice-e1b759eca9"
+   },
+   "key": "pay-vendor-06-invoice-e1b759eca9",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-06",
+     "amount": "322.00",
+     "memo": "invoice-e1b759eca9"
+    }
+   }
+  ]
+ }
+}

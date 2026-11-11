@@ -1,0 +1,203 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:00:38Z",
+ "usage": {
+  "input": 8,
+  "output": 573,
+  "cache_write": 717,
+  "cache_read": 5149
+ },
+ "task_id": "multi_step-2077485cf2",
+ "family": "multi_step",
+ "instruction": "File a ticket in the billing queue titled 'Escalation 2005b96f51 in billing', then send an email to alex@example.com with subject 'Filed: Escalation 2005b96f51 in billing' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "I'll file the ticket first, then send the confirmation email once it's filed."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_017RkYevRJKngnW7Y56wg6iF",
+     "name": "create_ticket",
+     "input": {
+      "queue": "billing",
+      "title": "Escalation 2005b96f51 in billing",
+      "idempotency_key": "ticket-2005b96f51-billing"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:00:42Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 150,
+    "cache_read": 1009
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_017RkYevRJKngnW7Y56wg6iF",
+     "content": "ERROR: The operation could not be completed within the permitted time. The operation may or may not have succeeded on the server side. Please query the server state before retrying the operation.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket creation timed out ambiguously. Let me check the server state before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01WVUw3qYY6PrBBKDEAxwvrn",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:00:44Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 283,
+    "cache_read": 1159
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01WVUw3qYY6PrBBKDEAxwvrn",
+     "content": "create_ticket(queue=billing, title=Escalation 2005b96f51 in billing)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket was successfully created despite the timeout. Now I'll send the confirmation email."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01RfFVrXgAJrTmpibHNgHr5d",
+     "name": "send_email",
+     "input": {
+      "to": "alex@example.com",
+      "subject": "Filed: Escalation 2005b96f51 in billing",
+      "idempotency_key": "email-2005b96f51-confirmation"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:00:47Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 97,
+    "cache_read": 1442
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01RfFVrXgAJrTmpibHNgHr5d",
+     "content": "ok-28726aa8"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Both steps are complete:\n1. Ticket \"Escalation 2005b96f51 in billing\" was filed in the billing queue (verified via server state after an ambiguous timeout \u2014 no duplicate retry needed).\n2. Confirmation email sent to alex@example.com with subject \"Filed: Escalation 2005b96f51 in billing\".\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:00:50Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 187,
+    "cache_read": 1539
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_azure_storage_operation_timed_out_after_commit__multi_step-2077485cf2__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_azure_storage_operation_timed_out_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2083786296,
+ "finished_utc": "2026-11-02T09:00:50Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "billing",
+    "title": "Escalation 2005b96f51 in billing"
+   },
+   "key": "ticket-2005b96f51-billing",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "alex@example.com",
+    "subject": "Filed: Escalation 2005b96f51 in billing"
+   },
+   "key": "email-2005b96f51-confirmation",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "billing",
+     "title": "Escalation 2005b96f51 in billing"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "alex@example.com",
+     "subject": "Filed: Escalation 2005b96f51 in billing"
+    }
+   }
+  ]
+ }
+}

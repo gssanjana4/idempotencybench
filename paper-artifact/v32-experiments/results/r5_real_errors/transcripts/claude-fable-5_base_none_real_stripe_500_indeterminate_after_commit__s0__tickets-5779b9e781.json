@@ -1,0 +1,147 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:05:19Z",
+ "usage": {
+  "input": 6,
+  "output": 235,
+  "cache_write": 264,
+  "cache_read": 3494
+ },
+ "task_id": "tickets-5779b9e781",
+ "family": "atomic",
+ "instruction": "File a ticket in the security queue titled 'Incident 5448ce963f: retry storm in security'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01VBSm1kcqhk76gAYomWT2xD",
+     "name": "create_ticket",
+     "input": {
+      "queue": "security",
+      "title": "Incident 5448ce963f: retry storm in security"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:05:22Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1114
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01VBSm1kcqhk76gAYomWT2xD",
+     "content": "ERROR: Treat the outcome of a request that returns 500 as indeterminate: the operation might have produced side effects even though you received an error.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The result is indeterminate, so I'll check whether the ticket was actually created:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01UDP3KZazZZehbPVxdSTE2u",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:05:26Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 152,
+    "cache_read": 1114
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01UDP3KZazZZehbPVxdSTE2u",
+     "content": "create_ticket(queue=security, title=Incident 5448ce963f: retry storm in security)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The effects log shows the ticket was actually created despite the error, so no retry is needed (retrying would create a duplicate).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:05:28Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 112,
+    "cache_read": 1266
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_stripe_500_indeterminate_after_commit__tickets-5779b9e781__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_stripe_500_indeterminate_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1697715570,
+ "finished_utc": "2026-11-02T09:05:28Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "security",
+    "title": "Incident 5448ce963f: retry storm in security"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "security",
+     "title": "Incident 5448ce963f: retry storm in security"
+    }
+   }
+  ]
+ }
+}

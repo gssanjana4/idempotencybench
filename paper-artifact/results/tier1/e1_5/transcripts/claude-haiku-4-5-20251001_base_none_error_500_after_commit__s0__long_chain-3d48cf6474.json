@@ -1,0 +1,197 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T06:56:18Z",
+ "usage": {
+  "input": 2900,
+  "output": 564
+ },
+ "task_id": "long_chain-3d48cf6474",
+ "family": "long_chain",
+ "instruction": "Pay vendor-09 $171.00 for order-52128032c0; then email a receipt to maria@example.com with subject 'Receipt: order-52128032c0'; then create event 'Review: order-52128032c0' on the planning calendar at 2026-12-02T15:00; then append an audit entry (content hash 9792874131) to /logs/order-l4-001.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "I'll complete all four tasks for you. Let me execute them in the proper order:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01FW6HV3vuKhYbA2SqPkoViZ",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-09",
+      "amount": "$171.00",
+      "memo": "order-52128032c0"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Kd7FPUHk2xpgna3JYr6uXc",
+     "name": "send_email",
+     "input": {
+      "to": "maria@example.com",
+      "subject": "Receipt: order-52128032c0"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01N51mruDN7HmGZj2uHdUUUT",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "planning",
+      "title": "Review: order-52128032c0",
+      "start": "2026-12-02T15:00"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01RJzoH3M6UFwXhB1RBe2y7m",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/order-l4-001.log",
+      "content_hash": "9792874131"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:56:21Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01FW6HV3vuKhYbA2SqPkoViZ",
+     "content": "ok-9a0240c3"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Kd7FPUHk2xpgna3JYr6uXc",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01N51mruDN7HmGZj2uHdUUUT",
+     "content": "ok-acc995a3"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01RJzoH3M6UFwXhB1RBe2y7m",
+     "content": "ok-470cb71f"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "I've completed most of the tasks, but encountered an error with one:\n\n\u2705 **Payment sent**: $171.00 to vendor-09 for order-52128032c0 (confirmation: ok-9a0240c3)\n\u274c **Email failed**: An internal server error occurred while trying to send the receipt email to maria@example.com\n\u2705 **Event created**: \"Review: order-52128032c0\" scheduled on the planning calendar for 2026-12-02T15:00 (confirmation: ok-acc995a3)\n\u2705 **Log entry appended**: Audit entry (content hash 9792874131) added to /logs/order-l4-001.log (confirmation: ok-470cb71f)\n\nThe email could not be sent due to a server error. You may want to retry sending the receipt email to maria@example.com with the subject \"Receipt: order-52128032c0\" when the service is back online."
+    }
+   ],
+   "at_utc": "2026-10-26T06:56:23Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-5",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__error_500_after_commit__long_chain-3d48cf6474__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 2,
+ "failure_fired": true,
+ "max_turns": 12,
+ "max_tokens": 1024,
+ "ack_seed": 3876519816,
+ "finished_utc": "2026-10-26T06:56:23Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-09",
+    "amount": "$171.00",
+    "memo": "order-52128032c0"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "maria@example.com",
+    "subject": "Receipt: order-52128032c0"
+   },
+   "key": "",
+   "seq": 2
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "planning",
+    "title": "Review: order-52128032c0",
+    "start": "2026-12-02T15:00"
+   },
+   "key": "",
+   "seq": 3
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/order-l4-001.log",
+    "content_hash": "9792874131"
+   },
+   "key": "",
+   "seq": 4
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-09",
+     "amount": "171.00",
+     "memo": "order-52128032c0"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "maria@example.com",
+     "subject": "Receipt: order-52128032c0"
+    }
+   },
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "planning",
+     "title": "Review: order-52128032c0",
+     "start": "2026-12-02T15:00"
+    }
+   },
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/order-l4-001.log",
+     "content_hash": "9792874131"
+    }
+   }
+  ]
+ }
+}

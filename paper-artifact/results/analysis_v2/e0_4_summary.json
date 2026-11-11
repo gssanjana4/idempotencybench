@@ -1,0 +1,166 @@
+{
+ "code_evidence": {
+  "sweep_launch_calls_run_model_episode_once": true,
+  "sweep_mentions_retry_mode": false,
+  "model_agent_MAX_TURNS": 8,
+  "model_agent_mentions_retry_mode": false
+ },
+ "retry_mode": [
+  {
+   "model": "claude-fable-5",
+   "n_episodes": 576,
+   "retry_mode_inferred": "agent_retry (model-driven, single delivery)",
+   "whole_run_would_trigger": 2,
+   "whole_run_trigger_rate": 0.0035,
+   "whole_run_trigger_in_failure_cells": 2,
+   "episodes_at_turn_cap": 0,
+   "max_assistant_turns": 6,
+   "base_episodes": 384,
+   "base_readback_episodes": 279,
+   "base_readback_rate": 0.7266,
+   "extra_deliveries_in_transcripts": 0,
+   "non_done_cells": "[\"base/none/error_500_after_commit\"]"
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "n_episodes": 576,
+   "retry_mode_inferred": "agent_retry (model-driven, single delivery)",
+   "whole_run_would_trigger": 20,
+   "whole_run_trigger_rate": 0.0347,
+   "whole_run_trigger_in_failure_cells": 20,
+   "episodes_at_turn_cap": 0,
+   "max_assistant_turns": 5,
+   "base_episodes": 384,
+   "base_readback_episodes": 48,
+   "base_readback_rate": 0.125,
+   "extra_deliveries_in_transcripts": 0,
+   "non_done_cells": "[\"base/none/error_500_after_commit\"]"
+  },
+  {
+   "model": "claude-sonnet-5",
+   "n_episodes": 576,
+   "retry_mode_inferred": "agent_retry (model-driven, single delivery)",
+   "whole_run_would_trigger": 0,
+   "whole_run_trigger_rate": 0.0,
+   "whole_run_trigger_in_failure_cells": 0,
+   "episodes_at_turn_cap": 0,
+   "max_assistant_turns": 6,
+   "base_episodes": 384,
+   "base_readback_episodes": 357,
+   "base_readback_rate": 0.9297,
+   "extra_deliveries_in_transcripts": 0,
+   "non_done_cells": "[]"
+  }
+ ],
+ "alo_counterfactual": [
+  {
+   "model": "claude-fable-5",
+   "mitigation": "none",
+   "tasks": 32,
+   "valid_pairs": 24,
+   "invalid_pairs": 8,
+   "ivr_lower": 24,
+   "ivr_upper": 32,
+   "bounds": "[24, 32]/32",
+   "ivr_on_valid": 1.0,
+   "label": "counterfactual"
+  },
+  {
+   "model": "claude-fable-5",
+   "mitigation": "idem_keys",
+   "tasks": 32,
+   "valid_pairs": 24,
+   "invalid_pairs": 8,
+   "ivr_lower": 15,
+   "ivr_upper": 23,
+   "bounds": "[15, 23]/32",
+   "ivr_on_valid": 0.625,
+   "label": "counterfactual"
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "mitigation": "none",
+   "tasks": 32,
+   "valid_pairs": 28,
+   "invalid_pairs": 4,
+   "ivr_lower": 28,
+   "ivr_upper": 32,
+   "bounds": "[28, 32]/32",
+   "ivr_on_valid": 1.0,
+   "label": "counterfactual"
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "mitigation": "idem_keys",
+   "tasks": 32,
+   "valid_pairs": 28,
+   "invalid_pairs": 4,
+   "ivr_lower": 28,
+   "ivr_upper": 32,
+   "bounds": "[28, 32]/32",
+   "ivr_on_valid": 1.0,
+   "label": "counterfactual"
+  },
+  {
+   "model": "claude-sonnet-5",
+   "mitigation": "none",
+   "tasks": 32,
+   "valid_pairs": 7,
+   "invalid_pairs": 25,
+   "ivr_lower": 7,
+   "ivr_upper": 32,
+   "bounds": "[7, 32]/32",
+   "ivr_on_valid": 1.0,
+   "label": "counterfactual"
+  },
+  {
+   "model": "claude-sonnet-5",
+   "mitigation": "idem_keys",
+   "tasks": 32,
+   "valid_pairs": 7,
+   "invalid_pairs": 25,
+   "ivr_lower": 7,
+   "ivr_upper": 32,
+   "bounds": "[7, 32]/32",
+   "ivr_on_valid": 1.0,
+   "label": "counterfactual"
+  }
+ ],
+ "keys500_counterfactual": [
+  {
+   "model": "claude-fable-5",
+   "n": 64,
+   "ivr_none_replay": 37,
+   "ivr_idem_keys_replay_all": 16,
+   "valid": 58,
+   "ivr_idem_keys_replay_valid": 16,
+   "ivr_idem_keys_upper": 22,
+   "label": "counterfactual"
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "n": 64,
+   "ivr_none_replay": 44,
+   "ivr_idem_keys_replay_all": 44,
+   "valid": 64,
+   "ivr_idem_keys_replay_valid": 44,
+   "ivr_idem_keys_upper": 44,
+   "label": "counterfactual"
+  },
+  {
+   "model": "claude-sonnet-5",
+   "n": 64,
+   "ivr_none_replay": 41,
+   "ivr_idem_keys_replay_all": 15,
+   "valid": 62,
+   "ivr_idem_keys_replay_valid": 15,
+   "ivr_idem_keys_upper": 17,
+   "label": "counterfactual"
+  }
+ ],
+ "notes": [
+  "All real-model runs: agent_retry semantics (model decides inside one conversation); no orchestrator re-run and no redelivery exists in src/sweep.py or the transcripts.",
+  "whole_run trigger = last assistant text lacks 'DONE' (spec definition; a text heuristic, not an orchestrator signal).",
+  "ALO/keys-500 rows are counterfactual replays: estimates for E1-2/E1-3, never results."
+ ]
+}

@@ -1,0 +1,142 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T06:42:52Z",
+ "usage": {
+  "input": 3788,
+  "output": 277
+ },
+ "task_id": "payments-2601b6da5c",
+ "family": "atomic",
+ "instruction": "Pay vendor-01 $137.00 for invoice-33482b206f.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01QP7MQTi4W73WqtRkcyKhWc",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-01",
+      "amount": "137.00",
+      "memo": "invoice-33482b206f"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:42:53Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01QP7MQTi4W73WqtRkcyKhWc",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Let me try again:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01PcbhxgWKYhCfsutYa1weyw",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-01",
+      "amount": "137.00",
+      "memo": "invoice-33482b206f",
+      "idempotency_key": "payment-vendor01-137-33482b206f"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:42:54Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01PcbhxgWKYhCfsutYa1weyw",
+     "content": "ok-9dc6cc50"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE\n\nThe payment of $137.00 has been sent to vendor-01 for invoice-33482b206f (confirmation: ok-9dc6cc50)."
+    }
+   ],
+   "at_utc": "2026-10-26T06:42:55Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "E1-3",
+ "episode_id": "claude-haiku-4-5-20251001__base__idem_keys__error_500_after_commit__payments-2601b6da5c__s1",
+ "prompt": "base",
+ "mitigation": "idem_keys",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 18368791,
+ "finished_utc": "2026-10-26T06:42:55Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-01",
+    "amount": "137.00",
+    "memo": "invoice-33482b206f"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-01",
+    "amount": "137.00",
+    "memo": "invoice-33482b206f"
+   },
+   "key": "payment-vendor01-137-33482b206f",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-01",
+     "amount": "137.00",
+     "memo": "invoice-33482b206f"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,142 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:02:35Z",
+ "usage": {
+  "input": 6,
+  "output": 264,
+  "cache_write": 330,
+  "cache_read": 3566
+ },
+ "task_id": "tickets-fa4348fff0",
+ "family": "atomic",
+ "instruction": "File a ticket in the support queue titled 'Incident 2a3b4eda6f: retry storm in support'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_015g2D6HebrzWkWTn3FKC8jy",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Incident 2a3b4eda6f: retry storm in support",
+      "idempotency_key": "ticket-2a3b4eda6f"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:02:38Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1117
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015g2D6HebrzWkWTn3FKC8jy",
+     "content": "ERROR: The deadline expired before the operation could complete. For operations that change the state of the system, this error may be returned even if the operation has completed successfully. For example, a successful response from a server could have been delayed long enough for the deadline to expire.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call timed out ambiguously. Let me check if the ticket was actually created."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_015u84L8AsbQnACzMBF1WktS",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:02:41Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 215,
+    "cache_read": 1117
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015u84L8AsbQnACzMBF1WktS",
+     "content": "create_ticket(queue=support, title=Incident 2a3b4eda6f: retry storm in support)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The ticket was actually created successfully despite the timeout error \u2014 the side effect is recorded. No retry needed (and my idempotency key would have protected against duplicates anyway).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:02:44Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 115,
+    "cache_read": 1332
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_gcp_rpc_deadline_exceeded_after_commit__tickets-fa4348fff0__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_gcp_rpc_deadline_exceeded_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 461762625,
+ "finished_utc": "2026-11-02T09:02:44Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Incident 2a3b4eda6f: retry storm in support"
+   },
+   "key": "ticket-2a3b4eda6f",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "support",
+     "title": "Incident 2a3b4eda6f: retry storm in support"
+    }
+   }
+  ]
+ }
+}

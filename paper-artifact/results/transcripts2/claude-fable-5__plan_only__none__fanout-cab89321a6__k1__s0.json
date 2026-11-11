@@ -1,0 +1,196 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "fanout-cab89321a6",
+ "topology": "fanout",
+ "interrupt_node": 1,
+ "sample": 0,
+ "instruction": "File a ticket in the infra queue titled 'Rollout 530d50bc64 in infra'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 530d50bc64 in infra' on the personal calendar at 2026-09-02T09:00; 'Check 2: Rollout 530d50bc64 in infra' on the oncall calendar at 2026-09-03T09:00; 'Check 3: Rollout 530d50bc64 in infra' on the planning calendar at 2026-09-04T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll first file the ticket, then create the three reminder events."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_014zxzCDU7RCkHLXUutHnVqy",
+       "name": "create_ticket",
+       "input": {
+        "queue": "infra",
+        "title": "Rollout 530d50bc64 in infra",
+        "idempotency_key": "ticket-rollout-530d50bc64-infra"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_014zxzCDU7RCkHLXUutHnVqy",
+       "content": "ok-3f939dd1"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_016mjbSVfwxJkxErNEbsM7Bo",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 1: Rollout 530d50bc64 in infra",
+        "start": "2026-09-02T09:00",
+        "idempotency_key": "check1-rollout-530d50bc64"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Nsmq8skAG8yh1gQH3jXQpx",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 2: Rollout 530d50bc64 in infra",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "check2-rollout-530d50bc64"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_011kxutY8iXc86pzz3ur9xZH",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 3: Rollout 530d50bc64 in infra",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "check3-rollout-530d50bc64"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 1,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ]
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll first check what side effects were already recorded by the previous session."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01LPJrL9bwPa7ZuAJjHZeqSj",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01LPJrL9bwPa7ZuAJjHZeqSj",
+       "content": "create_ticket(queue=infra, title=Rollout 530d50bc64 in infra)\ncreate_event(calendar_id=personal, title=Check 1: Rollout 530d50bc64 in infra, start=2026-09-02T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket and Check 1 event already exist. I only need to create Check 2 and Check 3, which are independent of each other:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01LN7MMzQ66jQB5BdqKexFeE",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 2: Rollout 530d50bc64 in infra",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "rollout-530d50bc64-check2"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Q5wCX5hWgBeVJvbKDxArPb",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 3: Rollout 530d50bc64 in infra",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "rollout-530d50bc64-check3"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01LN7MMzQ66jQB5BdqKexFeE",
+       "content": "ok-8a7e4aa1"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Q5wCX5hWgBeVJvbKDxArPb",
+       "content": "ok-d425c46a"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All steps are complete:\n- \u2705 Ticket 'Rollout 530d50bc64 in infra' in infra queue (done previously)\n- \u2705 Check 1 event on personal calendar, 2026-09-02T09:00 (done previously)\n- \u2705 Check 2 event on oncall calendar, 2026-09-03T09:00 (created now)\n- \u2705 Check 3 event on planning calendar, 2026-09-04T09:00 (created now)\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

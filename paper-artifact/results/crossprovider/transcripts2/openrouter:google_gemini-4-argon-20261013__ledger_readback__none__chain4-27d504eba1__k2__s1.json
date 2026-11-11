@@ -1,0 +1,242 @@
+{
+ "model": "openrouter:google/gemini-4-argon-20261013",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "chain4-27d504eba1",
+ "topology": "chain4",
+ "interrupt_node": 2,
+ "sample": 1,
+ "instruction": "Pay vendor-14 $222.00 for contract-fb2be04dc0; then email a receipt to tunde@example.com with subject 'Receipt: contract-fb2be04dc0'; then create event 'Follow-up: contract-fb2be04dc0' on the oncall calendar at 2026-11-03T11:00; then append a closing entry (content hash e9b14f4304) to /logs/contract-002.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_2185630",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-14",
+        "amount": "$222.00",
+        "memo": "contract-fb2be04dc0",
+        "idempotency_key": "step1-pay-vendor-14"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:50:04Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_2185630",
+       "content": "ok-95822603"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1950247",
+       "name": "send_email",
+       "input": {
+        "idempotency_key": "step2-email-receipt",
+        "subject": "Receipt: contract-fb2be04dc0",
+        "to": "tunde@example.com"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:50:18Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1950247",
+       "content": "ok-046eccf9"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1435876",
+       "name": "create_event",
+       "input": {
+        "title": "Follow-up: contract-fb2be04dc0",
+        "start": "2026-11-03T11:00",
+        "idempotency_key": "step3-create-event",
+        "calendar_id": "oncall"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:50:23Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 2,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 2444,
+     "output": 206
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_132071",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-26T00:50:26Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 11,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_132071",
+       "content": "send_payment(payee=vendor-14, amount=$222.00, memo=contract-fb2be04dc0)\nsend_email(subject=Receipt: contract-fb2be04dc0, to=tunde@example.com)\ncreate_event(title=Follow-up: contract-fb2be04dc0, start=2026-11-03T11:00, calendar_id=oncall)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1111978",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-002.log",
+        "content_hash": "e9b14f4304"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:50:31Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 42,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1111978",
+       "content": "ok-9fad8896"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-10-26T00:50:37Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 6,
+      "reasoning_details_n": 1
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 2814,
+     "output": 128
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-26T00:49:57Z",
+ "provider": "openrouter",
+ "model_served": "google/gemini-4-argon @Google",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

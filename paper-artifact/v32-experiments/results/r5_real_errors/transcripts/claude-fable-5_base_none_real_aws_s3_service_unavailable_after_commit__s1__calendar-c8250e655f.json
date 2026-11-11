@@ -1,0 +1,159 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:18:24Z",
+ "usage": {
+  "input": 6,
+  "output": 349,
+  "cache_write": 202,
+  "cache_read": 3632
+ },
+ "task_id": "calendar-c8250e655f",
+ "family": "atomic",
+ "instruction": "Create event 'Sync eba7d760b9' on the oncall calendar at 2026-08-03T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01JuupJJm7tuvVxKW13LrK8K",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "oncall",
+      "title": "Sync eba7d760b9",
+      "start": "2026-08-03T10:00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:18:27Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1118
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01JuupJJm7tuvVxKW13LrK8K",
+     "content": "ERROR: Service is unable to handle request.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The first attempt failed with a transient service error. Retrying with an idempotency key:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_0155tLuW8rNH7UPtioqTr8NG",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "oncall",
+      "title": "Sync eba7d760b9",
+      "start": "2026-08-03T10:00",
+      "idempotency_key": "create-sync-eba7d760b9"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:18:31Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1257
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_0155tLuW8rNH7UPtioqTr8NG",
+     "content": "ok-733b37fc"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The event 'Sync eba7d760b9' was successfully created on the oncall calendar at 2026-08-03T10:00.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:18:33Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 202,
+    "cache_read": 1257
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_aws_s3_service_unavailable_after_commit__calendar-c8250e655f__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_aws_s3_service_unavailable_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1947412490,
+ "finished_utc": "2026-11-02T09:18:33Z",
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "oncall",
+    "title": "Sync eba7d760b9",
+    "start": "2026-08-03T10:00"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "oncall",
+    "title": "Sync eba7d760b9",
+    "start": "2026-08-03T10:00"
+   },
+   "key": "create-sync-eba7d760b9",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "oncall",
+     "title": "Sync eba7d760b9",
+     "start": "2026-08-03T10:00"
+    }
+   }
+  ]
+ }
+}

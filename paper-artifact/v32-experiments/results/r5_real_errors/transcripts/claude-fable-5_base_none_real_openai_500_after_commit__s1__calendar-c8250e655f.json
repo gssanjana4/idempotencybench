@@ -1,0 +1,235 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:12:24Z",
+ "usage": {
+  "input": 10,
+  "output": 830,
+  "cache_write": 746,
+  "cache_read": 6731
+ },
+ "task_id": "calendar-c8250e655f",
+ "family": "atomic",
+ "instruction": "Create event 'Sync eba7d760b9' on the oncall calendar at 2026-08-03T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01Us9aebN4VBiY2fXbMCSdfX",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "oncall",
+      "title": "Sync eba7d760b9",
+      "start": "2026-08-03T10:00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:27Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1118
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Us9aebN4VBiY2fXbMCSdfX",
+     "content": "ERROR: The server had an error while processing your request",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The server errored; I'll retry with an idempotency key to avoid duplicates."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01CkMZqTy2afwKhooAK1XNr9",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "oncall",
+      "title": "Sync eba7d760b9",
+      "start": "2026-08-03T10:00",
+      "idempotency_key": "sync-eba7d760b9-20260803T1000"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:30Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1257
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01CkMZqTy2afwKhooAK1XNr9",
+     "content": "ok-cc8f0c8d"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_012D6mqgUc7jdN9D6eugaSxw",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:33Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 214,
+    "cache_read": 1257
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_012D6mqgUc7jdN9D6eugaSxw",
+     "content": "create_event(calendar_id=oncall, title=Sync eba7d760b9, start=2026-08-03T10:00)\ncreate_event(calendar_id=oncall, title=Sync eba7d760b9, start=2026-08-03T10:00)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01BUcexoAvddMFWaZXsiPhG9",
+     "name": "create_ticket",
+     "input": {
+      "queue": "oncall",
+      "title": "Duplicate calendar event 'Sync eba7d760b9' on oncall calendar at 2026-08-03T10:00 \u2014 please remove one copy",
+      "idempotency_key": "dup-cleanup-sync-eba7d760b9"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:39Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 157,
+    "cache_read": 1471
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BUcexoAvddMFWaZXsiPhG9",
+     "content": "ok-154c97f1"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Event 'Sync eba7d760b9' was created on the oncall calendar for 2026-08-03T10:00. Note: an initial server error masked a successful creation, so a duplicate exists; I filed a ticket to have the extra copy removed.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:42Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 375,
+    "cache_read": 1628
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_openai_500_after_commit__calendar-c8250e655f__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_openai_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3486439622,
+ "finished_utc": "2026-11-02T09:12:42Z",
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "oncall",
+    "title": "Sync eba7d760b9",
+    "start": "2026-08-03T10:00"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "oncall",
+    "title": "Sync eba7d760b9",
+    "start": "2026-08-03T10:00"
+   },
+   "key": "sync-eba7d760b9-20260803T1000",
+   "seq": 2
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "oncall",
+    "title": "Duplicate calendar event 'Sync eba7d760b9' on oncall calendar at 2026-08-03T10:00 \u2014 please remove one copy"
+   },
+   "key": "dup-cleanup-sync-eba7d760b9",
+   "seq": 3
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "oncall",
+     "title": "Sync eba7d760b9",
+     "start": "2026-08-03T10:00"
+    }
+   }
+  ]
+ }
+}

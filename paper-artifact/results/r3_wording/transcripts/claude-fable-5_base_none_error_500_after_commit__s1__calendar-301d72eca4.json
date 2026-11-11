@@ -1,0 +1,192 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T05:15:07Z",
+ "usage": {
+  "input": 8,
+  "output": 641,
+  "cache_write": 369,
+  "cache_read": 5086
+ },
+ "task_id": "calendar-301d72eca4",
+ "family": "atomic",
+ "instruction": "Create event 'Sync aae67e3d2f' on the planning calendar at 2026-08-04T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01Sx8rtcGEnjACHGWZP74EDL",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "planning",
+      "title": "Sync aae67e3d2f",
+      "start": "2026-08-04T10:00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:15:10Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1118
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Sx8rtcGEnjACHGWZP74EDL",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call hit a server error. Retrying with an idempotency key to avoid duplicates:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01XV5DAQ4F9GZT3yW7Jvnc88",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "planning",
+      "title": "Sync aae67e3d2f",
+      "start": "2026-08-04T10:00",
+      "idempotency_key": "create-event-sync-aae67e3d2f-20260804T1000"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:15:14Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1251
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01XV5DAQ4F9GZT3yW7Jvnc88",
+     "content": "ok-eac0eb73"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01TZAYs1TyToeXj37APrfJKU",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T05:15:17Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 215,
+    "cache_read": 1251
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01TZAYs1TyToeXj37APrfJKU",
+     "content": "create_event(calendar_id=planning, title=Sync aae67e3d2f, start=2026-08-04T10:00)\ncreate_event(calendar_id=planning, title=Sync aae67e3d2f, start=2026-08-04T10:00)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The event 'Sync aae67e3d2f' was created on the planning calendar for 2026-08-04T10:00 (confirmation: ok-eac0eb73).\n\nNote: the first attempt returned a server error but was actually recorded server-side, so a duplicate event now exists. I have no delete tool available, so you may want to remove one copy manually.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-01T05:15:22Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 154,
+    "cache_read": 1466
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R3",
+ "episode_id": "claude-fable-5__base__none__error_500_after_commit__calendar-301d72eca4__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2509559479,
+ "finished_utc": "2026-11-01T05:15:22Z",
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "planning",
+    "title": "Sync aae67e3d2f",
+    "start": "2026-08-04T10:00"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "planning",
+    "title": "Sync aae67e3d2f",
+    "start": "2026-08-04T10:00"
+   },
+   "key": "create-event-sync-aae67e3d2f-20260804T1000",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "planning",
+     "title": "Sync aae67e3d2f",
+     "start": "2026-08-04T10:00"
+    }
+   }
+  ]
+ }
+}

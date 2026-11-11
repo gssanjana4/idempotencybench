@@ -1,0 +1,149 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "fanout-68ceba7706",
+ "topology": "fanout",
+ "interrupt_node": 3,
+ "sample": 0,
+ "instruction": "File a ticket in the support queue titled 'Rollout 6ecd38c552 in support'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 6ecd38c552 in support' on the planning calendar at 2026-09-08T09:00; 'Check 2: Rollout 6ecd38c552 in support' on the team calendar at 2026-09-09T09:00; 'Check 3: Rollout 6ecd38c552 in support' on the personal calendar at 2026-09-10T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll first file the ticket, then create the three reminder events once it's filed."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_011MtR72NDCX9w3UoCM4X871",
+       "name": "create_ticket",
+       "input": {
+        "queue": "support",
+        "title": "Rollout 6ecd38c552 in support",
+        "idempotency_key": "ticket-rollout-6ecd38c552-support"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_011MtR72NDCX9w3UoCM4X871",
+       "content": "ok-22a97019"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket has been filed. Now I'll create the three reminder events (independent of each other, so in parallel):"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01AsiTdERA2wWefr1Vr2ny3y",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 1: Rollout 6ecd38c552 in support",
+        "start": "2026-09-08T09:00",
+        "idempotency_key": "event-check1-rollout-6ecd38c552"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01STMzBZiQ4yJnv1nhTGGgLu",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 2: Rollout 6ecd38c552 in support",
+        "start": "2026-09-09T09:00",
+        "idempotency_key": "event-check2-rollout-6ecd38c552"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01K85W2LipNszaq6oiGiaGoL",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 3: Rollout 6ecd38c552 in support",
+        "start": "2026-09-10T09:00",
+        "idempotency_key": "event-check3-rollout-6ecd38c552"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_014VzkY1iqDtc2Keux5rWAvU",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_014VzkY1iqDtc2Keux5rWAvU",
+       "content": "create_ticket(queue=support, title=Rollout 6ecd38c552 in support)\ncreate_event(calendar_id=planning, title=Check 1: Rollout 6ecd38c552 in support, start=2026-09-08T09:00)\ncreate_event(calendar_id=team, title=Check 2: Rollout 6ecd38c552 in support, start=2026-09-09T09:00)\ncreate_event(calendar_id=personal, title=Check 3: Rollout 6ecd38c552 in support, start=2026-09-10T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The effects log shows all steps are already completed:\n1. \u2705 Ticket filed in support queue\n2. \u2705 Check 1 event on planning calendar (2026-09-08T09:00)\n3. \u2705 Check 2 event on team calendar (2026-09-09T09:00)\n4. \u2705 Check 3 event on personal calendar (2026-09-10T09:00)\n\nThe previous session actually completed all four steps (its notes only recorded three, but the fourth event was also created). Nothing remains to do, and re-running any calls would create duplicates.\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

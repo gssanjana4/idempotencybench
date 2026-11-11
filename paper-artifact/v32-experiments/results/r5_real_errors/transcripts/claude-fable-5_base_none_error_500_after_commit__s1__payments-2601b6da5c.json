@@ -1,0 +1,151 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:23:13Z",
+ "usage": {
+  "input": 6,
+  "output": 344,
+  "cache_write": 304,
+  "cache_read": 3513
+ },
+ "task_id": "payments-2601b6da5c",
+ "family": "atomic",
+ "instruction": "Pay vendor-01 $137.00 for invoice-33482b206f.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01VpDgbc3bXrybydLGR6kjgo",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-01",
+      "amount": "$137.00",
+      "memo": "invoice-33482b206f",
+      "idempotency_key": "pay-vendor-01-invoice-33482b206f"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:16Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1106
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01VpDgbc3bXrybydLGR6kjgo",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call errored; let me check if the payment was recorded before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01X7KpA1QEiQsgiE6C6DvyYd",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:19Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 195,
+    "cache_read": 1106
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01X7KpA1QEiQsgiE6C6DvyYd",
+     "content": "send_payment(payee=vendor-01, amount=$137.00, memo=invoice-33482b206f)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The payment was actually recorded despite the error response \u2014 the effects log confirms the $137.00 payment to vendor-01 for invoice-33482b206f went through. No retry is needed (retrying could cause a duplicate payment).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:22Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 109,
+    "cache_read": 1301
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__error_500_after_commit__payments-2601b6da5c__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2445023516,
+ "finished_utc": "2026-11-02T09:23:22Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-01",
+    "amount": "$137.00",
+    "memo": "invoice-33482b206f"
+   },
+   "key": "pay-vendor-01-invoice-33482b206f",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-01",
+     "amount": "137.00",
+     "memo": "invoice-33482b206f"
+    }
+   }
+  ]
+ }
+}

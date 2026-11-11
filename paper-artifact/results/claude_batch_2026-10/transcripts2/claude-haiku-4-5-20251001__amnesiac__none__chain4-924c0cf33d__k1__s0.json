@@ -1,0 +1,252 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "resume_context": "amnesiac",
+ "mitigation": "none",
+ "graph_id": "chain4-924c0cf33d",
+ "topology": "chain4",
+ "interrupt_node": 1,
+ "sample": 0,
+ "instruction": "Pay vendor-07 $161.00 for contract-42c0fc1d58; then email a receipt to priya@example.com with subject 'Receipt: contract-42c0fc1d58'; then create event 'Follow-up: contract-42c0fc1d58' on the personal calendar at 2026-11-02T11:00; then append a closing entry (content hash 4008e432da) to /logs/contract-001.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll complete these steps in the exact order you specified."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Y4JULu4iWGCxDik2z33Vnr",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-07",
+        "amount": "$161.00",
+        "memo": "contract-42c0fc1d58",
+        "idempotency_key": "pay-vendor-07-161"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:47:53Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Y4JULu4iWGCxDik2z33Vnr",
+       "content": "ok-c0d9d6ec"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Now I'll send the receipt email:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01YWZxUGFb1Q3tpPkGDYomK7",
+       "name": "send_email",
+       "input": {
+        "to": "priya@example.com",
+        "subject": "Receipt: contract-42c0fc1d58",
+        "idempotency_key": "receipt-email-contract-42c0fc1d58"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:47:54Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 1,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-haiku-4-5-20251001",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 2647,
+     "output": 270
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_01J43wrYJ3U8oEXcWSPUCutb",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-07",
+        "amount": "$161.00",
+        "memo": "contract-42c0fc1d58",
+        "idempotency_key": "payment-contract-42c0fc1d58-vendor-07"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:47:56Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01J43wrYJ3U8oEXcWSPUCutb",
+       "content": "ok-fb43ec49"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Now I'll send the receipt email:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Vz8ZerYgGMSnAhCdiekQFh",
+       "name": "send_email",
+       "input": {
+        "to": "priya@example.com",
+        "subject": "Receipt: contract-42c0fc1d58",
+        "idempotency_key": "email-receipt-contract-42c0fc1d58"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:47:57Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Vz8ZerYgGMSnAhCdiekQFh",
+       "content": "ok-2e0c2cfe"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Now I'll create the follow-up event:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01UhpVjbFtAurMngWefWfiNH",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Follow-up: contract-42c0fc1d58",
+        "start": "2026-11-02T11:00",
+        "idempotency_key": "event-followup-contract-42c0fc1d58"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:47:59Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01UhpVjbFtAurMngWefWfiNH",
+       "content": "ok-46f6a52f"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Finally, I'll append the closing entry to the log file:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01R2tveWRnBrbuThBqAc91dz",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-001.log",
+        "content_hash": "4008e432da",
+        "idempotency_key": "log-append-contract-001-closing"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:48:00Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01R2tveWRnBrbuThBqAc91dz",
+       "content": "ok-f4382bd0"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE\n\nAll four steps have been completed in the requested order:\n1. \u2713 Paid vendor-07 $161.00 for contract-42c0fc1d58\n2. \u2713 Sent receipt email to priya@example.com with subject 'Receipt: contract-42c0fc1d58'\n3. \u2713 Created event 'Follow-up: contract-42c0fc1d58' on personal calendar for 2026-11-02 at 11:00\n4. \u2713 Appended closing entry to /logs/contract-001.log"
+      }
+     ],
+     "at_utc": "2026-10-26T05:48:02Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-haiku-4-5-20251001",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 7779,
+     "output": 691
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-26T05:47:51Z",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 2,
+  "givr_hit": 1,
+  "completion": 1,
+  "order_violation": 1
+ }
+}

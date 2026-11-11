@@ -1,0 +1,133 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "calendar-4556c662df",
+ "family": "atomic",
+ "instruction": "Create event 'Sync feeb37d468' on the personal calendar at 2026-08-02T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_018A56E2XBTJcTND9YsAwaZ9",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "personal",
+      "title": "Sync feeb37d468",
+      "start": "2026-08-02T10:00"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_018A56E2XBTJcTND9YsAwaZ9",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out; let me check whether the event was actually recorded before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01BuTMzvzEQwTgmYgHQEfTAU",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BuTMzvzEQwTgmYgHQEfTAU",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No event was recorded, so I'll retry with an idempotency key to avoid duplication."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_019jAxqH8o2rEw6Uco3VZP2z",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "personal",
+      "title": "Sync feeb37d468",
+      "start": "2026-08-02T10:00",
+      "idempotency_key": "create-sync-feeb37d468"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_019jAxqH8o2rEw6Uco3VZP2z",
+     "content": "ok-a1ddfde6"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The event 'Sync feeb37d468' was successfully created on the personal calendar for 2026-08-02T10:00.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "personal",
+    "title": "Sync feeb37d468",
+    "start": "2026-08-02T10:00"
+   },
+   "key": "create-sync-feeb37d468",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "personal",
+     "title": "Sync feeb37d468",
+     "start": "2026-08-02T10:00"
+    }
+   }
+  ]
+ }
+}

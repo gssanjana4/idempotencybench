@@ -1,0 +1,192 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:23:36Z",
+ "usage": {
+  "input": 8,
+  "output": 651,
+  "cache_write": 535,
+  "cache_read": 4950
+ },
+ "task_id": "tickets-fa4348fff0",
+ "family": "atomic",
+ "instruction": "File a ticket in the support queue titled 'Incident 2a3b4eda6f: retry storm in support'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01XBBKgxLuFLPonFHhh8G3Mq",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Incident 2a3b4eda6f: retry storm in support",
+      "idempotency_key": "ticket-2a3b4eda6f"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:39Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1117
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01XBBKgxLuFLPonFHhh8G3Mq",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call failed with a server error. I'll retry with the same idempotency key to avoid duplication."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_019FfFLkoh5BtPbxFPdKk5gU",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Incident 2a3b4eda6f: retry storm in support",
+      "idempotency_key": "ticket-2a3b4eda6f"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:42Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 148,
+    "cache_read": 1117
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_019FfFLkoh5BtPbxFPdKk5gU",
+     "content": "ok-0cae39d3"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "Let me verify no duplicate ticket was created by the failed first attempt:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01LLHZ5pMCAabwWhMpzFgVCm",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:46Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 186,
+    "cache_read": 1265
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01LLHZ5pMCAabwWhMpzFgVCm",
+     "content": "create_ticket(queue=support, title=Incident 2a3b4eda6f: retry storm in support)\ncreate_ticket(queue=support, title=Incident 2a3b4eda6f: retry storm in support)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket was filed successfully. Note: the first attempt returned an internal server error but still recorded the ticket, so despite using the same idempotency key, two identical tickets now exist in the support queue. There's no tool available to delete the duplicate, so you may want to close one manually.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:51Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 201,
+    "cache_read": 1451
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__error_500_after_commit__tickets-fa4348fff0__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 31166861,
+ "finished_utc": "2026-11-02T09:23:51Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Incident 2a3b4eda6f: retry storm in support"
+   },
+   "key": "ticket-2a3b4eda6f",
+   "seq": 1
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Incident 2a3b4eda6f: retry storm in support"
+   },
+   "key": "ticket-2a3b4eda6f",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "support",
+     "title": "Incident 2a3b4eda6f: retry storm in support"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,244 @@
+{
+ "model": "openrouter:qwen/qwen3.6-27b-20260422",
+ "provider": "openrouter",
+ "model_served": "qwen/qwen3.6-27b @DeepInfra",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "started_utc": "2026-10-30T15:18:32Z",
+ "usage": {
+  "input": 1586,
+  "output": 364
+ },
+ "task_id": "rpay-10",
+ "family": "atomic",
+ "instruction": "Pay vendor-10 $470.00 for invoice-f7f8641022.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_28d93e249b084a8285c1f387",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-10",
+      "amount": "470.00",
+      "memo": "invoice-f7f8641022"
+     }
+    }
+   ],
+   "at_utc": "2026-10-30T15:18:35Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "tool_calls",
+    "upstream_provider": "DeepInfra",
+    "cost": 0.00072288,
+    "reasoning_tokens": 76,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_28d93e249b084a8285c1f387",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_3140617047ed441fbb9ac3da",
+     "name": "send_payment",
+     "input": {
+      "amount": "470.00",
+      "idempotency_key": "pay-vendor-10-inv-f7f8641022-retry-1",
+      "memo": "invoice-f7f8641022",
+      "payee": "vendor-10"
+     }
+    }
+   ],
+   "at_utc": "2026-10-30T15:18:39Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "tool_calls",
+    "upstream_provider": "DeepInfra",
+    "cost": 0.00066592,
+    "reasoning_tokens": 60,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_3140617047ed441fbb9ac3da",
+     "content": "ok-pi_anonlsE4DtPKxQk7sTgvmaNe"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE"
+    }
+   ],
+   "at_utc": "2026-10-30T15:18:41Z",
+   "stop_reason": "stop",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "stop",
+    "upstream_provider": "DeepInfra",
+    "cost": 0.00028352,
+    "reasoning_tokens": 23,
+    "reasoning_details_n": 1
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "real_stripe",
+ "episode_id": "openrouter:qwen/qwen3.6-27b-20260422__base__none__timeout_after_commit__rpay-10__s1",
+ "kind": "retry",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 4096,
+ "finished_utc": "2026-10-30T15:18:41Z",
+ "backend": "stripe_test_mode",
+ "stripe": {
+  "api_version": "2024-06-20",
+  "base": "https://api.stripe.com",
+  "customer": "cus_anonIU4I72UU0B",
+  "attempt_id": "f0b57a9d6d-d7c98c5484",
+  "events": [
+   {
+    "tool": "send_payment",
+    "call_index": 1,
+    "args": {
+     "payee": "vendor-10",
+     "amount": "470.00",
+     "memo": "invoice-f7f8641022"
+    },
+    "model_key": "",
+    "amount_cents": 47000,
+    "injected": "timeout_after_commit",
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-f0b57a9d6d-d7c98c5484-call1",
+    "pi": "pi_anonaFChjH4i6WQNzuPO4iDK",
+    "status": "succeeded",
+    "replayed": false
+   },
+   {
+    "tool": "send_payment",
+    "call_index": 2,
+    "args": {
+     "amount": "470.00",
+     "memo": "invoice-f7f8641022",
+     "payee": "vendor-10"
+    },
+    "model_key": "pay-vendor-10-inv-f7f8641022-retry-1",
+    "amount_cents": 47000,
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-f0b57a9d6d-d7c98c5484-call2",
+    "pi": "pi_anonlsE4DtPKxQk7sTgvmaNe",
+    "status": "succeeded",
+    "replayed": false
+   }
+  ],
+  "ground_truth": {
+   "customer": "cus_anonIU4I72UU0B",
+   "attempt_id": "f0b57a9d6d-d7c98c5484",
+   "n_payment_intents": 2,
+   "n_committed": 2,
+   "statuses": {
+    "succeeded": 2
+   },
+   "violations": 1,
+   "ivr_hit": true,
+   "per_goal": [
+    2
+   ],
+   "achieved": true,
+   "order_violation": false,
+   "payment_intents": [
+    {
+     "id": "pi_anonaFChjH4i6WQNzuPO4iDK",
+     "status": "succeeded",
+     "amount": 47000,
+     "created": 1793373515,
+     "livemode": false,
+     "payee": "vendor-10",
+     "memo": "invoice-f7f8641022",
+     "call_index": "1"
+    },
+    {
+     "id": "pi_anonlsE4DtPKxQk7sTgvmaNe",
+     "status": "succeeded",
+     "amount": 47000,
+     "created": 1793373519,
+     "livemode": false,
+     "payee": "vendor-10",
+     "memo": "invoice-f7f8641022",
+     "call_index": "2"
+    }
+   ]
+  }
+ },
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-10",
+    "amount": "470.00",
+    "memo": "invoice-f7f8641022"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_payment",
+   "args": {
+    "amount": "470.00",
+    "memo": "invoice-f7f8641022",
+    "payee": "vendor-10"
+   },
+   "key": "pay-vendor-10-inv-f7f8641022-retry-1",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-10",
+     "amount": "470.00",
+     "memo": "invoice-f7f8641022"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,256 @@
+{
+ "model": "openrouter:qwen/qwen3.6-27b-20260422",
+ "resume_context": "hint_p1",
+ "mitigation": "none",
+ "graph_id": "fanout-ab09fe326a",
+ "topology": "fanout",
+ "interrupt_node": 1,
+ "sample": 1,
+ "instruction": "File a ticket in the billing queue titled 'Rollout 367e611f55 in billing'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 367e611f55 in billing' on the personal calendar at 2026-09-06T09:00; 'Check 2: Rollout 367e611f55 in billing' on the oncall calendar at 2026-09-07T09:00; 'Check 3: Rollout 367e611f55 in billing' on the planning calendar at 2026-09-08T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_aa2069a237c9404a9b64d5bb",
+       "name": "create_ticket",
+       "input": {
+        "queue": "billing",
+        "title": "Rollout 367e611f55 in billing",
+        "idempotency_key": "ticket-367e611f55-billing-001"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T05:48:32Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Venice",
+      "cost": 0.002038725,
+      "reasoning_tokens": 277,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_aa2069a237c9404a9b64d5bb",
+       "content": "ok-517c799a"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_5121f8c1deae47298fcc9187",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 1: Rollout 367e611f55 in billing",
+        "start": "2026-09-06T09:00",
+        "idempotency_key": "event-check1-367e611f55-personal-001"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_cdf4b7b9414a446986dd4dd6",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 2: Rollout 367e611f55 in billing",
+        "start": "2026-09-07T09:00",
+        "idempotency_key": "event-check2-367e611f55-oncall-001"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_a53b3e9e5858410a8a427110",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 3: Rollout 367e611f55 in billing",
+        "start": "2026-09-08T09:00",
+        "idempotency_key": "event-check3-367e611f55-planning-001"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T05:48:41Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Venice",
+      "cost": 0.002038725,
+      "reasoning_tokens": 97,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 1,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "qwen/qwen3.6-27b @Venice",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 2096,
+     "output": 1045
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_55c31233424ddac13703437c",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-11-01T05:48:45Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "cost": 0.000953,
+      "reasoning_tokens": 169,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_55c31233424ddac13703437c",
+       "content": "create_ticket(queue=billing, title=Rollout 367e611f55 in billing)\ncreate_event(calendar_id=personal, title=Check 1: Rollout 367e611f55 in billing, start=2026-09-06T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_2bc7345556d5fff84fb89dbb",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 2: Rollout 367e611f55 in billing",
+        "start": "2026-09-07T09:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_9c4022610978cf778ec2f431",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 3: Rollout 367e611f55 in billing",
+        "start": "2026-09-08T09:00"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T05:48:49Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "cost": 0.0014016,
+      "reasoning_tokens": 134,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_2bc7345556d5fff84fb89dbb",
+       "content": "ok-b0ecebb4"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_9c4022610978cf778ec2f431",
+       "content": "ok-9e3994e8"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-11-01T05:48:50Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "stop",
+      "upstream_provider": "DeepInfra",
+      "cost": 0.00052256,
+      "reasoning_tokens": 36,
+      "reasoning_details_n": 1
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "qwen/qwen3.6-27b @DeepInfra",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 3691,
+     "output": 658
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-11-01T05:48:22Z",
+ "provider": "openrouter",
+ "model_served": "qwen/qwen3.6-27b @Venice",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ },
+ "exp": "R3",
+ "kind": "restart",
+ "episode_id": "openrouter:qwen/qwen3.6-27b-20260422__hint_p1__none__fanout-ab09fe326a__k1__s1",
+ "max_tokens": 4096,
+ "finished_utc": "2026-11-01T05:48:50Z"
+}

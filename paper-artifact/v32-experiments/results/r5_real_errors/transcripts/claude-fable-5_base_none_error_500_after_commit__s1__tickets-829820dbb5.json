@@ -1,0 +1,145 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:23:27Z",
+ "usage": {
+  "input": 6,
+  "output": 286,
+  "cache_write": 266,
+  "cache_read": 3494
+ },
+ "task_id": "tickets-829820dbb5",
+ "family": "atomic",
+ "instruction": "File a ticket in the billing queue titled 'Incident b9d19372af: retry storm in billing'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_015ZbA7nfYG4C5rAwFCZkbRf",
+     "name": "create_ticket",
+     "input": {
+      "queue": "billing",
+      "title": "Incident b9d19372af: retry storm in billing",
+      "idempotency_key": "ticket-b9d19372af-retry-storm"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:30Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1115
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015ZbA7nfYG4C5rAwFCZkbRf",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call errored; let me check whether the ticket was actually recorded before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01EC3UuRe5qBPyd5nqvzJGH3",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:33Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 149,
+    "cache_read": 1115
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01EC3UuRe5qBPyd5nqvzJGH3",
+     "content": "create_ticket(queue=billing, title=Incident b9d19372af: retry storm in billing)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket was actually created successfully despite the error response \u2014 the side effect log confirms it was recorded. No retry is needed (and retrying could create a duplicate).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:36Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 117,
+    "cache_read": 1264
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__error_500_after_commit__tickets-829820dbb5__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 701387299,
+ "finished_utc": "2026-11-02T09:23:36Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "billing",
+    "title": "Incident b9d19372af: retry storm in billing"
+   },
+   "key": "ticket-b9d19372af-retry-storm",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "billing",
+     "title": "Incident b9d19372af: retry storm in billing"
+    }
+   }
+  ]
+ }
+}

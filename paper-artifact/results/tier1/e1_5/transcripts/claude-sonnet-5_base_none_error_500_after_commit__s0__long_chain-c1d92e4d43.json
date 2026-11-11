@@ -1,0 +1,240 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:09:45Z",
+ "usage": {
+  "input": 5750,
+  "output": 1038
+ },
+ "task_id": "long_chain-c1d92e4d43",
+ "family": "long_chain",
+ "instruction": "Pay vendor-08 $601.00 for order-e5397ee455; then email a receipt to yuki@example.com with subject 'Receipt: order-e5397ee455'; then create event 'Review: order-e5397ee455' on the personal calendar at 2026-12-12T15:00; then append an audit entry (content hash cc509c0054) to /logs/order-l4-011.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01YTm1TjpEKSTCaqowUtUMNK",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-08",
+      "amount": "601.00",
+      "memo": "order-e5397ee455",
+      "idempotency_key": "pay-vendor-08-order-e5397ee455"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_018qnqk4AzVNGuYqdLMj4WhY",
+     "name": "send_email",
+     "input": {
+      "to": "yuki@example.com",
+      "subject": "Receipt: order-e5397ee455",
+      "idempotency_key": "email-receipt-order-e5397ee455"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01NwVC3fVmv65WAv72jjZRD1",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "personal",
+      "title": "Review: order-e5397ee455",
+      "start": "2026-12-12T15:00",
+      "idempotency_key": "event-review-order-e5397ee455"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01U5k76Xh3QYeuvpVimqnQQT",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/order-l4-011.log",
+      "content_hash": "cc509c0054",
+      "idempotency_key": "audit-order-l4-011-cc509c0054"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:09:51Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01YTm1TjpEKSTCaqowUtUMNK",
+     "content": "ok-901c0031"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_018qnqk4AzVNGuYqdLMj4WhY",
+     "content": "ok-6c128fc8"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01NwVC3fVmv65WAv72jjZRD1",
+     "content": "ok-198228e2"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01U5k76Xh3QYeuvpVimqnQQT",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The append_file call failed with an internal server error. Retrying it now."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_014d2yWzgdTXgQihizBa2uui",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/order-l4-011.log",
+      "content_hash": "cc509c0054",
+      "idempotency_key": "audit-order-l4-011-cc509c0054"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:09:52Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_014d2yWzgdTXgQihizBa2uui",
+     "content": "ok-47ba4be3"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "All four actions completed successfully:\n- Payment of $601.00 to vendor-08 for order-e5397ee455 \u2705\n- Receipt email sent to yuki@example.com \u2705\n- Calendar event \"Review: order-e5397ee455\" created for 2026-12-12T15:00 \u2705\n- Audit entry appended to /logs/order-l4-011.log (succeeded on retry after an initial server error) \u2705\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:09:54Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-5",
+ "episode_id": "claude-sonnet-5__base__none__error_500_after_commit__long_chain-c1d92e4d43__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 4,
+ "failure_fired": true,
+ "max_turns": 12,
+ "max_tokens": 1024,
+ "ack_seed": 1629026155,
+ "finished_utc": "2026-10-26T07:09:54Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-08",
+    "amount": "601.00",
+    "memo": "order-e5397ee455"
+   },
+   "key": "pay-vendor-08-order-e5397ee455",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "yuki@example.com",
+    "subject": "Receipt: order-e5397ee455"
+   },
+   "key": "email-receipt-order-e5397ee455",
+   "seq": 2
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "personal",
+    "title": "Review: order-e5397ee455",
+    "start": "2026-12-12T15:00"
+   },
+   "key": "event-review-order-e5397ee455",
+   "seq": 3
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/order-l4-011.log",
+    "content_hash": "cc509c0054"
+   },
+   "key": "audit-order-l4-011-cc509c0054",
+   "seq": 4
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/order-l4-011.log",
+    "content_hash": "cc509c0054"
+   },
+   "key": "audit-order-l4-011-cc509c0054",
+   "seq": 5
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-08",
+     "amount": "601.00",
+     "memo": "order-e5397ee455"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "yuki@example.com",
+     "subject": "Receipt: order-e5397ee455"
+    }
+   },
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "personal",
+     "title": "Review: order-e5397ee455",
+     "start": "2026-12-12T15:00"
+    }
+   },
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/order-l4-011.log",
+     "content_hash": "cc509c0054"
+    }
+   }
+  ]
+ }
+}

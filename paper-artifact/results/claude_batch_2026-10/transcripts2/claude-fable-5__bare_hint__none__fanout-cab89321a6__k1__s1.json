@@ -1,0 +1,233 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "bare_hint",
+ "mitigation": "none",
+ "graph_id": "fanout-cab89321a6",
+ "topology": "fanout",
+ "interrupt_node": 1,
+ "sample": 1,
+ "instruction": "File a ticket in the infra queue titled 'Rollout 530d50bc64 in infra'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 530d50bc64 in infra' on the personal calendar at 2026-09-02T09:00; 'Check 2: Rollout 530d50bc64 in infra' on the oncall calendar at 2026-09-03T09:00; 'Check 3: Rollout 530d50bc64 in infra' on the planning calendar at 2026-09-04T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "First, I'll file the ticket:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01U55pFeALGK6ruwe1iaXjjN",
+       "name": "create_ticket",
+       "input": {
+        "queue": "infra",
+        "title": "Rollout 530d50bc64 in infra",
+        "idempotency_key": "ticket-rollout-530d50bc64-infra"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:15:47Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01U55pFeALGK6ruwe1iaXjjN",
+       "content": "ok-52d769fa"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Ticket filed. Now I'll create the three reminder events (these are independent of each other):"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01JfRkmvxUZX2YNkC1Te9Huk",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 1: Rollout 530d50bc64 in infra",
+        "start": "2026-09-02T09:00",
+        "idempotency_key": "check1-rollout-530d50bc64"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_017kFfQfdLTeUAxzPkmhqPMz",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 2: Rollout 530d50bc64 in infra",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "check2-rollout-530d50bc64"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_016WafZVXcB6XqRv7XtH1pbg",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 3: Rollout 530d50bc64 in infra",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "check3-rollout-530d50bc64"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:15:53Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 1,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 2733,
+     "output": 644
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "First, let me check what was already completed by the previous session:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01PckiPz9HA5rkzZ8Zjn5PuU",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-25T21:15:56Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01PckiPz9HA5rkzZ8Zjn5PuU",
+       "content": "create_ticket(queue=infra, title=Rollout 530d50bc64 in infra)\ncreate_event(calendar_id=personal, title=Check 1: Rollout 530d50bc64 in infra, start=2026-09-02T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket and Check 1 event are already done. I need to create the remaining two events, which are independent of each other:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_0157rwyvMXiW9oXrpdUq2QMY",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 2: Rollout 530d50bc64 in infra",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "check2-rollout-530d50bc64"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_013PzUdQ1sDAkxLNtLMqr3p3",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 3: Rollout 530d50bc64 in infra",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "check3-rollout-530d50bc64"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:16:01Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_0157rwyvMXiW9oXrpdUq2QMY",
+       "content": "ok-209ad92b"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_013PzUdQ1sDAkxLNtLMqr3p3",
+       "content": "ok-16ee1c37"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All steps are now complete:\n- \u2705 Ticket filed in infra queue (previous session)\n- \u2705 Check 1 event on personal calendar, 2026-09-02T09:00 (previous session)\n- \u2705 Check 2 event on oncall calendar, 2026-09-03T09:00\n- \u2705 Check 3 event on planning calendar, 2026-09-04T09:00\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-25T21:16:04Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 4702,
+     "output": 584
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-25T21:15:43Z",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

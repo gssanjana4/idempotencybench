@@ -1,0 +1,1342 @@
+=== start 2026-10-31T23:06:16Z  config=configs/r2_wording.json  mode=run smoke=1 max_seconds=none  python=python3
+ANTHROPIC_API_KEY: set (not shown)
+== smoke: 1 Haiku episode (the first planned Part-B episode; it is kept and counts toward R2)
+R2: Anthropic prompt caching ON (cache_control on tools, system and the latest user turn; cache tokens logged per call)
+R2: 560 episodes planned, 0 done, 560 remaining
+anthropic spend so far in R2: $0.00 of $45.00 (exp_budget_usd)
+!! [1/560] claude-haiku-4-5-20251001__base__none__timeout_after_commit__email-e7713be100__s0 failed, will retry on next run: Unauthorized
+!! [2/560] claude-haiku-4-5-20251001__base__none__timeout_after_commit__email-e7713be100__s1 failed, will retry on next run: Unauthorized
+!! [3/560] claude-haiku-4-5-20251001__base__none__timeout_after_commit__email-6d30f546e8__s0 failed, will retry on next run: Unauthorized
+!! claude-haiku-4-5-20251001: first 3 episodes all failed (wrong slug or API change?); skipping it this run
+R2: 0 new episodes -> ./results/r2_wording/raw.jsonl; 3 failed (rerun to retry)
+anthropic spend in R2: $0.00 of $45.00
+no raw data at ./results/r2_wording/raw.jsonl
+== smoke exit 1 (0 = key and harness OK)
+  R2         0/1136  done   remaining: {'claude-haiku-4-5-20251001': 560, 'claude-sonnet-5': 400, 'claude-fable-5': 176}
+  logged spend under ./results/r2_wording: Anthropic $0.00 (list prices), OpenRouter $0.00 (usage.cost)
+=== start 2026-10-31T23:08:04Z  config=configs/r2_wording.json  mode=run smoke=0 max_seconds=none  python=.venv-claude/bin/python
+ANTHROPIC_API_KEY: set (not shown)
+== plan
+R2 part B: 2 models x (6 retry cells x 32 tasks x r=2 + 0 restart cells x graphs x r=2) = 768 episodes   [claude-haiku-4-5-20251001, claude-sonnet-5]
+R2 part A: 2 models x (0 retry cells x 32 tasks x r=2 + 5 restart cells x graphs x r=2) = 320 episodes   [claude-haiku-4-5-20251001, claude-fable-5]
+R2 part C: 3 models x (0 retry cells x 32 tasks x r=2 + 1 restart cells x graphs x r=2) = 48 episodes   [claude-haiku-4-5-20251001, claude-sonnet-5, claude-fable-5]
+R2: 1136 episodes in all; done 0, remaining 1136
+R2: est. cost of remaining: Anthropic $14.04, OpenRouter $0.00
+out_dir: ./results/r2_wording  (no API calls made)
+== cost estimate (October logged tokens; see src/r2_estimate.py)
+R2 cost estimate (Anthropic list prices x October logged tokens; 'cached' = same tokens under prompt caching)
+part model                        episodes     plain    cached   worst case (hints behave like amnesiac): plain / cached
+A    claude-fable-5                    160 $   21.15 $   19.03   $25.70 / $21.92
+A    claude-haiku-4-5-20251001         160 $    1.83 $    1.83   $2.19 / $2.19
+
+B    claude-haiku-4-5-20251001         384 $    1.96 $    1.96   $1.96 / $1.96
+B    claude-sonnet-5                   384 $    5.16 $    3.97   $5.16 / $3.97
+
+C    claude-fable-5                     16 $    1.91 $    1.90   $1.91 / $1.90
+C    claude-haiku-4-5-20251001          16 $    0.17 $    0.17   $0.17 / $0.17
+C    claude-sonnet-5                    16 $    0.41 $    0.38   $0.41 / $0.38
+Part A total: 320 episodes, $22.97 plain, $20.86 with caching
+Part B total: 768 episodes, $7.12 plain, $5.93 with caching
+Part C total: 48 episodes, $2.49 plain, $2.46 with caching
+TOTAL: $32.59 plain, $29.24 with caching (worst case $37.51 / $32.50); cap exp_budget_usd = $45.00
+caps: Anthropic exp_budget_usd $45.00; OpenRouter exp_or_budget_usd $0.00; prompt_cache=True; workers=4
+  Part B: 2 models x 384 = 768 episodes   models: claude-haiku-4-5-20251001, claude-sonnet-5
+  Part A: 2 models x 160 = 320 episodes   models: claude-haiku-4-5-20251001, claude-fable-5
+  Part C: 3 models x 16 = 48 episodes   models: claude-haiku-4-5-20251001, claude-sonnet-5, claude-fable-5
+== key check
+anthropic key OK: claude-haiku-4-5-20251001
+== attempt 1  23:08:05Z
+R2: Anthropic prompt caching ON (cache_control on tools, system and the latest user turn; cache tokens logged per call)
+R2: 1136 episodes planned, 0 done, 1136 remaining
+anthropic spend so far in R2: $0.00 of $45.00 (exp_budget_usd)
+R2: 4 episodes in flight at a time
+[2/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__email-e7713be100__s1 v=0 ok=True $0.0030
+[3/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__email-6d30f546e8__s0 v=1 ok=True $0.0047
+[4/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__email-6d30f546e8__s1 v=1 ok=True $0.0051
+[1/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__email-e7713be100__s0 v=1 ok=True $0.0047
+[5/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__email-bc6eba4ec3__s0 v=1 ok=True $0.0046
+[6/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__email-bc6eba4ec3__s1 v=0 ok=True $0.0046
+[8/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__email-ec88ecf2d5__s1 v=1 ok=True $0.0047
+[7/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__email-ec88ecf2d5__s0 v=1 ok=True $0.0047
+[10/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__payments-74f7376314__s1 v=0 ok=True $0.0031
+[9/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__payments-74f7376314__s0 v=1 ok=True $0.0051
+[11/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__payments-2601b6da5c__s0 v=1 ok=True $0.0049
+[12/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__payments-2601b6da5c__s1 v=1 ok=True $0.0053
+[13/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__payments-18aa8e1466__s0 v=1 ok=True $0.0050
+[14/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__payments-18aa8e1466__s1 v=1 ok=True $0.0050
+[15/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__payments-ccf15dead5__s0 v=1 ok=True $0.0050
+[16/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__payments-ccf15dead5__s1 v=1 ok=True $0.0050
+[17/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__tickets-829820dbb5__s0 v=1 ok=True $0.0048
+[18/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__tickets-829820dbb5__s1 v=1 ok=True $0.0048
+[19/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__tickets-8da41bdc54__s0 v=1 ok=True $0.0049
+[20/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__tickets-8da41bdc54__s1 v=1 ok=True $0.0049
+[21/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__tickets-fa4348fff0__s0 v=1 ok=True $0.0051
+[22/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__tickets-fa4348fff0__s1 v=1 ok=True $0.0052
+[23/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__tickets-5779b9e781__s0 v=1 ok=True $0.0050
+[24/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__tickets-5779b9e781__s1 v=1 ok=True $0.0048
+[25/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__files-c5c13dc477__s0 v=1 ok=True $0.0051
+[26/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__files-c5c13dc477__s1 v=1 ok=True $0.0051
+[28/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__files-6936671904__s1 v=1 ok=True $0.0047
+[27/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__files-6936671904__s0 v=1 ok=True $0.0049
+[29/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__files-b3093853c0__s0 v=1 ok=True $0.0048
+[30/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__files-b3093853c0__s1 v=1 ok=True $0.0047
+[32/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__files-e314b099d3__s1 v=0 ok=True $0.0049
+[31/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__files-e314b099d3__s0 v=1 ok=True $0.0051
+[33/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__calendar-98fe897062__s0 v=1 ok=True $0.0052
+[34/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__calendar-98fe897062__s1 v=1 ok=True $0.0054
+[35/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__calendar-4556c662df__s0 v=1 ok=True $0.0049
+[36/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__calendar-4556c662df__s1 v=1 ok=True $0.0049
+[37/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__calendar-c8250e655f__s0 v=1 ok=True $0.0052
+[38/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__calendar-c8250e655f__s1 v=1 ok=True $0.0051
+[39/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__calendar-301d72eca4__s0 v=1 ok=True $0.0051
+[40/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__calendar-301d72eca4__s1 v=1 ok=True $0.0054
+[41/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__multi_step-2077485cf2__s0 v=1 ok=True $0.0059
+[42/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__multi_step-2077485cf2__s1 v=1 ok=True $0.0060
+[43/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__multi_step-55b750e88b__s0 v=1 ok=True $0.0063
+[44/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__multi_step-55b750e88b__s1 v=1 ok=True $0.0061
+[45/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__multi_step-df7cacd0a6__s0 v=1 ok=True $0.0059
+[46/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__multi_step-df7cacd0a6__s1 v=1 ok=True $0.0060
+[48/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__multi_step-f333089930__s1 v=1 ok=True $0.0059
+[47/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__multi_step-f333089930__s0 v=1 ok=True $0.0061
+[49/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__read_then_act-619c9d115d__s0 v=1 ok=True $0.0076
+[50/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__read_then_act-619c9d115d__s1 v=1 ok=True $0.0074
+[51/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__read_then_act-4e6a316d01__s0 v=0 ok=True $0.0069
+[52/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__read_then_act-4e6a316d01__s1 v=1 ok=True $0.0074
+[53/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__read_then_act-70cc132e50__s0 v=0 ok=True $0.0069
+[54/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__read_then_act-70cc132e50__s1 v=0 ok=True $0.0068
+[57/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__ambiguous-74762cfc64__s0 v=1 ok=True $0.0050
+[56/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__read_then_act-681c19be3f__s1 v=0 ok=True $0.0069
+[55/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__read_then_act-681c19be3f__s0 v=1 ok=True $0.0077
+[58/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__ambiguous-74762cfc64__s1 v=1 ok=True $0.0051
+[59/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__ambiguous-a3fa9d9f98__s0 v=1 ok=True $0.0050
+[60/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__ambiguous-a3fa9d9f98__s1 v=1 ok=True $0.0050
+[61/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__ambiguous-334d29db7d__s0 v=1 ok=True $0.0050
+[62/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__ambiguous-334d29db7d__s1 v=1 ok=True $0.0050
+[64/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__ambiguous-19a5fcdc61__s1 v=1 ok=True $0.0049
+[63/1136] claude-haiku-4-5-20251001__base__none__timeout_after_commit__ambiguous-19a5fcdc61__s0 v=1 ok=True $0.0049
+[66/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__email-e7713be100__s1 v=0 ok=True $0.0030
+[65/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__email-e7713be100__s0 v=1 ok=True $0.0048
+[67/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__email-6d30f546e8__s0 v=1 ok=True $0.0049
+[68/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__email-6d30f546e8__s1 v=1 ok=True $0.0050
+[69/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__email-bc6eba4ec3__s0 v=1 ok=True $0.0048
+[70/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__email-bc6eba4ec3__s1 v=1 ok=True $0.0048
+[71/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__email-ec88ecf2d5__s0 v=0 ok=True $0.0030
+[73/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__payments-74f7376314__s0 v=0 ok=True $0.0032
+[72/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__email-ec88ecf2d5__s1 v=1 ok=True $0.0050
+[74/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__payments-74f7376314__s1 v=0 ok=True $0.0031
+[75/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__payments-2601b6da5c__s0 v=1 ok=True $0.0051
+[76/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__payments-2601b6da5c__s1 v=1 ok=True $0.0049
+[77/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__payments-18aa8e1466__s0 v=1 ok=True $0.0050
+[78/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__payments-18aa8e1466__s1 v=1 ok=True $0.0050
+[79/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__payments-ccf15dead5__s0 v=1 ok=True $0.0050
+[81/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__tickets-829820dbb5__s0 v=1 ok=True $0.0049
+[80/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__payments-ccf15dead5__s1 v=1 ok=True $0.0050
+[82/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__tickets-829820dbb5__s1 v=1 ok=True $0.0051
+[86/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__tickets-fa4348fff0__s1 v=0 ok=True $0.0031
+[83/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__tickets-8da41bdc54__s0 v=1 ok=True $0.0052
+[85/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__tickets-fa4348fff0__s0 v=1 ok=True $0.0052
+[84/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__tickets-8da41bdc54__s1 v=1 ok=True $0.0052
+[87/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__tickets-5779b9e781__s0 v=1 ok=True $0.0049
+[89/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__files-c5c13dc477__s0 v=0 ok=True $0.0030
+[88/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__tickets-5779b9e781__s1 v=1 ok=True $0.0051
+[90/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__files-c5c13dc477__s1 v=0 ok=True $0.0031
+[91/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__files-6936671904__s0 v=0 ok=True $0.0033
+[92/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__files-6936671904__s1 v=0 ok=True $0.0046
+[93/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__files-b3093853c0__s0 v=0 ok=True $0.0032
+[94/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__files-b3093853c0__s1 v=1 ok=True $0.0050
+[95/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__files-e314b099d3__s0 v=0 ok=True $0.0031
+[96/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__files-e314b099d3__s1 v=0 ok=True $0.0033
+[97/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__calendar-98fe897062__s0 v=1 ok=True $0.0054
+[98/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__calendar-98fe897062__s1 v=1 ok=True $0.0051
+[100/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__calendar-4556c662df__s1 v=0 ok=True $0.0032
+[99/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__calendar-4556c662df__s0 v=1 ok=True $0.0051
+[101/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__calendar-c8250e655f__s0 v=1 ok=True $0.0053
+[102/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__calendar-c8250e655f__s1 v=1 ok=True $0.0052
+[103/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__calendar-301d72eca4__s0 v=0 ok=True $0.0034
+[104/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__calendar-301d72eca4__s1 v=0 ok=True $0.0032
+[105/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__multi_step-2077485cf2__s0 v=0 ok=True $0.0038
+[107/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__multi_step-55b750e88b__s0 v=0 ok=True $0.0038
+[108/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__multi_step-55b750e88b__s1 v=0 ok=True $0.0037
+[106/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__multi_step-2077485cf2__s1 v=1 ok=True $0.0061
+[109/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__multi_step-df7cacd0a6__s0 v=0 ok=True $0.0038
+[110/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__multi_step-df7cacd0a6__s1 v=0 ok=True $0.0037
+[111/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__multi_step-f333089930__s0 v=1 ok=True $0.0061
+[112/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__multi_step-f333089930__s1 v=0 ok=True $0.0037
+[113/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__read_then_act-619c9d115d__s0 v=1 ok=True $0.0072
+[114/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__read_then_act-619c9d115d__s1 v=0 ok=True $0.0068
+[115/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__read_then_act-4e6a316d01__s0 v=1 ok=True $0.0073
+[116/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__read_then_act-4e6a316d01__s1 v=1 ok=True $0.0074
+[118/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__read_then_act-70cc132e50__s1 v=1 ok=True $0.0072
+[117/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__read_then_act-70cc132e50__s0 v=1 ok=True $0.0076
+[120/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__read_then_act-681c19be3f__s1 v=1 ok=True $0.0072
+[119/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__read_then_act-681c19be3f__s0 v=1 ok=True $0.0075
+[121/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__ambiguous-74762cfc64__s0 v=1 ok=True $0.0048
+[122/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__ambiguous-74762cfc64__s1 v=1 ok=True $0.0051
+[123/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__ambiguous-a3fa9d9f98__s0 v=1 ok=True $0.0048
+[124/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__ambiguous-a3fa9d9f98__s1 v=1 ok=True $0.0051
+[125/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__ambiguous-334d29db7d__s0 v=1 ok=True $0.0051
+[126/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__ambiguous-334d29db7d__s1 v=1 ok=True $0.0051
+[127/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__ambiguous-19a5fcdc61__s0 v=1 ok=True $0.0051
+[128/1136] claude-haiku-4-5-20251001__base__none__error_500_after_commit__ambiguous-19a5fcdc61__s1 v=1 ok=True $0.0049
+[129/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__email-e7713be100__s0 v=0 ok=True $0.0046
+[130/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__email-e7713be100__s1 v=0 ok=True $0.0046
+[131/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__email-6d30f546e8__s0 v=0 ok=True $0.0045
+[132/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__email-6d30f546e8__s1 v=0 ok=True $0.0045
+[133/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__email-bc6eba4ec3__s0 v=0 ok=True $0.0045
+[134/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__email-bc6eba4ec3__s1 v=0 ok=True $0.0044
+[135/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__email-ec88ecf2d5__s0 v=0 ok=True $0.0045
+[136/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__email-ec88ecf2d5__s1 v=0 ok=True $0.0046
+[137/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__payments-74f7376314__s0 v=0 ok=True $0.0047
+[138/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__payments-74f7376314__s1 v=0 ok=True $0.0047
+[140/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__payments-2601b6da5c__s1 v=0 ok=True $0.0047
+[139/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__payments-2601b6da5c__s0 v=0 ok=True $0.0046
+[142/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__payments-18aa8e1466__s1 v=0 ok=True $0.0047
+[141/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__payments-18aa8e1466__s0 v=1 ok=True $0.0053
+[143/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__payments-ccf15dead5__s0 v=0 ok=True $0.0047
+[144/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__payments-ccf15dead5__s1 v=0 ok=True $0.0048
+[145/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__tickets-829820dbb5__s0 v=0 ok=True $0.0046
+[146/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__tickets-829820dbb5__s1 v=0 ok=True $0.0045
+[147/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__tickets-8da41bdc54__s0 v=0 ok=True $0.0046
+[148/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__tickets-8da41bdc54__s1 v=0 ok=True $0.0046
+[149/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__tickets-fa4348fff0__s0 v=0 ok=True $0.0046
+[150/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__tickets-fa4348fff0__s1 v=0 ok=True $0.0046
+[151/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__tickets-5779b9e781__s0 v=0 ok=True $0.0045
+[152/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__tickets-5779b9e781__s1 v=0 ok=True $0.0046
+[153/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__files-c5c13dc477__s0 v=0 ok=True $0.0047
+[154/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__files-c5c13dc477__s1 v=0 ok=True $0.0046
+[155/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__files-6936671904__s0 v=0 ok=True $0.0047
+[156/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__files-6936671904__s1 v=0 ok=True $0.0047
+[157/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__files-b3093853c0__s0 v=0 ok=True $0.0046
+[158/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__files-b3093853c0__s1 v=0 ok=True $0.0046
+[159/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__files-e314b099d3__s0 v=0 ok=True $0.0048
+[160/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__files-e314b099d3__s1 v=0 ok=True $0.0047
+[161/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__calendar-98fe897062__s0 v=0 ok=False $0.0048
+[162/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__calendar-98fe897062__s1 v=0 ok=True $0.0048
+[163/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__calendar-4556c662df__s0 v=0 ok=True $0.0048
+[164/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__calendar-4556c662df__s1 v=0 ok=True $0.0048
+[165/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__calendar-c8250e655f__s0 v=0 ok=True $0.0048
+[166/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__calendar-c8250e655f__s1 v=0 ok=True $0.0048
+[167/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__calendar-301d72eca4__s0 v=0 ok=True $0.0046
+[168/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__calendar-301d72eca4__s1 v=0 ok=True $0.0046
+[169/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__multi_step-2077485cf2__s0 v=0 ok=True $0.0058
+[170/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__multi_step-2077485cf2__s1 v=0 ok=True $0.0059
+[172/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__multi_step-55b750e88b__s1 v=0 ok=True $0.0056
+[171/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__multi_step-55b750e88b__s0 v=0 ok=True $0.0058
+[173/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__multi_step-df7cacd0a6__s0 v=0 ok=True $0.0056
+[174/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__multi_step-df7cacd0a6__s1 v=0 ok=True $0.0057
+[175/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__multi_step-f333089930__s0 v=0 ok=True $0.0056
+[176/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__multi_step-f333089930__s1 v=0 ok=True $0.0059
+[177/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__read_then_act-619c9d115d__s0 v=0 ok=True $0.0067
+[178/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__read_then_act-619c9d115d__s1 v=0 ok=True $0.0068
+[179/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__read_then_act-4e6a316d01__s0 v=0 ok=True $0.0069
+[180/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__read_then_act-4e6a316d01__s1 v=0 ok=True $0.0069
+[181/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__read_then_act-70cc132e50__s0 v=0 ok=True $0.0069
+[182/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__read_then_act-70cc132e50__s1 v=0 ok=True $0.0069
+[183/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__read_then_act-681c19be3f__s0 v=0 ok=True $0.0069
+[184/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__read_then_act-681c19be3f__s1 v=0 ok=True $0.0069
+[185/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__ambiguous-74762cfc64__s0 v=0 ok=True $0.0047
+[187/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__ambiguous-a3fa9d9f98__s0 v=0 ok=True $0.0046
+[188/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__ambiguous-a3fa9d9f98__s1 v=0 ok=True $0.0047
+[186/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__ambiguous-74762cfc64__s1 v=1 ok=True $0.0052
+[189/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__ambiguous-334d29db7d__s0 v=0 ok=True $0.0047
+[190/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__ambiguous-334d29db7d__s1 v=0 ok=True $0.0049
+[192/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__ambiguous-19a5fcdc61__s1 v=1 ok=True $0.0051
+[191/1136] claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__ambiguous-19a5fcdc61__s0 v=1 ok=True $0.0053
+[193/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__email-e7713be100__s0 v=0 ok=True $0.0045
+[195/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__email-6d30f546e8__s0 v=0 ok=True $0.0046
+[196/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__email-6d30f546e8__s1 v=0 ok=True $0.0045
+[194/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__email-e7713be100__s1 v=0 ok=True $0.0047
+[197/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__email-bc6eba4ec3__s0 v=0 ok=True $0.0046
+[198/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__email-bc6eba4ec3__s1 v=0 ok=True $0.0046
+[199/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__email-ec88ecf2d5__s0 v=0 ok=True $0.0048
+[200/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__email-ec88ecf2d5__s1 v=0 ok=True $0.0047
+[201/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__payments-74f7376314__s0 v=0 ok=True $0.0047
+[203/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__payments-2601b6da5c__s0 v=0 ok=True $0.0046
+[202/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__payments-74f7376314__s1 v=0 ok=True $0.0047
+[204/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__payments-2601b6da5c__s1 v=0 ok=True $0.0047
+[205/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__payments-18aa8e1466__s0 v=0 ok=True $0.0047
+[206/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__payments-18aa8e1466__s1 v=0 ok=True $0.0047
+[207/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__payments-ccf15dead5__s0 v=0 ok=True $0.0047
+[208/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__payments-ccf15dead5__s1 v=0 ok=True $0.0047
+[209/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__tickets-829820dbb5__s0 v=0 ok=True $0.0046
+[210/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__tickets-829820dbb5__s1 v=0 ok=True $0.0045
+[211/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__tickets-8da41bdc54__s0 v=0 ok=True $0.0045
+[213/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__tickets-fa4348fff0__s0 v=0 ok=True $0.0046
+[212/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__tickets-8da41bdc54__s1 v=0 ok=True $0.0046
+[214/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__tickets-fa4348fff0__s1 v=0 ok=True $0.0046
+[215/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__tickets-5779b9e781__s0 v=0 ok=True $0.0046
+[216/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__tickets-5779b9e781__s1 v=0 ok=True $0.0046
+[217/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__files-c5c13dc477__s0 v=0 ok=True $0.0047
+[218/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__files-c5c13dc477__s1 v=0 ok=True $0.0046
+[219/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__files-6936671904__s0 v=0 ok=True $0.0046
+[220/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__files-6936671904__s1 v=0 ok=True $0.0047
+[221/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__files-b3093853c0__s0 v=0 ok=True $0.0046
+[222/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__files-b3093853c0__s1 v=0 ok=True $0.0046
+[223/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__files-e314b099d3__s0 v=0 ok=True $0.0047
+[224/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__files-e314b099d3__s1 v=0 ok=True $0.0047
+[225/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__calendar-98fe897062__s0 v=0 ok=True $0.0048
+[226/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__calendar-98fe897062__s1 v=0 ok=False $0.0048
+[227/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__calendar-4556c662df__s0 v=0 ok=True $0.0048
+[228/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__calendar-4556c662df__s1 v=0 ok=True $0.0048
+[229/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__calendar-c8250e655f__s0 v=0 ok=True $0.0048
+[230/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__calendar-c8250e655f__s1 v=0 ok=True $0.0048
+[231/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__calendar-301d72eca4__s0 v=0 ok=True $0.0047
+[232/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__calendar-301d72eca4__s1 v=0 ok=True $0.0049
+[233/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__multi_step-2077485cf2__s0 v=0 ok=True $0.0057
+[234/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__multi_step-2077485cf2__s1 v=0 ok=True $0.0059
+[235/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__multi_step-55b750e88b__s0 v=0 ok=True $0.0057
+[236/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__multi_step-55b750e88b__s1 v=0 ok=True $0.0058
+[237/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__multi_step-df7cacd0a6__s0 v=0 ok=True $0.0058
+[238/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__multi_step-df7cacd0a6__s1 v=0 ok=True $0.0058
+[240/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__multi_step-f333089930__s1 v=0 ok=True $0.0056
+[239/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__multi_step-f333089930__s0 v=1 ok=True $0.0062
+[241/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__read_then_act-619c9d115d__s0 v=0 ok=True $0.0072
+[242/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__read_then_act-619c9d115d__s1 v=0 ok=True $0.0070
+[244/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__read_then_act-4e6a316d01__s1 v=0 ok=True $0.0069
+[243/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__read_then_act-4e6a316d01__s0 v=0 ok=True $0.0070
+[245/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__read_then_act-70cc132e50__s0 v=0 ok=True $0.0070
+[246/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__read_then_act-70cc132e50__s1 v=0 ok=True $0.0069
+[247/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__read_then_act-681c19be3f__s0 v=0 ok=True $0.0069
+[248/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__read_then_act-681c19be3f__s1 v=0 ok=True $0.0070
+[249/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__ambiguous-74762cfc64__s0 v=0 ok=True $0.0046
+[250/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__ambiguous-74762cfc64__s1 v=0 ok=True $0.0047
+[252/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__ambiguous-a3fa9d9f98__s1 v=0 ok=True $0.0046
+[251/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__ambiguous-a3fa9d9f98__s0 v=0 ok=True $0.0048
+[253/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__ambiguous-334d29db7d__s0 v=0 ok=True $0.0050
+[254/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__ambiguous-334d29db7d__s1 v=0 ok=True $0.0048
+[256/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__ambiguous-19a5fcdc61__s1 v=0 ok=True $0.0047
+[255/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p1_after_commit__ambiguous-19a5fcdc61__s0 v=0 ok=True $0.0048
+[257/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__email-e7713be100__s0 v=0 ok=True $0.0031
+[258/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__email-e7713be100__s1 v=0 ok=True $0.0031
+[259/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__email-6d30f546e8__s0 v=0 ok=True $0.0031
+[260/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__email-6d30f546e8__s1 v=0 ok=True $0.0031
+[261/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__email-bc6eba4ec3__s0 v=0 ok=True $0.0030
+[262/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__email-bc6eba4ec3__s1 v=0 ok=True $0.0031
+[263/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__email-ec88ecf2d5__s0 v=0 ok=True $0.0031
+[264/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__email-ec88ecf2d5__s1 v=0 ok=True $0.0032
+[265/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__payments-74f7376314__s0 v=0 ok=True $0.0033
+[266/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__payments-74f7376314__s1 v=0 ok=True $0.0033
+[268/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__payments-2601b6da5c__s1 v=0 ok=True $0.0032
+[267/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__payments-2601b6da5c__s0 v=0 ok=True $0.0033
+[270/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__payments-18aa8e1466__s1 v=0 ok=True $0.0032
+[269/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__payments-18aa8e1466__s0 v=0 ok=True $0.0035
+[271/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__payments-ccf15dead5__s0 v=0 ok=True $0.0032
+[272/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__payments-ccf15dead5__s1 v=1 ok=True $0.0053
+[273/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__tickets-829820dbb5__s0 v=0 ok=True $0.0046
+[274/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__tickets-829820dbb5__s1 v=0 ok=True $0.0046
+[275/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__tickets-8da41bdc54__s0 v=0 ok=True $0.0047
+[276/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__tickets-8da41bdc54__s1 v=0 ok=True $0.0045
+[278/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__tickets-fa4348fff0__s1 v=1 ok=True $0.0052
+[277/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__tickets-fa4348fff0__s0 v=1 ok=True $0.0052
+[279/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__tickets-5779b9e781__s0 v=0 ok=True $0.0046
+[281/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__files-c5c13dc477__s0 v=0 ok=True $0.0033
+[282/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__files-c5c13dc477__s1 v=0 ok=True $0.0033
+[283/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__files-6936671904__s0 v=0 ok=True $0.0030
+[280/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__tickets-5779b9e781__s1 v=1 ok=True $0.0052
+[284/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__files-6936671904__s1 v=0 ok=True $0.0032
+[285/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__files-b3093853c0__s0 v=0 ok=True $0.0031
+[286/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__files-b3093853c0__s1 v=0 ok=True $0.0031
+[287/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__files-e314b099d3__s0 v=0 ok=True $0.0031
+[288/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__files-e314b099d3__s1 v=0 ok=True $0.0031
+[289/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__calendar-98fe897062__s0 v=0 ok=True $0.0048
+[291/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__calendar-4556c662df__s0 v=0 ok=True $0.0047
+[290/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__calendar-98fe897062__s1 v=0 ok=True $0.0050
+[292/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__calendar-4556c662df__s1 v=0 ok=True $0.0048
+[293/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__calendar-c8250e655f__s0 v=0 ok=True $0.0048
+[294/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__calendar-c8250e655f__s1 v=0 ok=True $0.0051
+[295/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__calendar-301d72eca4__s0 v=1 ok=True $0.0055
+[297/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__multi_step-2077485cf2__s0 v=0 ok=True $0.0055
+[296/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__calendar-301d72eca4__s1 v=0 ok=True $0.0050
+[298/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__multi_step-2077485cf2__s1 v=0 ok=True $0.0039
+[300/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__multi_step-55b750e88b__s1 v=0 ok=True $0.0038
+[302/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__multi_step-df7cacd0a6__s1 v=0 ok=True $0.0039
+[299/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__multi_step-55b750e88b__s0 v=1 ok=True $0.0062
+[301/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__multi_step-df7cacd0a6__s0 v=1 ok=True $0.0061
+[303/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__multi_step-f333089930__s0 v=1 ok=True $0.0062
+[305/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__read_then_act-619c9d115d__s0 v=0 ok=True $0.0066
+[304/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__multi_step-f333089930__s1 v=1 ok=True $0.0062
+[306/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__read_then_act-619c9d115d__s1 v=0 ok=True $0.0070
+[307/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__read_then_act-4e6a316d01__s0 v=0 ok=True $0.0070
+[308/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__read_then_act-4e6a316d01__s1 v=0 ok=True $0.0069
+[309/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__read_then_act-70cc132e50__s0 v=0 ok=True $0.0069
+[310/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__read_then_act-70cc132e50__s1 v=0 ok=True $0.0070
+[313/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__ambiguous-74762cfc64__s0 v=0 ok=True $0.0048
+[312/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__read_then_act-681c19be3f__s1 v=0 ok=True $0.0070
+[311/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__read_then_act-681c19be3f__s0 v=0 ok=True $0.0070
+[314/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__ambiguous-74762cfc64__s1 v=1 ok=True $0.0052
+[315/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__ambiguous-a3fa9d9f98__s0 v=0 ok=True $0.0047
+[316/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__ambiguous-a3fa9d9f98__s1 v=1 ok=True $0.0056
+[317/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__ambiguous-334d29db7d__s0 v=0 ok=True $0.0050
+[319/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__ambiguous-19a5fcdc61__s0 v=0 ok=True $0.0047
+[318/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__ambiguous-334d29db7d__s1 v=1 ok=True $0.0054
+[320/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p2_after_commit__ambiguous-19a5fcdc61__s1 v=0 ok=True $0.0048
+[321/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__email-e7713be100__s0 v=0 ok=True $0.0045
+[323/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__email-6d30f546e8__s0 v=0 ok=True $0.0030
+[322/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__email-e7713be100__s1 v=0 ok=True $0.0046
+[324/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__email-6d30f546e8__s1 v=0 ok=True $0.0045
+[325/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__email-bc6eba4ec3__s0 v=0 ok=True $0.0045
+[326/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__email-bc6eba4ec3__s1 v=0 ok=True $0.0030
+[327/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__email-ec88ecf2d5__s0 v=0 ok=True $0.0030
+[328/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__email-ec88ecf2d5__s1 v=0 ok=True $0.0045
+[330/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__payments-74f7376314__s1 v=0 ok=True $0.0046
+[329/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__payments-74f7376314__s0 v=0 ok=True $0.0046
+[331/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__payments-2601b6da5c__s0 v=0 ok=True $0.0046
+[333/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__payments-18aa8e1466__s0 v=0 ok=True $0.0046
+[332/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__payments-2601b6da5c__s1 v=0 ok=True $0.0048
+[334/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__payments-18aa8e1466__s1 v=0 ok=True $0.0047
+[335/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__payments-ccf15dead5__s0 v=0 ok=True $0.0047
+[338/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__tickets-829820dbb5__s1 v=0 ok=True $0.0045
+[337/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__tickets-829820dbb5__s0 v=0 ok=True $0.0045
+[336/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__payments-ccf15dead5__s1 v=0 ok=True $0.0047
+[339/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__tickets-8da41bdc54__s0 v=0 ok=True $0.0046
+[341/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__tickets-fa4348fff0__s0 v=0 ok=True $0.0046
+[342/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__tickets-fa4348fff0__s1 v=0 ok=True $0.0046
+[340/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__tickets-8da41bdc54__s1 v=0 ok=True $0.0046
+[343/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__tickets-5779b9e781__s0 v=0 ok=True $0.0046
+[344/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__tickets-5779b9e781__s1 v=0 ok=True $0.0045
+[345/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__files-c5c13dc477__s0 v=0 ok=True $0.0046
+[346/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__files-c5c13dc477__s1 v=0 ok=True $0.0049
+[347/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__files-6936671904__s0 v=0 ok=True $0.0046
+[348/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__files-6936671904__s1 v=0 ok=True $0.0046
+[349/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__files-b3093853c0__s0 v=0 ok=True $0.0049
+[350/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__files-b3093853c0__s1 v=0 ok=True $0.0046
+[351/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__files-e314b099d3__s0 v=0 ok=True $0.0048
+[352/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__files-e314b099d3__s1 v=0 ok=True $0.0033
+[353/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__calendar-98fe897062__s0 v=0 ok=True $0.0048
+[354/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__calendar-98fe897062__s1 v=0 ok=True $0.0048
+[355/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__calendar-4556c662df__s0 v=0 ok=True $0.0048
+[356/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__calendar-4556c662df__s1 v=0 ok=True $0.0048
+[357/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__calendar-c8250e655f__s0 v=0 ok=True $0.0048
+[358/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__calendar-c8250e655f__s1 v=0 ok=True $0.0048
+[359/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__calendar-301d72eca4__s0 v=0 ok=True $0.0048
+[360/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__calendar-301d72eca4__s1 v=0 ok=True $0.0048
+[362/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__multi_step-2077485cf2__s1 v=0 ok=True $0.0039
+[361/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__multi_step-2077485cf2__s0 v=0 ok=True $0.0057
+[364/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__multi_step-55b750e88b__s1 v=0 ok=True $0.0038
+[363/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__multi_step-55b750e88b__s0 v=0 ok=True $0.0056
+[365/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__multi_step-df7cacd0a6__s0 v=0 ok=True $0.0039
+[366/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__multi_step-df7cacd0a6__s1 v=0 ok=True $0.0058
+[367/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__multi_step-f333089930__s0 v=0 ok=True $0.0057
+[368/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__multi_step-f333089930__s1 v=0 ok=True $0.0059
+[369/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__read_then_act-619c9d115d__s0 v=0 ok=True $0.0068
+[370/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__read_then_act-619c9d115d__s1 v=0 ok=True $0.0067
+[371/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__read_then_act-4e6a316d01__s0 v=0 ok=True $0.0071
+[372/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__read_then_act-4e6a316d01__s1 v=0 ok=True $0.0069
+[373/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__read_then_act-70cc132e50__s0 v=0 ok=True $0.0068
+[374/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__read_then_act-70cc132e50__s1 v=0 ok=True $0.0068
+[377/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__ambiguous-74762cfc64__s0 v=0 ok=True $0.0031
+[378/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__ambiguous-74762cfc64__s1 v=0 ok=True $0.0031
+[375/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__read_then_act-681c19be3f__s0 v=0 ok=True $0.0068
+[376/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__read_then_act-681c19be3f__s1 v=0 ok=True $0.0069
+[379/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__ambiguous-a3fa9d9f98__s0 v=0 ok=True $0.0047
+[380/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__ambiguous-a3fa9d9f98__s1 v=0 ok=True $0.0047
+[382/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__ambiguous-334d29db7d__s1 v=0 ok=True $0.0031
+[383/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__ambiguous-19a5fcdc61__s0 v=0 ok=True $0.0031
+[381/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__ambiguous-334d29db7d__s0 v=0 ok=True $0.0047
+[384/1136] claude-haiku-4-5-20251001__base__none__status_unknown_p3_after_commit__ambiguous-19a5fcdc61__s1 v=0 ok=True $0.0031
+[386/1136] claude-sonnet-5__base__none__timeout_after_commit__email-e7713be100__s1 v=0 ok=True $0.0059
+[385/1136] claude-sonnet-5__base__none__timeout_after_commit__email-e7713be100__s0 v=0 ok=True $0.0070
+[388/1136] claude-sonnet-5__base__none__timeout_after_commit__email-6d30f546e8__s1 v=0 ok=True $0.0042
+[387/1136] claude-sonnet-5__base__none__timeout_after_commit__email-6d30f546e8__s0 v=0 ok=True $0.0077
+[389/1136] claude-sonnet-5__base__none__timeout_after_commit__email-bc6eba4ec3__s0 v=0 ok=True $0.0037
+[390/1136] claude-sonnet-5__base__none__timeout_after_commit__email-bc6eba4ec3__s1 v=0 ok=True $0.0037
+[391/1136] claude-sonnet-5__base__none__timeout_after_commit__email-ec88ecf2d5__s0 v=0 ok=True $0.0036
+[392/1136] claude-sonnet-5__base__none__timeout_after_commit__email-ec88ecf2d5__s1 v=0 ok=True $0.0039
+[393/1136] claude-sonnet-5__base__none__timeout_after_commit__payments-74f7376314__s0 v=0 ok=True $0.0053
+[394/1136] claude-sonnet-5__base__none__timeout_after_commit__payments-74f7376314__s1 v=0 ok=True $0.0051
+[396/1136] claude-sonnet-5__base__none__timeout_after_commit__payments-2601b6da5c__s1 v=0 ok=True $0.0054
+[395/1136] claude-sonnet-5__base__none__timeout_after_commit__payments-2601b6da5c__s0 v=0 ok=True $0.0064
+[397/1136] claude-sonnet-5__base__none__timeout_after_commit__payments-18aa8e1466__s0 v=0 ok=True $0.0057
+[398/1136] claude-sonnet-5__base__none__timeout_after_commit__payments-18aa8e1466__s1 v=0 ok=True $0.0052
+[399/1136] claude-sonnet-5__base__none__timeout_after_commit__payments-ccf15dead5__s0 v=0 ok=True $0.0053
+[400/1136] claude-sonnet-5__base__none__timeout_after_commit__payments-ccf15dead5__s1 v=0 ok=True $0.0054
+[402/1136] claude-sonnet-5__base__none__timeout_after_commit__tickets-829820dbb5__s1 v=0 ok=True $0.0031
+[401/1136] claude-sonnet-5__base__none__timeout_after_commit__tickets-829820dbb5__s0 v=0 ok=True $0.0054
+[403/1136] claude-sonnet-5__base__none__timeout_after_commit__tickets-8da41bdc54__s0 v=0 ok=True $0.0036
+[404/1136] claude-sonnet-5__base__none__timeout_after_commit__tickets-8da41bdc54__s1 v=0 ok=True $0.0043
+[405/1136] claude-sonnet-5__base__none__timeout_after_commit__tickets-fa4348fff0__s0 v=0 ok=True $0.0042
+[406/1136] claude-sonnet-5__base__none__timeout_after_commit__tickets-fa4348fff0__s1 v=0 ok=True $0.0033
+[407/1136] claude-sonnet-5__base__none__timeout_after_commit__tickets-5779b9e781__s0 v=0 ok=True $0.0041
+[409/1136] claude-sonnet-5__base__none__timeout_after_commit__files-c5c13dc477__s0 v=0 ok=True $0.0037
+[410/1136] claude-sonnet-5__base__none__timeout_after_commit__files-c5c13dc477__s1 v=0 ok=True $0.0036
+[408/1136] claude-sonnet-5__base__none__timeout_after_commit__tickets-5779b9e781__s1 v=0 ok=True $0.0052
+[412/1136] claude-sonnet-5__base__none__timeout_after_commit__files-6936671904__s1 v=0 ok=True $0.0033
+[411/1136] claude-sonnet-5__base__none__timeout_after_commit__files-6936671904__s0 v=0 ok=True $0.0050
+[413/1136] claude-sonnet-5__base__none__timeout_after_commit__files-b3093853c0__s0 v=0 ok=True $0.0037
+[414/1136] claude-sonnet-5__base__none__timeout_after_commit__files-b3093853c0__s1 v=0 ok=True $0.0039
+[417/1136] claude-sonnet-5__base__none__timeout_after_commit__calendar-98fe897062__s0 v=0 ok=True $0.0049
+[415/1136] claude-sonnet-5__base__none__timeout_after_commit__files-e314b099d3__s0 v=0 ok=True $0.0059
+[418/1136] claude-sonnet-5__base__none__timeout_after_commit__calendar-98fe897062__s1 v=0 ok=True $0.0044
+[416/1136] claude-sonnet-5__base__none__timeout_after_commit__files-e314b099d3__s1 v=0 ok=True $0.0055
+[420/1136] claude-sonnet-5__base__none__timeout_after_commit__calendar-4556c662df__s1 v=0 ok=True $0.0038
+[419/1136] claude-sonnet-5__base__none__timeout_after_commit__calendar-4556c662df__s0 v=0 ok=True $0.0038
+[421/1136] claude-sonnet-5__base__none__timeout_after_commit__calendar-c8250e655f__s0 v=0 ok=True $0.0038
+[422/1136] claude-sonnet-5__base__none__timeout_after_commit__calendar-c8250e655f__s1 v=0 ok=True $0.0047
+[424/1136] claude-sonnet-5__base__none__timeout_after_commit__calendar-301d72eca4__s1 v=0 ok=True $0.0045
+[423/1136] claude-sonnet-5__base__none__timeout_after_commit__calendar-301d72eca4__s0 v=0 ok=True $0.0052
+[425/1136] claude-sonnet-5__base__none__timeout_after_commit__multi_step-2077485cf2__s0 v=0 ok=True $0.0069
+[427/1136] claude-sonnet-5__base__none__timeout_after_commit__multi_step-55b750e88b__s0 v=0 ok=True $0.0066
+[426/1136] claude-sonnet-5__base__none__timeout_after_commit__multi_step-2077485cf2__s1 v=0 ok=True $0.0066
+[428/1136] claude-sonnet-5__base__none__timeout_after_commit__multi_step-55b750e88b__s1 v=0 ok=True $0.0075
+[430/1136] claude-sonnet-5__base__none__timeout_after_commit__multi_step-df7cacd0a6__s1 v=0 ok=True $0.0070
+[429/1136] claude-sonnet-5__base__none__timeout_after_commit__multi_step-df7cacd0a6__s0 v=0 ok=True $0.0092
+[431/1136] claude-sonnet-5__base__none__timeout_after_commit__multi_step-f333089930__s0 v=0 ok=True $0.0073
+[432/1136] claude-sonnet-5__base__none__timeout_after_commit__multi_step-f333089930__s1 v=0 ok=True $0.0090
+[434/1136] claude-sonnet-5__base__none__timeout_after_commit__read_then_act-619c9d115d__s1 v=0 ok=True $0.0053
+[435/1136] claude-sonnet-5__base__none__timeout_after_commit__read_then_act-4e6a316d01__s0 v=0 ok=True $0.0056
+[433/1136] claude-sonnet-5__base__none__timeout_after_commit__read_then_act-619c9d115d__s0 v=0 ok=True $0.0065
+[436/1136] claude-sonnet-5__base__none__timeout_after_commit__read_then_act-4e6a316d01__s1 v=0 ok=True $0.0055
+[438/1136] claude-sonnet-5__base__none__timeout_after_commit__read_then_act-70cc132e50__s1 v=0 ok=True $0.0056
+[437/1136] claude-sonnet-5__base__none__timeout_after_commit__read_then_act-70cc132e50__s0 v=0 ok=True $0.0056
+[439/1136] claude-sonnet-5__base__none__timeout_after_commit__read_then_act-681c19be3f__s0 v=0 ok=True $0.0057
+[440/1136] claude-sonnet-5__base__none__timeout_after_commit__read_then_act-681c19be3f__s1 v=0 ok=True $0.0056
+[442/1136] claude-sonnet-5__base__none__timeout_after_commit__ambiguous-74762cfc64__s1 v=0 ok=True $0.0057
+[441/1136] claude-sonnet-5__base__none__timeout_after_commit__ambiguous-74762cfc64__s0 v=0 ok=True $0.0056
+[443/1136] claude-sonnet-5__base__none__timeout_after_commit__ambiguous-a3fa9d9f98__s0 v=0 ok=True $0.0071
+[444/1136] claude-sonnet-5__base__none__timeout_after_commit__ambiguous-a3fa9d9f98__s1 v=0 ok=True $0.0053
+[446/1136] claude-sonnet-5__base__none__timeout_after_commit__ambiguous-334d29db7d__s1 v=0 ok=True $0.0055
+[445/1136] claude-sonnet-5__base__none__timeout_after_commit__ambiguous-334d29db7d__s0 v=0 ok=True $0.0056
+[447/1136] claude-sonnet-5__base__none__timeout_after_commit__ambiguous-19a5fcdc61__s0 v=0 ok=True $0.0056
+[449/1136] claude-sonnet-5__base__none__error_500_after_commit__email-e7713be100__s0 v=1 ok=True $0.0041
+[450/1136] claude-sonnet-5__base__none__error_500_after_commit__email-e7713be100__s1 v=1 ok=True $0.0037
+[448/1136] claude-sonnet-5__base__none__timeout_after_commit__ambiguous-19a5fcdc61__s1 v=0 ok=True $0.0051
+[451/1136] claude-sonnet-5__base__none__error_500_after_commit__email-6d30f546e8__s0 v=0 ok=True $0.0031
+[452/1136] claude-sonnet-5__base__none__error_500_after_commit__email-6d30f546e8__s1 v=0 ok=True $0.0030
+[454/1136] claude-sonnet-5__base__none__error_500_after_commit__email-bc6eba4ec3__s1 v=0 ok=True $0.0048
+[453/1136] claude-sonnet-5__base__none__error_500_after_commit__email-bc6eba4ec3__s0 v=1 ok=True $0.0068
+[456/1136] claude-sonnet-5__base__none__error_500_after_commit__email-ec88ecf2d5__s1 v=0 ok=True $0.0037
+[455/1136] claude-sonnet-5__base__none__error_500_after_commit__email-ec88ecf2d5__s0 v=1 ok=True $0.0072
+[457/1136] claude-sonnet-5__base__none__error_500_after_commit__payments-74f7376314__s0 v=0 ok=True $0.0050
+[458/1136] claude-sonnet-5__base__none__error_500_after_commit__payments-74f7376314__s1 v=1 ok=True $0.0071
+[459/1136] claude-sonnet-5__base__none__error_500_after_commit__payments-2601b6da5c__s0 v=0 ok=True $0.0069
+[460/1136] claude-sonnet-5__base__none__error_500_after_commit__payments-2601b6da5c__s1 v=0 ok=True $0.0068
+[461/1136] claude-sonnet-5__base__none__error_500_after_commit__payments-18aa8e1466__s0 v=1 ok=True $0.0067
+[464/1136] claude-sonnet-5__base__none__error_500_after_commit__payments-ccf15dead5__s1 v=0 ok=True $0.0045
+[463/1136] claude-sonnet-5__base__none__error_500_after_commit__payments-ccf15dead5__s0 v=1 ok=True $0.0065
+[465/1136] claude-sonnet-5__base__none__error_500_after_commit__tickets-829820dbb5__s0 v=1 ok=True $0.0043
+[466/1136] claude-sonnet-5__base__none__error_500_after_commit__tickets-829820dbb5__s1 v=1 ok=True $0.0043
+[468/1136] claude-sonnet-5__base__none__error_500_after_commit__tickets-8da41bdc54__s1 v=1 ok=True $0.0066
+[467/1136] claude-sonnet-5__base__none__error_500_after_commit__tickets-8da41bdc54__s0 v=1 ok=True $0.0065
+[470/1136] claude-sonnet-5__base__none__error_500_after_commit__tickets-fa4348fff0__s1 v=1 ok=True $0.0049
+[462/1136] claude-sonnet-5__base__none__error_500_after_commit__payments-18aa8e1466__s1 v=1 ok=True $0.0152
+[471/1136] claude-sonnet-5__base__none__error_500_after_commit__tickets-5779b9e781__s0 v=1 ok=True $0.0047
+[469/1136] claude-sonnet-5__base__none__error_500_after_commit__tickets-fa4348fff0__s0 v=1 ok=True $0.0093
+[473/1136] claude-sonnet-5__base__none__error_500_after_commit__files-c5c13dc477__s0 v=1 ok=True $0.0040
+[472/1136] claude-sonnet-5__base__none__error_500_after_commit__tickets-5779b9e781__s1 v=1 ok=True $0.0050
+[474/1136] claude-sonnet-5__base__none__error_500_after_commit__files-c5c13dc477__s1 v=0 ok=True $0.0039
+[475/1136] claude-sonnet-5__base__none__error_500_after_commit__files-6936671904__s0 v=1 ok=True $0.0048
+[476/1136] claude-sonnet-5__base__none__error_500_after_commit__files-6936671904__s1 v=1 ok=True $0.0049
+[477/1136] claude-sonnet-5__base__none__error_500_after_commit__files-b3093853c0__s0 v=1 ok=True $0.0044
+[478/1136] claude-sonnet-5__base__none__error_500_after_commit__files-b3093853c0__s1 v=1 ok=True $0.0063
+[479/1136] claude-sonnet-5__base__none__error_500_after_commit__files-e314b099d3__s0 v=1 ok=True $0.0061
+[480/1136] claude-sonnet-5__base__none__error_500_after_commit__files-e314b099d3__s1 v=0 ok=True $0.0038
+[483/1136] claude-sonnet-5__base__none__error_500_after_commit__calendar-4556c662df__s0 v=0 ok=True $0.0031
+[482/1136] claude-sonnet-5__base__none__error_500_after_commit__calendar-98fe897062__s1 v=1 ok=True $0.0055
+[484/1136] claude-sonnet-5__base__none__error_500_after_commit__calendar-4556c662df__s1 v=1 ok=True $0.0052
+[481/1136] claude-sonnet-5__base__none__error_500_after_commit__calendar-98fe897062__s0 v=1 ok=True $0.0091
+[485/1136] claude-sonnet-5__base__none__error_500_after_commit__calendar-c8250e655f__s0 v=1 ok=True $0.0052
+[487/1136] claude-sonnet-5__base__none__error_500_after_commit__calendar-301d72eca4__s0 v=1 ok=True $0.0050
+[486/1136] claude-sonnet-5__base__none__error_500_after_commit__calendar-c8250e655f__s1 v=1 ok=True $0.0062
+[488/1136] claude-sonnet-5__base__none__error_500_after_commit__calendar-301d72eca4__s1 v=1 ok=True $0.0063
+[489/1136] claude-sonnet-5__base__none__error_500_after_commit__multi_step-2077485cf2__s0 v=0 ok=True $0.0073
+[491/1136] claude-sonnet-5__base__none__error_500_after_commit__multi_step-55b750e88b__s0 v=1 ok=True $0.0083
+[490/1136] claude-sonnet-5__base__none__error_500_after_commit__multi_step-2077485cf2__s1 v=1 ok=True $0.0086
+[492/1136] claude-sonnet-5__base__none__error_500_after_commit__multi_step-55b750e88b__s1 v=1 ok=True $0.0082
+[493/1136] claude-sonnet-5__base__none__error_500_after_commit__multi_step-df7cacd0a6__s0 v=0 ok=True $0.0087
+[496/1136] claude-sonnet-5__base__none__error_500_after_commit__multi_step-f333089930__s1 v=0 ok=True $0.0071
+[495/1136] claude-sonnet-5__base__none__error_500_after_commit__multi_step-f333089930__s0 v=1 ok=True $0.0096
+[494/1136] claude-sonnet-5__base__none__error_500_after_commit__multi_step-df7cacd0a6__s1 v=1 ok=True $0.0109
+[497/1136] claude-sonnet-5__base__none__error_500_after_commit__read_then_act-619c9d115d__s0 v=0 ok=True $0.0056
+[498/1136] claude-sonnet-5__base__none__error_500_after_commit__read_then_act-619c9d115d__s1 v=0 ok=True $0.0053
+[499/1136] claude-sonnet-5__base__none__error_500_after_commit__read_then_act-4e6a316d01__s0 v=0 ok=True $0.0052
+[500/1136] claude-sonnet-5__base__none__error_500_after_commit__read_then_act-4e6a316d01__s1 v=0 ok=True $0.0077
+[501/1136] claude-sonnet-5__base__none__error_500_after_commit__read_then_act-70cc132e50__s0 v=0 ok=True $0.0066
+[502/1136] claude-sonnet-5__base__none__error_500_after_commit__read_then_act-70cc132e50__s1 v=0 ok=True $0.0054
+[503/1136] claude-sonnet-5__base__none__error_500_after_commit__read_then_act-681c19be3f__s0 v=0 ok=True $0.0056
+[506/1136] claude-sonnet-5__base__none__error_500_after_commit__ambiguous-74762cfc64__s1 v=0 ok=True $0.0051
+[505/1136] claude-sonnet-5__base__none__error_500_after_commit__ambiguous-74762cfc64__s0 v=0 ok=True $0.0054
+[507/1136] claude-sonnet-5__base__none__error_500_after_commit__ambiguous-a3fa9d9f98__s0 v=0 ok=True $0.0065
+[508/1136] claude-sonnet-5__base__none__error_500_after_commit__ambiguous-a3fa9d9f98__s1 v=0 ok=True $0.0051
+[509/1136] claude-sonnet-5__base__none__error_500_after_commit__ambiguous-334d29db7d__s0 v=0 ok=True $0.0067
+[510/1136] claude-sonnet-5__base__none__error_500_after_commit__ambiguous-334d29db7d__s1 v=0 ok=True $0.0050
+[513/1136] claude-sonnet-5__base__none__status_unknown_after_commit__email-e7713be100__s0 v=0 ok=True $0.0033
+[511/1136] claude-sonnet-5__base__none__error_500_after_commit__ambiguous-19a5fcdc61__s0 v=0 ok=True $0.0048
+[514/1136] claude-sonnet-5__base__none__status_unknown_after_commit__email-e7713be100__s1 v=0 ok=True $0.0034
+[512/1136] claude-sonnet-5__base__none__error_500_after_commit__ambiguous-19a5fcdc61__s1 v=0 ok=True $0.0066
+[504/1136] claude-sonnet-5__base__none__error_500_after_commit__read_then_act-681c19be3f__s1 v=1 ok=True $0.0232
+[515/1136] claude-sonnet-5__base__none__status_unknown_after_commit__email-6d30f546e8__s0 v=0 ok=True $0.0049
+[516/1136] claude-sonnet-5__base__none__status_unknown_after_commit__email-6d30f546e8__s1 v=0 ok=True $0.0036
+[517/1136] claude-sonnet-5__base__none__status_unknown_after_commit__email-bc6eba4ec3__s0 v=0 ok=True $0.0056
+[518/1136] claude-sonnet-5__base__none__status_unknown_after_commit__email-bc6eba4ec3__s1 v=0 ok=True $0.0048
+[520/1136] claude-sonnet-5__base__none__status_unknown_after_commit__email-ec88ecf2d5__s1 v=0 ok=True $0.0037
+[519/1136] claude-sonnet-5__base__none__status_unknown_after_commit__email-ec88ecf2d5__s0 v=0 ok=True $0.0057
+[521/1136] claude-sonnet-5__base__none__status_unknown_after_commit__payments-74f7376314__s0 v=0 ok=True $0.0052
+[522/1136] claude-sonnet-5__base__none__status_unknown_after_commit__payments-74f7376314__s1 v=0 ok=True $0.0055
+[523/1136] claude-sonnet-5__base__none__status_unknown_after_commit__payments-2601b6da5c__s0 v=0 ok=True $0.0054
+[524/1136] claude-sonnet-5__base__none__status_unknown_after_commit__payments-2601b6da5c__s1 v=0 ok=True $0.0056
+[525/1136] claude-sonnet-5__base__none__status_unknown_after_commit__payments-18aa8e1466__s0 v=0 ok=True $0.0053
+[526/1136] claude-sonnet-5__base__none__status_unknown_after_commit__payments-18aa8e1466__s1 v=0 ok=True $0.0057
+[527/1136] claude-sonnet-5__base__none__status_unknown_after_commit__payments-ccf15dead5__s0 v=0 ok=True $0.0050
+[529/1136] claude-sonnet-5__base__none__status_unknown_after_commit__tickets-829820dbb5__s0 v=0 ok=True $0.0033
+[528/1136] claude-sonnet-5__base__none__status_unknown_after_commit__payments-ccf15dead5__s1 v=0 ok=True $0.0063
+[530/1136] claude-sonnet-5__base__none__status_unknown_after_commit__tickets-829820dbb5__s1 v=0 ok=True $0.0037
+[531/1136] claude-sonnet-5__base__none__status_unknown_after_commit__tickets-8da41bdc54__s0 v=0 ok=True $0.0038
+[533/1136] claude-sonnet-5__base__none__status_unknown_after_commit__tickets-fa4348fff0__s0 v=0 ok=True $0.0031
+[532/1136] claude-sonnet-5__base__none__status_unknown_after_commit__tickets-8da41bdc54__s1 v=0 ok=True $0.0041
+[534/1136] claude-sonnet-5__base__none__status_unknown_after_commit__tickets-fa4348fff0__s1 v=0 ok=True $0.0049
+[535/1136] claude-sonnet-5__base__none__status_unknown_after_commit__tickets-5779b9e781__s0 v=0 ok=True $0.0038
+[537/1136] claude-sonnet-5__base__none__status_unknown_after_commit__files-c5c13dc477__s0 v=0 ok=True $0.0033
+[536/1136] claude-sonnet-5__base__none__status_unknown_after_commit__tickets-5779b9e781__s1 v=0 ok=True $0.0047
+[538/1136] claude-sonnet-5__base__none__status_unknown_after_commit__files-c5c13dc477__s1 v=0 ok=True $0.0035
+[539/1136] claude-sonnet-5__base__none__status_unknown_after_commit__files-6936671904__s0 v=0 ok=True $0.0040
+[540/1136] claude-sonnet-5__base__none__status_unknown_after_commit__files-6936671904__s1 v=0 ok=True $0.0034
+[541/1136] claude-sonnet-5__base__none__status_unknown_after_commit__files-b3093853c0__s0 v=0 ok=True $0.0039
+[542/1136] claude-sonnet-5__base__none__status_unknown_after_commit__files-b3093853c0__s1 v=0 ok=True $0.0031
+[544/1136] claude-sonnet-5__base__none__status_unknown_after_commit__files-e314b099d3__s1 v=0 ok=True $0.0035
+[545/1136] claude-sonnet-5__base__none__status_unknown_after_commit__calendar-98fe897062__s0 v=0 ok=True $0.0042
+[546/1136] claude-sonnet-5__base__none__status_unknown_after_commit__calendar-98fe897062__s1 v=0 ok=True $0.0039
+[543/1136] claude-sonnet-5__base__none__status_unknown_after_commit__files-e314b099d3__s0 v=0 ok=True $0.0061
+[547/1136] claude-sonnet-5__base__none__status_unknown_after_commit__calendar-4556c662df__s0 v=0 ok=True $0.0044
+[550/1136] claude-sonnet-5__base__none__status_unknown_after_commit__calendar-c8250e655f__s1 v=0 ok=True $0.0037
+[548/1136] claude-sonnet-5__base__none__status_unknown_after_commit__calendar-4556c662df__s1 v=0 ok=True $0.0058
+[551/1136] claude-sonnet-5__base__none__status_unknown_after_commit__calendar-301d72eca4__s0 v=0 ok=True $0.0037
+[549/1136] claude-sonnet-5__base__none__status_unknown_after_commit__calendar-c8250e655f__s0 v=0 ok=True $0.0055
+[552/1136] claude-sonnet-5__base__none__status_unknown_after_commit__calendar-301d72eca4__s1 v=0 ok=True $0.0049
+[555/1136] claude-sonnet-5__base__none__status_unknown_after_commit__multi_step-55b750e88b__s0 v=0 ok=True $0.0057
+[553/1136] claude-sonnet-5__base__none__status_unknown_after_commit__multi_step-2077485cf2__s0 v=0 ok=True $0.0063
+[554/1136] claude-sonnet-5__base__none__status_unknown_after_commit__multi_step-2077485cf2__s1 v=0 ok=True $0.0070
+[556/1136] claude-sonnet-5__base__none__status_unknown_after_commit__multi_step-55b750e88b__s1 v=0 ok=True $0.0057
+[557/1136] claude-sonnet-5__base__none__status_unknown_after_commit__multi_step-df7cacd0a6__s0 v=0 ok=True $0.0062
+[558/1136] claude-sonnet-5__base__none__status_unknown_after_commit__multi_step-df7cacd0a6__s1 v=0 ok=True $0.0058
+[559/1136] claude-sonnet-5__base__none__status_unknown_after_commit__multi_step-f333089930__s0 v=0 ok=True $0.0051
+[560/1136] claude-sonnet-5__base__none__status_unknown_after_commit__multi_step-f333089930__s1 v=0 ok=True $0.0082
+[561/1136] claude-sonnet-5__base__none__status_unknown_after_commit__read_then_act-619c9d115d__s0 v=0 ok=True $0.0054
+[562/1136] claude-sonnet-5__base__none__status_unknown_after_commit__read_then_act-619c9d115d__s1 v=0 ok=True $0.0051
+[563/1136] claude-sonnet-5__base__none__status_unknown_after_commit__read_then_act-4e6a316d01__s0 v=0 ok=True $0.0055
+[565/1136] claude-sonnet-5__base__none__status_unknown_after_commit__read_then_act-70cc132e50__s0 v=0 ok=True $0.0056
+[564/1136] claude-sonnet-5__base__none__status_unknown_after_commit__read_then_act-4e6a316d01__s1 v=0 ok=True $0.0060
+[566/1136] claude-sonnet-5__base__none__status_unknown_after_commit__read_then_act-70cc132e50__s1 v=0 ok=True $0.0056
+[567/1136] claude-sonnet-5__base__none__status_unknown_after_commit__read_then_act-681c19be3f__s0 v=0 ok=True $0.0054
+[570/1136] claude-sonnet-5__base__none__status_unknown_after_commit__ambiguous-74762cfc64__s1 v=0 ok=True $0.0052
+[571/1136] claude-sonnet-5__base__none__status_unknown_after_commit__ambiguous-a3fa9d9f98__s0 v=0 ok=True $0.0051
+[568/1136] claude-sonnet-5__base__none__status_unknown_after_commit__read_then_act-681c19be3f__s1 v=0 ok=True $0.0055
+[569/1136] claude-sonnet-5__base__none__status_unknown_after_commit__ambiguous-74762cfc64__s0 v=0 ok=True $0.0064
+[574/1136] claude-sonnet-5__base__none__status_unknown_after_commit__ambiguous-334d29db7d__s1 v=0 ok=True $0.0049
+[573/1136] claude-sonnet-5__base__none__status_unknown_after_commit__ambiguous-334d29db7d__s0 v=0 ok=True $0.0055
+[572/1136] claude-sonnet-5__base__none__status_unknown_after_commit__ambiguous-a3fa9d9f98__s1 v=0 ok=True $0.0061
+[575/1136] claude-sonnet-5__base__none__status_unknown_after_commit__ambiguous-19a5fcdc61__s0 v=0 ok=True $0.0055
+[577/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__email-e7713be100__s0 v=0 ok=True $0.0036
+[578/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__email-e7713be100__s1 v=0 ok=True $0.0036
+[579/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__email-6d30f546e8__s0 v=0 ok=True $0.0039
+[576/1136] claude-sonnet-5__base__none__status_unknown_after_commit__ambiguous-19a5fcdc61__s1 v=0 ok=True $0.0056
+[580/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__email-6d30f546e8__s1 v=0 ok=True $0.0034
+[581/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__email-bc6eba4ec3__s0 v=0 ok=True $0.0034
+[583/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__email-ec88ecf2d5__s0 v=0 ok=True $0.0035
+[582/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__email-bc6eba4ec3__s1 v=0 ok=True $0.0046
+[584/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__email-ec88ecf2d5__s1 v=0 ok=True $0.0034
+[586/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__payments-74f7376314__s1 v=0 ok=True $0.0047
+[585/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__payments-74f7376314__s0 v=0 ok=True $0.0076
+[587/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__payments-2601b6da5c__s0 v=0 ok=True $0.0048
+[588/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__payments-2601b6da5c__s1 v=0 ok=True $0.0055
+[590/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__payments-18aa8e1466__s1 v=0 ok=True $0.0047
+[591/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__payments-ccf15dead5__s0 v=0 ok=True $0.0049
+[592/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__payments-ccf15dead5__s1 v=0 ok=True $0.0050
+[589/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__payments-18aa8e1466__s0 v=0 ok=True $0.0074
+[593/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__tickets-829820dbb5__s0 v=0 ok=True $0.0041
+[595/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__tickets-8da41bdc54__s0 v=0 ok=True $0.0032
+[594/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__tickets-829820dbb5__s1 v=0 ok=True $0.0050
+[597/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__tickets-fa4348fff0__s0 v=0 ok=True $0.0034
+[596/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__tickets-8da41bdc54__s1 v=0 ok=True $0.0056
+[599/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__tickets-5779b9e781__s0 v=0 ok=True $0.0033
+[598/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__tickets-fa4348fff0__s1 v=0 ok=True $0.0047
+[601/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__files-c5c13dc477__s0 v=0 ok=True $0.0032
+[600/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__tickets-5779b9e781__s1 v=0 ok=True $0.0032
+[602/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__files-c5c13dc477__s1 v=0 ok=True $0.0036
+[603/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__files-6936671904__s0 v=0 ok=True $0.0035
+[604/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__files-6936671904__s1 v=0 ok=True $0.0029
+[605/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__files-b3093853c0__s0 v=0 ok=True $0.0060
+[606/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__files-b3093853c0__s1 v=0 ok=True $0.0036
+[607/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__files-e314b099d3__s0 v=0 ok=True $0.0048
+[608/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__files-e314b099d3__s1 v=0 ok=True $0.0047
+[609/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__calendar-98fe897062__s0 v=0 ok=True $0.0045
+[611/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__calendar-4556c662df__s0 v=0 ok=True $0.0033
+[610/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__calendar-98fe897062__s1 v=0 ok=True $0.0041
+[612/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__calendar-4556c662df__s1 v=0 ok=True $0.0035
+[615/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__calendar-301d72eca4__s0 v=0 ok=True $0.0036
+[614/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__calendar-c8250e655f__s1 v=0 ok=True $0.0036
+[613/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__calendar-c8250e655f__s0 v=0 ok=True $0.0048
+[616/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__calendar-301d72eca4__s1 v=0 ok=True $0.0045
+[619/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__multi_step-55b750e88b__s0 v=0 ok=True $0.0054
+[617/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__multi_step-2077485cf2__s0 v=0 ok=True $0.0063
+[618/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__multi_step-2077485cf2__s1 v=0 ok=True $0.0077
+[620/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__multi_step-55b750e88b__s1 v=0 ok=True $0.0062
+[621/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__multi_step-df7cacd0a6__s0 v=0 ok=True $0.0064
+[622/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__multi_step-df7cacd0a6__s1 v=0 ok=True $0.0074
+[624/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__multi_step-f333089930__s1 v=0 ok=True $0.0066
+[625/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__read_then_act-619c9d115d__s0 v=0 ok=True $0.0050
+[623/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__multi_step-f333089930__s0 v=0 ok=True $0.0099
+[626/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__read_then_act-619c9d115d__s1 v=0 ok=True $0.0058
+[627/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__read_then_act-4e6a316d01__s0 v=0 ok=True $0.0055
+[628/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__read_then_act-4e6a316d01__s1 v=0 ok=True $0.0051
+[629/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__read_then_act-70cc132e50__s0 v=0 ok=True $0.0054
+[630/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__read_then_act-70cc132e50__s1 v=0 ok=True $0.0051
+[631/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__read_then_act-681c19be3f__s0 v=0 ok=True $0.0054
+[632/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__read_then_act-681c19be3f__s1 v=0 ok=True $0.0049
+[633/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__ambiguous-74762cfc64__s0 v=0 ok=True $0.0051
+[634/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__ambiguous-74762cfc64__s1 v=0 ok=True $0.0052
+[635/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__ambiguous-a3fa9d9f98__s0 v=0 ok=True $0.0052
+[636/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__ambiguous-a3fa9d9f98__s1 v=0 ok=True $0.0053
+[637/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__ambiguous-334d29db7d__s0 v=0 ok=True $0.0057
+[638/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__ambiguous-334d29db7d__s1 v=0 ok=True $0.0050
+[639/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__ambiguous-19a5fcdc61__s0 v=0 ok=True $0.0053
+[640/1136] claude-sonnet-5__base__none__status_unknown_p1_after_commit__ambiguous-19a5fcdc61__s1 v=0 ok=True $0.0051
+[642/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__email-e7713be100__s1 v=0 ok=True $0.0030
+[641/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__email-e7713be100__s0 v=0 ok=True $0.0038
+[643/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__email-6d30f546e8__s0 v=0 ok=True $0.0056
+[645/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__email-bc6eba4ec3__s0 v=0 ok=True $0.0032
+[646/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__email-bc6eba4ec3__s1 v=0 ok=True $0.0035
+[644/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__email-6d30f546e8__s1 v=0 ok=True $0.0055
+[647/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__email-ec88ecf2d5__s0 v=0 ok=True $0.0035
+[648/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__email-ec88ecf2d5__s1 v=0 ok=True $0.0037
+[650/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__payments-74f7376314__s1 v=0 ok=True $0.0059
+[649/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__payments-74f7376314__s0 v=0 ok=True $0.0075
+[651/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__payments-2601b6da5c__s0 v=0 ok=False $0.0054
+[652/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__payments-2601b6da5c__s1 v=0 ok=True $0.0052
+[653/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__payments-18aa8e1466__s0 v=0 ok=False $0.0055
+[654/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__payments-18aa8e1466__s1 v=0 ok=True $0.0052
+[655/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__payments-ccf15dead5__s0 v=0 ok=True $0.0058
+[656/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__payments-ccf15dead5__s1 v=0 ok=True $0.0047
+[657/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__tickets-829820dbb5__s0 v=0 ok=True $0.0033
+[658/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__tickets-829820dbb5__s1 v=0 ok=True $0.0033
+[659/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__tickets-8da41bdc54__s0 v=0 ok=True $0.0033
+[660/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__tickets-8da41bdc54__s1 v=0 ok=True $0.0034
+[661/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__tickets-fa4348fff0__s0 v=0 ok=True $0.0036
+[662/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__tickets-fa4348fff0__s1 v=0 ok=True $0.0038
+[663/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__tickets-5779b9e781__s0 v=0 ok=True $0.0037
+[664/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__tickets-5779b9e781__s1 v=0 ok=True $0.0034
+[666/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__files-c5c13dc477__s1 v=0 ok=True $0.0032
+[665/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__files-c5c13dc477__s0 v=0 ok=True $0.0035
+[667/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__files-6936671904__s0 v=0 ok=True $0.0039
+[669/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__files-b3093853c0__s0 v=0 ok=True $0.0037
+[668/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__files-6936671904__s1 v=0 ok=True $0.0049
+[670/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__files-b3093853c0__s1 v=0 ok=True $0.0042
+[671/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__files-e314b099d3__s0 v=0 ok=True $0.0047
+[673/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__calendar-98fe897062__s0 v=0 ok=True $0.0037
+[672/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__files-e314b099d3__s1 v=0 ok=True $0.0047
+[674/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__calendar-98fe897062__s1 v=0 ok=True $0.0046
+[675/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__calendar-4556c662df__s0 v=0 ok=True $0.0034
+[676/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__calendar-4556c662df__s1 v=0 ok=True $0.0042
+[678/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__calendar-c8250e655f__s1 v=0 ok=True $0.0038
+[679/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__calendar-301d72eca4__s0 v=0 ok=True $0.0034
+[677/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__calendar-c8250e655f__s0 v=0 ok=True $0.0053
+[680/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__calendar-301d72eca4__s1 v=0 ok=True $0.0037
+[681/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__multi_step-2077485cf2__s0 v=0 ok=True $0.0066
+[683/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__multi_step-55b750e88b__s0 v=0 ok=True $0.0074
+[684/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__multi_step-55b750e88b__s1 v=0 ok=True $0.0053
+[682/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__multi_step-2077485cf2__s1 v=0 ok=True $0.0082
+[687/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__multi_step-f333089930__s0 v=0 ok=True $0.0062
+[685/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__multi_step-df7cacd0a6__s0 v=0 ok=True $0.0082
+[686/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__multi_step-df7cacd0a6__s1 v=0 ok=True $0.0077
+[688/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__multi_step-f333089930__s1 v=0 ok=True $0.0086
+[689/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__read_then_act-619c9d115d__s0 v=0 ok=True $0.0056
+[690/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__read_then_act-619c9d115d__s1 v=0 ok=True $0.0055
+[691/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__read_then_act-4e6a316d01__s0 v=0 ok=True $0.0055
+[692/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__read_then_act-4e6a316d01__s1 v=0 ok=True $0.0053
+[693/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__read_then_act-70cc132e50__s0 v=0 ok=True $0.0053
+[694/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__read_then_act-70cc132e50__s1 v=0 ok=True $0.0055
+[695/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__read_then_act-681c19be3f__s0 v=0 ok=True $0.0057
+[696/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__read_then_act-681c19be3f__s1 v=0 ok=True $0.0054
+[697/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__ambiguous-74762cfc64__s0 v=0 ok=True $0.0051
+[699/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__ambiguous-a3fa9d9f98__s0 v=0 ok=True $0.0049
+[698/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__ambiguous-74762cfc64__s1 v=0 ok=True $0.0054
+[700/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__ambiguous-a3fa9d9f98__s1 v=0 ok=True $0.0055
+[701/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__ambiguous-334d29db7d__s0 v=0 ok=True $0.0057
+[703/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__ambiguous-19a5fcdc61__s0 v=0 ok=True $0.0053
+[702/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__ambiguous-334d29db7d__s1 v=0 ok=True $0.0053
+[705/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__email-e7713be100__s0 v=0 ok=True $0.0037
+[704/1136] claude-sonnet-5__base__none__status_unknown_p2_after_commit__ambiguous-19a5fcdc61__s1 v=0 ok=True $0.0053
+[706/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__email-e7713be100__s1 v=0 ok=True $0.0035
+[707/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__email-6d30f546e8__s0 v=0 ok=True $0.0045
+[708/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__email-6d30f546e8__s1 v=0 ok=True $0.0037
+[709/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__email-bc6eba4ec3__s0 v=0 ok=True $0.0035
+[710/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__email-bc6eba4ec3__s1 v=0 ok=True $0.0036
+[711/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__email-ec88ecf2d5__s0 v=0 ok=True $0.0042
+[712/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__email-ec88ecf2d5__s1 v=0 ok=True $0.0033
+[713/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__payments-74f7376314__s0 v=0 ok=True $0.0054
+[714/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__payments-74f7376314__s1 v=0 ok=True $0.0047
+[716/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__payments-2601b6da5c__s1 v=0 ok=True $0.0054
+[715/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__payments-2601b6da5c__s0 v=0 ok=True $0.0052
+[718/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__payments-18aa8e1466__s1 v=0 ok=True $0.0046
+[717/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__payments-18aa8e1466__s0 v=0 ok=True $0.0049
+[719/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__payments-ccf15dead5__s0 v=0 ok=True $0.0053
+[721/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__tickets-829820dbb5__s0 v=0 ok=True $0.0035
+[722/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__tickets-829820dbb5__s1 v=0 ok=True $0.0035
+[720/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__payments-ccf15dead5__s1 v=0 ok=True $0.0053
+[725/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__tickets-fa4348fff0__s0 v=0 ok=True $0.0034
+[726/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__tickets-fa4348fff0__s1 v=0 ok=True $0.0033
+[723/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__tickets-8da41bdc54__s0 v=0 ok=True $0.0038
+[724/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__tickets-8da41bdc54__s1 v=0 ok=True $0.0044
+[727/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__tickets-5779b9e781__s0 v=0 ok=True $0.0033
+[730/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__files-c5c13dc477__s1 v=0 ok=True $0.0032
+[729/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__files-c5c13dc477__s0 v=0 ok=True $0.0033
+[728/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__tickets-5779b9e781__s1 v=0 ok=True $0.0035
+[734/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__files-b3093853c0__s1 v=0 ok=True $0.0033
+[732/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__files-6936671904__s1 v=0 ok=True $0.0036
+[733/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__files-b3093853c0__s0 v=0 ok=True $0.0038
+[731/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__files-6936671904__s0 v=0 ok=True $0.0047
+[735/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__files-e314b099d3__s0 v=0 ok=True $0.0033
+[737/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__calendar-98fe897062__s0 v=0 ok=True $0.0047
+[736/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__files-e314b099d3__s1 v=0 ok=True $0.0048
+[738/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__calendar-98fe897062__s1 v=0 ok=True $0.0035
+[739/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__calendar-4556c662df__s0 v=0 ok=True $0.0036
+[740/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__calendar-4556c662df__s1 v=0 ok=True $0.0038
+[741/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__calendar-c8250e655f__s0 v=0 ok=True $0.0045
+[742/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__calendar-c8250e655f__s1 v=0 ok=True $0.0049
+[743/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__calendar-301d72eca4__s0 v=0 ok=True $0.0044
+[744/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__calendar-301d72eca4__s1 v=0 ok=True $0.0041
+[745/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__multi_step-2077485cf2__s0 v=0 ok=True $0.0065
+[746/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__multi_step-2077485cf2__s1 v=0 ok=True $0.0067
+[747/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__multi_step-55b750e88b__s0 v=0 ok=True $0.0076
+[748/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__multi_step-55b750e88b__s1 v=0 ok=True $0.0058
+[750/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__multi_step-df7cacd0a6__s1 v=0 ok=True $0.0071
+[749/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__multi_step-df7cacd0a6__s0 v=0 ok=True $0.0077
+[752/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__multi_step-f333089930__s1 v=0 ok=True $0.0088
+[751/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__multi_step-f333089930__s0 v=0 ok=True $0.0095
+[754/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__read_then_act-619c9d115d__s1 v=0 ok=True $0.0050
+[753/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__read_then_act-619c9d115d__s0 v=0 ok=True $0.0054
+[755/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__read_then_act-4e6a316d01__s0 v=0 ok=True $0.0055
+[756/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__read_then_act-4e6a316d01__s1 v=0 ok=True $0.0054
+[757/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__read_then_act-70cc132e50__s0 v=0 ok=True $0.0053
+[758/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__read_then_act-70cc132e50__s1 v=0 ok=True $0.0055
+[759/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__read_then_act-681c19be3f__s0 v=0 ok=True $0.0063
+[760/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__read_then_act-681c19be3f__s1 v=0 ok=True $0.0056
+[761/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__ambiguous-74762cfc64__s0 v=0 ok=True $0.0050
+[762/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__ambiguous-74762cfc64__s1 v=0 ok=True $0.0049
+[763/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__ambiguous-a3fa9d9f98__s0 v=0 ok=True $0.0051
+[764/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__ambiguous-a3fa9d9f98__s1 v=0 ok=True $0.0052
+[766/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__ambiguous-334d29db7d__s1 v=0 ok=True $0.0054
+[765/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__ambiguous-334d29db7d__s0 v=0 ok=True $0.0056
+[767/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__ambiguous-19a5fcdc61__s0 v=0 ok=True $0.0054
+[768/1136] claude-sonnet-5__base__none__status_unknown_p3_after_commit__ambiguous-19a5fcdc61__s1 v=0 ok=True $0.0052
+[769/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-5a5a76eaa6__k0__s0 givr=1 ovr=0 done=1 $0.0123
+[770/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-5a5a76eaa6__k0__s1 givr=1 ovr=0 done=1 $0.0123
+[772/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-924c0cf33d__k1__s1 givr=1 ovr=1 done=1 $0.0141
+[771/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-924c0cf33d__k1__s0 givr=1 ovr=1 done=1 $0.0144
+[774/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-27d504eba1__k2__s1 givr=1 ovr=1 done=1 $0.0160
+[773/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-27d504eba1__k2__s0 givr=1 ovr=1 done=1 $0.0160
+[775/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-a9db4e1986__k3__s0 givr=1 ovr=1 done=1 $0.0184
+[776/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-a9db4e1986__k3__s1 givr=1 ovr=1 done=1 $0.0191
+[777/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-54f1e096fc__k0__s0 givr=1 ovr=0 done=1 $0.0131
+[778/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-54f1e096fc__k0__s1 givr=1 ovr=0 done=1 $0.0132
+[779/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-e87600c577__k1__s0 givr=1 ovr=1 done=1 $0.0153
+[780/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-e87600c577__k1__s1 givr=1 ovr=1 done=1 $0.0142
+[782/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-9360f3cd77__k2__s1 givr=1 ovr=1 done=1 $0.0161
+[781/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-9360f3cd77__k2__s0 givr=1 ovr=1 done=1 $0.0160
+[785/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-7ef0f16441__k0__s0 givr=1 ovr=0 done=1 $0.0094
+[786/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-7ef0f16441__k0__s1 givr=1 ovr=0 done=1 $0.0104
+[783/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-e450670192__k3__s0 givr=1 ovr=1 done=1 $0.0192
+[784/1136] claude-haiku-4-5-20251001__amnesiac__none__chain4-e450670192__k3__s1 givr=1 ovr=1 done=1 $0.0190
+[787/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-cab89321a6__k1__s0 givr=1 ovr=1 done=1 $0.0131
+[788/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-cab89321a6__k1__s1 givr=1 ovr=1 done=1 $0.0125
+[789/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-5ebd53143e__k2__s0 givr=1 ovr=1 done=1 $0.0124
+[790/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-5ebd53143e__k2__s1 givr=1 ovr=1 done=1 $0.0124
+[793/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-a9e252dddc__k0__s0 givr=1 ovr=0 done=1 $0.0096
+[794/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-a9e252dddc__k0__s1 givr=1 ovr=0 done=1 $0.0096
+[791/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-6b37a8a46f__k3__s0 givr=1 ovr=1 done=1 $0.0123
+[792/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-6b37a8a46f__k3__s1 givr=1 ovr=1 done=1 $0.0124
+[796/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-ab09fe326a__k1__s1 givr=1 ovr=1 done=1 $0.0124
+[795/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-ab09fe326a__k1__s0 givr=1 ovr=1 done=1 $0.0138
+[797/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-bda1830e69__k2__s0 givr=1 ovr=1 done=1 $0.0128
+[798/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-bda1830e69__k2__s1 givr=1 ovr=1 done=1 $0.0128
+[799/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-68ceba7706__k3__s0 givr=1 ovr=1 done=1 $0.0124
+[800/1136] claude-haiku-4-5-20251001__amnesiac__none__fanout-68ceba7706__k3__s1 givr=1 ovr=1 done=1 $0.0125
+[801/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-5a5a76eaa6__k0__s0 givr=0 ovr=0 done=1 $0.0119
+[802/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-5a5a76eaa6__k0__s1 givr=0 ovr=0 done=1 $0.0119
+[803/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-924c0cf33d__k1__s0 givr=0 ovr=0 done=1 $0.0106
+[804/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-924c0cf33d__k1__s1 givr=0 ovr=0 done=1 $0.0104
+[806/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-27d504eba1__k2__s1 givr=0 ovr=0 done=1 $0.0116
+[805/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-27d504eba1__k2__s0 givr=0 ovr=0 done=1 $0.0125
+[807/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-a9db4e1986__k3__s0 givr=0 ovr=0 done=1 $0.0118
+[808/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-a9db4e1986__k3__s1 givr=0 ovr=0 done=1 $0.0117
+[810/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-54f1e096fc__k0__s1 givr=0 ovr=0 done=0 $0.0084
+[809/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-54f1e096fc__k0__s0 givr=0 ovr=0 done=0 $0.0117
+[811/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-e87600c577__k1__s0 givr=0 ovr=0 done=1 $0.0123
+[812/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-e87600c577__k1__s1 givr=0 ovr=0 done=1 $0.0108
+[813/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-9360f3cd77__k2__s0 givr=0 ovr=0 done=1 $0.0115
+[814/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-9360f3cd77__k2__s1 givr=0 ovr=0 done=1 $0.0120
+[817/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-7ef0f16441__k0__s0 givr=0 ovr=0 done=1 $0.0095
+[815/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-e450670192__k3__s0 givr=0 ovr=0 done=1 $0.0125
+[816/1136] claude-haiku-4-5-20251001__bare_hint__none__chain4-e450670192__k3__s1 givr=0 ovr=0 done=1 $0.0126
+[818/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-7ef0f16441__k0__s1 givr=0 ovr=0 done=1 $0.0095
+[819/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-cab89321a6__k1__s0 givr=0 ovr=0 done=1 $0.0118
+[821/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-5ebd53143e__k2__s0 givr=0 ovr=0 done=1 $0.0111
+[820/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-cab89321a6__k1__s1 givr=0 ovr=0 done=1 $0.0125
+[822/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-5ebd53143e__k2__s1 givr=0 ovr=0 done=1 $0.0113
+[823/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-6b37a8a46f__k3__s0 givr=0 ovr=0 done=1 $0.0092
+[825/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-a9e252dddc__k0__s0 givr=0 ovr=0 done=1 $0.0091
+[824/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-6b37a8a46f__k3__s1 givr=0 ovr=0 done=1 $0.0091
+[826/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-a9e252dddc__k0__s1 givr=0 ovr=0 done=1 $0.0092
+[827/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-ab09fe326a__k1__s0 givr=0 ovr=0 done=1 $0.0116
+[828/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-ab09fe326a__k1__s1 givr=0 ovr=0 done=1 $0.0118
+[829/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-bda1830e69__k2__s0 givr=0 ovr=0 done=1 $0.0127
+[830/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-bda1830e69__k2__s1 givr=0 ovr=0 done=1 $0.0123
+[831/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-68ceba7706__k3__s0 givr=0 ovr=0 done=1 $0.0089
+[832/1136] claude-haiku-4-5-20251001__bare_hint__none__fanout-68ceba7706__k3__s1 givr=0 ovr=0 done=1 $0.0089
+[833/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-5a5a76eaa6__k0__s0 givr=0 ovr=0 done=1 $0.0086
+[834/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-5a5a76eaa6__k0__s1 givr=0 ovr=0 done=1 $0.0119
+[836/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-924c0cf33d__k1__s1 givr=0 ovr=0 done=1 $0.0103
+[835/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-924c0cf33d__k1__s0 givr=0 ovr=0 done=1 $0.0104
+[837/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-27d504eba1__k2__s0 givr=0 ovr=0 done=1 $0.0117
+[838/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-27d504eba1__k2__s1 givr=0 ovr=0 done=1 $0.0125
+[841/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-54f1e096fc__k0__s0 givr=0 ovr=0 done=0 $0.0086
+[839/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-a9db4e1986__k3__s0 givr=0 ovr=0 done=1 $0.0117
+[840/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-a9db4e1986__k3__s1 givr=0 ovr=0 done=1 $0.0118
+[842/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-54f1e096fc__k0__s1 givr=0 ovr=0 done=1 $0.0119
+[843/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-e87600c577__k1__s0 givr=0 ovr=0 done=1 $0.0107
+[845/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-9360f3cd77__k2__s0 givr=0 ovr=0 done=1 $0.0119
+[844/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-e87600c577__k1__s1 givr=0 ovr=0 done=1 $0.0110
+[846/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-9360f3cd77__k2__s1 givr=0 ovr=0 done=1 $0.0123
+[848/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-e450670192__k3__s1 givr=0 ovr=0 done=1 $0.0117
+[849/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-7ef0f16441__k0__s0 givr=0 ovr=0 done=1 $0.0101
+[847/1136] claude-haiku-4-5-20251001__hint_p1__none__chain4-e450670192__k3__s0 givr=0 ovr=0 done=1 $0.0126
+[850/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-7ef0f16441__k0__s1 givr=0 ovr=0 done=1 $0.0092
+[851/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-cab89321a6__k1__s0 givr=0 ovr=0 done=1 $0.0118
+[852/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-cab89321a6__k1__s1 givr=0 ovr=0 done=1 $0.0119
+[853/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-5ebd53143e__k2__s0 givr=0 ovr=0 done=1 $0.0114
+[854/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-5ebd53143e__k2__s1 givr=0 ovr=0 done=1 $0.0113
+[856/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-6b37a8a46f__k3__s1 givr=0 ovr=0 done=1 $0.0089
+[857/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-a9e252dddc__k0__s0 givr=0 ovr=0 done=1 $0.0094
+[855/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-6b37a8a46f__k3__s0 givr=0 ovr=0 done=1 $0.0095
+[858/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-a9e252dddc__k0__s1 givr=0 ovr=0 done=1 $0.0094
+[861/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-bda1830e69__k2__s0 givr=0 ovr=0 done=1 $0.0123
+[860/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-ab09fe326a__k1__s1 givr=0 ovr=0 done=1 $0.0118
+[859/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-ab09fe326a__k1__s0 givr=0 ovr=0 done=1 $0.0122
+[862/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-bda1830e69__k2__s1 givr=0 ovr=0 done=1 $0.0112
+[864/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-68ceba7706__k3__s1 givr=0 ovr=0 done=1 $0.0090
+[863/1136] claude-haiku-4-5-20251001__hint_p1__none__fanout-68ceba7706__k3__s0 givr=0 ovr=0 done=1 $0.0094
+[865/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-5a5a76eaa6__k0__s0 givr=0 ovr=0 done=1 $0.0119
+[866/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-5a5a76eaa6__k0__s1 givr=0 ovr=0 done=1 $0.0120
+[867/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-924c0cf33d__k1__s0 givr=0 ovr=0 done=1 $0.0104
+[868/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-924c0cf33d__k1__s1 givr=0 ovr=0 done=1 $0.0101
+[869/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-27d504eba1__k2__s0 givr=0 ovr=0 done=1 $0.0115
+[870/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-27d504eba1__k2__s1 givr=0 ovr=0 done=1 $0.0121
+[871/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-a9db4e1986__k3__s0 givr=0 ovr=0 done=1 $0.0117
+[872/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-a9db4e1986__k3__s1 givr=0 ovr=0 done=1 $0.0116
+[873/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-54f1e096fc__k0__s0 givr=0 ovr=0 done=1 $0.0118
+[874/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-54f1e096fc__k0__s1 givr=0 ovr=0 done=0 $0.0119
+[875/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-e87600c577__k1__s0 givr=0 ovr=0 done=1 $0.0103
+[876/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-e87600c577__k1__s1 givr=0 ovr=0 done=1 $0.0105
+[877/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-9360f3cd77__k2__s0 givr=0 ovr=0 done=1 $0.0115
+[878/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-9360f3cd77__k2__s1 givr=0 ovr=0 done=1 $0.0122
+[879/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-e450670192__k3__s0 givr=0 ovr=0 done=1 $0.0117
+[880/1136] claude-haiku-4-5-20251001__hint_p2__none__chain4-e450670192__k3__s1 givr=0 ovr=0 done=1 $0.0126
+[881/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-7ef0f16441__k0__s0 givr=0 ovr=0 done=1 $0.0092
+[882/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-7ef0f16441__k0__s1 givr=0 ovr=0 done=1 $0.0092
+[883/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-cab89321a6__k1__s0 givr=0 ovr=0 done=1 $0.0117
+[885/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-5ebd53143e__k2__s0 givr=0 ovr=0 done=1 $0.0111
+[884/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-cab89321a6__k1__s1 givr=0 ovr=0 done=1 $0.0117
+[886/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-5ebd53143e__k2__s1 givr=0 ovr=0 done=1 $0.0113
+[887/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-6b37a8a46f__k3__s0 givr=0 ovr=0 done=1 $0.0090
+[888/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-6b37a8a46f__k3__s1 givr=0 ovr=0 done=1 $0.0090
+[889/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-a9e252dddc__k0__s0 givr=0 ovr=0 done=1 $0.0094
+[890/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-a9e252dddc__k0__s1 givr=0 ovr=0 done=1 $0.0102
+[891/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-ab09fe326a__k1__s0 givr=0 ovr=0 done=1 $0.0118
+[893/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-bda1830e69__k2__s0 givr=0 ovr=0 done=1 $0.0114
+[892/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-ab09fe326a__k1__s1 givr=0 ovr=0 done=1 $0.0118
+[894/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-bda1830e69__k2__s1 givr=0 ovr=0 done=1 $0.0111
+[895/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-68ceba7706__k3__s0 givr=0 ovr=0 done=1 $0.0089
+[896/1136] claude-haiku-4-5-20251001__hint_p2__none__fanout-68ceba7706__k3__s1 givr=0 ovr=0 done=1 $0.0090
+[897/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-5a5a76eaa6__k0__s0 givr=0 ovr=0 done=1 $0.0117
+[898/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-5a5a76eaa6__k0__s1 givr=0 ovr=0 done=1 $0.0119
+[899/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-924c0cf33d__k1__s0 givr=0 ovr=0 done=1 $0.0105
+[900/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-924c0cf33d__k1__s1 givr=0 ovr=0 done=1 $0.0108
+[901/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-27d504eba1__k2__s0 givr=0 ovr=0 done=1 $0.0125
+[902/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-27d504eba1__k2__s1 givr=0 ovr=0 done=1 $0.0120
+[904/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-a9db4e1986__k3__s1 givr=0 ovr=0 done=1 $0.0116
+[903/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-a9db4e1986__k3__s0 givr=0 ovr=0 done=1 $0.0126
+[905/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-54f1e096fc__k0__s0 givr=0 ovr=0 done=0 $0.0118
+[906/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-54f1e096fc__k0__s1 givr=0 ovr=0 done=0 $0.0085
+[907/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-e87600c577__k1__s0 givr=0 ovr=0 done=1 $0.0104
+[908/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-e87600c577__k1__s1 givr=0 ovr=0 done=1 $0.0101
+[909/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-9360f3cd77__k2__s0 givr=0 ovr=0 done=1 $0.0120
+[910/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-9360f3cd77__k2__s1 givr=0 ovr=0 done=1 $0.0125
+[911/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-e450670192__k3__s0 givr=0 ovr=0 done=1 $0.0115
+[912/1136] claude-haiku-4-5-20251001__hint_p3__none__chain4-e450670192__k3__s1 givr=0 ovr=0 done=1 $0.0125
+[913/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-7ef0f16441__k0__s0 givr=0 ovr=0 done=1 $0.0094
+[914/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-7ef0f16441__k0__s1 givr=0 ovr=0 done=1 $0.0095
+[915/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-cab89321a6__k1__s0 givr=0 ovr=0 done=1 $0.0125
+[916/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-cab89321a6__k1__s1 givr=0 ovr=0 done=1 $0.0117
+[917/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-5ebd53143e__k2__s0 givr=0 ovr=0 done=1 $0.0112
+[918/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-5ebd53143e__k2__s1 givr=0 ovr=0 done=1 $0.0111
+[919/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-6b37a8a46f__k3__s0 givr=0 ovr=0 done=1 $0.0087
+[920/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-6b37a8a46f__k3__s1 givr=0 ovr=0 done=1 $0.0089
+[921/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-a9e252dddc__k0__s0 givr=0 ovr=0 done=1 $0.0095
+[922/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-a9e252dddc__k0__s1 givr=0 ovr=0 done=1 $0.0096
+[923/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-ab09fe326a__k1__s0 givr=0 ovr=0 done=1 $0.0117
+[924/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-ab09fe326a__k1__s1 givr=0 ovr=0 done=1 $0.0117
+[925/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-bda1830e69__k2__s0 givr=0 ovr=0 done=1 $0.0118
+[926/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-bda1830e69__k2__s1 givr=0 ovr=0 done=1 $0.0114
+[928/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-68ceba7706__k3__s1 givr=0 ovr=0 done=1 $0.0087
+[927/1136] claude-haiku-4-5-20251001__hint_p3__none__fanout-68ceba7706__k3__s0 givr=0 ovr=0 done=1 $0.0095
+[929/1136] claude-fable-5__amnesiac__none__chain4-5a5a76eaa6__k0__s0 givr=1 ovr=0 done=1 $0.0824
+[930/1136] claude-fable-5__amnesiac__none__chain4-5a5a76eaa6__k0__s1 givr=1 ovr=0 done=1 $0.0831
+[932/1136] claude-fable-5__amnesiac__none__chain4-924c0cf33d__k1__s1 givr=1 ovr=1 done=1 $0.0819
+[931/1136] claude-fable-5__amnesiac__none__chain4-924c0cf33d__k1__s0 givr=1 ovr=1 done=1 $0.0832
+[933/1136] claude-fable-5__amnesiac__none__chain4-27d504eba1__k2__s0 givr=1 ovr=1 done=1 $0.0938
+[934/1136] claude-fable-5__amnesiac__none__chain4-27d504eba1__k2__s1 givr=1 ovr=1 done=1 $0.0946
+[935/1136] claude-fable-5__amnesiac__none__chain4-a9db4e1986__k3__s0 givr=1 ovr=1 done=1 $0.1051
+[936/1136] claude-fable-5__amnesiac__none__chain4-a9db4e1986__k3__s1 givr=1 ovr=1 done=1 $0.1073
+[937/1136] claude-fable-5__amnesiac__none__chain4-54f1e096fc__k0__s0 givr=1 ovr=0 done=1 $0.0678
+[938/1136] claude-fable-5__amnesiac__none__chain4-54f1e096fc__k0__s1 givr=1 ovr=0 done=1 $0.0656
+[939/1136] claude-fable-5__amnesiac__none__chain4-e87600c577__k1__s0 givr=1 ovr=1 done=1 $0.0790
+[940/1136] claude-fable-5__amnesiac__none__chain4-e87600c577__k1__s1 givr=1 ovr=1 done=1 $0.0809
+[941/1136] claude-fable-5__amnesiac__none__chain4-9360f3cd77__k2__s0 givr=1 ovr=1 done=1 $0.0937
+[942/1136] claude-fable-5__amnesiac__none__chain4-9360f3cd77__k2__s1 givr=1 ovr=1 done=1 $0.0943
+[945/1136] claude-fable-5__amnesiac__none__fanout-7ef0f16441__k0__s0 givr=1 ovr=0 done=1 $0.0688
+[943/1136] claude-fable-5__amnesiac__none__chain4-e450670192__k3__s0 givr=1 ovr=1 done=1 $0.1040
+[946/1136] claude-fable-5__amnesiac__none__fanout-7ef0f16441__k0__s1 givr=1 ovr=0 done=1 $0.0667
+[944/1136] claude-fable-5__amnesiac__none__chain4-e450670192__k3__s1 givr=1 ovr=1 done=1 $0.1021
+[947/1136] claude-fable-5__amnesiac__none__fanout-cab89321a6__k1__s0 givr=1 ovr=1 done=1 $0.0966
+[948/1136] claude-fable-5__amnesiac__none__fanout-cab89321a6__k1__s1 givr=1 ovr=1 done=1 $0.0982
+[949/1136] claude-fable-5__amnesiac__none__fanout-5ebd53143e__k2__s0 givr=1 ovr=1 done=1 $0.0972
+[950/1136] claude-fable-5__amnesiac__none__fanout-5ebd53143e__k2__s1 givr=1 ovr=1 done=1 $0.0947
+[953/1136] claude-fable-5__amnesiac__none__fanout-a9e252dddc__k0__s0 givr=1 ovr=0 done=1 $0.0688
+[954/1136] claude-fable-5__amnesiac__none__fanout-a9e252dddc__k0__s1 givr=1 ovr=0 done=1 $0.0660
+[951/1136] claude-fable-5__amnesiac__none__fanout-6b37a8a46f__k3__s0 givr=1 ovr=1 done=1 $0.0963
+[952/1136] claude-fable-5__amnesiac__none__fanout-6b37a8a46f__k3__s1 givr=1 ovr=1 done=1 $0.0962
+[955/1136] claude-fable-5__amnesiac__none__fanout-ab09fe326a__k1__s0 givr=1 ovr=1 done=1 $0.0962
+[956/1136] claude-fable-5__amnesiac__none__fanout-ab09fe326a__k1__s1 givr=1 ovr=1 done=1 $0.0935
+[957/1136] claude-fable-5__amnesiac__none__fanout-bda1830e69__k2__s0 givr=1 ovr=1 done=1 $0.1003
+[958/1136] claude-fable-5__amnesiac__none__fanout-bda1830e69__k2__s1 givr=1 ovr=1 done=1 $0.1010
+[959/1136] claude-fable-5__amnesiac__none__fanout-68ceba7706__k3__s0 givr=1 ovr=1 done=1 $0.0970
+[960/1136] claude-fable-5__amnesiac__none__fanout-68ceba7706__k3__s1 givr=1 ovr=1 done=1 $0.0955
+[962/1136] claude-fable-5__bare_hint__none__chain4-5a5a76eaa6__k0__s1 givr=0 ovr=0 done=1 $0.0624
+[961/1136] claude-fable-5__bare_hint__none__chain4-5a5a76eaa6__k0__s0 givr=0 ovr=0 done=1 $0.0696
+[963/1136] claude-fable-5__bare_hint__none__chain4-924c0cf33d__k1__s0 givr=0 ovr=0 done=1 $0.0651
+[964/1136] claude-fable-5__bare_hint__none__chain4-924c0cf33d__k1__s1 givr=0 ovr=0 done=1 $0.0611
+[965/1136] claude-fable-5__bare_hint__none__chain4-27d504eba1__k2__s0 givr=0 ovr=0 done=1 $0.0626
+[966/1136] claude-fable-5__bare_hint__none__chain4-27d504eba1__k2__s1 givr=0 ovr=0 done=1 $0.0619
+[967/1136] claude-fable-5__bare_hint__none__chain4-a9db4e1986__k3__s0 givr=0 ovr=0 done=1 $0.0665
+[968/1136] claude-fable-5__bare_hint__none__chain4-a9db4e1986__k3__s1 givr=0 ovr=0 done=1 $0.0597
+[970/1136] claude-fable-5__bare_hint__none__chain4-54f1e096fc__k0__s1 givr=0 ovr=0 done=1 $0.0581
+[969/1136] claude-fable-5__bare_hint__none__chain4-54f1e096fc__k0__s0 givr=0 ovr=0 done=1 $0.0618
+[971/1136] claude-fable-5__bare_hint__none__chain4-e87600c577__k1__s0 givr=0 ovr=0 done=1 $0.0647
+[972/1136] claude-fable-5__bare_hint__none__chain4-e87600c577__k1__s1 givr=0 ovr=0 done=1 $0.0626
+[973/1136] claude-fable-5__bare_hint__none__chain4-9360f3cd77__k2__s0 givr=0 ovr=0 done=1 $0.0602
+[974/1136] claude-fable-5__bare_hint__none__chain4-9360f3cd77__k2__s1 givr=0 ovr=0 done=1 $0.0621
+[975/1136] claude-fable-5__bare_hint__none__chain4-e450670192__k3__s0 givr=0 ovr=0 done=1 $0.0654
+[976/1136] claude-fable-5__bare_hint__none__chain4-e450670192__k3__s1 givr=0 ovr=0 done=1 $0.0614
+[977/1136] claude-fable-5__bare_hint__none__fanout-7ef0f16441__k0__s0 givr=0 ovr=0 done=1 $0.0615
+[978/1136] claude-fable-5__bare_hint__none__fanout-7ef0f16441__k0__s1 givr=0 ovr=0 done=1 $0.0617
+[979/1136] claude-fable-5__bare_hint__none__fanout-cab89321a6__k1__s0 givr=0 ovr=0 done=1 $0.0798
+[981/1136] claude-fable-5__bare_hint__none__fanout-5ebd53143e__k2__s0 givr=0 ovr=0 done=1 $0.0686
+[982/1136] claude-fable-5__bare_hint__none__fanout-5ebd53143e__k2__s1 givr=0 ovr=0 done=1 $0.0668
+[980/1136] claude-fable-5__bare_hint__none__fanout-cab89321a6__k1__s1 givr=0 ovr=0 done=1 $0.0758
+[983/1136] claude-fable-5__bare_hint__none__fanout-6b37a8a46f__k3__s0 givr=0 ovr=0 done=1 $0.0536
+[986/1136] claude-fable-5__bare_hint__none__fanout-a9e252dddc__k0__s1 givr=0 ovr=0 done=1 $0.0612
+[985/1136] claude-fable-5__bare_hint__none__fanout-a9e252dddc__k0__s0 givr=0 ovr=0 done=1 $0.0616
+[984/1136] claude-fable-5__bare_hint__none__fanout-6b37a8a46f__k3__s1 givr=0 ovr=0 done=1 $0.0591
+[989/1136] claude-fable-5__bare_hint__none__fanout-bda1830e69__k2__s0 givr=0 ovr=0 done=1 $0.0686
+[987/1136] claude-fable-5__bare_hint__none__fanout-ab09fe326a__k1__s0 givr=0 ovr=0 done=1 $0.0782
+[990/1136] claude-fable-5__bare_hint__none__fanout-bda1830e69__k2__s1 givr=0 ovr=0 done=1 $0.0707
+[988/1136] claude-fable-5__bare_hint__none__fanout-ab09fe326a__k1__s1 givr=0 ovr=0 done=1 $0.0776
+[991/1136] claude-fable-5__bare_hint__none__fanout-68ceba7706__k3__s0 givr=0 ovr=0 done=1 $0.0600
+[992/1136] claude-fable-5__bare_hint__none__fanout-68ceba7706__k3__s1 givr=0 ovr=0 done=1 $0.0558
+[993/1136] claude-fable-5__hint_p1__none__chain4-5a5a76eaa6__k0__s0 givr=0 ovr=0 done=1 $0.0609
+[994/1136] claude-fable-5__hint_p1__none__chain4-5a5a76eaa6__k0__s1 givr=0 ovr=0 done=1 $0.0666
+[995/1136] claude-fable-5__hint_p1__none__chain4-924c0cf33d__k1__s0 givr=0 ovr=0 done=1 $0.0603
+[996/1136] claude-fable-5__hint_p1__none__chain4-924c0cf33d__k1__s1 givr=0 ovr=0 done=1 $0.0679
+[997/1136] claude-fable-5__hint_p1__none__chain4-27d504eba1__k2__s0 givr=0 ovr=0 done=1 $0.0628
+[998/1136] claude-fable-5__hint_p1__none__chain4-27d504eba1__k2__s1 givr=0 ovr=0 done=1 $0.0624
+[999/1136] claude-fable-5__hint_p1__none__chain4-a9db4e1986__k3__s0 givr=0 ovr=0 done=1 $0.0673
+[1000/1136] claude-fable-5__hint_p1__none__chain4-a9db4e1986__k3__s1 givr=0 ovr=0 done=1 $0.0594
+[1001/1136] claude-fable-5__hint_p1__none__chain4-54f1e096fc__k0__s0 givr=0 ovr=0 done=1 $0.0692
+[1002/1136] claude-fable-5__hint_p1__none__chain4-54f1e096fc__k0__s1 givr=0 ovr=0 done=1 $0.0560
+[1003/1136] claude-fable-5__hint_p1__none__chain4-e87600c577__k1__s0 givr=0 ovr=0 done=1 $0.0580
+[1004/1136] claude-fable-5__hint_p1__none__chain4-e87600c577__k1__s1 givr=0 ovr=0 done=1 $0.0560
+[1005/1136] claude-fable-5__hint_p1__none__chain4-9360f3cd77__k2__s0 givr=0 ovr=0 done=1 $0.0648
+[1006/1136] claude-fable-5__hint_p1__none__chain4-9360f3cd77__k2__s1 givr=0 ovr=0 done=1 $0.0629
+[1007/1136] claude-fable-5__hint_p1__none__chain4-e450670192__k3__s0 givr=0 ovr=0 done=1 $0.0659
+[1008/1136] claude-fable-5__hint_p1__none__chain4-e450670192__k3__s1 givr=0 ovr=0 done=1 $0.0602
+[1009/1136] claude-fable-5__hint_p1__none__fanout-7ef0f16441__k0__s0 givr=0 ovr=0 done=1 $0.0621
+[1010/1136] claude-fable-5__hint_p1__none__fanout-7ef0f16441__k0__s1 givr=0 ovr=0 done=1 $0.0549
+[1011/1136] claude-fable-5__hint_p1__none__fanout-cab89321a6__k1__s0 givr=0 ovr=0 done=1 $0.0788
+[1013/1136] claude-fable-5__hint_p1__none__fanout-5ebd53143e__k2__s0 givr=0 ovr=0 done=1 $0.0627
+[1012/1136] claude-fable-5__hint_p1__none__fanout-cab89321a6__k1__s1 givr=0 ovr=0 done=1 $0.0761
+[1014/1136] claude-fable-5__hint_p1__none__fanout-5ebd53143e__k2__s1 givr=0 ovr=0 done=1 $0.0638
+!! Anthropic credit balance too low: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_anon1ohfcSXsB38XaZEGeAi9'}
+!! Anthropic credit balance too low: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_anonBshgfCSXoJ3J8tEl0meo'}
+[1015/1136] claude-fable-5__hint_p1__none__fanout-6b37a8a46f__k3__s0 givr=0 ovr=0 done=1 $0.0599
+!! Anthropic credit balance too low: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_anonsOK0Z4feb7bQmbbsG0oi'}
+R2: 1015 new episodes -> ./results/r2_wording/raw.jsonl
+anthropic spend under ./results/r2_wording: $12.11
+anthropic spend in R2: $12.11 of $45.00
+8 restart cells -> ./results/r2_wording/summary_restart.csv
+12 cells -> ./results/r2_wording/summary.csv
+stopped: {'anthropic': 'credits'}
+!! Anthropic cap reached (config exp_budget_usd). Completed episodes are kept.
+
+=== summary  2026-10-31T23:32:32Z
+  R2      1015/1136  done   remaining: {'claude-fable-5': 89, 'claude-haiku-4-5-20251001': 16, 'claude-sonnet-5': 16}
+  logged spend under ./results/r2_wording: Anthropic $12.11 (list prices), OpenRouter $0.00 (usage.cost)
+--- results/r2_wording/summary.csv
+model  prompt  mitigation  failure_mode  n_episodes  ivr  ivr_ci_tlo  ivr_ci_thi  readback_after_failure  truncated  cost_usd
+claude-haiku-4-5-20251001  base  none  error_500_after_commit  64  0.6562  0.4831  0.7959  0.0312  0.0  0.3076
+claude-haiku-4-5-20251001  base  none  status_unknown_after_commit  64  0.0625  0.0173  0.2015  0.8125  0.0  0.3263
+claude-haiku-4-5-20251001  base  none  status_unknown_p1_after_commit  64  0.0156  0.0016  0.1334  0.875  0.0  0.3268
+claude-haiku-4-5-20251001  base  none  status_unknown_p2_after_commit  64  0.1875  0.0889  0.3531  0.3906  0.0  0.2939
+claude-haiku-4-5-20251001  base  none  status_unknown_p3_after_commit  64  0.0  0.0  0.1072  0.7344  0.0  0.3046
+claude-haiku-4-5-20251001  base  none  timeout_after_commit  64  0.875  0.7193  0.9503  0.0938  0.0  0.3404
+claude-sonnet-5  base  none  error_500_after_commit  64  0.5469  0.3788  0.7049  0.4531  0.0  0.403
+claude-sonnet-5  base  none  status_unknown_after_commit  64  0.0  0.0  0.1072  0.9844  0.0  0.316
+claude-sonnet-5  base  none  status_unknown_p1_after_commit  64  0.0  0.0  0.1072  1.0  0.0  0.311
+claude-sonnet-5  base  none  status_unknown_p2_after_commit  64  0.0  0.0  0.1072  0.9688  0.0  0.3149
+claude-sonnet-5  base  none  status_unknown_p3_after_commit  64  0.0  0.0  0.1072  0.9688  0.0  0.3085
+claude-sonnet-5  base  none  timeout_after_commit  64  0.0  0.0  0.1072  0.9844  0.0  0.3375
+--- results/r2_wording/summary_restart.csv
+model  mitigation  resume_context  n_episodes  givr  givr_ci_glo  givr_ci_ghi  session2_lookup  refusals  truncated  cost_usd
+claude-fable-5  none  amnesiac  32  1.0  0.8064  1.0  0.0  0  0.0  2.8521
+claude-fable-5  none  bare_hint  32  0.0  0.0  0.1936  1.0  0  0.0  2.0659
+claude-fable-5  none  hint_p1  23  0.0  0.0  0.2425  1.0  0  0.0  1.4588
+claude-haiku-4-5-20251001  none  amnesiac  32  1.0  0.8064  1.0  0.0  0  0.0  0.4394
+claude-haiku-4-5-20251001  none  bare_hint  32  0.0  0.0  0.1936  1.0  0  0.0  0.3526
+claude-haiku-4-5-20251001  none  hint_p1  32  0.0  0.0  0.1936  1.0  0  0.0  0.3484
+claude-haiku-4-5-20251001  none  hint_p2  32  0.0  0.0  0.1936  1.0  0  0.0  0.3497
+claude-haiku-4-5-20251001  none  hint_p3  32  0.0  0.0  0.1936  1.0  0  0.0  0.3499
+=== start 2026-11-01T03:46:23Z  config=configs/r2_wording.json  mode=run smoke=0 max_seconds=none  python=.venv-claude/bin/python
+ANTHROPIC_API_KEY: set (not shown)
+== plan
+R2 part B: 2 models x (6 retry cells x 32 tasks x r=2 + 0 restart cells x graphs x r=2) = 768 episodes   [claude-haiku-4-5-20251001, claude-sonnet-5]
+R2 part A: 2 models x (0 retry cells x 32 tasks x r=2 + 5 restart cells x graphs x r=2) = 320 episodes   [claude-haiku-4-5-20251001, claude-fable-5]
+R2 part C: 3 models x (0 retry cells x 32 tasks x r=2 + 1 restart cells x graphs x r=2) = 48 episodes   [claude-haiku-4-5-20251001, claude-sonnet-5, claude-fable-5]
+R2: 1136 episodes in all; done 1015, remaining 121
+R2: est. cost of remaining: Anthropic $4.22, OpenRouter $0.00
+out_dir: ./results/r2_wording  (no API calls made)
+== cost estimate (October logged tokens; see src/r2_estimate.py)
+R2 cost estimate (Anthropic list prices x October logged tokens; 'cached' = same tokens under prompt caching)
+part model                        episodes     plain    cached   worst case (hints behave like amnesiac): plain / cached
+A    claude-fable-5                    160 $   21.15 $   19.03   $25.70 / $21.92
+A    claude-haiku-4-5-20251001         160 $    1.83 $    1.83   $2.19 / $2.19
+
+B    claude-haiku-4-5-20251001         384 $    1.96 $    1.96   $1.96 / $1.96
+B    claude-sonnet-5                   384 $    5.16 $    3.97   $5.16 / $3.97
+
+C    claude-fable-5                     16 $    1.91 $    1.90   $1.91 / $1.90
+C    claude-haiku-4-5-20251001          16 $    0.17 $    0.17   $0.17 / $0.17
+C    claude-sonnet-5                    16 $    0.41 $    0.38   $0.41 / $0.38
+Part A total: 320 episodes, $22.97 plain, $20.86 with caching
+Part B total: 768 episodes, $7.12 plain, $5.93 with caching
+Part C total: 48 episodes, $2.49 plain, $2.46 with caching
+TOTAL: $32.59 plain, $29.24 with caching (worst case $37.51 / $32.50); cap exp_budget_usd = $45.00
+caps: Anthropic exp_budget_usd $45.00; OpenRouter exp_or_budget_usd $0.00; prompt_cache=True; workers=4
+  Part B: 2 models x 384 = 768 episodes   models: claude-haiku-4-5-20251001, claude-sonnet-5
+  Part A: 2 models x 160 = 320 episodes   models: claude-haiku-4-5-20251001, claude-fable-5
+  Part C: 3 models x 16 = 48 episodes   models: claude-haiku-4-5-20251001, claude-sonnet-5, claude-fable-5
+== key check
+anthropic key OK: claude-haiku-4-5-20251001
+== attempt 1  03:46:25Z
+R2: Anthropic prompt caching ON (cache_control on tools, system and the latest user turn; cache tokens logged per call)
+R2: 1136 episodes planned, 1015 done, 121 remaining
+anthropic spend so far in R2: $12.11 of $37.11 (exp_budget_usd)
+R2: 4 episodes in flight at a time
+[2/121] claude-fable-5__hint_p1__none__fanout-a9e252dddc__k0__s0 givr=0 ovr=0 done=1 $0.0716
+[3/121] claude-fable-5__hint_p1__none__fanout-a9e252dddc__k0__s1 givr=0 ovr=0 done=1 $0.0779
+[1/121] claude-fable-5__hint_p1__none__fanout-6b37a8a46f__k3__s1 givr=0 ovr=0 done=1 $0.0724
+[4/121] claude-fable-5__hint_p1__none__fanout-ab09fe326a__k1__s0 givr=0 ovr=0 done=1 $0.0955
+[6/121] claude-fable-5__hint_p1__none__fanout-bda1830e69__k2__s0 givr=0 ovr=0 done=1 $0.0713
+[5/121] claude-fable-5__hint_p1__none__fanout-ab09fe326a__k1__s1 givr=0 ovr=0 done=1 $0.0783
+[7/121] claude-fable-5__hint_p1__none__fanout-bda1830e69__k2__s1 givr=0 ovr=0 done=1 $0.0623
+[8/121] claude-fable-5__hint_p1__none__fanout-68ceba7706__k3__s0 givr=0 ovr=0 done=1 $0.0606
+[9/121] claude-fable-5__hint_p1__none__fanout-68ceba7706__k3__s1 givr=0 ovr=0 done=1 $0.0555
+[10/121] claude-fable-5__hint_p2__none__chain4-5a5a76eaa6__k0__s0 givr=0 ovr=0 done=1 $0.0729
+[11/121] claude-fable-5__hint_p2__none__chain4-5a5a76eaa6__k0__s1 givr=0 ovr=0 done=1 $0.0714
+[12/121] claude-fable-5__hint_p2__none__chain4-924c0cf33d__k1__s0 givr=0 ovr=0 done=1 $0.0699
+[13/121] claude-fable-5__hint_p2__none__chain4-924c0cf33d__k1__s1 givr=0 ovr=0 done=1 $0.0628
+[15/121] claude-fable-5__hint_p2__none__chain4-27d504eba1__k2__s1 givr=0 ovr=0 done=1 $0.0618
+[14/121] claude-fable-5__hint_p2__none__chain4-27d504eba1__k2__s0 givr=0 ovr=0 done=1 $0.0677
+[16/121] claude-fable-5__hint_p2__none__chain4-a9db4e1986__k3__s0 givr=0 ovr=0 done=1 $0.0699
+[17/121] claude-fable-5__hint_p2__none__chain4-a9db4e1986__k3__s1 givr=0 ovr=0 done=1 $0.0636
+[18/121] claude-fable-5__hint_p2__none__chain4-54f1e096fc__k0__s0 givr=0 ovr=0 done=1 $0.0645
+[19/121] claude-fable-5__hint_p2__none__chain4-54f1e096fc__k0__s1 givr=0 ovr=0 done=1 $0.0577
+[20/121] claude-fable-5__hint_p2__none__chain4-e87600c577__k1__s0 givr=0 ovr=0 done=1 $0.0631
+[21/121] claude-fable-5__hint_p2__none__chain4-e87600c577__k1__s1 givr=0 ovr=0 done=1 $0.0731
+[22/121] claude-fable-5__hint_p2__none__chain4-9360f3cd77__k2__s0 givr=0 ovr=0 done=1 $0.0615
+[24/121] claude-fable-5__hint_p2__none__chain4-e450670192__k3__s0 givr=0 ovr=0 done=1 $0.0681
+[23/121] claude-fable-5__hint_p2__none__chain4-9360f3cd77__k2__s1 givr=0 ovr=0 done=1 $0.0639
+[26/121] claude-fable-5__hint_p2__none__fanout-7ef0f16441__k0__s0 givr=0 ovr=0 done=1 $0.0632
+[25/121] claude-fable-5__hint_p2__none__chain4-e450670192__k3__s1 givr=0 ovr=0 done=1 $0.0622
+[27/121] claude-fable-5__hint_p2__none__fanout-7ef0f16441__k0__s1 givr=0 ovr=0 done=1 $0.0568
+[28/121] claude-fable-5__hint_p2__none__fanout-cab89321a6__k1__s0 givr=0 ovr=0 done=1 $0.0855
+[29/121] claude-fable-5__hint_p2__none__fanout-cab89321a6__k1__s1 givr=0 ovr=0 done=1 $0.0765
+[30/121] claude-fable-5__hint_p2__none__fanout-5ebd53143e__k2__s0 givr=0 ovr=0 done=1 $0.0667
+[31/121] claude-fable-5__hint_p2__none__fanout-5ebd53143e__k2__s1 givr=0 ovr=0 done=1 $0.0694
+[32/121] claude-fable-5__hint_p2__none__fanout-6b37a8a46f__k3__s0 givr=0 ovr=0 done=1 $0.0594
+[35/121] claude-fable-5__hint_p2__none__fanout-a9e252dddc__k0__s1 givr=0 ovr=0 done=1 $0.0581
+[34/121] claude-fable-5__hint_p2__none__fanout-a9e252dddc__k0__s0 givr=0 ovr=0 done=1 $0.0635
+[33/121] claude-fable-5__hint_p2__none__fanout-6b37a8a46f__k3__s1 givr=0 ovr=0 done=1 $0.0523
+[36/121] claude-fable-5__hint_p2__none__fanout-ab09fe326a__k1__s0 givr=0 ovr=0 done=1 $0.0801
+[37/121] claude-fable-5__hint_p2__none__fanout-ab09fe326a__k1__s1 givr=0 ovr=0 done=1 $0.0772
+[38/121] claude-fable-5__hint_p2__none__fanout-bda1830e69__k2__s0 givr=0 ovr=0 done=1 $0.0727
+[39/121] claude-fable-5__hint_p2__none__fanout-bda1830e69__k2__s1 givr=0 ovr=0 done=1 $0.0697
+[40/121] claude-fable-5__hint_p2__none__fanout-68ceba7706__k3__s0 givr=0 ovr=0 done=1 $0.0596
+[41/121] claude-fable-5__hint_p2__none__fanout-68ceba7706__k3__s1 givr=0 ovr=0 done=1 $0.0581
+[43/121] claude-fable-5__hint_p3__none__chain4-5a5a76eaa6__k0__s1 givr=0 ovr=0 done=1 $0.0610
+[42/121] claude-fable-5__hint_p3__none__chain4-5a5a76eaa6__k0__s0 givr=0 ovr=0 done=1 $0.0644
+[44/121] claude-fable-5__hint_p3__none__chain4-924c0cf33d__k1__s0 givr=0 ovr=0 done=1 $0.0694
+[45/121] claude-fable-5__hint_p3__none__chain4-924c0cf33d__k1__s1 givr=0 ovr=0 done=1 $0.0642
+[47/121] claude-fable-5__hint_p3__none__chain4-27d504eba1__k2__s1 givr=0 ovr=0 done=1 $0.0614
+[46/121] claude-fable-5__hint_p3__none__chain4-27d504eba1__k2__s0 givr=0 ovr=0 done=1 $0.0627
+[48/121] claude-fable-5__hint_p3__none__chain4-a9db4e1986__k3__s0 givr=0 ovr=0 done=1 $0.0652
+[49/121] claude-fable-5__hint_p3__none__chain4-a9db4e1986__k3__s1 givr=0 ovr=0 done=1 $0.0632
+[50/121] claude-fable-5__hint_p3__none__chain4-54f1e096fc__k0__s0 givr=0 ovr=0 done=1 $0.0631
+[51/121] claude-fable-5__hint_p3__none__chain4-54f1e096fc__k0__s1 givr=0 ovr=0 done=1 $0.0628
+[52/121] claude-fable-5__hint_p3__none__chain4-e87600c577__k1__s0 givr=0 ovr=0 done=1 $0.0645
+[53/121] claude-fable-5__hint_p3__none__chain4-e87600c577__k1__s1 givr=0 ovr=0 done=1 $0.0589
+[54/121] claude-fable-5__hint_p3__none__chain4-9360f3cd77__k2__s0 givr=0 ovr=0 done=1 $0.0636
+[55/121] claude-fable-5__hint_p3__none__chain4-9360f3cd77__k2__s1 givr=0 ovr=0 done=1 $0.0643
+[56/121] claude-fable-5__hint_p3__none__chain4-e450670192__k3__s0 givr=0 ovr=0 done=1 $0.0651
+[57/121] claude-fable-5__hint_p3__none__chain4-e450670192__k3__s1 givr=0 ovr=0 done=1 $0.0607
+[58/121] claude-fable-5__hint_p3__none__fanout-7ef0f16441__k0__s0 givr=0 ovr=0 done=1 $0.0607
+[59/121] claude-fable-5__hint_p3__none__fanout-7ef0f16441__k0__s1 givr=0 ovr=0 done=1 $0.0622
+[60/121] claude-fable-5__hint_p3__none__fanout-cab89321a6__k1__s0 givr=0 ovr=0 done=1 $0.0785
+[62/121] claude-fable-5__hint_p3__none__fanout-5ebd53143e__k2__s0 givr=0 ovr=0 done=1 $0.0666
+[63/121] claude-fable-5__hint_p3__none__fanout-5ebd53143e__k2__s1 givr=0 ovr=0 done=1 $0.0644
+[61/121] claude-fable-5__hint_p3__none__fanout-cab89321a6__k1__s1 givr=0 ovr=0 done=1 $0.0764
+[64/121] claude-fable-5__hint_p3__none__fanout-6b37a8a46f__k3__s0 givr=0 ovr=0 done=1 $0.0587
+[66/121] claude-fable-5__hint_p3__none__fanout-a9e252dddc__k0__s0 givr=0 ovr=0 done=1 $0.0588
+[67/121] claude-fable-5__hint_p3__none__fanout-a9e252dddc__k0__s1 givr=0 ovr=0 done=1 $0.0539
+[65/121] claude-fable-5__hint_p3__none__fanout-6b37a8a46f__k3__s1 givr=0 ovr=0 done=1 $0.0532
+[68/121] claude-fable-5__hint_p3__none__fanout-ab09fe326a__k1__s0 givr=0 ovr=0 done=1 $0.0823
+[70/121] claude-fable-5__hint_p3__none__fanout-bda1830e69__k2__s0 givr=0 ovr=0 done=1 $0.0693
+[69/121] claude-fable-5__hint_p3__none__fanout-ab09fe326a__k1__s1 givr=0 ovr=0 done=1 $0.0768
+[71/121] claude-fable-5__hint_p3__none__fanout-bda1830e69__k2__s1 givr=0 ovr=0 done=1 $0.0675
+[72/121] claude-fable-5__hint_p3__none__fanout-68ceba7706__k3__s0 givr=0 ovr=0 done=1 $0.0590
+[74/121] claude-haiku-4-5-20251001__plan_only__none__chain4-5a5a76eaa6__k0__s0 givr=1 ovr=0 done=1 $0.0126
+[75/121] claude-haiku-4-5-20251001__plan_only__none__chain4-5a5a76eaa6__k0__s1 givr=1 ovr=0 done=1 $0.0135
+[73/121] claude-fable-5__hint_p3__none__fanout-68ceba7706__k3__s1 givr=0 ovr=0 done=1 $0.0488
+[76/121] claude-haiku-4-5-20251001__plan_only__none__chain4-924c0cf33d__k1__s0 givr=0 ovr=0 done=1 $0.0101
+[77/121] claude-haiku-4-5-20251001__plan_only__none__chain4-924c0cf33d__k1__s1 givr=0 ovr=0 done=1 $0.0106
+[78/121] claude-haiku-4-5-20251001__plan_only__none__chain4-27d504eba1__k2__s0 givr=0 ovr=0 done=1 $0.0117
+[79/121] claude-haiku-4-5-20251001__plan_only__none__chain4-27d504eba1__k2__s1 givr=0 ovr=0 done=1 $0.0117
+[80/121] claude-haiku-4-5-20251001__plan_only__none__chain4-a9db4e1986__k3__s0 givr=0 ovr=0 done=1 $0.0118
+[81/121] claude-haiku-4-5-20251001__plan_only__none__chain4-a9db4e1986__k3__s1 givr=0 ovr=0 done=1 $0.0118
+[82/121] claude-haiku-4-5-20251001__plan_only__none__chain4-54f1e096fc__k0__s0 givr=0 ovr=0 done=1 $0.0087
+[83/121] claude-haiku-4-5-20251001__plan_only__none__chain4-54f1e096fc__k0__s1 givr=1 ovr=0 done=1 $0.0123
+[84/121] claude-haiku-4-5-20251001__plan_only__none__chain4-e87600c577__k1__s0 givr=0 ovr=0 done=1 $0.0104
+[85/121] claude-haiku-4-5-20251001__plan_only__none__chain4-e87600c577__k1__s1 givr=0 ovr=0 done=1 $0.0109
+[86/121] claude-haiku-4-5-20251001__plan_only__none__chain4-9360f3cd77__k2__s0 givr=0 ovr=0 done=1 $0.0119
+[87/121] claude-haiku-4-5-20251001__plan_only__none__chain4-9360f3cd77__k2__s1 givr=0 ovr=0 done=1 $0.0116
+[88/121] claude-haiku-4-5-20251001__plan_only__none__chain4-e450670192__k3__s0 givr=0 ovr=0 done=1 $0.0121
+[89/121] claude-haiku-4-5-20251001__plan_only__none__chain4-e450670192__k3__s1 givr=0 ovr=0 done=1 $0.0126
+[90/121] claude-sonnet-5__plan_only__none__chain4-5a5a76eaa6__k0__s0 givr=0 ovr=0 done=1 $0.0144
+[91/121] claude-sonnet-5__plan_only__none__chain4-5a5a76eaa6__k0__s1 givr=0 ovr=0 done=1 $0.0122
+[92/121] claude-sonnet-5__plan_only__none__chain4-924c0cf33d__k1__s0 givr=0 ovr=0 done=1 $0.0118
+[95/121] claude-sonnet-5__plan_only__none__chain4-27d504eba1__k2__s1 givr=0 ovr=0 done=0 $0.0026
+[93/121] claude-sonnet-5__plan_only__none__chain4-924c0cf33d__k1__s1 givr=0 ovr=0 done=1 $0.0106
+[94/121] claude-sonnet-5__plan_only__none__chain4-27d504eba1__k2__s0 givr=0 ovr=0 done=1 $0.0126
+[97/121] claude-sonnet-5__plan_only__none__chain4-a9db4e1986__k3__s1 givr=0 ovr=0 done=1 $0.0124
+[96/121] claude-sonnet-5__plan_only__none__chain4-a9db4e1986__k3__s0 givr=0 ovr=0 done=1 $0.0121
+[98/121] claude-sonnet-5__plan_only__none__chain4-54f1e096fc__k0__s0 givr=0 ovr=0 done=1 $0.0109
+[99/121] claude-sonnet-5__plan_only__none__chain4-54f1e096fc__k0__s1 givr=0 ovr=0 done=1 $0.0101
+[100/121] claude-sonnet-5__plan_only__none__chain4-e87600c577__k1__s0 givr=0 ovr=0 done=1 $0.0133
+[101/121] claude-sonnet-5__plan_only__none__chain4-e87600c577__k1__s1 givr=0 ovr=0 done=1 $0.0120
+[102/121] claude-sonnet-5__plan_only__none__chain4-9360f3cd77__k2__s0 givr=0 ovr=0 done=1 $0.0122
+[103/121] claude-sonnet-5__plan_only__none__chain4-9360f3cd77__k2__s1 givr=0 ovr=0 done=1 $0.0132
+[104/121] claude-sonnet-5__plan_only__none__chain4-e450670192__k3__s0 givr=0 ovr=0 done=1 $0.0137
+[105/121] claude-sonnet-5__plan_only__none__chain4-e450670192__k3__s1 givr=0 ovr=0 done=1 $0.0127
+[106/121] claude-fable-5__plan_only__none__chain4-5a5a76eaa6__k0__s0 givr=0 ovr=0 done=1 $0.0657
+[107/121] claude-fable-5__plan_only__none__chain4-5a5a76eaa6__k0__s1 givr=0 ovr=0 done=1 $0.0774
+[108/121] claude-fable-5__plan_only__none__chain4-924c0cf33d__k1__s0 givr=0 ovr=0 done=1 $0.0810
+[109/121] claude-fable-5__plan_only__none__chain4-924c0cf33d__k1__s1 givr=0 ovr=0 done=1 $0.0744
+[110/121] claude-fable-5__plan_only__none__chain4-27d504eba1__k2__s0 givr=0 ovr=0 done=1 $0.0710
+[111/121] claude-fable-5__plan_only__none__chain4-27d504eba1__k2__s1 givr=0 ovr=0 done=1 $0.0643
+[113/121] claude-fable-5__plan_only__none__chain4-a9db4e1986__k3__s1 givr=0 ovr=0 done=1 $0.0603
+[112/121] claude-fable-5__plan_only__none__chain4-a9db4e1986__k3__s0 givr=0 ovr=0 done=1 $0.0637
+[114/121] claude-fable-5__plan_only__none__chain4-54f1e096fc__k0__s0 givr=0 ovr=0 done=1 $0.0668
+[115/121] claude-fable-5__plan_only__none__chain4-54f1e096fc__k0__s1 givr=0 ovr=0 done=1 $0.0599
+[116/121] claude-fable-5__plan_only__none__chain4-e87600c577__k1__s0 givr=0 ovr=0 done=1 $0.0715
+[117/121] claude-fable-5__plan_only__none__chain4-e87600c577__k1__s1 givr=0 ovr=0 done=1 $0.0751
+[118/121] claude-fable-5__plan_only__none__chain4-9360f3cd77__k2__s0 givr=0 ovr=0 done=1 $0.0689
+[119/121] claude-fable-5__plan_only__none__chain4-9360f3cd77__k2__s1 givr=0 ovr=0 done=1 $0.0655
+[120/121] claude-fable-5__plan_only__none__chain4-e450670192__k3__s0 givr=0 ovr=0 done=1 $0.0624
+[121/121] claude-fable-5__plan_only__none__chain4-e450670192__k3__s1 givr=0 ovr=0 done=1 $0.0658
+R2: 121 new episodes -> ./results/r2_wording/raw.jsonl
+anthropic spend under ./results/r2_wording: $18.39
+anthropic spend in R2: $18.39 of $37.11
+13 restart cells -> ./results/r2_wording/summary_restart.csv
+12 cells -> ./results/r2_wording/summary.csv
+
+=== summary  2026-11-01T03:53:48Z
+  R2      1136/1136  done
+  logged spend under ./results/r2_wording: Anthropic $18.39 (list prices), OpenRouter $0.00 (usage.cost)
+--- results/r2_wording/summary.csv
+model  prompt  mitigation  failure_mode  n_episodes  ivr  ivr_ci_tlo  ivr_ci_thi  readback_after_failure  truncated  cost_usd
+claude-haiku-4-5-20251001  base  none  error_500_after_commit  64  0.6562  0.4831  0.7959  0.0312  0.0  0.3076
+claude-haiku-4-5-20251001  base  none  status_unknown_after_commit  64  0.0625  0.0173  0.2015  0.8125  0.0  0.3263
+claude-haiku-4-5-20251001  base  none  status_unknown_p1_after_commit  64  0.0156  0.0016  0.1334  0.875  0.0  0.3268
+claude-haiku-4-5-20251001  base  none  status_unknown_p2_after_commit  64  0.1875  0.0889  0.3531  0.3906  0.0  0.2939
+claude-haiku-4-5-20251001  base  none  status_unknown_p3_after_commit  64  0.0  0.0  0.1072  0.7344  0.0  0.3046
+claude-haiku-4-5-20251001  base  none  timeout_after_commit  64  0.875  0.7193  0.9503  0.0938  0.0  0.3404
+claude-sonnet-5  base  none  error_500_after_commit  64  0.5469  0.3788  0.7049  0.4531  0.0  0.403
+claude-sonnet-5  base  none  status_unknown_after_commit  64  0.0  0.0  0.1072  0.9844  0.0  0.316
+claude-sonnet-5  base  none  status_unknown_p1_after_commit  64  0.0  0.0  0.1072  1.0  0.0  0.311
+claude-sonnet-5  base  none  status_unknown_p2_after_commit  64  0.0  0.0  0.1072  0.9688  0.0  0.3149
+claude-sonnet-5  base  none  status_unknown_p3_after_commit  64  0.0  0.0  0.1072  0.9688  0.0  0.3085
+claude-sonnet-5  base  none  timeout_after_commit  64  0.0  0.0  0.1072  0.9844  0.0  0.3375
+--- results/r2_wording/summary_restart.csv
+model  mitigation  resume_context  n_episodes  givr  givr_ci_glo  givr_ci_ghi  session2_lookup  refusals  truncated  cost_usd
+claude-fable-5  none  amnesiac  32  1.0  0.8064  1.0  0.0  0  0.0  2.8521
+claude-fable-5  none  bare_hint  32  0.0  0.0  0.1936  1.0  0  0.0  2.0659
+claude-fable-5  none  hint_p1  32  0.0  0.0  0.1936  1.0  0  0.0  2.1042
+claude-fable-5  none  hint_p2  32  0.0  0.0  0.1936  1.0  0  0.0  2.1228
+claude-fable-5  none  hint_p3  32  0.0  0.0  0.1936  1.0  0  0.0  2.0518
+claude-fable-5  none  plan_only  16  0.0  0.0  0.3244  1.0  0  0.0  1.0937
+claude-haiku-4-5-20251001  none  amnesiac  32  1.0  0.8064  1.0  0.0  0  0.0  0.4394
+claude-haiku-4-5-20251001  none  bare_hint  32  0.0  0.0  0.1936  1.0  0  0.0  0.3526
+claude-haiku-4-5-20251001  none  hint_p1  32  0.0  0.0  0.1936  1.0  0  0.0  0.3484
+claude-haiku-4-5-20251001  none  hint_p2  32  0.0  0.0  0.1936  1.0  0  0.0  0.3497
+claude-haiku-4-5-20251001  none  hint_p3  32  0.0  0.0  0.1936  1.0  0  0.0  0.3499
+claude-haiku-4-5-20251001  none  plan_only  16  0.1875  0.0445  0.5332  0.8125  0  0.0  0.184
+claude-sonnet-5  none  plan_only  15  0.0  0.0  0.3244  1.0  1  0.0  0.1869
+=== all planned episodes done. Analysis (analysis/r2_wording.py -> results/analysis_v3/r2_wording.json):
+B claude-sonnet-5 status_unknown_p2_after_commit 0/64 0.0000 [0.0000, 0.1072] ref 0 
+B claude-sonnet-5 status_unknown_p3_after_commit 0/64 0.0000 [0.0000, 0.1072] ref 0 
+B claude-sonnet-5 timeout_after_commit 0/64 0.0000 [0.0000, 0.1072] ref 0 
+C claude-fable-5 plan_only 0/16 0.0000 [0.0000, 0.3244] ref 0 
+C claude-haiku-4-5-20251001 plan_only 3/16 0.1875 [0.0445, 0.5332] ref 0 
+C claude-sonnet-5 plan_only 0/15 0.0000 [0.0000, 0.3244] ref 1 
+A fable hint_p1 - amnesiac primary R2-H1 d -1.000 p <0.001 holm <0.001
+A fable hint_p2 - amnesiac primary R2-H1 d -1.000 p <0.001 holm <0.001
+A fable hint_p3 - amnesiac primary R2-H1 d -1.000 p <0.001 holm <0.001
+A haiku hint_p1 - amnesiac primary R2-H1 d -1.000 p <0.001 holm <0.001
+A haiku hint_p2 - amnesiac primary R2-H1 d -1.000 p <0.001 holm <0.001
+A haiku hint_p3 - amnesiac primary R2-H1 d -1.000 p <0.001 holm <0.001
+B haiku unknown_p1 - e500 primary R2-H2 d -0.641 p <0.001 holm <0.001
+B haiku unknown_p2 - e500 primary R2-H2 d -0.469 p <0.001 holm <0.001
+B haiku unknown_p3 - e500 primary R2-H2 d -0.656 p <0.001 holm <0.001
+B sonnet unknown_p1 - e500 primary R2-H2 d -0.547 p <0.001 holm <0.001
+B sonnet unknown_p2 - e500 primary R2-H2 d -0.547 p <0.001 holm <0.001
+B sonnet unknown_p3 - e500 primary R2-H2 d -0.547 p <0.001 holm <0.001
+A fable hint_p1 - bare_hint secondary d 0.000 p 1.000 holm 1.000
+A fable hint_p2 - bare_hint secondary d 0.000 p 1.000 holm 1.000
+A fable hint_p3 - bare_hint secondary d 0.000 p 1.000 holm 1.000
+A haiku hint_p1 - bare_hint secondary d 0.000 p 1.000 holm 1.000
+A haiku hint_p2 - bare_hint secondary d 0.000 p 1.000 holm 1.000
+A haiku hint_p3 - bare_hint secondary d 0.000 p 1.000 holm 1.000
+B haiku w3 - toA secondary d -0.812 p <0.001 holm <0.001
+B haiku unknown_p1 - toA secondary d -0.859 p <0.001 holm <0.001
+B haiku unknown_p2 - toA secondary d -0.688 p <0.001 holm <0.001
+B haiku unknown_p3 - toA secondary d -0.875 p <0.001 holm <0.001
+B haiku w3 - e500 secondary (same-batch  d -0.594 p <0.001 holm <0.001
+B haiku e500 - toA secondary (same-batch  d -0.219 p 0.027 holm 0.027
+B sonnet w3 - toA secondary d 0.000 p 1.000 holm 1.000
+B sonnet unknown_p1 - toA secondary d 0.000 p 1.000 holm 1.000
+B sonnet unknown_p2 - toA secondary d 0.000 p 1.000 holm 1.000
+B sonnet unknown_p3 - toA secondary d 0.000 p 1.000 holm 1.000
+B sonnet w3 - e500 secondary (same-batch  d -0.547 p <0.001 holm <0.001
+B sonnet e500 - toA secondary (same-batch  d 0.547 p <0.001 holm <0.001
+C fable plan_only - plan_only (July chain4) descriptive (Part C vs d 0.000 p 1.000 holm NA
+C haiku plan_only - plan_only (July chain4) descriptive (Part C vs d -0.062 p 1.000 holm NA
+C sonnet plan_only - plan_only (July chain4) descriptive (Part C vs d 0.000 p 1.000 holm NA
+wrote results/analysis_v3/r2_wording.json (247 numbers; complete)
+=== ALL DONE. Results in results/r2_wording/ - tell Claude it finished.

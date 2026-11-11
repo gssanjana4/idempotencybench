@@ -1,0 +1,156 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "amnesiac",
+ "mitigation": "none",
+ "graph_id": "fanout-7ef0f16441",
+ "topology": "fanout",
+ "interrupt_node": 0,
+ "sample": 1,
+ "instruction": "File a ticket in the billing queue titled 'Rollout c1094d2a3d in billing'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout c1094d2a3d in billing' on the team calendar at 2026-09-01T09:00; 'Check 2: Rollout c1094d2a3d in billing' on the personal calendar at 2026-09-02T09:00; 'Check 3: Rollout c1094d2a3d in billing' on the oncall calendar at 2026-09-03T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01YUwGCXbKCvDVZYpuchi4TD",
+       "name": "create_ticket",
+       "input": {
+        "queue": "billing",
+        "title": "Rollout c1094d2a3d in billing",
+        "idempotency_key": "ticket-rollout-c1094d2a3d-billing"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": []
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll first file the ticket, then create the three reminder events once it's filed."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01EAArbkaCEPHsZiGZZ1dy9r",
+       "name": "create_ticket",
+       "input": {
+        "queue": "billing",
+        "title": "Rollout c1094d2a3d in billing",
+        "idempotency_key": "ticket-rollout-c1094d2a3d-billing"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01EAArbkaCEPHsZiGZZ1dy9r",
+       "content": "ok-9bf34e96"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket is filed. Now I'll create the three reminder events in parallel since they don't depend on each other:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01BXxvisJ53Fhercqe8pQdAc",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 1: Rollout c1094d2a3d in billing",
+        "start": "2026-09-01T09:00",
+        "idempotency_key": "check1-rollout-c1094d2a3d"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Rx4YwMqZKx7BwhZanCouMs",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 2: Rollout c1094d2a3d in billing",
+        "start": "2026-09-02T09:00",
+        "idempotency_key": "check2-rollout-c1094d2a3d"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Ko8V5GiQJh3gRUDuwyJjYU",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 3: Rollout c1094d2a3d in billing",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "check3-rollout-c1094d2a3d"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01BXxvisJ53Fhercqe8pQdAc",
+       "content": "ok-a62cb979"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Rx4YwMqZKx7BwhZanCouMs",
+       "content": "ok-b9604cec"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Ko8V5GiQJh3gRUDuwyJjYU",
+       "content": "ok-b66a65e7"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All steps completed successfully:\n1. \u2705 Ticket filed in billing queue: 'Rollout c1094d2a3d in billing'\n2. \u2705 Check 1 event created on team calendar (2026-09-01T09:00)\n3. \u2705 Check 2 event created on personal calendar (2026-09-02T09:00)\n4. \u2705 Check 3 event created on oncall calendar (2026-09-03T09:00)\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "givr_hit": 1,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

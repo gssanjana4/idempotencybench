@@ -1,0 +1,265 @@
+{
+ "model": "openrouter:qwen/qwen3.6-27b-20260422",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "fanout-5ebd53143e",
+ "topology": "fanout",
+ "interrupt_node": 2,
+ "sample": 1,
+ "instruction": "File a ticket in the support queue titled 'Rollout 53da2b978a in support'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 53da2b978a in support' on the oncall calendar at 2026-09-03T09:00; 'Check 2: Rollout 53da2b978a in support' on the planning calendar at 2026-09-04T09:00; 'Check 3: Rollout 53da2b978a in support' on the team calendar at 2026-09-05T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_5773ad2e0211078631965816",
+       "name": "create_ticket",
+       "input": {
+        "queue": "support",
+        "title": "Rollout 53da2b978a in support",
+        "idempotency_key": "ticket-53da2b978a-support"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:59:08Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "reasoning_tokens": 275,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_5773ad2e0211078631965816",
+       "content": "ok-7a9a6bd6"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_26ae36fa0b88c768580cc116",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 1: Rollout 53da2b978a in support",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "event-check1-53da2b978a"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_675a22a47474eccf827fee18",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 2: Rollout 53da2b978a in support",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "event-check2-53da2b978a"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_e09b39b514b0854748854227",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 53da2b978a in support",
+        "start": "2026-09-05T09:00",
+        "idempotency_key": "event-check3-53da2b978a"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:59:15Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "reasoning_tokens": 113,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 2,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "qwen/qwen3.6-27b @Reka",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 2515,
+     "output": 1020
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_57de889b2f47a10e84fd1115",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-25T21:59:19Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "reasoning_tokens": 177,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_57de889b2f47a10e84fd1115",
+       "content": "create_ticket(queue=support, title=Rollout 53da2b978a in support)\ncreate_event(calendar_id=oncall, title=Check 1: Rollout 53da2b978a in support, start=2026-09-03T09:00)\ncreate_event(calendar_id=planning, title=Check 2: Rollout 53da2b978a in support, start=2026-09-04T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_147dcb64f615b448b806794e",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 53da2b978a in support",
+        "start": "2026-09-05T09:00"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:59:24Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "reasoning_tokens": 146,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_147dcb64f615b448b806794e",
+       "content": "ok-d8de4aa0"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_112fe0c283c8452dfd70d2f2",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-25T21:59:25Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "reasoning_tokens": 40,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_112fe0c283c8452dfd70d2f2",
+       "content": "create_ticket(queue=support, title=Rollout 53da2b978a in support)\ncreate_event(calendar_id=oncall, title=Check 1: Rollout 53da2b978a in support, start=2026-09-03T09:00)\ncreate_event(calendar_id=planning, title=Check 2: Rollout 53da2b978a in support, start=2026-09-04T09:00)\ncreate_event(calendar_id=team, title=Check 3: Rollout 53da2b978a in support, start=2026-09-05T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-25T21:59:28Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "stop",
+      "upstream_provider": "Reka",
+      "system_fingerprint": "vllm-0.27.1-04e62f3f",
+      "reasoning_tokens": 144,
+      "reasoning_details_n": 1
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "qwen/qwen3.6-27b @Reka",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 6188,
+     "output": 827
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-25T21:59:02Z",
+ "provider": "openrouter",
+ "model_served": "qwen/qwen3.6-27b @Reka",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

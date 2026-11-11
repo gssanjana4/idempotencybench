@@ -1,0 +1,102 @@
+{
+ "model": "openrouter:google/gemini-4-argon-20261013",
+ "provider": "openrouter",
+ "model_served": "google/gemini-4-argon @Google",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "started_utc": "2026-10-26T01:52:55Z",
+ "usage": {
+  "input": 1312,
+  "output": 86
+ },
+ "task_id": "payments-2601b6da5c",
+ "family": "atomic",
+ "instruction": "Pay vendor-01 $137.00 for invoice-33482b206f.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_1631182",
+     "name": "send_payment",
+     "input": {
+      "memo": "invoice-33482b206f",
+      "amount": "137.00",
+      "idempotency_key": "pay_vendor-01_invoice-33482b206f",
+      "payee": "vendor-01"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T01:53:02Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "STOP",
+    "upstream_provider": "Google",
+    "reasoning_tokens": 0,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_1631182",
+     "content": "ok-7eda930a"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE"
+    }
+   ],
+   "at_utc": "2026-10-26T01:53:04Z",
+   "stop_reason": "stop",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "STOP",
+    "upstream_provider": "Google",
+    "reasoning_tokens": 0,
+    "reasoning_details_n": 1
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "memo": "invoice-33482b206f",
+    "amount": "137.00",
+    "payee": "vendor-01"
+   },
+   "key": "pay_vendor-01_invoice-33482b206f",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-01",
+     "amount": "137.00",
+     "memo": "invoice-33482b206f"
+    }
+   }
+  ]
+ }
+}

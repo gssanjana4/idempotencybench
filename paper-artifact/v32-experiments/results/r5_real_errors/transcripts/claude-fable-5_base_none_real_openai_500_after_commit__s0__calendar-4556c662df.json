@@ -1,0 +1,199 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:12:10Z",
+ "usage": {
+  "input": 8,
+  "output": 699,
+  "cache_write": 521,
+  "cache_read": 4967
+ },
+ "task_id": "calendar-4556c662df",
+ "family": "atomic",
+ "instruction": "Create event 'Sync feeb37d468' on the personal calendar at 2026-08-02T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Lx1u6rAFYcPw7pj3igU5ad",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "personal",
+      "title": "Sync feeb37d468",
+      "start": "2026-08-02T10:00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:13Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1116
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Lx1u6rAFYcPw7pj3igU5ad",
+     "content": "ERROR: The server had an error while processing your request",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The server errored; I'll retry with an idempotency key to avoid duplication."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01BiPfsJZ4LafCehUURSSDAw",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "personal",
+      "title": "Sync feeb37d468",
+      "start": "2026-08-02T10:00",
+      "idempotency_key": "sync-feeb37d468-20260802T1000"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:16Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 146,
+    "cache_read": 1116
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BiPfsJZ4LafCehUURSSDAw",
+     "content": "ok-862ad30d"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "Let me verify no duplicate event was recorded from the failed first attempt."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Dz8SAsSkrMAwN6T8yhWyzs",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:19Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 211,
+    "cache_read": 1262
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Dz8SAsSkrMAwN6T8yhWyzs",
+     "content": "create_event(calendar_id=personal, title=Sync feeb37d468, start=2026-08-02T10:00)\ncreate_event(calendar_id=personal, title=Sync feeb37d468, start=2026-08-02T10:00)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The event 'Sync feeb37d468' was created on the personal calendar at 2026-08-02T10:00.\n\nNote: the first attempt returned a server error but actually succeeded, so the effects log shows two identical events. There is no deletion tool available to me, so you may want to manually remove the duplicate entry from the personal calendar.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:24Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 164,
+    "cache_read": 1473
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_openai_500_after_commit__calendar-4556c662df__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_openai_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1912913147,
+ "finished_utc": "2026-11-02T09:12:24Z",
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "personal",
+    "title": "Sync feeb37d468",
+    "start": "2026-08-02T10:00"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "personal",
+    "title": "Sync feeb37d468",
+    "start": "2026-08-02T10:00"
+   },
+   "key": "sync-feeb37d468-20260802T1000",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "personal",
+     "title": "Sync feeb37d468",
+     "start": "2026-08-02T10:00"
+    }
+   }
+  ]
+ }
+}

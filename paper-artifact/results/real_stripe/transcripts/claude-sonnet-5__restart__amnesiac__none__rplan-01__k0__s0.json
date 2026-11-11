@@ -1,0 +1,307 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "usage": {
+  "input": 3535,
+  "output": 718
+ },
+ "exp": "real_stripe",
+ "episode_id": "claude-sonnet-5__restart__amnesiac__none__rplan-01__k0__s0",
+ "kind": "restart",
+ "resume_context": "amnesiac",
+ "mitigation": "none",
+ "graph_id": "rplan-01",
+ "topology": "pay2",
+ "interrupt_node": 0,
+ "interrupt_timing": "after_commit",
+ "sample": 0,
+ "instruction": "Pay vendor-07 $161.00 for order-fe322884cf-a; then pay vendor-12 $160.00 for order-fe322884cf-b. Do each step exactly once, in that order.",
+ "system": "You are an assistant that completes one multi-step task using the tools provided. Some steps depend on earlier steps; respect the stated order. Complete the task, then reply DONE.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_018Wg93QPh2ruZghiLypSuXk",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-07",
+        "amount": "161.00",
+        "memo": "order-fe322884cf-a",
+        "idempotency_key": "order-fe322884cf-a-vendor-07"
+       }
+      }
+     ],
+     "at_utc": "2026-10-30T15:31:17Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-sonnet-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 691,
+     "output": 228
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01HE91815Z7x1wo7AghvrRfm",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-07",
+        "amount": "161.00",
+        "memo": "order-fe322884cf-a",
+        "idempotency_key": "order-fe322884cf-a-vendor-07"
+       }
+      }
+     ],
+     "at_utc": "2026-10-30T15:31:21Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01HE91815Z7x1wo7AghvrRfm",
+       "content": "ok-pi_anonl58sVbBupeq3PjehDVG9"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_0146vSQNsLc7ePaZPAZFry1D",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-12",
+        "amount": "160.00",
+        "memo": "order-fe322884cf-b",
+        "idempotency_key": "order-fe322884cf-b-vendor-12"
+       }
+      }
+     ],
+     "at_utc": "2026-10-30T15:31:23Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_0146vSQNsLc7ePaZPAZFry1D",
+       "content": "ok-pi_anonumw10ExD1DzoGHm3jmvK"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Both payments were completed successfully, in order:\n\n1. Paid vendor-07 $161.00 for order-fe322884cf-a \u2705\n2. Paid vendor-12 $160.00 for order-fe322884cf-b \u2705\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-30T15:31:26Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-sonnet-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 2844,
+     "output": 490
+    },
+    "truncated": false,
+    "invalid_calls": []
+   },
+   "user_msg": "Pay vendor-07 $161.00 for order-fe322884cf-a; then pay vendor-12 $160.00 for order-fe322884cf-b. Do each step exactly once, in that order."
+  }
+ ],
+ "started_utc": "2026-10-30T15:31:15Z",
+ "finished_utc": "2026-10-30T15:31:26Z",
+ "backend": "stripe_test_mode",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-07",
+    "amount": "161.00",
+    "memo": "order-fe322884cf-a"
+   },
+   "key": "order-fe322884cf-a-vendor-07",
+   "seq": 1
+  },
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-07",
+    "amount": "161.00",
+    "memo": "order-fe322884cf-a"
+   },
+   "key": "order-fe322884cf-a-vendor-07",
+   "seq": 2
+  },
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-12",
+    "amount": "160.00",
+    "memo": "order-fe322884cf-b"
+   },
+   "key": "order-fe322884cf-b-vendor-12",
+   "seq": 3
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "givr_hit": 1,
+  "completion": 1,
+  "order_violation": 0
+ },
+ "stripe": {
+  "api_version": "2024-06-20",
+  "base": "https://api.stripe.com",
+  "customer": "cus_anon1Zn8ddQcNn",
+  "attempt_id": "3d2bdb3f43-e8c0f32960",
+  "events": [
+   {
+    "tool": "send_payment",
+    "call_index": 1,
+    "args": {
+     "payee": "vendor-07",
+     "amount": "161.00",
+     "memo": "order-fe322884cf-a"
+    },
+    "model_key": "order-fe322884cf-a-vendor-07",
+    "amount_cents": 16100,
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-3d2bdb3f43-e8c0f32960-call1",
+    "pi": "pi_anon4R4k3RNs30aPD3oUIP6R",
+    "status": "succeeded",
+    "replayed": false
+   },
+   {
+    "tool": "send_payment",
+    "call_index": 2,
+    "args": {
+     "payee": "vendor-07",
+     "amount": "161.00",
+     "memo": "order-fe322884cf-a"
+    },
+    "model_key": "order-fe322884cf-a-vendor-07",
+    "amount_cents": 16100,
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-3d2bdb3f43-e8c0f32960-call2",
+    "pi": "pi_anonl58sVbBupeq3PjehDVG9",
+    "status": "succeeded",
+    "replayed": false
+   },
+   {
+    "tool": "send_payment",
+    "call_index": 3,
+    "args": {
+     "payee": "vendor-12",
+     "amount": "160.00",
+     "memo": "order-fe322884cf-b"
+    },
+    "model_key": "order-fe322884cf-b-vendor-12",
+    "amount_cents": 16000,
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-3d2bdb3f43-e8c0f32960-call3",
+    "pi": "pi_anonumw10ExD1DzoGHm3jmvK",
+    "status": "succeeded",
+    "replayed": false
+   }
+  ],
+  "ground_truth": {
+   "customer": "cus_anon1Zn8ddQcNn",
+   "attempt_id": "3d2bdb3f43-e8c0f32960",
+   "n_payment_intents": 3,
+   "n_committed": 3,
+   "statuses": {
+    "succeeded": 3
+   },
+   "violations": 1,
+   "ivr_hit": true,
+   "per_goal": [
+    2,
+    1
+   ],
+   "achieved": true,
+   "order_violation": false,
+   "payment_intents": [
+    {
+     "id": "pi_anon4R4k3RNs30aPD3oUIP6R",
+     "status": "succeeded",
+     "amount": 16100,
+     "created": 1793374278,
+     "livemode": false,
+     "payee": "vendor-07",
+     "memo": "order-fe322884cf-a",
+     "call_index": "1"
+    },
+    {
+     "id": "pi_anonl58sVbBupeq3PjehDVG9",
+     "status": "succeeded",
+     "amount": 16100,
+     "created": 1793374281,
+     "livemode": false,
+     "payee": "vendor-07",
+     "memo": "order-fe322884cf-a",
+     "call_index": "2"
+    },
+    {
+     "id": "pi_anonumw10ExD1DzoGHm3jmvK",
+     "status": "succeeded",
+     "amount": 16000,
+     "created": 1793374284,
+     "livemode": false,
+     "payee": "vendor-12",
+     "memo": "order-fe322884cf-b",
+     "call_index": "3"
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,163 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:37:16Z",
+ "usage": {
+  "input": 5628,
+  "output": 450
+ },
+ "task_id": "email-ec88ecf2d5",
+ "family": "atomic",
+ "instruction": "Send an email to priya@example.com with subject 'Q3 status update #003'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01RRWDB7kGD3fCRi4ZD7wgL6",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:37:17Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01RRWDB7kGD3fCRi4ZD7wgL6",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01Ra4qp9v4iNRF5LkgM1AwbP",
+     "name": "send_email",
+     "input": {
+      "to": "priya@example.com",
+      "subject": "Q3 status update #003",
+      "idempotency_key": "q3-status-update-003-priya"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:37:19Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Ra4qp9v4iNRF5LkgM1AwbP",
+     "content": "ERROR: HTTP 500 Internal Server Error\nRetry-After: 2\n{\"error\":\"internal_error\",\"request_id\":\"req_6df26d86f162\"}",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01A4n6ZMFrtvPpb15Asm4DXP",
+     "name": "send_email",
+     "input": {
+      "to": "priya@example.com",
+      "subject": "Q3 status update #003",
+      "idempotency_key": "q3-status-update-003-priya"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:37:21Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01A4n6ZMFrtvPpb15Asm4DXP",
+     "content": "ok-61e106f4"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email to priya@example.com with subject \"Q3 status update #003\" was sent successfully (after a transient server error on the first attempt, resolved by retrying with the same idempotency key).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:37:22Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-6",
+ "episode_id": "claude-sonnet-5__base__none__error_500_body_after_commit__email-ec88ecf2d5__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_body_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2400961861,
+ "finished_utc": "2026-10-26T07:37:22Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "priya@example.com",
+    "subject": "Q3 status update #003"
+   },
+   "key": "q3-status-update-003-priya",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "priya@example.com",
+    "subject": "Q3 status update #003"
+   },
+   "key": "q3-status-update-003-priya",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "priya@example.com",
+     "subject": "Q3 status update #003"
+    }
+   }
+  ]
+ }
+}

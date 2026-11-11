@@ -1,0 +1,265 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:08:46Z",
+ "usage": {
+  "input": 7140,
+  "output": 935
+ },
+ "task_id": "long_chain-8b27e7ac1a",
+ "family": "long_chain",
+ "instruction": "Pay vendor-05 $429.00 for order-170b5b41f0; then email a receipt to priya@example.com with subject 'Receipt: order-170b5b41f0'; then create event 'Review: order-170b5b41f0' on the personal calendar at 2026-12-08T15:00; then append an audit entry (content hash 3b710d879d) to /logs/order-l4-007.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01LpVJGjhmkurH7mM2yRD9WV",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:08:47Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01LpVJGjhmkurH7mM2yRD9WV",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01NXPXmDhFpgUgHYwWMg26dY",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-05",
+      "amount": "429.00",
+      "memo": "order-170b5b41f0",
+      "idempotency_key": "pay-order-170b5b41f0"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_0138qHzWD43xaozDb9tdccuq",
+     "name": "send_email",
+     "input": {
+      "to": "priya@example.com",
+      "subject": "Receipt: order-170b5b41f0",
+      "idempotency_key": "email-order-170b5b41f0"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_012nbsm8czchCZYRNjJEXMyY",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "personal",
+      "title": "Review: order-170b5b41f0",
+      "start": "2026-12-08T15:00",
+      "idempotency_key": "event-order-170b5b41f0"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_0134xJYtMBXbYkUCDPwixwGr",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/order-l4-007.log",
+      "content_hash": "3b710d879d",
+      "idempotency_key": "audit-order-170b5b41f0"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:08:53Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01NXPXmDhFpgUgHYwWMg26dY",
+     "content": "ok-88f9b1d1"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_0138qHzWD43xaozDb9tdccuq",
+     "content": "ok-3b058c87"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_012nbsm8czchCZYRNjJEXMyY",
+     "content": "ok-bafacf52"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_0134xJYtMBXbYkUCDPwixwGr",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01TKTJr76mKmiMzwcbmaPd6T",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/order-l4-007.log",
+      "content_hash": "3b710d879d",
+      "idempotency_key": "audit-order-170b5b41f0"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:08:55Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01TKTJr76mKmiMzwcbmaPd6T",
+     "content": "ok-79f6605e"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "All four steps completed successfully: payment sent, receipt emailed, calendar event created, and audit log entry appended (after a retry due to a transient server error).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:08:56Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-5",
+ "episode_id": "claude-sonnet-5__base__none__error_500_after_commit__long_chain-8b27e7ac1a__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 4,
+ "failure_fired": true,
+ "max_turns": 12,
+ "max_tokens": 1024,
+ "ack_seed": 3822402794,
+ "finished_utc": "2026-10-26T07:08:56Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-05",
+    "amount": "429.00",
+    "memo": "order-170b5b41f0"
+   },
+   "key": "pay-order-170b5b41f0",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "priya@example.com",
+    "subject": "Receipt: order-170b5b41f0"
+   },
+   "key": "email-order-170b5b41f0",
+   "seq": 2
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "personal",
+    "title": "Review: order-170b5b41f0",
+    "start": "2026-12-08T15:00"
+   },
+   "key": "event-order-170b5b41f0",
+   "seq": 3
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/order-l4-007.log",
+    "content_hash": "3b710d879d"
+   },
+   "key": "audit-order-170b5b41f0",
+   "seq": 4
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/order-l4-007.log",
+    "content_hash": "3b710d879d"
+   },
+   "key": "audit-order-170b5b41f0",
+   "seq": 5
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-05",
+     "amount": "429.00",
+     "memo": "order-170b5b41f0"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "priya@example.com",
+     "subject": "Receipt: order-170b5b41f0"
+    }
+   },
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "personal",
+     "title": "Review: order-170b5b41f0",
+     "start": "2026-12-08T15:00"
+    }
+   },
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/order-l4-007.log",
+     "content_hash": "3b710d879d"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,140 @@
+{
+ "model": "openrouter:qwen/qwen3.6-27b-20260422",
+ "provider": "openrouter",
+ "model_served": "qwen/qwen3.6-27b @Reka",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "started_utc": "2026-10-25T20:53:49Z",
+ "usage": {
+  "input": 3060,
+  "output": 383
+ },
+ "task_id": "payments-18aa8e1466",
+ "family": "atomic",
+ "instruction": "Pay vendor-02 $174.00 for invoice-152de9d68a.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_8c6b3f4282f2db0641843361",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-02",
+      "amount": "174.00",
+      "memo": "invoice-152de9d68a"
+     }
+    }
+   ],
+   "at_utc": "2026-10-25T20:53:52Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "tool_calls",
+    "upstream_provider": "Reka",
+    "system_fingerprint": "vllm-0.27.1-04e62f3f",
+    "reasoning_tokens": 66,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_8c6b3f4282f2db0641843361",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_9dc9e5d2ddc3a026ce43b9be",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-02",
+      "amount": "174.00",
+      "memo": "invoice-152de9d68a",
+      "idempotency_key": "pay-vendor-02-152de9d68a-retry"
+     }
+    }
+   ],
+   "at_utc": "2026-10-25T20:53:55Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "tool_calls",
+    "upstream_provider": "Reka",
+    "system_fingerprint": "vllm-0.27.1-04e62f3f",
+    "reasoning_tokens": 57,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_9dc9e5d2ddc3a026ce43b9be",
+     "content": "ok-1c35b96c"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-25T20:53:57Z",
+   "stop_reason": "stop",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "stop",
+    "upstream_provider": "Reka",
+    "system_fingerprint": "vllm-0.27.1-04e62f3f",
+    "reasoning_tokens": 37,
+    "reasoning_details_n": 1
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-02",
+    "amount": "174.00",
+    "memo": "invoice-152de9d68a"
+   },
+   "key": "pay-vendor-02-152de9d68a-retry",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-02",
+     "amount": "174.00",
+     "memo": "invoice-152de9d68a"
+    }
+   }
+  ]
+ }
+}

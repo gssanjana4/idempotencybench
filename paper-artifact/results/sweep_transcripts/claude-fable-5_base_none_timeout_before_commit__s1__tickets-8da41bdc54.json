@@ -1,0 +1,129 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "tickets-8da41bdc54",
+ "family": "atomic",
+ "instruction": "File a ticket in the infra queue titled 'Incident a63d7b7faa: retry storm in infra'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_016Z6cTvH68NxKSKmYuxwurF",
+     "name": "create_ticket",
+     "input": {
+      "queue": "infra",
+      "title": "Incident a63d7b7faa: retry storm in infra"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_016Z6cTvH68NxKSKmYuxwurF",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out; let me check whether the ticket was actually created before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_019CYyw4v8Fy5Y4ftgnrpLzB",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_019CYyw4v8Fy5Y4ftgnrpLzB",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No ticket was created. Retrying with an idempotency key to be safe:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01HYwQaNJNuNpJT9ayPBNk5P",
+     "name": "create_ticket",
+     "input": {
+      "queue": "infra",
+      "title": "Incident a63d7b7faa: retry storm in infra",
+      "idempotency_key": "ticket-a63d7b7faa-infra"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01HYwQaNJNuNpJT9ayPBNk5P",
+     "content": "ok-136f3835"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The ticket \"Incident a63d7b7faa: retry storm in infra\" has been successfully created in the infra queue.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 1,
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "infra",
+    "title": "Incident a63d7b7faa: retry storm in infra"
+   },
+   "key": "ticket-a63d7b7faa-infra",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "infra",
+     "title": "Incident a63d7b7faa: retry storm in infra"
+    }
+   }
+  ]
+ }
+}

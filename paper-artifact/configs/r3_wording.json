@@ -1,0 +1,54 @@
+{
+ "exp": "R3",
+ "spec": "analysis/prereg_r3_draft.md: R3 cross-provider wording (registered before any R3 data). Do the R2 wording effects hold beyond Claude? R3-B: error wording after commit (timeout, bare 500, W3, unknown_p1, unknown_p3) on the 32 main-grid tasks x r=2 for GPT-5.5, Gemini, Qwen3.6-27B (OpenRouter, T=0 requested, max_tokens 4096, as the October cross-provider runs) and Claude Fable 5 (Anthropic, prompt caching). R3-A: restart note (amnesiac, bare_hint, hint_p1, hint_p3) on the 16 graphs x r=2 for GPT-5.5, Qwen3.6-27B and Gemini (all three had October amnesiac gIVR >= 0.5). Groups are in the registered cut order (plan_order groups): a budget stop loses the last groups first. Launcher: run_r3.sh.",
+ "groups": [
+  {"part": "B", "label": "R3-B core",
+   "models": ["openrouter:openai/gpt-5.5-20260423", "openrouter:google/gemini-4-argon-20261013",
+              "openrouter:qwen/qwen3.6-27b-20260422", "claude-fable-5"],
+   "cells": [
+    ["base", "none", "timeout_after_commit"],
+    ["base", "none", "error_500_after_commit"],
+    ["base", "none", "status_unknown_after_commit"],
+    ["base", "none", "status_unknown_p1_after_commit"]
+   ]},
+  {"part": "A", "label": "R3-A core",
+   "models": ["openrouter:openai/gpt-5.5-20260423", "openrouter:qwen/qwen3.6-27b-20260422"],
+   "restart_cells": [
+    ["amnesiac", "none", "all"],
+    ["bare_hint", "none", "all"],
+    ["hint_p1", "none", "all"]
+   ]},
+  {"part": "A", "label": "R3-A Gemini (cut 3)",
+   "models": ["openrouter:google/gemini-4-argon-20261013"],
+   "restart_cells": [
+    ["amnesiac", "none", "all"],
+    ["bare_hint", "none", "all"],
+    ["hint_p1", "none", "all"]
+   ]},
+  {"part": "A", "label": "R3-A hint_p3 (cut 2)",
+   "models": ["openrouter:openai/gpt-5.5-20260423", "openrouter:qwen/qwen3.6-27b-20260422",
+              "openrouter:google/gemini-4-argon-20261013"],
+   "restart_cells": [
+    ["hint_p3", "none", "all"]
+   ]},
+  {"part": "B", "label": "R3-B unknown_p3 (cut 1)",
+   "models": ["openrouter:openai/gpt-5.5-20260423", "openrouter:google/gemini-4-argon-20261013",
+              "openrouter:qwen/qwen3.6-27b-20260422", "claude-fable-5"],
+   "cells": [
+    ["base", "none", "status_unknown_p3_after_commit"]
+   ]}
+ ],
+ "plan_order": "groups",
+ "samples": 2,
+ "restart_samples": 2,
+ "max_turns": 8,
+ "max_tokens": {"default": 1024, "openrouter:": 4096},
+ "out_dir": "results/r3_wording",
+ "tier1_root": "results/r3_wording",
+ "exp_budget_usd": 25,
+ "exp_or_budget_usd": 15,
+ "prompt_cache": true,
+ "refusal_rows": true,
+ "workers": 4,
+ "expect_per_cell": 64
+}

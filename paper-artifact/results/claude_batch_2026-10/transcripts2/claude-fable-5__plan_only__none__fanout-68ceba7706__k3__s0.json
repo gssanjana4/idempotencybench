@@ -1,0 +1,188 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "fanout-68ceba7706",
+ "topology": "fanout",
+ "interrupt_node": 3,
+ "sample": 0,
+ "instruction": "File a ticket in the support queue titled 'Rollout 6ecd38c552 in support'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 6ecd38c552 in support' on the planning calendar at 2026-09-08T09:00; 'Check 2: Rollout 6ecd38c552 in support' on the team calendar at 2026-09-09T09:00; 'Check 3: Rollout 6ecd38c552 in support' on the personal calendar at 2026-09-10T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll start by filing the ticket, since the events depend on it."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01XQ3btpd5EderHbTBy3fpLz",
+       "name": "create_ticket",
+       "input": {
+        "queue": "support",
+        "title": "Rollout 6ecd38c552 in support",
+        "idempotency_key": "ticket-rollout-6ecd38c552-support"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:04:19Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01XQ3btpd5EderHbTBy3fpLz",
+       "content": "ok-44c6f0e7"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "The ticket is filed. Now I'll create the three reminder events, which are independent of each other:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Xq56Luav5jdiJYqaeQpXhZ",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 1: Rollout 6ecd38c552 in support",
+        "start": "2026-09-08T09:00",
+        "idempotency_key": "event-check1-rollout-6ecd38c552"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_0123MtnNHxzEApxU2xuyCayC",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 2: Rollout 6ecd38c552 in support",
+        "start": "2026-09-09T09:00",
+        "idempotency_key": "event-check2-rollout-6ecd38c552"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01F1C4FTxMpSYvwSaf93eX9K",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 3: Rollout 6ecd38c552 in support",
+        "start": "2026-09-10T09:00",
+        "idempotency_key": "event-check3-rollout-6ecd38c552"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:04:25Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 2753,
+     "output": 676
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll first check what side effects were already recorded to avoid duplicating work."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01SqK9wuU4SUijdkottTsE23",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-25T21:04:28Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01SqK9wuU4SUijdkottTsE23",
+       "content": "create_ticket(queue=support, title=Rollout 6ecd38c552 in support)\ncreate_event(calendar_id=planning, title=Check 1: Rollout 6ecd38c552 in support, start=2026-09-08T09:00)\ncreate_event(calendar_id=team, title=Check 2: Rollout 6ecd38c552 in support, start=2026-09-09T09:00)\ncreate_event(calendar_id=personal, title=Check 3: Rollout 6ecd38c552 in support, start=2026-09-10T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The recorded effects show that the previous session actually completed everything \u2014 the ticket was filed and all three reminder events were created exactly once. No further actions are needed; making any calls now would create duplicates.\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-25T21:04:31Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 2940,
+     "output": 149
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-25T21:04:16Z",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

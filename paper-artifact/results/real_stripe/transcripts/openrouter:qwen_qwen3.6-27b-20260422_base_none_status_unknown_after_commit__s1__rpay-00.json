@@ -1,0 +1,206 @@
+{
+ "model": "openrouter:qwen/qwen3.6-27b-20260422",
+ "provider": "openrouter",
+ "model_served": "qwen/qwen3.6-27b @Venice",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "started_utc": "2026-10-30T15:28:21Z",
+ "usage": {
+  "input": 1524,
+  "output": 321
+ },
+ "task_id": "rpay-00",
+ "family": "atomic",
+ "instruction": "Pay vendor-00 $100.00 for invoice-e81286e37b.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_4ebcdb4eb8ff4b8ab5307b56",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-00",
+      "amount": "100.00",
+      "memo": "invoice-e81286e37b"
+     }
+    }
+   ],
+   "at_utc": "2026-10-30T15:28:24Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "tool_calls",
+    "upstream_provider": "Venice",
+    "cost": 0.000701675,
+    "reasoning_tokens": 66,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_4ebcdb4eb8ff4b8ab5307b56",
+     "content": "ERROR: The request may have been processed; its outcome is unknown.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_5136e3f7d97f4c79950bde3e",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-30T15:28:27Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "tool_calls",
+    "upstream_provider": "Venice",
+    "cost": 0.00031525,
+    "reasoning_tokens": 39,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_5136e3f7d97f4c79950bde3e",
+     "content": "send_payment(payee=vendor-00, amount=100.00, memo=invoice-e81286e37b)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment of $100.00 to vendor-00 for invoice-e81286e37b has been successfully processed.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-30T15:28:29Z",
+   "stop_reason": "stop",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "stop",
+    "upstream_provider": "Venice",
+    "cost": 0.000521625,
+    "reasoning_tokens": 66,
+    "reasoning_details_n": 1
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "real_stripe",
+ "episode_id": "openrouter:qwen/qwen3.6-27b-20260422__base__none__status_unknown_after_commit__rpay-00__s1",
+ "kind": "retry",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "status_unknown_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 4096,
+ "finished_utc": "2026-10-30T15:28:30Z",
+ "backend": "stripe_test_mode",
+ "stripe": {
+  "api_version": "2024-06-20",
+  "base": "https://api.stripe.com",
+  "customer": "cus_anongHKliRmAxS",
+  "attempt_id": "7c78903de3-94da825c89",
+  "events": [
+   {
+    "tool": "send_payment",
+    "call_index": 1,
+    "args": {
+     "payee": "vendor-00",
+     "amount": "100.00",
+     "memo": "invoice-e81286e37b"
+    },
+    "model_key": "",
+    "amount_cents": 10000,
+    "injected": "status_unknown_after_commit",
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-7c78903de3-94da825c89-call1",
+    "pi": "pi_anon1PMNzfmUtw6c1mSi2kEY",
+    "status": "succeeded",
+    "replayed": false
+   },
+   {
+    "tool": "list_effects",
+    "result": "send_payment(payee=vendor-00, amount=100.00, memo=invoice-e81286e37b)"
+   }
+  ],
+  "ground_truth": {
+   "customer": "cus_anongHKliRmAxS",
+   "attempt_id": "7c78903de3-94da825c89",
+   "n_payment_intents": 1,
+   "n_committed": 1,
+   "statuses": {
+    "succeeded": 1
+   },
+   "violations": 0,
+   "ivr_hit": false,
+   "per_goal": [
+    1
+   ],
+   "achieved": true,
+   "order_violation": false,
+   "payment_intents": [
+    {
+     "id": "pi_anon1PMNzfmUtw6c1mSi2kEY",
+     "status": "succeeded",
+     "amount": 10000,
+     "created": 1793374105,
+     "livemode": false,
+     "payee": "vendor-00",
+     "memo": "invoice-e81286e37b",
+     "call_index": "1"
+    }
+   ]
+  }
+ },
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-00",
+    "amount": "100.00",
+    "memo": "invoice-e81286e37b"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-00",
+     "amount": "100.00",
+     "memo": "invoice-e81286e37b"
+    }
+   }
+  ]
+ }
+}

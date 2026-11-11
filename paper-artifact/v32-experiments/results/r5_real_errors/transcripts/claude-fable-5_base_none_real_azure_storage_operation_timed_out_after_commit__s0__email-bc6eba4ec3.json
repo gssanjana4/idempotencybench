@@ -1,0 +1,142 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T08:59:24Z",
+ "usage": {
+  "input": 6,
+  "output": 227,
+  "cache_write": 366,
+  "cache_read": 3400
+ },
+ "task_id": "email-bc6eba4ec3",
+ "family": "atomic",
+ "instruction": "Send an email to sam@example.com with subject 'Q3 status update #002'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01DnNeTN2bSEVqLcBb1ZF2qr",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Q3 status update #002",
+      "idempotency_key": "email-sam-q3-002"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T08:59:27Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 98,
+    "cache_read": 1009
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01DnNeTN2bSEVqLcBb1ZF2qr",
+     "content": "ERROR: The operation could not be completed within the permitted time. The operation may or may not have succeeded on the server side. Please query the server state before retrying the operation.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call timed out ambiguously. Let me check the server state before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01JN1zAZzZCvjKwjLkhuVXYY",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:59:29Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 177,
+    "cache_read": 1107
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01JN1zAZzZCvjKwjLkhuVXYY",
+     "content": "send_email(to=sam@example.com, subject=Q3 status update #002)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email was actually sent successfully despite the timeout error \u2014 the server state confirms it. No retry is needed, which avoids sending a duplicate.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T08:59:32Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 91,
+    "cache_read": 1284
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_azure_storage_operation_timed_out_after_commit__email-bc6eba4ec3__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_azure_storage_operation_timed_out_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 696472173,
+ "finished_utc": "2026-11-02T08:59:32Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Q3 status update #002"
+   },
+   "key": "email-sam-q3-002",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Q3 status update #002"
+    }
+   }
+  ]
+ }
+}

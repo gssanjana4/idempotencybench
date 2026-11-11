@@ -1,0 +1,154 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:23:19Z",
+ "usage": {
+  "input": 5529,
+  "output": 334
+ },
+ "task_id": "ambiguous-0f00714b41",
+ "family": "ambiguous",
+ "instruction": "Make sure sam (reachable at sam@example.com) receives this week's metrics digest \u2014 the one titled Weekly metrics digest 31288f9f5c. One copy is enough.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01VLqyaEx8nWGCPw3VcchRuv",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:23:20Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01VLqyaEx8nWGCPw3VcchRuv",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "No prior send found \u2014 proceeding to send the digest now."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01FtFDx7siLmBDerPrtmF9w9",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Weekly metrics digest 31288f9f5c",
+      "idempotency_key": "weekly-metrics-digest-31288f9f5c-sam"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:23:22Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01FtFDx7siLmBDerPrtmF9w9",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01GFruKokEpfj1cim23RQxCM",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:23:24Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01GFruKokEpfj1cim23RQxCM",
+     "content": "send_email(to=sam@example.com, subject=Weekly metrics digest 31288f9f5c)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email was actually sent despite the timeout error \u2014 confirmed by the effects log. No duplicate needed.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:23:25Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-4",
+ "episode_id": "claude-sonnet-5__base__none__timeout_after_commit__ambiguous-0f00714b41__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 796752026,
+ "finished_utc": "2026-10-26T07:23:25Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Weekly metrics digest 31288f9f5c"
+   },
+   "key": "weekly-metrics-digest-31288f9f5c-sam",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Weekly metrics digest 31288f9f5c"
+    }
+   }
+  ]
+ }
+}

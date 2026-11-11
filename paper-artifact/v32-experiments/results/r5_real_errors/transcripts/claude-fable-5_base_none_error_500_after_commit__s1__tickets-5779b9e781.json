@@ -1,0 +1,187 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:23:43Z",
+ "usage": {
+  "input": 8,
+  "output": 531,
+  "cache_write": 434,
+  "cache_read": 4853
+ },
+ "task_id": "tickets-5779b9e781",
+ "family": "atomic",
+ "instruction": "File a ticket in the security queue titled 'Incident 5448ce963f: retry storm in security'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01G8vaNNiq75T6yLdnRNNpRY",
+     "name": "create_ticket",
+     "input": {
+      "queue": "security",
+      "title": "Incident 5448ce963f: retry storm in security"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:46Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1114
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01G8vaNNiq75T6yLdnRNNpRY",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call failed with a server error. I'll retry with an idempotency key to avoid duplicates."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01DHb9F7oGq2ysUBb8y7AM6v",
+     "name": "create_ticket",
+     "input": {
+      "queue": "security",
+      "title": "Incident 5448ce963f: retry storm in security",
+      "idempotency_key": "ticket-5448ce963f-retry-storm"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:49Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 107,
+    "cache_read": 1114
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01DHb9F7oGq2ysUBb8y7AM6v",
+     "content": "ok-b7768836"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_011ziMwvLcQB72mxw2ryAp5u",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:52Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 183,
+    "cache_read": 1221
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_011ziMwvLcQB72mxw2ryAp5u",
+     "content": "create_ticket(queue=security, title=Incident 5448ce963f: retry storm in security)\ncreate_ticket(queue=security, title=Incident 5448ce963f: retry storm in security)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket was filed successfully in the security queue with the title \"Incident 5448ce963f: retry storm in security\" (confirmation: ok-b7768836).\n\nNote: the first attempt returned an internal server error but it appears the side effect was still recorded, so there may be a duplicate ticket in the queue. There is no tool available to remove it, so you may want to close the duplicate manually.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:23:56Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 144,
+    "cache_read": 1404
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__error_500_after_commit__tickets-5779b9e781__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2514431325,
+ "finished_utc": "2026-11-02T09:23:56Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "security",
+    "title": "Incident 5448ce963f: retry storm in security"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "security",
+    "title": "Incident 5448ce963f: retry storm in security"
+   },
+   "key": "ticket-5448ce963f-retry-storm",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "security",
+     "title": "Incident 5448ce963f: retry storm in security"
+    }
+   }
+  ]
+ }
+}

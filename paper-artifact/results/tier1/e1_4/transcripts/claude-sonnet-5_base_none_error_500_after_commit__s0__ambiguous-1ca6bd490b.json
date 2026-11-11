@@ -1,0 +1,153 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:28:54Z",
+ "usage": {
+  "input": 5480,
+  "output": 328
+ },
+ "task_id": "ambiguous-1ca6bd490b",
+ "family": "ambiguous",
+ "instruction": "Make sure maria (reachable at maria@example.com) receives this week's metrics digest \u2014 the one titled Weekly metrics digest e1a531ef25. One copy is enough.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01VUq8YBXS6H9QgBRvN1pRjh",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:28:55Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01VUq8YBXS6H9QgBRvN1pRjh",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01CFkqsGT8uHumgpywEQ3MbN",
+     "name": "send_email",
+     "input": {
+      "to": "maria@example.com",
+      "subject": "Weekly metrics digest e1a531ef25",
+      "idempotency_key": "weekly-metrics-digest-e1a531ef25-maria"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:28:57Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01CFkqsGT8uHumgpywEQ3MbN",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Pg9H5YJvn4vCdRJnqLZVaY",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:28:58Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Pg9H5YJvn4vCdRJnqLZVaY",
+     "content": "send_email(to=maria@example.com, subject=Weekly metrics digest e1a531ef25)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email was actually sent successfully (the error was just a reporting glitch \u2014 the effect is confirmed in the log). No need to resend, since that would risk a duplicate.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:28:59Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-4",
+ "episode_id": "claude-sonnet-5__base__none__error_500_after_commit__ambiguous-1ca6bd490b__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1087222536,
+ "finished_utc": "2026-10-26T07:28:59Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "maria@example.com",
+    "subject": "Weekly metrics digest e1a531ef25"
+   },
+   "key": "weekly-metrics-digest-e1a531ef25-maria",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "maria@example.com",
+     "subject": "Weekly metrics digest e1a531ef25"
+    }
+   }
+  ]
+ }
+}

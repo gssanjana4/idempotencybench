@@ -1,0 +1,223 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-30T15:24:49Z",
+ "usage": {
+  "input": 2519,
+  "output": 267
+ },
+ "task_id": "rpay-09",
+ "family": "atomic",
+ "instruction": "Pay vendor-09 $433.00 for invoice-d072028c2a.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_0136kD1R4dsB8CdtpPyE4c4f",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-09",
+      "amount": "$433.00",
+      "memo": "invoice-d072028c2a"
+     }
+    }
+   ],
+   "at_utc": "2026-10-30T15:24:50Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_0136kD1R4dsB8CdtpPyE4c4f",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Let me try again:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01D5pxLxJbjj8JDmoycbq8Am",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-09",
+      "amount": "433.00",
+      "memo": "invoice-d072028c2a"
+     }
+    }
+   ],
+   "at_utc": "2026-10-30T15:24:52Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01D5pxLxJbjj8JDmoycbq8Am",
+     "content": "ok-pi_anontufgaVBi0pn2ZHm0w2Qa"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE. Payment of $433.00 has been successfully sent to vendor-09 for invoice-d072028c2a (confirmation: ok-pi_anontufgaVBi0pn2ZHm0w2Qa)."
+    }
+   ],
+   "at_utc": "2026-10-30T15:24:54Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "real_stripe",
+ "episode_id": "claude-haiku-4-5-20251001__base__idem_keys__error_500_after_commit__rpay-09__s1",
+ "kind": "retry",
+ "prompt": "base",
+ "mitigation": "idem_keys",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "finished_utc": "2026-10-30T15:24:54Z",
+ "backend": "stripe_test_mode",
+ "stripe": {
+  "api_version": "2024-06-20",
+  "base": "https://api.stripe.com",
+  "customer": "cus_anonPfAKWI9cgr",
+  "attempt_id": "779ed03693-f459412d8d",
+  "events": [
+   {
+    "tool": "send_payment",
+    "call_index": 1,
+    "args": {
+     "payee": "vendor-09",
+     "amount": "$433.00",
+     "memo": "invoice-d072028c2a"
+    },
+    "model_key": "",
+    "amount_cents": 43300,
+    "injected": "error_500_after_commit",
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-779ed03693-f459412d8d-call1",
+    "pi": "pi_anoneF0QsfjVDP5k52T4lwg7",
+    "status": "succeeded",
+    "replayed": false
+   },
+   {
+    "tool": "send_payment",
+    "call_index": 2,
+    "args": {
+     "payee": "vendor-09",
+     "amount": "433.00",
+     "memo": "invoice-d072028c2a"
+    },
+    "model_key": "",
+    "amount_cents": 43300,
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-779ed03693-f459412d8d-call2",
+    "pi": "pi_anontufgaVBi0pn2ZHm0w2Qa",
+    "status": "succeeded",
+    "replayed": false
+   }
+  ],
+  "ground_truth": {
+   "customer": "cus_anonPfAKWI9cgr",
+   "attempt_id": "779ed03693-f459412d8d",
+   "n_payment_intents": 2,
+   "n_committed": 2,
+   "statuses": {
+    "succeeded": 2
+   },
+   "violations": 1,
+   "ivr_hit": true,
+   "per_goal": [
+    2
+   ],
+   "achieved": true,
+   "order_violation": false,
+   "payment_intents": [
+    {
+     "id": "pi_anoneF0QsfjVDP5k52T4lwg7",
+     "status": "succeeded",
+     "amount": 43300,
+     "created": 1793373891,
+     "livemode": false,
+     "payee": "vendor-09",
+     "memo": "invoice-d072028c2a",
+     "call_index": "1"
+    },
+    {
+     "id": "pi_anontufgaVBi0pn2ZHm0w2Qa",
+     "status": "succeeded",
+     "amount": 43300,
+     "created": 1793373892,
+     "livemode": false,
+     "payee": "vendor-09",
+     "memo": "invoice-d072028c2a",
+     "call_index": "2"
+    }
+   ]
+  }
+ },
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-09",
+    "amount": "$433.00",
+    "memo": "invoice-d072028c2a"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-09",
+    "amount": "433.00",
+    "memo": "invoice-d072028c2a"
+   },
+   "key": "",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-09",
+     "amount": "433.00",
+     "memo": "invoice-d072028c2a"
+    }
+   }
+  ]
+ }
+}

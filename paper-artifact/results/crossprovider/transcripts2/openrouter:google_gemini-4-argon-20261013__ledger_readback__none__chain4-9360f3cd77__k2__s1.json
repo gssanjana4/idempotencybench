@@ -1,0 +1,242 @@
+{
+ "model": "openrouter:google/gemini-4-argon-20261013",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "chain4-9360f3cd77",
+ "topology": "chain4",
+ "interrupt_node": 2,
+ "sample": 1,
+ "instruction": "Pay vendor-08 $466.00 for contract-74fa10cf0a; then email a receipt to sam@example.com with subject 'Receipt: contract-74fa10cf0a'; then create event 'Follow-up: contract-74fa10cf0a' on the oncall calendar at 2026-11-07T11:00; then append a closing entry (content hash 7d11516cb9) to /logs/contract-006.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1662523",
+       "name": "send_payment",
+       "input": {
+        "idempotency_key": "step1-pay-vendor-08",
+        "amount": "$466.00",
+        "memo": "contract-74fa10cf0a",
+        "payee": "vendor-08"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:57:27Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1662523",
+       "content": "ok-8c6aebc7"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1444210",
+       "name": "send_email",
+       "input": {
+        "subject": "Receipt: contract-74fa10cf0a",
+        "to": "sam@example.com",
+        "idempotency_key": "step2-email-receipt"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:57:33Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1444210",
+       "content": "ok-ade51c49"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1512505",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Follow-up: contract-74fa10cf0a",
+        "start": "2026-11-07T11:00",
+        "idempotency_key": "step3-create-event"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:57:38Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 2,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 2448,
+     "output": 208
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1886199",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-26T00:57:43Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1886199",
+       "content": "send_payment(amount=$466.00, memo=contract-74fa10cf0a, payee=vendor-08)\nsend_email(subject=Receipt: contract-74fa10cf0a, to=sam@example.com)\ncreate_event(calendar_id=oncall, title=Follow-up: contract-74fa10cf0a, start=2026-11-07T11:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1851011",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-006.log",
+        "content_hash": "7d11516cb9"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:57:46Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1851011",
+       "content": "ok-b2c42d88"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-10-26T00:58:03Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 2761,
+     "output": 68
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-26T00:57:22Z",
+ "provider": "openrouter",
+ "model_served": "google/gemini-4-argon @Google",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

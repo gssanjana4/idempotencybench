@@ -12,4 +12,15 @@ It was pushed here before the first episode of that run.
   with Holm correction, the descriptive contrasts). Pushed while the run was in
   progress, before any of its results were read.
 
-The harness these files run on, and the results, are added with the paper artifact.
+## What ran (11 November 2026)
+
+- Plan pushed in commit `8c1a9c1` at 02:07 UTC. First episode at 02:11 UTC.
+- Haiku 4.5: all four cells, 128 episodes.
+- Fable 5: stopped after 42 of its 128 episodes (the no-note cell and 10 of 32 note
+  sessions) when the API account ran out of credit. By the plan's rule its incomplete
+  cells are reported and not tested.
+- GPT-5.5, Gemini and Qwen3.6-27B: not launched.
+- Results and analysis output: `../results/response_v31/qx1_note_control/`.
+- The run used the harness as run for R2 to R5, whose environment variables start with
+  `IBENCH_`. The copy in `../src` and `../src2` is the same code with neutral names, so
+  with it the launcher's `IBENCH_REPO` and the harness's `BENCH_...` variables apply.

@@ -1,0 +1,142 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T21:57:17Z",
+ "usage": {
+  "input": 3769,
+  "output": 266,
+  "cache_write": 0,
+  "cache_read": 0
+ },
+ "task_id": "tickets-829820dbb5",
+ "family": "atomic",
+ "instruction": "File a ticket in the billing queue titled 'Incident b9d19372af: retry storm in billing'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01B8htv8CUDMGvwmAgC75J8M",
+     "name": "create_ticket",
+     "input": {
+      "queue": "billing",
+      "title": "Incident b9d19372af: retry storm in billing"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T21:57:18Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01B8htv8CUDMGvwmAgC75J8M",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Let me try again with an idempotency key to ensure this request can be properly tracked:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01JvcnPFGHoxetVPoCdq1erh",
+     "name": "create_ticket",
+     "input": {
+      "queue": "billing",
+      "title": "Incident b9d19372af: retry storm in billing",
+      "idempotency_key": "b9d19372af-billing-ticket"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T21:57:20Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01JvcnPFGHoxetVPoCdq1erh",
+     "content": "ok-b73cacbd"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE\n\nI've successfully filed a ticket in the billing queue with the title 'Incident b9d19372af: retry storm in billing'. The ticket has been created with ID ok-b73cacbd."
+    }
+   ],
+   "at_utc": "2026-11-01T21:57:20Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R4",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__timeout_before_commit__tickets-829820dbb5__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_before_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1368892151,
+ "finished_utc": "2026-11-01T21:57:20Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "billing",
+    "title": "Incident b9d19372af: retry storm in billing"
+   },
+   "key": "b9d19372af-billing-ticket",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "billing",
+     "title": "Incident b9d19372af: retry storm in billing"
+    }
+   }
+  ]
+ }
+}

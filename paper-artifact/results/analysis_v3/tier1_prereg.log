@@ -1,0 +1,93 @@
+======================================================================
+E1-0 confirmation rerun (Haiku, base/idem_keys/timeout_after_commit)
+  rerun IVR 0.844 task CI [0.682, 0.931] ep CI [0.736, 0.913]
+  v2 0.922 task CI [0.778, 0.975]; v1 (buggy) 0.266
+  P |rerun - v2| = 0.078 vs 0.06 -> NOT supported; paired d=-0.078 p=0.266 (exploratory)
+  S1 key attach first 0/64; S2 calls-identical 31/64 (> 32 needed); verdict agrees v2 53/64
+======================================================================
+E1-1 cross-provider core
+  H2 qwen    d=-0.250 p=0.034 T=32 -> not supported (reversed, significant)
+     qwen first-row sensitivity d=-0.312 p=0.017 -> not supported (reversed, significant)
+     ('base', 'none', 'error_500_after_commit'): last 37/64  first 33/64
+     ('careful', 'none', 'error_500_after_commit'): last 0/64  first 0/64
+     ('base', 'none', 'timeout_before_commit'): last 0/64  first 0/64
+  S H1.none qwen: 0/64 upper 0.107 -> NOT
+  S H1.toB qwen: 0/64 upper 0.107 -> NOT
+  S H3.careful_toA qwen: 0/64 = 0.000 (upper 0.107) -> ok
+  S H3.careful_e500 qwen: 0/64 = 0.000 (upper 0.107) -> ok
+  S H4 qwen keys/toA: IVR 0.734 attach 0.156 reuse 0.078 cats {'keyless': 20, 'added_key': 27, 'same_key': 4}
+  S H4 qwen keys/e500: IVR 0.547 attach 0.062 reuse 0.054 cats {'added_key': 26, 'keyless': 7, 'same_key': 2, 'dropped_key': 2}
+  H2 gpt     d=0.141 p=0.003 T=32 -> not supported (significant, |d| = 0.141 < 0.2)
+  S H1.none gpt: 0/64 upper 0.107 -> NOT
+  S H1.toB gpt: 0/64 upper 0.107 -> NOT
+  S H3.careful_toA gpt: 0/64 = 0.000 (upper 0.107) -> ok
+  S H3.careful_e500 gpt: 0/64 = 0.000 (upper 0.107) -> ok
+  S H4 gpt keys/toA: IVR 0.000 attach 1.000 reuse NA cats {}
+  S H4 gpt keys/e500: IVR 0.000 attach 1.000 reuse 1.000 cats {'same_key': 6}
+  H2 gemini  d=-0.048 p=0.379 T=31 -> null (p >= 0.05)  [refusal bounds d -0.078..-0.016, p 0.189..1.000]
+  S H1.none gemini: 0/62 upper 0.110 -> NOT
+  S H1.toB gemini: 0/62 upper 0.110 -> NOT
+  S H3.careful_toA gemini: 0/64 = 0.000 (upper 0.107) -> ok
+  S H3.careful_e500 gemini: 0/64 = 0.000 (upper 0.107) -> ok
+  S H4 gemini keys/toA: IVR 0.000 attach 0.968 reuse 1.000 cats {'same_key': 4}
+  S H4 gemini keys/e500: IVR 0.000 attach 0.952 reuse NA cats {}
+  H2 haiku   d=-0.250 p=0.037 T=32 -> not supported (reversed, significant)
+  H2 sonnet  d=0.625 p=<0.001 T=32 -> supported
+  H2 fable   d=0.438 p=<0.001 T=32 -> supported
+======================================================================
+E1-2 at-least-once redelivery
+  P H2 Sonnet - Haiku d=-0.391 p=<0.001 T=32 -> supported
+     d2 readback-first: Haiku 0.1250  Sonnet 0.5312
+  S H1 Haiku base/none ALO 56/64 = 0.875 -> ok
+  e1_2.S.H3.haiku          d=0.000 p=1.000 holm=1.000 -> supported (unchanged: Holm p >= 0.05)
+  e1_2.S.H4.haiku          d=0.000 p=1.000 holm=1.000 -> supported (no reduction detected)
+  e1_2.S.H3.sonnet         d=-0.047 p=0.633 holm=1.000 -> not supported
+  e1_2.S.H4.sonnet         d=0.172 p=0.002 holm=0.017 -> supported (no reduction detected)
+  e1_2.S.H3.qwen           d=0.000 p=1.000 holm=1.000 -> robustness set: no change detected
+  e1_2.S.H4.qwen           d=-0.031 p=0.502 holm=1.000 -> supported (no reduction detected)
+  e1_2.S.H3.gpt            d=-0.406 p=<0.001 holm=<0.001 -> robustness set: reduced (Holm p < 0.05)
+  e1_2.S.H4.gpt            d=0.094 p=0.124 holm=0.746 -> supported (no reduction detected)
+  e1_2.S.H3.gemini         d=-0.290 p=<0.001 holm=0.005 -> robustness set: reduced (Holm p < 0.05) [bounds p <0.001..0.005]
+  e1_2.S.H4.gemini         d=0.161 p=0.032 holm=0.221 -> supported (no reduction detected) [bounds p 0.014..0.031]
+  H3 'Fable-class' arm: no Fable model in E1-2 (Tester N5); not evaluable.
+======================================================================
+E1-3 keys under explicit 500
+  P Sonnet keys500 - none500 d=-0.453 p=<0.001 -> supported
+  S Haiku keys500 - none500 d=-0.031 p=0.828 -> supported (unchanged: p >= 0.05)
+  haiku: attach 0.016 reuse 0.000 cats {'keyless': 21, 'added_key': 20, 'dropped_key': 1}
+  sonnet: attach 0.609 reuse 0.625 cats {'added_key': 12, 'same_key': 20}
+======================================================================
+E1-4 task-pool expansion
+  haiku toA: new 56/64=0.875 released s0 30/32 CI [0.799, 0.983] -> inside; pooled 86/96
+  haiku e500: new 40/64=0.625 released s0 22/32 CI [0.514, 0.820] -> inside; pooled 62/96
+  sonnet toA: new 0/64=0.000 released s0 0/32 CI [0.000, 0.107] -> inside; pooled 0/96
+  sonnet e500: new 32/64=0.500 released s0 22/32 CI [0.514, 0.820] -> OUTSIDE; pooled 54/96
+======================================================================
+E1-5 long chains, failure at call k
+  haiku toA: long 30/32=0.938; E1-4 pooled CI [0.819, 0.942] -> in; v2 task CI [0.799, 0.983] -> in; stale 0.656 omission 0.031 misorder 0.000
+  haiku e500: long 21/32=0.656; E1-4 pooled CI [0.546, 0.734] -> in; v2 task CI [0.514, 0.820] -> in; stale 0.469 omission 0.000 misorder 0.000
+  sonnet toA: long 1/32=0.031; E1-4 pooled CI [0.000, 0.038] -> in; v2 task CI [0.002, 0.133] -> in; stale 0.000 omission 0.000 misorder 0.000
+  sonnet e500: long 27/32=0.844; E1-4 pooled CI [0.463, 0.657] -> OUT; v2 task CI [0.468, 0.783] -> OUT; stale 0.000 omission 0.000 misorder 0.000
+======================================================================
+E1-6 failure-signal wording
+  P1 haiku W1 - 500 d=0.297 p=0.002 -> supported
+  P2 haiku W3 - 500 d=-0.625 p=<0.001 -> supported;   read-back d=0.812 p=<0.001 -> supported
+     v2.haiku.base.none.toA                   IVR 0.938 read-back 0.062 | IVR|rb 0/4  IVR|no rb 60/60
+     v2.haiku.base.none.e500                  IVR 0.688 read-back 0.000 | IVR|rb 0/0  IVR|no rb 44/64
+     e1_6.haiku.base.none.w1                  IVR 0.984 read-back 0.000 | IVR|rb 0/0  IVR|no rb 63/64
+     e1_6.haiku.base.none.w3                  IVR 0.062 read-back 0.812 | IVR|rb 0/52  IVR|no rb 4/12
+  X haiku W3 - timeout d=-0.875 p=<0.001 (exploratory)
+  P1 sonnet W1 - 500 d=0.031 p=0.825 -> null (p >= 0.05)
+  P2 sonnet W3 - 500 d=-0.641 p=<0.001 -> supported;   read-back d=0.625 p=<0.001 -> supported
+     v2.sonnet.base.none.toA                  IVR 0.016 read-back 0.984 | IVR|rb 0/63  IVR|no rb 1/1
+     v2.sonnet.base.none.e500                 IVR 0.641 read-back 0.375 | IVR|rb 1/24  IVR|no rb 40/40
+     e1_6.sonnet.base.none.w1                 IVR 0.672 read-back 0.344 | IVR|rb 1/22  IVR|no rb 42/42
+     e1_6.sonnet.base.none.w3                 IVR 0.000 read-back 1.000 | IVR|rb 0/64  IVR|no rb 0/0
+  X sonnet W3 - timeout d=-0.016 p=1.000 (exploratory)
+  Holm sensitivity e1_1.P.H2.qwen: raw 0.034 -> 0.067
+  Holm sensitivity e1_1.P.H2.gpt: raw 0.003 -> 0.010
+  Holm sensitivity e1_1.P.H2.gemini: raw 0.379 -> 0.379
+  Holm sensitivity e1_6.P1.haiku: raw 0.002 -> 0.003
+  Holm sensitivity e1_6.P2.haiku: raw <0.001 -> <0.001
+  Holm sensitivity e1_6.P1.sonnet: raw 0.825 -> 0.825
+  Holm sensitivity e1_6.P2.sonnet: raw <0.001 -> <0.001

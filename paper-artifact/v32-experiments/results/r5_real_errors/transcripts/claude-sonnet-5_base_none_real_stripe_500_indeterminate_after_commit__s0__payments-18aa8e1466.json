@@ -1,0 +1,171 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T08:47:49Z",
+ "usage": {
+  "input": 8,
+  "output": 369,
+  "cache_write": 395,
+  "cache_read": 5029
+ },
+ "task_id": "payments-18aa8e1466",
+ "family": "atomic",
+ "instruction": "Pay vendor-02 $174.00 for invoice-152de9d68a.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_014knBDsPraSrjjhLJHa2Cua",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:47:50Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1171
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_014knBDsPraSrjjhLJHa2Cua",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01HGouYwuiBxut2zkbzwVzAD",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-02",
+      "amount": "174.00",
+      "memo": "invoice-152de9d68a",
+      "idempotency_key": "invoice-152de9d68a-vendor-02-174.00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T08:47:51Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 68,
+    "cache_read": 1171
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01HGouYwuiBxut2zkbzwVzAD",
+     "content": "ERROR: Treat the outcome of a request that returns 500 as indeterminate: the operation might have produced side effects even though you received an error.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_012qbHVgtTjNGAdowGjXJSYJ",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:47:53Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 209,
+    "cache_read": 1239
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_012qbHVgtTjNGAdowGjXJSYJ",
+     "content": "send_payment(payee=vendor-02, amount=174.00, memo=invoice-152de9d68a)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment was recorded despite the error response \u2014 the effect log confirms a `send_payment` to vendor-02 for $174.00 with memo \"invoice-152de9d68a\" already exists. I won't retry to avoid a duplicate payment.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T08:47:55Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 118,
+    "cache_read": 1448
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-sonnet-5__base__none__real_stripe_500_indeterminate_after_commit__payments-18aa8e1466__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_stripe_500_indeterminate_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2427709569,
+ "finished_utc": "2026-11-02T08:47:55Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-02",
+    "amount": "174.00",
+    "memo": "invoice-152de9d68a"
+   },
+   "key": "invoice-152de9d68a-vendor-02-174.00",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-02",
+     "amount": "174.00",
+     "memo": "invoice-152de9d68a"
+    }
+   }
+  ]
+ }
+}

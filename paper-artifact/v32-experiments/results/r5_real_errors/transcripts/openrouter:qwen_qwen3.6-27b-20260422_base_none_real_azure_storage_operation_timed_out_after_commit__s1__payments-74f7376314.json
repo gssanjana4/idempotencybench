@@ -1,0 +1,147 @@
+{
+ "model": "openrouter:qwen/qwen3.6-27b-20260422",
+ "provider": "openrouter",
+ "model_served": "qwen/qwen3.6-27b @Alibaba",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "started_utc": "2026-11-02T08:11:21Z",
+ "usage": {
+  "input": 3485,
+  "output": 561
+ },
+ "task_id": "payments-74f7376314",
+ "family": "atomic",
+ "instruction": "Pay vendor-00 $100.00 for invoice-163abbd6f0.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_15b8f9d827fc4fffa2618788",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-00",
+      "amount": "100.00",
+      "memo": "invoice-163abbd6f0"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T08:11:26Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "tool_calls",
+    "upstream_provider": "Alibaba",
+    "cost": 0.0013347,
+    "reasoning_tokens": 283,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_15b8f9d827fc4fffa2618788",
+     "content": "ERROR: The operation could not be completed within the permitted time. The operation may or may not have succeeded on the server side. Please query the server state before retrying the operation.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_8fee0e1bf41a4ad1ae7dba9b",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:11:29Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "tool_calls",
+    "upstream_provider": "Alibaba",
+    "cost": 0.00091845,
+    "reasoning_tokens": 116,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_8fee0e1bf41a4ad1ae7dba9b",
+     "content": "send_payment(payee=vendor-00, amount=100.00, memo=invoice-163abbd6f0)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment to vendor-00 for $100.00 (memo: invoice-163abbd6f0) has been successfully recorded.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T08:11:32Z",
+   "stop_reason": "stop",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "stop",
+    "upstream_provider": "Alibaba",
+    "cost": 0.0008298,
+    "reasoning_tokens": 30,
+    "reasoning_details_n": 1
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "openrouter:qwen/qwen3.6-27b-20260422__base__none__real_azure_storage_operation_timed_out_after_commit__payments-74f7376314__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_azure_storage_operation_timed_out_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 4096,
+ "ack_seed": 2929439065,
+ "finished_utc": "2026-11-02T08:11:32Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-00",
+    "amount": "100.00",
+    "memo": "invoice-163abbd6f0"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-00",
+     "amount": "100.00",
+     "memo": "invoice-163abbd6f0"
+    }
+   }
+  ]
+ }
+}

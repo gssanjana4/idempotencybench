@@ -1,0 +1,262 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:02:53Z",
+ "usage": {
+  "input": 10881,
+  "output": 907
+ },
+ "task_id": "long_chain-c1d92e4d43",
+ "family": "long_chain",
+ "instruction": "Pay vendor-08 $601.00 for order-e5397ee455; then email a receipt to yuki@example.com with subject 'Receipt: order-e5397ee455'; then create event 'Review: order-e5397ee455' on the personal calendar at 2026-12-12T15:00; then append an audit entry (content hash cc509c0054) to /logs/order-l4-011.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01B39P6mmhTafBCzo7ayyFti",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-08",
+      "amount": "601.00",
+      "memo": "order-e5397ee455",
+      "idempotency_key": "pay-order-e5397ee455"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:02:57Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01B39P6mmhTafBCzo7ayyFti",
+     "content": "ok-ce8d91f9"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01U1H9pJFLNYQdd9a5HWPDQZ",
+     "name": "send_email",
+     "input": {
+      "to": "yuki@example.com",
+      "subject": "Receipt: order-e5397ee455",
+      "idempotency_key": "email-order-e5397ee455"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:02:59Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01U1H9pJFLNYQdd9a5HWPDQZ",
+     "content": "ok-1eb00ed0"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01SLYtFxmpq2oFFEkvqhwGaX",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "personal",
+      "title": "Review: order-e5397ee455",
+      "start": "2026-12-12T15:00",
+      "idempotency_key": "event-order-e5397ee455"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:03:00Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01SLYtFxmpq2oFFEkvqhwGaX",
+     "content": "ok-511342bc"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_011LA9CPgAfvWZnNJvkDxgNu",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/order-l4-011.log",
+      "content_hash": "cc509c0054",
+      "idempotency_key": "audit-order-l4-011"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:03:01Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_011LA9CPgAfvWZnNJvkDxgNu",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_012pC8DighNyuqUS4JLUNnQC",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:03:02Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_012pC8DighNyuqUS4JLUNnQC",
+     "content": "send_payment(payee=vendor-08, amount=601.00, memo=order-e5397ee455)\nsend_email(to=yuki@example.com, subject=Receipt: order-e5397ee455)\ncreate_event(calendar_id=personal, title=Review: order-e5397ee455, start=2026-12-12T15:00)\nappend_file(path=/logs/order-l4-011.log, content_hash=cc509c0054)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The append_file effect was actually recorded despite the timeout error. All four steps have been completed successfully:\n\n1. \u2705 Paid vendor-08 $601.00 for order-e5397ee455\n2. \u2705 Emailed receipt to yuki@example.com\n3. \u2705 Created calendar event for review\n4. \u2705 Appended audit entry to log file\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:03:04Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-5",
+ "episode_id": "claude-sonnet-5__base__none__timeout_after_commit__long_chain-c1d92e4d43__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 4,
+ "failure_fired": true,
+ "max_turns": 12,
+ "max_tokens": 1024,
+ "ack_seed": 3359960326,
+ "finished_utc": "2026-10-26T07:03:04Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-08",
+    "amount": "601.00",
+    "memo": "order-e5397ee455"
+   },
+   "key": "pay-order-e5397ee455",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "yuki@example.com",
+    "subject": "Receipt: order-e5397ee455"
+   },
+   "key": "email-order-e5397ee455",
+   "seq": 2
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "personal",
+    "title": "Review: order-e5397ee455",
+    "start": "2026-12-12T15:00"
+   },
+   "key": "event-order-e5397ee455",
+   "seq": 3
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/order-l4-011.log",
+    "content_hash": "cc509c0054"
+   },
+   "key": "audit-order-l4-011",
+   "seq": 4
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-08",
+     "amount": "601.00",
+     "memo": "order-e5397ee455"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "yuki@example.com",
+     "subject": "Receipt: order-e5397ee455"
+    }
+   },
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "personal",
+     "title": "Review: order-e5397ee455",
+     "start": "2026-12-12T15:00"
+    }
+   },
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/order-l4-011.log",
+     "content_hash": "cc509c0054"
+    }
+   }
+  ]
+ }
+}

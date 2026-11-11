@@ -1,0 +1,94 @@
+{
+ "model": "claude-sonnet-5",
+ "temperature": null,
+ "task_id": "tickets-8da41bdc54",
+ "family": "atomic",
+ "instruction": "File a ticket in the infra queue titled 'Incident a63d7b7faa: retry storm in infra'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE. IMPORTANT: tool calls can fail AFTER the action has already been executed. Before retrying any failed action, use list_effects to check whether it already happened. Never perform the same action twice.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_019J8eYeNfD8VwAk5N9FVVmy",
+     "name": "create_ticket",
+     "input": {
+      "queue": "infra",
+      "title": "Incident a63d7b7faa: retry storm in infra",
+      "idempotency_key": "incident-a63d7b7faa-ticket"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_019J8eYeNfD8VwAk5N9FVVmy",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01C2BRLy33gjFazRQF2bVHob",
+     "name": "list_effects",
+     "input": {}
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01C2BRLy33gjFazRQF2bVHob",
+     "content": "create_ticket(queue=infra, title=Incident a63d7b7faa: retry storm in infra)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The ticket already exists based on the effects log, so no retry is needed.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "infra",
+    "title": "Incident a63d7b7faa: retry storm in infra"
+   },
+   "key": "incident-a63d7b7faa-ticket",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "infra",
+     "title": "Incident a63d7b7faa: retry storm in infra"
+    }
+   }
+  ]
+ }
+}

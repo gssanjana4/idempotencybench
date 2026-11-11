@@ -1,0 +1,206 @@
+{
+ "model": "openrouter:qwen/qwen3.6-27b-20260422",
+ "provider": "openrouter",
+ "model_served": "qwen/qwen3.6-27b @DeepInfra",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "started_utc": "2026-10-30T15:19:44Z",
+ "usage": {
+  "input": 1506,
+  "output": 340
+ },
+ "task_id": "rpay-14",
+ "family": "atomic",
+ "instruction": "Pay vendor-14 $618.00 for invoice-2a07cf4c5d.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_4ed68eef559a4b0590639325",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-14",
+      "amount": "618.00",
+      "memo": "invoice-2a07cf4c5d"
+     }
+    }
+   ],
+   "at_utc": "2026-10-30T15:19:49Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "tool_calls",
+    "upstream_provider": "DeepInfra",
+    "cost": 0.00095008,
+    "reasoning_tokens": 128,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_4ed68eef559a4b0590639325",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_6e97decb39b6441480dc2d94",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-30T15:19:53Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "tool_calls",
+    "upstream_provider": "DeepInfra",
+    "cost": 0.00033632,
+    "reasoning_tokens": 50,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_6e97decb39b6441480dc2d94",
+     "content": "send_payment(payee=vendor-14, amount=618.00, memo=invoice-2a07cf4c5d)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE"
+    }
+   ],
+   "at_utc": "2026-10-30T15:19:55Z",
+   "stop_reason": "stop",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "stop",
+    "upstream_provider": "DeepInfra",
+    "cost": 0.00028352,
+    "reasoning_tokens": 36,
+    "reasoning_details_n": 1
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "real_stripe",
+ "episode_id": "openrouter:qwen/qwen3.6-27b-20260422__base__none__timeout_after_commit__rpay-14__s0",
+ "kind": "retry",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 4096,
+ "finished_utc": "2026-10-30T15:19:55Z",
+ "backend": "stripe_test_mode",
+ "stripe": {
+  "api_version": "2024-06-20",
+  "base": "https://api.stripe.com",
+  "customer": "cus_anonOK1SMPgDwr",
+  "attempt_id": "d414ec5cad-cb5c9ffbe1",
+  "events": [
+   {
+    "tool": "send_payment",
+    "call_index": 1,
+    "args": {
+     "payee": "vendor-14",
+     "amount": "618.00",
+     "memo": "invoice-2a07cf4c5d"
+    },
+    "model_key": "",
+    "amount_cents": 61800,
+    "injected": "timeout_after_commit",
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-d414ec5cad-cb5c9ffbe1-call1",
+    "pi": "pi_anonawf7ctL1DnJTr8hy7iQg",
+    "status": "succeeded",
+    "replayed": false
+   },
+   {
+    "tool": "list_effects",
+    "result": "send_payment(payee=vendor-14, amount=618.00, memo=invoice-2a07cf4c5d)"
+   }
+  ],
+  "ground_truth": {
+   "customer": "cus_anonOK1SMPgDwr",
+   "attempt_id": "d414ec5cad-cb5c9ffbe1",
+   "n_payment_intents": 1,
+   "n_committed": 1,
+   "statuses": {
+    "succeeded": 1
+   },
+   "violations": 0,
+   "ivr_hit": false,
+   "per_goal": [
+    1
+   ],
+   "achieved": true,
+   "order_violation": false,
+   "payment_intents": [
+    {
+     "id": "pi_anonawf7ctL1DnJTr8hy7iQg",
+     "status": "succeeded",
+     "amount": 61800,
+     "created": 1793373589,
+     "livemode": false,
+     "payee": "vendor-14",
+     "memo": "invoice-2a07cf4c5d",
+     "call_index": "1"
+    }
+   ]
+  }
+ },
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-14",
+    "amount": "618.00",
+    "memo": "invoice-2a07cf4c5d"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-14",
+     "amount": "618.00",
+     "memo": "invoice-2a07cf4c5d"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,193 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "fanout-7ef0f16441",
+ "topology": "fanout",
+ "interrupt_node": 0,
+ "sample": 1,
+ "instruction": "File a ticket in the billing queue titled 'Rollout c1094d2a3d in billing'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout c1094d2a3d in billing' on the team calendar at 2026-09-01T09:00; 'Check 2: Rollout c1094d2a3d in billing' on the personal calendar at 2026-09-02T09:00; 'Check 3: Rollout c1094d2a3d in billing' on the oncall calendar at 2026-09-03T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll first file the ticket, then create the three reminder events once it's confirmed."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_013Za9DStrLjP1aSfbvm5yND",
+       "name": "create_ticket",
+       "input": {
+        "queue": "billing",
+        "title": "Rollout c1094d2a3d in billing",
+        "idempotency_key": "ticket-rollout-c1094d2a3d-billing"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:00:21Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 1289,
+     "output": 157
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "First, let me check what side effects have already been recorded, since a previous session was interrupted."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01S7j6vzw86jwp1q175fxB6k",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-25T21:00:24Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01S7j6vzw86jwp1q175fxB6k",
+       "content": "create_ticket(queue=billing, title=Rollout c1094d2a3d in billing)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket was already created. Now I'll create the three reminder events (independent of each other, so all at once):"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01QtxzDwrGv7NFxNSeB3nzuF",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 1: Rollout c1094d2a3d in billing",
+        "start": "2026-09-01T09:00",
+        "idempotency_key": "rollout-c1094d2a3d-check1"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_019BpTpY53ukhbC9yErYiwws",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 2: Rollout c1094d2a3d in billing",
+        "start": "2026-09-02T09:00",
+        "idempotency_key": "rollout-c1094d2a3d-check2"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01K56AamwC8mQqYdw1CdUJp1",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 3: Rollout c1094d2a3d in billing",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "rollout-c1094d2a3d-check3"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:00:30Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01QtxzDwrGv7NFxNSeB3nzuF",
+       "content": "ok-e3384e75"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_019BpTpY53ukhbC9yErYiwws",
+       "content": "ok-a0306e78"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01K56AamwC8mQqYdw1CdUJp1",
+       "content": "ok-e6db705b"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "The ticket was already filed by the previous session, and all three reminder events have now been created exactly once:\n- Check 1 on the team calendar (2026-09-01T09:00)\n- Check 2 on the personal calendar (2026-09-02T09:00)\n- Check 3 on the oncall calendar (2026-09-03T09:00)\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-25T21:00:32Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 4898,
+     "output": 729
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-25T21:00:17Z",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

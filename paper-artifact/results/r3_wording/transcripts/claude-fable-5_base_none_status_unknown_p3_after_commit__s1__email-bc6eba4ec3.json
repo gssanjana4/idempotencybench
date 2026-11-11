@@ -1,0 +1,145 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T21:47:38Z",
+ "usage": {
+  "input": 6,
+  "output": 256,
+  "cache_write": 348,
+  "cache_read": 3369
+ },
+ "task_id": "email-bc6eba4ec3",
+ "family": "atomic",
+ "instruction": "Send an email to sam@example.com with subject 'Q3 status update #002'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01LrhNkWN1T32ZQYhtxmHxde",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Q3 status update #002",
+      "idempotency_key": "email-sam-q3-002"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T21:47:41Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 98,
+    "cache_read": 1009
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01LrhNkWN1T32ZQYhtxmHxde",
+     "content": "ERROR: Request status unknown; it might have succeeded.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request status was unknown, so I'll check whether the email was actually sent before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_014aBzRXV15fgtPaVdkFFWT6",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T21:47:44Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 146,
+    "cache_read": 1107
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_014aBzRXV15fgtPaVdkFFWT6",
+     "content": "send_email(to=sam@example.com, subject=Q3 status update #002)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The email was actually sent successfully despite the error message \u2014 the side effect log confirms it was recorded. No retry needed (and retrying could cause a duplicate).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-01T21:47:46Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 104,
+    "cache_read": 1253
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R3",
+ "episode_id": "claude-fable-5__base__none__status_unknown_p3_after_commit__email-bc6eba4ec3__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "status_unknown_p3_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1051237066,
+ "finished_utc": "2026-11-01T21:47:46Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Q3 status update #002"
+   },
+   "key": "email-sam-q3-002",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Q3 status update #002"
+    }
+   }
+  ]
+ }
+}

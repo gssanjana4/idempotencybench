@@ -1,0 +1,173 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T21:57:20Z",
+ "usage": {
+  "input": 5178,
+  "output": 333,
+  "cache_write": 0,
+  "cache_read": 0
+ },
+ "task_id": "tickets-fa4348fff0",
+ "family": "atomic",
+ "instruction": "File a ticket in the support queue titled 'Incident 2a3b4eda6f: retry storm in support'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01LENk6xGvLzVrciXr8kN7Wb",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Incident 2a3b4eda6f: retry storm in support"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T21:57:21Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01LENk6xGvLzVrciXr8kN7Wb",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Let me check what effects have been recorded:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01WYZR1D8rqp4xkYJCB9uehC",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T21:57:22Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01WYZR1D8rqp4xkYJCB9uehC",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The initial request timed out. Let me retry with an idempotency key to ensure we don't create duplicate tickets if this is retried:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01PQeZYWbjP1z19ZRHqyzuAN",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Incident 2a3b4eda6f: retry storm in support",
+      "idempotency_key": "incident_2a3b4eda6f"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T21:57:24Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01PQeZYWbjP1z19ZRHqyzuAN",
+     "content": "ok-fa81a69b"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE\n\nThe ticket has been successfully created in the support queue with the title \"Incident 2a3b4eda6f: retry storm in support\". The ticket ID is ok-fa81a69b."
+    }
+   ],
+   "at_utc": "2026-11-01T21:57:25Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R4",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__timeout_before_commit__tickets-fa4348fff0__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_before_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 352510079,
+ "finished_utc": "2026-11-01T21:57:25Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Incident 2a3b4eda6f: retry storm in support"
+   },
+   "key": "incident_2a3b4eda6f",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "support",
+     "title": "Incident 2a3b4eda6f: retry storm in support"
+    }
+   }
+  ]
+ }
+}

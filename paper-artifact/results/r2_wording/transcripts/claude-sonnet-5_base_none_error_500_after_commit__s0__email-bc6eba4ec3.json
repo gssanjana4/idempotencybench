@@ -1,0 +1,189 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-31T23:14:07Z",
+ "usage": {
+  "input": 8,
+  "output": 467,
+  "cache_write": 461,
+  "cache_read": 5049
+ },
+ "task_id": "email-bc6eba4ec3",
+ "family": "atomic",
+ "instruction": "Send an email to sam@example.com with subject 'Q3 status update #002'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01DrSATx7SQmAN9vz2YAwQH2",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-31T23:14:09Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1171
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01DrSATx7SQmAN9vz2YAwQH2",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "No prior effects recorded. Proceeding to send the email."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_0143i1hxQSzcRLM9dTebMkcj",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Q3 status update #002",
+      "idempotency_key": "q3-status-update-002-sam"
+     }
+    }
+   ],
+   "at_utc": "2026-10-31T23:14:10Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 104,
+    "cache_read": 1171
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_0143i1hxQSzcRLM9dTebMkcj",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The first attempt returned an internal server error. I'll retry using the same idempotency key to safely avoid duplicate sends."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_019x4woEE255deUhrbRKhrzE",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Q3 status update #002",
+      "idempotency_key": "q3-status-update-002-sam"
+     }
+    }
+   ],
+   "at_utc": "2026-10-31T23:14:12Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 157,
+    "cache_read": 1275
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_019x4woEE255deUhrbRKhrzE",
+     "content": "ok-40fbaad0"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email was successfully sent to sam@example.com with subject \"Q3 status update #002\" (confirmation ID: ok-40fbaad0).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-31T23:14:13Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 200,
+    "cache_read": 1432
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R2",
+ "episode_id": "claude-sonnet-5__base__none__error_500_after_commit__email-bc6eba4ec3__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1402626458,
+ "finished_utc": "2026-10-31T23:14:13Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Q3 status update #002"
+   },
+   "key": "q3-status-update-002-sam",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Q3 status update #002"
+   },
+   "key": "q3-status-update-002-sam",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Q3 status update #002"
+    }
+   }
+  ]
+ }
+}

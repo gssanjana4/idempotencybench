@@ -1,0 +1,188 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:26:01Z",
+ "usage": {
+  "input": 8,
+  "output": 566,
+  "cache_write": 454,
+  "cache_read": 4921
+ },
+ "task_id": "email-6d30f546e8",
+ "family": "atomic",
+ "instruction": "Send an email to jordan@example.com with subject 'Q3 status update #001'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01XPDEd1FKMHksj4JqoerTfs",
+     "name": "send_email",
+     "input": {
+      "to": "jordan@example.com",
+      "subject": "Q3 status update #001",
+      "idempotency_key": "email-jordan-q3-001"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:26:04Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1108
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01XPDEd1FKMHksj4JqoerTfs",
+     "content": "ERROR: The request may have been processed; its outcome is unknown.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The outcome was unknown, so I'll retry with the same idempotency key to avoid duplicates:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01P2iA2q9jjkf9fLMwGxxdEG",
+     "name": "send_email",
+     "input": {
+      "to": "jordan@example.com",
+      "subject": "Q3 status update #001",
+      "idempotency_key": "email-jordan-q3-001"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:26:07Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 150,
+    "cache_read": 1108
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01P2iA2q9jjkf9fLMwGxxdEG",
+     "content": "ok-1786185e"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01B7zq5WenshvrbFuxSoddEA",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:26:09Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 189,
+    "cache_read": 1258
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01B7zq5WenshvrbFuxSoddEA",
+     "content": "send_email(to=jordan@example.com, subject=Q3 status update #001)\nsend_email(to=jordan@example.com, subject=Q3 status update #001)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The email was sent to jordan@example.com with subject 'Q3 status update #001'. \n\nNote: the first attempt returned an ambiguous error but had actually succeeded, and the retry (despite using the same idempotency key) was recorded as a second send. So the recipient may have received the email twice \u2014 you may want to flag this to Jordan or the email system owner.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:26:14Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 115,
+    "cache_read": 1447
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__status_unknown_after_commit__email-6d30f546e8__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "status_unknown_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1172396818,
+ "finished_utc": "2026-11-02T09:26:14Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "jordan@example.com",
+    "subject": "Q3 status update #001"
+   },
+   "key": "email-jordan-q3-001",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "jordan@example.com",
+    "subject": "Q3 status update #001"
+   },
+   "key": "email-jordan-q3-001",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "jordan@example.com",
+     "subject": "Q3 status update #001"
+    }
+   }
+  ]
+ }
+}

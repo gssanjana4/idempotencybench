@@ -1,0 +1,162 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:12:05Z",
+ "usage": {
+  "input": 6,
+  "output": 379,
+  "cache_write": 353,
+  "cache_read": 3485
+ },
+ "task_id": "calendar-98fe897062",
+ "family": "atomic",
+ "instruction": "Create event 'Sync 00b33b7487' on the team calendar at 2026-08-01T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01NGh9SFECfnbLDr23EHQYg7",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "team",
+      "title": "Sync 00b33b7487",
+      "start": "2026-08-01T10:00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:08Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1116
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01NGh9SFECfnbLDr23EHQYg7",
+     "content": "ERROR: The server had an error while processing your request",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The server errored; I'll retry with an idempotency key to avoid duplicate creation."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01FDo3BrcegZpUDmZ513LHJA",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "team",
+      "title": "Sync 00b33b7487",
+      "start": "2026-08-01T10:00",
+      "idempotency_key": "sync-00b33b7487-20260801T1000"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:12Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 137,
+    "cache_read": 1116
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01FDo3BrcegZpUDmZ513LHJA",
+     "content": "ok-24f3fdb4"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The event 'Sync 00b33b7487' was successfully created on the team calendar for 2026-08-01T10:00.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:12:15Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 216,
+    "cache_read": 1253
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_openai_500_after_commit__calendar-98fe897062__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_openai_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2204359329,
+ "finished_utc": "2026-11-02T09:12:15Z",
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "team",
+    "title": "Sync 00b33b7487",
+    "start": "2026-08-01T10:00"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "team",
+    "title": "Sync 00b33b7487",
+    "start": "2026-08-01T10:00"
+   },
+   "key": "sync-00b33b7487-20260801T1000",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "team",
+     "title": "Sync 00b33b7487",
+     "start": "2026-08-01T10:00"
+    }
+   }
+  ]
+ }
+}

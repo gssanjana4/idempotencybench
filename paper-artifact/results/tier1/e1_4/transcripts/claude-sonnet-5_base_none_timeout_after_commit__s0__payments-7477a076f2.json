@@ -1,0 +1,153 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:18:57Z",
+ "usage": {
+  "input": 5324,
+  "output": 297
+ },
+ "task_id": "payments-7477a076f2",
+ "family": "atomic",
+ "instruction": "Pay vendor-09 $433.00 for invoice-3292073050.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01RERK48o8bXm2QDzg2wYKtC",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:18:58Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01RERK48o8bXm2QDzg2wYKtC",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01Qv2vhoMxFNy23trA2hVvpF",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-09",
+      "amount": "433.00",
+      "memo": "invoice-3292073050",
+      "idempotency_key": "vendor-09-invoice-3292073050"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:19:00Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Qv2vhoMxFNy23trA2hVvpF",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01UQjFRogvgEJdkxgMQau9UT",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:19:01Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01UQjFRogvgEJdkxgMQau9UT",
+     "content": "send_payment(payee=vendor-09, amount=433.00, memo=invoice-3292073050)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment was successfully processed despite the timeout error \u2014 it's confirmed in the effects log.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:19:02Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-4",
+ "episode_id": "claude-sonnet-5__base__none__timeout_after_commit__payments-7477a076f2__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3937689082,
+ "finished_utc": "2026-10-26T07:19:02Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-09",
+    "amount": "433.00",
+    "memo": "invoice-3292073050"
+   },
+   "key": "vendor-09-invoice-3292073050",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-09",
+     "amount": "433.00",
+     "memo": "invoice-3292073050"
+    }
+   }
+  ]
+ }
+}

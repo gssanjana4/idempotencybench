@@ -1,0 +1,171 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T08:45:14Z",
+ "usage": {
+  "input": 8,
+  "output": 306,
+  "cache_write": 376,
+  "cache_read": 5043
+ },
+ "task_id": "payments-18aa8e1466",
+ "family": "atomic",
+ "instruction": "Pay vendor-02 $174.00 for invoice-152de9d68a.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_019Qgt2jorMJjEtgZyfiY24q",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:45:16Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1171
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_019Qgt2jorMJjEtgZyfiY24q",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01UH14pJJzp6ayn1Wq1MwUNz",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-02",
+      "amount": "174.00",
+      "memo": "invoice-152de9d68a",
+      "idempotency_key": "invoice-152de9d68a-vendor-02-174.00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T08:45:17Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 72,
+    "cache_read": 1171
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01UH14pJJzp6ayn1Wq1MwUNz",
+     "content": "ERROR: The operation could not be completed within the permitted time. The operation may or may not have succeeded on the server side. Please query the server state before retrying the operation.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_014qqJik5GZWdsxPk5g6rPuQ",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:45:18Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 215,
+    "cache_read": 1243
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_014qqJik5GZWdsxPk5g6rPuQ",
+     "content": "send_payment(payee=vendor-02, amount=174.00, memo=invoice-152de9d68a)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment was already recorded on the server despite the timeout error, so I won't resend it to avoid a duplicate payment.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T08:45:20Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 89,
+    "cache_read": 1458
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-sonnet-5__base__none__real_azure_storage_operation_timed_out_after_commit__payments-18aa8e1466__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_azure_storage_operation_timed_out_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2978329299,
+ "finished_utc": "2026-11-02T08:45:20Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-02",
+    "amount": "174.00",
+    "memo": "invoice-152de9d68a"
+   },
+   "key": "invoice-152de9d68a-vendor-02-174.00",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-02",
+     "amount": "174.00",
+     "memo": "invoice-152de9d68a"
+    }
+   }
+  ]
+ }
+}

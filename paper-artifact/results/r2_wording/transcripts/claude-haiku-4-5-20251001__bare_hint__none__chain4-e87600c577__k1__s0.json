@@ -1,0 +1,250 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "resume_context": "bare_hint",
+ "mitigation": "none",
+ "graph_id": "chain4-e87600c577",
+ "topology": "chain4",
+ "interrupt_node": 1,
+ "sample": 0,
+ "instruction": "Pay vendor-01 $405.00 for contract-4034f7f071; then email a receipt to yuki@example.com with subject 'Receipt: contract-4034f7f071'; then create event 'Follow-up: contract-4034f7f071' on the personal calendar at 2026-11-06T11:00; then append a closing entry (content hash d1e0f918f6) to /logs/contract-005.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll complete these steps in order. Let me start with the payment:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01A5snaPhd8GBdMVY7cwD6GM",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-01",
+        "amount": "405.00",
+        "memo": "contract-4034f7f071",
+        "idempotency_key": "payment-contract-4034f7f071"
+       }
+      }
+     ],
+     "at_utc": "2026-10-31T23:22:11Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 0
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01A5snaPhd8GBdMVY7cwD6GM",
+       "content": "ok-6ef3f404"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Now I'll send the receipt email:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_018d5Pc7ev8UEnaZYDoksf1j",
+       "name": "send_email",
+       "input": {
+        "to": "yuki@example.com",
+        "subject": "Receipt: contract-4034f7f071",
+        "idempotency_key": "receipt-contract-4034f7f071"
+       }
+      }
+     ],
+     "at_utc": "2026-10-31T23:22:13Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 0
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 1,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-haiku-4-5-20251001",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 2647,
+     "output": 270,
+     "cache_write": 0,
+     "cache_read": 0
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll help you complete this task. Let me first check if any steps have already been completed."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01HJ314RDFA7jfVD7jSFdeuf",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-31T23:22:14Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 0
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01HJ314RDFA7jfVD7jSFdeuf",
+       "content": "send_payment(payee=vendor-01, amount=405.00, memo=contract-4034f7f071)\nsend_email(to=yuki@example.com, subject=Receipt: contract-4034f7f071)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I can see that the first two steps have already been completed:\n1. \u2713 Payment sent to vendor-01 for $405.00\n2. \u2713 Email sent to yuki@example.com\n\nNow I'll complete the remaining two steps in order:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01CLRDYthxunQuqgR781tM5m",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Follow-up: contract-4034f7f071",
+        "start": "2026-11-06T11:00"
+       }
+      }
+     ],
+     "at_utc": "2026-10-31T23:22:15Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 0
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01CLRDYthxunQuqgR781tM5m",
+       "content": "ok-e489bab5"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Great! Now for the final step:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_018XPAutmV5vke1tw9XqvcLy",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-005.log",
+        "content_hash": "d1e0f918f6"
+       }
+      }
+     ],
+     "at_utc": "2026-10-31T23:22:16Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 0
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_018XPAutmV5vke1tw9XqvcLy",
+       "content": "ok-a94a3fee"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE\n\nAll four steps have been completed in order:\n1. \u2713 Paid vendor-01 $405.00 for contract-4034f7f071 (already done)\n2. \u2713 Sent receipt email to yuki@example.com with subject 'Receipt: contract-4034f7f071' (already done)\n3. \u2713 Created event 'Follow-up: contract-4034f7f071' on personal calendar for 2026-11-06 at 11:00\n4. \u2713 Appended closing entry (hash d1e0f918f6) to /logs/contract-005.log"
+      }
+     ],
+     "at_utc": "2026-10-31T23:22:17Z",
+     "stop_reason": "end_turn",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 0
+     }
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-haiku-4-5-20251001",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 5905,
+     "output": 479,
+     "cache_write": 0,
+     "cache_read": 0
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-31T23:22:10Z",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ },
+ "exp": "R2",
+ "kind": "restart",
+ "episode_id": "claude-haiku-4-5-20251001__bare_hint__none__chain4-e87600c577__k1__s0",
+ "finished_utc": "2026-10-31T23:22:17Z"
+}

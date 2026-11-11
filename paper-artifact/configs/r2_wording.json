@@ -1,0 +1,40 @@
+{
+ "exp": "R2",
+ "spec": "analysis/prereg_r2_draft.md: R2 wording robustness (registered 2026-10-31, before any R2 data). Claude-only default run. Part A: restart-hint wording, 16 graphs x r=2 per (model, context). Part B: error wording after commit, 32 tasks x r=2 per (model, condition), base prompt, no mitigation. Part C: same-month plan_only on the 8 four-node chain graphs x r=2 (= the July chain plan_only design). The OpenRouter models are an optional extension in configs/r2_wording_or.json, not run by default.",
+ "groups": [
+  {"part": "B",
+   "models": ["claude-haiku-4-5-20251001", "claude-sonnet-5"],
+   "cells": [
+    ["base", "none", "timeout_after_commit"],
+    ["base", "none", "error_500_after_commit"],
+    ["base", "none", "status_unknown_after_commit"],
+    ["base", "none", "status_unknown_p1_after_commit"],
+    ["base", "none", "status_unknown_p2_after_commit"],
+    ["base", "none", "status_unknown_p3_after_commit"]
+   ]},
+  {"part": "A",
+   "models": ["claude-haiku-4-5-20251001", "claude-fable-5"],
+   "restart_cells": [
+    ["amnesiac", "none", "all"],
+    ["bare_hint", "none", "all"],
+    ["hint_p1", "none", "all"],
+    ["hint_p2", "none", "all"],
+    ["hint_p3", "none", "all"]
+   ]},
+  {"part": "C",
+   "models": ["claude-haiku-4-5-20251001", "claude-sonnet-5", "claude-fable-5"],
+   "restart_cells": [
+    ["plan_only", "none", "chain4"]
+   ]}
+ ],
+ "samples": 2,
+ "restart_samples": 2,
+ "max_turns": 8,
+ "out_dir": "results/r2_wording",
+ "tier1_root": "results/r2_wording",
+ "exp_budget_usd": 45,
+ "exp_or_budget_usd": 0,
+ "prompt_cache": true,
+ "workers": 4,
+ "expect_per_cell": 64
+}

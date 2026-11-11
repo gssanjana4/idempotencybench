@@ -1,0 +1,186 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-30T15:21:16Z",
+ "usage": {
+  "input": 2483,
+  "output": 188
+ },
+ "task_id": "rpay-04",
+ "family": "atomic",
+ "instruction": "Pay vendor-04 $248.00 for invoice-23fb5a9e65.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01FHLFM9b1eE8BZp8JHCYspb",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-04",
+      "amount": "$248.00",
+      "memo": "invoice-23fb5a9e65"
+     }
+    }
+   ],
+   "at_utc": "2026-10-30T15:21:18Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01FHLFM9b1eE8BZp8JHCYspb",
+     "content": "ERROR: The request may have been processed; its outcome is unknown.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Let me check if the payment was recorded:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_018SsbYg1vsofjjbFdpyV4Fe",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-30T15:21:19Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_018SsbYg1vsofjjbFdpyV4Fe",
+     "content": "send_payment(payee=vendor-04, amount=248.00, memo=invoice-23fb5a9e65)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment has been successfully processed. A payment of $248.00 has been sent to vendor-04 for invoice-23fb5a9e65.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-30T15:21:20Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "real_stripe",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__rpay-04__s1",
+ "kind": "retry",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "status_unknown_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "finished_utc": "2026-10-30T15:21:20Z",
+ "backend": "stripe_test_mode",
+ "stripe": {
+  "api_version": "2024-06-20",
+  "base": "https://api.stripe.com",
+  "customer": "cus_anon7eyxU83UvD",
+  "attempt_id": "7c5137f4da-0e283e3cde",
+  "events": [
+   {
+    "tool": "send_payment",
+    "call_index": 1,
+    "args": {
+     "payee": "vendor-04",
+     "amount": "$248.00",
+     "memo": "invoice-23fb5a9e65"
+    },
+    "model_key": "",
+    "amount_cents": 24800,
+    "injected": "status_unknown_after_commit",
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-7c5137f4da-0e283e3cde-call1",
+    "pi": "pi_anonJsBzn3UGrLYoQ0nl9MxH",
+    "status": "succeeded",
+    "replayed": false
+   },
+   {
+    "tool": "list_effects",
+    "result": "send_payment(payee=vendor-04, amount=248.00, memo=invoice-23fb5a9e65)"
+   }
+  ],
+  "ground_truth": {
+   "customer": "cus_anon7eyxU83UvD",
+   "attempt_id": "7c5137f4da-0e283e3cde",
+   "n_payment_intents": 1,
+   "n_committed": 1,
+   "statuses": {
+    "succeeded": 1
+   },
+   "violations": 0,
+   "ivr_hit": false,
+   "per_goal": [
+    1
+   ],
+   "achieved": true,
+   "order_violation": false,
+   "payment_intents": [
+    {
+     "id": "pi_anonJsBzn3UGrLYoQ0nl9MxH",
+     "status": "succeeded",
+     "amount": 24800,
+     "created": 1793373678,
+     "livemode": false,
+     "payee": "vendor-04",
+     "memo": "invoice-23fb5a9e65",
+     "call_index": "1"
+    }
+   ]
+  }
+ },
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-04",
+    "amount": "$248.00",
+    "memo": "invoice-23fb5a9e65"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-04",
+     "amount": "248.00",
+     "memo": "invoice-23fb5a9e65"
+    }
+   }
+  ]
+ }
+}

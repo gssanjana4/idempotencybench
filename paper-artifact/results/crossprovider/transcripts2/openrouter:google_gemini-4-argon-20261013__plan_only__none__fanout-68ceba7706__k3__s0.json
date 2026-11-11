@@ -1,0 +1,195 @@
+{
+ "model": "openrouter:google/gemini-4-argon-20261013",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "fanout-68ceba7706",
+ "topology": "fanout",
+ "interrupt_node": 3,
+ "sample": 0,
+ "instruction": "File a ticket in the support queue titled 'Rollout 6ecd38c552 in support'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 6ecd38c552 in support' on the planning calendar at 2026-09-08T09:00; 'Check 2: Rollout 6ecd38c552 in support' on the team calendar at 2026-09-09T09:00; 'Check 3: Rollout 6ecd38c552 in support' on the personal calendar at 2026-09-10T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_63944",
+       "name": "create_ticket",
+       "input": {
+        "title": "Rollout 6ecd38c552 in support",
+        "idempotency_key": "ticket-6ecd38c552",
+        "queue": "support"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:39:50Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_63944",
+       "content": "ok-fccae38b"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1995283",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 1: Rollout 6ecd38c552 in support",
+        "idempotency_key": "event-1-6ecd38c552",
+        "start": "2026-09-08T09:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_1995295",
+       "name": "create_event",
+       "input": {
+        "idempotency_key": "event-2-6ecd38c552",
+        "calendar_id": "team",
+        "start": "2026-09-09T09:00",
+        "title": "Check 2: Rollout 6ecd38c552 in support"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_1995301",
+       "name": "create_event",
+       "input": {
+        "idempotency_key": "event-3-6ecd38c552",
+        "title": "Check 3: Rollout 6ecd38c552 in support",
+        "start": "2026-09-10T09:00",
+        "calendar_id": "personal"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:39:56Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 1595,
+     "output": 315
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1993334",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-26T00:40:02Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 18,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1993334",
+       "content": "create_ticket(title=Rollout 6ecd38c552 in support, queue=support)\ncreate_event(calendar_id=planning, title=Check 1: Rollout 6ecd38c552 in support, start=2026-09-08T09:00)\ncreate_event(calendar_id=team, start=2026-09-09T09:00, title=Check 2: Rollout 6ecd38c552 in support)\ncreate_event(title=Check 3: Rollout 6ecd38c552 in support, start=2026-09-10T09:00, calendar_id=personal)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-10-26T00:40:05Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 14,
+      "reasoning_details_n": 1
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 1821,
+     "output": 53
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-26T00:39:29Z",
+ "provider": "openrouter",
+ "model_served": "google/gemini-4-argon @Google",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

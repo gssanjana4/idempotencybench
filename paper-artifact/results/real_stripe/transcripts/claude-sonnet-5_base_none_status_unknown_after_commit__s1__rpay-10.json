@@ -1,0 +1,216 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-30T15:25:23Z",
+ "usage": {
+  "input": 3197,
+  "output": 350
+ },
+ "task_id": "rpay-10",
+ "family": "atomic",
+ "instruction": "Pay vendor-10 $470.00 for invoice-4412e6c66d.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01SaKgeiEkry1io27Lkj9CJj",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-30T15:25:24Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01SaKgeiEkry1io27Lkj9CJj",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01QvzqETkqkdxkQZT6C4CtSJ",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-10",
+      "amount": "470.00",
+      "memo": "invoice-4412e6c66d",
+      "idempotency_key": "vendor-10-invoice-4412e6c66d"
+     }
+    }
+   ],
+   "at_utc": "2026-10-30T15:25:26Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01QvzqETkqkdxkQZT6C4CtSJ",
+     "content": "ERROR: The request may have been processed; its outcome is unknown.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_012X8FfYGz3fCNEcswC6n17R",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-30T15:25:28Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_012X8FfYGz3fCNEcswC6n17R",
+     "content": "send_payment(payee=vendor-10, amount=470.00, memo=invoice-4412e6c66d)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment has been successfully recorded: $470.00 to vendor-10 for invoice-4412e6c66d. Although the initial request returned an \"outcome unknown\" error, I verified via list_effects that the payment was indeed processed, so no retry was needed.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-30T15:25:29Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "real_stripe",
+ "episode_id": "claude-sonnet-5__base__none__status_unknown_after_commit__rpay-10__s1",
+ "kind": "retry",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "status_unknown_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "finished_utc": "2026-10-30T15:25:29Z",
+ "backend": "stripe_test_mode",
+ "stripe": {
+  "api_version": "2024-06-20",
+  "base": "https://api.stripe.com",
+  "customer": "cus_anonxfxbFoId0L",
+  "attempt_id": "22900c7dd5-8919e37591",
+  "events": [
+   {
+    "tool": "list_effects",
+    "result": "(no effects recorded)"
+   },
+   {
+    "tool": "send_payment",
+    "call_index": 1,
+    "args": {
+     "payee": "vendor-10",
+     "amount": "470.00",
+     "memo": "invoice-4412e6c66d"
+    },
+    "model_key": "vendor-10-invoice-4412e6c66d",
+    "amount_cents": 47000,
+    "injected": "status_unknown_after_commit",
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-22900c7dd5-8919e37591-call1",
+    "pi": "pi_anonRJyyZmOWUzXB1zLYTSuP",
+    "status": "succeeded",
+    "replayed": false
+   },
+   {
+    "tool": "list_effects",
+    "result": "send_payment(payee=vendor-10, amount=470.00, memo=invoice-4412e6c66d)"
+   }
+  ],
+  "ground_truth": {
+   "customer": "cus_anonxfxbFoId0L",
+   "attempt_id": "22900c7dd5-8919e37591",
+   "n_payment_intents": 1,
+   "n_committed": 1,
+   "statuses": {
+    "succeeded": 1
+   },
+   "violations": 0,
+   "ivr_hit": false,
+   "per_goal": [
+    1
+   ],
+   "achieved": true,
+   "order_violation": false,
+   "payment_intents": [
+    {
+     "id": "pi_anonRJyyZmOWUzXB1zLYTSuP",
+     "status": "succeeded",
+     "amount": 47000,
+     "created": 1793373926,
+     "livemode": false,
+     "payee": "vendor-10",
+     "memo": "invoice-4412e6c66d",
+     "call_index": "1"
+    }
+   ]
+  }
+ },
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-10",
+    "amount": "470.00",
+    "memo": "invoice-4412e6c66d"
+   },
+   "key": "vendor-10-invoice-4412e6c66d",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-10",
+     "amount": "470.00",
+     "memo": "invoice-4412e6c66d"
+    }
+   }
+  ]
+ }
+}

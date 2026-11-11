@@ -1,0 +1,138 @@
+{
+ "model": "claude-sonnet-5",
+ "resume_context": "amnesiac",
+ "mitigation": "none",
+ "graph_id": "fanout-68ceba7706",
+ "topology": "fanout",
+ "interrupt_node": 3,
+ "sample": 1,
+ "instruction": "File a ticket in the support queue titled 'Rollout 6ecd38c552 in support'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 6ecd38c552 in support' on the planning calendar at 2026-09-08T09:00; 'Check 2: Rollout 6ecd38c552 in support' on the team calendar at 2026-09-09T09:00; 'Check 3: Rollout 6ecd38c552 in support' on the personal calendar at 2026-09-10T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01KPGhALs4UvakvvDgSsmTtX",
+       "name": "create_ticket",
+       "input": {
+        "queue": "support",
+        "title": "Rollout 6ecd38c552 in support"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01KPGhALs4UvakvvDgSsmTtX",
+       "content": "ok-c90eb816"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Ticket filed successfully. Now creating the three reminder events."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01HoHpqmcJMqdNQn8TAtWUAn",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 1: Rollout 6ecd38c552 in support",
+        "start": "2026-09-08T09:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01U4DNqv1jjE7BvBYfwG9Eix",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 2: Rollout 6ecd38c552 in support",
+        "start": "2026-09-09T09:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01SXGx3U42DxM2mutNdKZ5fb",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 3: Rollout 6ecd38c552 in support",
+        "start": "2026-09-10T09:00"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01PXzysoQRvYzrp1XfdbtQqw",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01PXzysoQRvYzrp1XfdbtQqw",
+       "content": "create_ticket(queue=support, title=Rollout 6ecd38c552 in support)\ncreate_event(calendar_id=planning, title=Check 1: Rollout 6ecd38c552 in support, start=2026-09-08T09:00)\ncreate_event(calendar_id=team, title=Check 2: Rollout 6ecd38c552 in support, start=2026-09-09T09:00)\ncreate_event(calendar_id=personal, title=Check 3: Rollout 6ecd38c552 in support, start=2026-09-10T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All required steps have already been completed: the support ticket was filed, and all three reminder events (Check 1, 2, and 3) were created on the planning, team, and personal calendars respectively at their specified times. No further action is needed.\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

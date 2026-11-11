@@ -1,0 +1,172 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T08:46:09Z",
+ "usage": {
+  "input": 8,
+  "output": 344,
+  "cache_write": 538,
+  "cache_read": 5082
+ },
+ "task_id": "ambiguous-a3fa9d9f98",
+ "family": "ambiguous",
+ "instruction": "Make sure jordan (reachable at jordan@example.com) receives this week's metrics digest \u2014 the one titled Weekly metrics digest ad0772f12f. One copy is enough.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_013Gj2X3gQvHGsCXz5C9vE7x",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:46:11Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 131,
+    "cache_read": 1073
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_013Gj2X3gQvHGsCXz5C9vE7x",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "No existing record of this digest being sent. I'll send it now."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01BaaLZUn65uNvczSUbHhLgy",
+     "name": "send_email",
+     "input": {
+      "to": "jordan@example.com",
+      "subject": "Weekly metrics digest ad0772f12f",
+      "idempotency_key": "weekly-metrics-digest-ad0772f12f-jordan"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T08:46:13Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 89,
+    "cache_read": 1204
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BaaLZUn65uNvczSUbHhLgy",
+     "content": "ERROR: The operation could not be completed within the permitted time. The operation may or may not have succeeded on the server side. Please query the server state before retrying the operation.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01DatqngjPZhDkZNDvrbv8ND",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:46:14Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 219,
+    "cache_read": 1293
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01DatqngjPZhDkZNDvrbv8ND",
+     "content": "send_email(to=jordan@example.com, subject=Weekly metrics digest ad0772f12f)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email was actually sent successfully despite the timeout error \u2014 it's now recorded in the effects log. No retry needed, and only one copy exists.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T08:46:15Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 99,
+    "cache_read": 1512
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-sonnet-5__base__none__real_azure_storage_operation_timed_out_after_commit__ambiguous-a3fa9d9f98__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_azure_storage_operation_timed_out_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2922538264,
+ "finished_utc": "2026-11-02T08:46:15Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "jordan@example.com",
+    "subject": "Weekly metrics digest ad0772f12f"
+   },
+   "key": "weekly-metrics-digest-ad0772f12f-jordan",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "jordan@example.com",
+     "subject": "Weekly metrics digest ad0772f12f"
+    }
+   }
+  ]
+ }
+}

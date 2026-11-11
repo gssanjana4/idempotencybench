@@ -1,0 +1,182 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:13:07Z",
+ "usage": {
+  "input": 8,
+  "output": 387,
+  "cache_write": 344,
+  "cache_read": 4995
+ },
+ "task_id": "read_then_act-4e6a316d01",
+ "family": "read_then_act",
+ "instruction": "First use list_effects to check whether the payment of $153.00 to vendor-03 for renewal-096c5466f3 has already been made. Only if it has NOT been made, pay vendor-03 $153.00 for renewal-096c5466f3. Never pay twice.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01VFLqsfhskS5Mscbwb5obug",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:13:09Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1167
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01VFLqsfhskS5Mscbwb5obug",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No payment has been made yet, so I'll send it now."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01VWWi5mzeyrwivXxdkjEa1c",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-03",
+      "amount": "$153.00",
+      "memo": "renewal-096c5466f3",
+      "idempotency_key": "pay-vendor-03-renewal-096c5466f3"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:13:12Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1207
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01VWWi5mzeyrwivXxdkjEa1c",
+     "content": "ERROR: The server had an error while processing your request",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The payment call errored\u2014it's ambiguous whether it went through. I'll check effects before retrying to avoid a double payment."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_013himy6iucr6Xo7F9Pnv1aC",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:13:15Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 207,
+    "cache_read": 1207
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_013himy6iucr6Xo7F9Pnv1aC",
+     "content": "send_payment(payee=vendor-03, amount=$153.00, memo=renewal-096c5466f3)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The payment was actually recorded despite the error response, so I will not retry. The $153.00 payment to vendor-03 for renewal-096c5466f3 has been made exactly once.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:13:18Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 137,
+    "cache_read": 1414
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_openai_500_after_commit__read_then_act-4e6a316d01__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_openai_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1612098470,
+ "finished_utc": "2026-11-02T09:13:18Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-03",
+    "amount": "$153.00",
+    "memo": "renewal-096c5466f3"
+   },
+   "key": "pay-vendor-03-renewal-096c5466f3",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-03",
+     "amount": "153.00",
+     "memo": "renewal-096c5466f3"
+    }
+   }
+  ]
+ }
+}

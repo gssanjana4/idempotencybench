@@ -1,0 +1,269 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:04:17Z",
+ "usage": {
+  "input": 10003,
+  "output": 949
+ },
+ "task_id": "long_chain-bdc6deea1a",
+ "family": "long_chain",
+ "instruction": "Pay vendor-13 $207.00 for order-579bf2642d; then email a receipt to maria@example.com with subject 'Receipt: order-579bf2642d'; then append an audit entry (content hash 7c877ce4df) to /logs/order-l3-002.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "I'll complete this task in sequence, starting with checking existing effects to avoid duplication."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_017BqbFS9odb46qYFrpDhaAg",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:04:20Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_017BqbFS9odb46qYFrpDhaAg",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "No existing effects. Proceeding with the payment first."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_018UNoqdzFHysQCZaNPPHyz3",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-13",
+      "amount": "207.00",
+      "memo": "order-579bf2642d",
+      "idempotency_key": "pay-order-579bf2642d"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:04:21Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_018UNoqdzFHysQCZaNPPHyz3",
+     "content": "ok-b4748d43"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Payment succeeded. Now sending the receipt email."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_015hewUtf9EsUrVmjkyLethY",
+     "name": "send_email",
+     "input": {
+      "to": "maria@example.com",
+      "subject": "Receipt: order-579bf2642d",
+      "idempotency_key": "email-receipt-order-579bf2642d"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:04:23Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015hewUtf9EsUrVmjkyLethY",
+     "content": "ok-11171c47"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Email sent. Now appending the audit entry."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_013xcZLpoYdDsEMkK7813nNo",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/order-l3-002.log",
+      "content_hash": "7c877ce4df",
+      "idempotency_key": "audit-order-579bf2642d"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:04:25Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_013xcZLpoYdDsEMkK7813nNo",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The append_file call failed with an internal server error. Let me retry it."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01TYQ7FCdV3xsSdooR5ZPbVj",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/order-l3-002.log",
+      "content_hash": "7c877ce4df",
+      "idempotency_key": "audit-order-579bf2642d"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:04:27Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01TYQ7FCdV3xsSdooR5ZPbVj",
+     "content": "ok-e8ab7250"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "All three steps completed successfully:\n\n1. **Payment**: $207.00 sent to vendor-13 for order-579bf2642d (confirmation: ok-b4748d43)\n2. **Email**: Receipt sent to maria@example.com with subject \"Receipt: order-579bf2642d\" (confirmation: ok-11171c47)\n3. **Audit log**: Entry with content hash 7c877ce4df appended to /logs/order-l3-002.log (confirmation: ok-e8ab7250, after a retry due to a transient server error)\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:04:29Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-5",
+ "episode_id": "claude-sonnet-5__base__none__error_500_after_commit__long_chain-bdc6deea1a__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 3,
+ "failure_fired": true,
+ "max_turns": 12,
+ "max_tokens": 1024,
+ "ack_seed": 3652720193,
+ "finished_utc": "2026-10-26T07:04:29Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-13",
+    "amount": "207.00",
+    "memo": "order-579bf2642d"
+   },
+   "key": "pay-order-579bf2642d",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "maria@example.com",
+    "subject": "Receipt: order-579bf2642d"
+   },
+   "key": "email-receipt-order-579bf2642d",
+   "seq": 2
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/order-l3-002.log",
+    "content_hash": "7c877ce4df"
+   },
+   "key": "audit-order-579bf2642d",
+   "seq": 3
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/order-l3-002.log",
+    "content_hash": "7c877ce4df"
+   },
+   "key": "audit-order-579bf2642d",
+   "seq": 4
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-13",
+     "amount": "207.00",
+     "memo": "order-579bf2642d"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "maria@example.com",
+     "subject": "Receipt: order-579bf2642d"
+    }
+   },
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/order-l3-002.log",
+     "content_hash": "7c877ce4df"
+    }
+   }
+  ]
+ }
+}

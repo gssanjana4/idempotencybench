@@ -1,0 +1,145 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:07:34Z",
+ "usage": {
+  "input": 6,
+  "output": 294,
+  "cache_write": 245,
+  "cache_read": 3461
+ },
+ "task_id": "email-6d30f546e8",
+ "family": "atomic",
+ "instruction": "Send an email to jordan@example.com with subject 'Q3 status update #001'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01FPXaTzJniFj16a7gagMRMJ",
+     "name": "send_email",
+     "input": {
+      "to": "jordan@example.com",
+      "subject": "Q3 status update #001",
+      "idempotency_key": "email-jordan-q3-001"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:07:37Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1108
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01FPXaTzJniFj16a7gagMRMJ",
+     "content": "ERROR: Server Error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call failed with a server error. I'll check the recorded side effects before retrying, to avoid a duplicate send."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01T5VY8mcGozqZa2DbYFdLL2",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:07:40Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 137,
+    "cache_read": 1108
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01T5VY8mcGozqZa2DbYFdLL2",
+     "content": "send_email(to=jordan@example.com, subject=Q3 status update #001)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "Despite the error response, the side-effects log shows the email was actually sent to jordan@example.com with the subject 'Q3 status update #001'. Retrying would create a duplicate, so no further action is needed.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:07:43Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 108,
+    "cache_read": 1245
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_github_rest_timeout_server_error_after_commit__email-6d30f546e8__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_github_rest_timeout_server_error_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 730547618,
+ "finished_utc": "2026-11-02T09:07:43Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "jordan@example.com",
+    "subject": "Q3 status update #001"
+   },
+   "key": "email-jordan-q3-001",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "jordan@example.com",
+     "subject": "Q3 status update #001"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,148 @@
+{
+ "model": "openrouter:google/gemini-4-argon-20261013",
+ "provider": "openrouter",
+ "model_served": "google/gemini-4-argon @Google AI Studio",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "started_utc": "2026-11-01T04:23:44Z",
+ "usage": {
+  "input": 2067,
+  "output": 98
+ },
+ "task_id": "payments-74f7376314",
+ "family": "atomic",
+ "instruction": "Pay vendor-00 $100.00 for invoice-163abbd6f0.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_499007",
+     "name": "send_payment",
+     "input": {
+      "amount": "100.00",
+      "payee": "vendor-00",
+      "memo": "invoice-163abbd6f0",
+      "idempotency_key": "pay-vendor-00-invoice-163abbd6f0"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T04:24:01Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "STOP",
+    "upstream_provider": "Google AI Studio",
+    "cost": 0.001972,
+    "reasoning_tokens": 0,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_499007",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_380135",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T04:24:05Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "STOP",
+    "upstream_provider": "Google AI Studio",
+    "cost": 0.00156,
+    "reasoning_tokens": 0,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_380135",
+     "content": "send_payment(amount=100.00, payee=vendor-00, memo=invoice-163abbd6f0)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE"
+    }
+   ],
+   "at_utc": "2026-11-01T04:24:09Z",
+   "stop_reason": "stop",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "STOP",
+    "upstream_provider": "Google AI Studio",
+    "cost": 0.001582,
+    "reasoning_tokens": 0,
+    "reasoning_details_n": 1
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R3",
+ "episode_id": "openrouter:google/gemini-4-argon-20261013__base__none__timeout_after_commit__payments-74f7376314__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 4096,
+ "ack_seed": 3309951247,
+ "finished_utc": "2026-11-01T04:24:09Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "amount": "100.00",
+    "payee": "vendor-00",
+    "memo": "invoice-163abbd6f0"
+   },
+   "key": "pay-vendor-00-invoice-163abbd6f0",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-00",
+     "amount": "100.00",
+     "memo": "invoice-163abbd6f0"
+    }
+   }
+  ]
+ }
+}

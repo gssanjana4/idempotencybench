@@ -1,0 +1,57 @@
+{
+ "exp": "real_stripe",
+ "spec": "analysis/preregistration.md, section R1 (registered 2026-10-26, before any data): real-API validation slice on Stripe test mode (209-dXix W2, 249-AC, 249-GFU6)",
+ "models": [
+  "claude-haiku-4-5-20251001",
+  "claude-sonnet-5",
+  "openrouter:qwen/qwen3.6-27b-20260422"
+ ],
+ "cells": [
+  ["base", "none", "timeout_after_commit"],
+  ["base", "none", "error_500_after_commit"],
+  ["base", "none", "status_unknown_after_commit"],
+  ["base", "idem_keys", "error_500_after_commit"]
+ ],
+ "restart_cells": ["amnesiac", "bare_hint"],
+ "n_tasks": 16,
+ "samples": 2,
+ "max_turns": 8,
+ "max_turns_restart": 10,
+ "max_tokens": {"default": 1024, "openrouter:": 4096},
+ "out_dir": "results/real_stripe",
+ "stripe_api_version": "2024-06-20",
+ "expect_per_cell": 32,
+ "sim_compare": {
+  "claude-haiku-4-5-20251001": {
+   "base.none.timeout_after_commit": "v2.haiku.base.none.toA:ivr",
+   "base.none.error_500_after_commit": "v2.haiku.base.none.e500:ivr",
+   "base.none.status_unknown_after_commit": "e1_6.haiku.base.none.w3:ivr",
+   "base.idem_keys.error_500_after_commit": "e1_3.haiku.base.keys.e500:ivr",
+   "restart.amnesiac": "bh.haiku.oct.amnesiac:givr",
+   "restart.bare_hint": "bh.haiku.oct.bare_hint:givr"
+  },
+  "claude-sonnet-5": {
+   "base.none.timeout_after_commit": "v2.sonnet.base.none.toA:ivr",
+   "base.none.error_500_after_commit": "v2.sonnet.base.none.e500:ivr",
+   "base.none.status_unknown_after_commit": "e1_6.sonnet.base.none.w3:ivr",
+   "base.idem_keys.error_500_after_commit": "e1_3.sonnet.base.keys.e500:ivr",
+   "restart.amnesiac": "bh.sonnet.oct.amnesiac:givr",
+   "restart.bare_hint": "bh.sonnet.oct.bare_hint:givr"
+  },
+  "openrouter:qwen/qwen3.6-27b-20260422": {
+   "base.none.timeout_after_commit": "xp.qwen.base.none.toA:ivr",
+   "base.none.error_500_after_commit": "xp.qwen.base.none.e500:ivr",
+   "base.none.status_unknown_after_commit": null,
+   "base.idem_keys.error_500_after_commit": "e1_1.qwen.base.keys.e500:ivr",
+   "restart.amnesiac": "bh.qwen.xp.amnesiac:givr",
+   "restart.bare_hint": "bh.qwen.xp.bare_hint:givr"
+  }
+ },
+ "est_tokens_by_model": {
+  "claude-haiku-4-5-20251001": {"retry": [3793, 222], "restart": [8014, 852]},
+  "claude-sonnet-5": {"retry": [5446, 428], "restart": [9134, 848]},
+  "openrouter:qwen/qwen3.6-27b-20260422": {"retry": [2672, 852], "restart": [7826, 1792]}
+ },
+ "est_prices_per_mtok": {"openrouter:qwen/qwen3.6-27b-20260422": [0.3, 2.4]},
+ "est_note": "tokens/episode = means over existing transcripts: retry = payment tasks of e1_6 (Claude) and e1_1 (Qwen); restart = 4-node October/crossprovider sweep2 amnesiac+bare_hint (upper bound for 2-payment plans). Qwen price per Mtok is a placeholder fitted to logged usage.cost ($0.0032/episode); the real cap is the OpenRouter key limit."
+}

@@ -1,0 +1,240 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:11:06Z",
+ "usage": {
+  "input": 10,
+  "output": 888,
+  "cache_write": 897,
+  "cache_read": 6701
+ },
+ "task_id": "payments-2601b6da5c",
+ "family": "atomic",
+ "instruction": "Pay vendor-01 $137.00 for invoice-33482b206f.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_016MabS4WvrumjpKJRqiBR1U",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-01",
+      "amount": "$137.00",
+      "memo": "invoice-33482b206f",
+      "idempotency_key": "pay-vendor-01-invoice-33482b206f"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:11:09Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1106
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_016MabS4WvrumjpKJRqiBR1U",
+     "content": "ERROR: The server had an error while processing your request",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The server returned an error. I'll retry with the same idempotency key to ensure no duplicate payment occurs."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01325mTo55HDYSvWuWLH7yJE",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-01",
+      "amount": "$137.00",
+      "memo": "invoice-33482b206f",
+      "idempotency_key": "pay-vendor-01-invoice-33482b206f"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:11:13Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 194,
+    "cache_read": 1106
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01325mTo55HDYSvWuWLH7yJE",
+     "content": "ok-bb737ebb"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01ApiV4wqcGe9aLNbA1fqUrM",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:11:15Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 219,
+    "cache_read": 1300
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01ApiV4wqcGe9aLNbA1fqUrM",
+     "content": "send_payment(payee=vendor-01, amount=$137.00, memo=invoice-33482b206f)\nsend_payment(payee=vendor-01, amount=$137.00, memo=invoice-33482b206f)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The effects log shows the first \"errored\" call actually went through, resulting in a duplicate payment despite the idempotency key. I'll flag this for remediation:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01NWsLXZTWs6PjX6pJn4xv8x",
+     "name": "create_ticket",
+     "input": {
+      "queue": "finance",
+      "title": "Duplicate payment to vendor-01 for invoice-33482b206f ($137.00 charged twice) \u2014 refund/reversal needed",
+      "idempotency_key": "ticket-dup-pay-invoice-33482b206f"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:11:20Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 151,
+    "cache_read": 1519
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01NWsLXZTWs6PjX6pJn4xv8x",
+     "content": "ok-46f77549"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment of $137.00 to vendor-01 for invoice-33482b206f was completed. However, the initial attempt returned a server error while actually processing the payment, so a duplicate charge occurred (the idempotency key did not deduplicate it). I've filed a finance ticket requesting a refund/reversal of the duplicate $137.00 payment.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:11:23Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 333,
+    "cache_read": 1670
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_openai_500_after_commit__payments-2601b6da5c__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_openai_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 4073919650,
+ "finished_utc": "2026-11-02T09:11:23Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-01",
+    "amount": "$137.00",
+    "memo": "invoice-33482b206f"
+   },
+   "key": "pay-vendor-01-invoice-33482b206f",
+   "seq": 1
+  },
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-01",
+    "amount": "$137.00",
+    "memo": "invoice-33482b206f"
+   },
+   "key": "pay-vendor-01-invoice-33482b206f",
+   "seq": 2
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "finance",
+    "title": "Duplicate payment to vendor-01 for invoice-33482b206f ($137.00 charged twice) \u2014 refund/reversal needed"
+   },
+   "key": "ticket-dup-pay-invoice-33482b206f",
+   "seq": 3
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-01",
+     "amount": "137.00",
+     "memo": "invoice-33482b206f"
+    }
+   }
+  ]
+ }
+}

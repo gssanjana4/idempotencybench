@@ -1,0 +1,163 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:39:43Z",
+ "usage": {
+  "input": 5630,
+  "output": 432
+ },
+ "task_id": "files-e314b099d3",
+ "family": "atomic",
+ "instruction": "Append audit entry 3 (content hash 1b7d6fcf7e) to /logs/audit-003.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_017jtZMBk1n25zxv1o2mnJi7",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:39:45Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_017jtZMBk1n25zxv1o2mnJi7",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01GYmoQFvMKZ8fhynw4hiEFB",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-003.log",
+      "content_hash": "1b7d6fcf7e",
+      "idempotency_key": "audit-003-1b7d6fcf7e"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:39:47Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01GYmoQFvMKZ8fhynw4hiEFB",
+     "content": "ERROR: HTTP 500 Internal Server Error\nRetry-After: 2\n{\"error\":\"internal_error\",\"request_id\":\"req_185d3baa3019\"}",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Fr5fCkbDStZUmZXZAz9Pvp",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-003.log",
+      "content_hash": "1b7d6fcf7e",
+      "idempotency_key": "audit-003-1b7d6fcf7e"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:39:48Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Fr5fCkbDStZUmZXZAz9Pvp",
+     "content": "ok-596be46c"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The audit entry was appended successfully to /logs/audit-003.log (after a transient server error on the first attempt, the retry with the same idempotency key succeeded).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:39:50Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "E1-6",
+ "episode_id": "claude-sonnet-5__base__none__error_500_body_after_commit__files-e314b099d3__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_body_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 53256121,
+ "finished_utc": "2026-10-26T07:39:50Z",
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-003.log",
+    "content_hash": "1b7d6fcf7e"
+   },
+   "key": "audit-003-1b7d6fcf7e",
+   "seq": 1
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-003.log",
+    "content_hash": "1b7d6fcf7e"
+   },
+   "key": "audit-003-1b7d6fcf7e",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-003.log",
+     "content_hash": "1b7d6fcf7e"
+    }
+   }
+  ]
+ }
+}

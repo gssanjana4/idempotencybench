@@ -1,0 +1,131 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:25:57Z",
+ "usage": {
+  "input": 3955,
+  "output": 350
+ },
+ "task_id": "files-89065f2e9e",
+ "family": "atomic",
+ "instruction": "Append audit entry 7 (content hash 1c6d8bc183) to /logs/audit-007.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01MR8z8WodvaTWVDDbQERk11",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-007.log",
+      "content_hash": "1c6d8bc183",
+      "idempotency_key": "audit-entry-7"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:25:59Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01MR8z8WodvaTWVDDbQERk11",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The append operation failed due to an internal server error. Let me check the effects log before retrying to avoid duplicate writes."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_0159KpfSVfezSDbkc4rgqfTD",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:26:00Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_0159KpfSVfezSDbkc4rgqfTD",
+     "content": "append_file(path=/logs/audit-007.log, content_hash=1c6d8bc183)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The effect `append_file(path=/logs/audit-007.log, content_hash=1c6d8bc183)` is already recorded in the system, confirming the append operation succeeded despite the error message returned. No further action is needed.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:26:02Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-4",
+ "episode_id": "claude-sonnet-5__base__none__error_500_after_commit__files-89065f2e9e__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 4117110140,
+ "finished_utc": "2026-10-26T07:26:02Z",
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-007.log",
+    "content_hash": "1c6d8bc183"
+   },
+   "key": "audit-entry-7",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-007.log",
+     "content_hash": "1c6d8bc183"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,168 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:37:26Z",
+ "usage": {
+  "input": 5502,
+  "output": 467
+ },
+ "task_id": "payments-74f7376314",
+ "family": "atomic",
+ "instruction": "Pay vendor-00 $100.00 for invoice-163abbd6f0.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_0173DsZAv4r6PP8J1pYguCdW",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T07:37:27Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_0173DsZAv4r6PP8J1pYguCdW",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_018Dfoids5uxBz8TsBBPkZfi",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-00",
+      "amount": "100.00",
+      "memo": "invoice-163abbd6f0",
+      "idempotency_key": "invoice-163abbd6f0-vendor-00-100.00"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:37:29Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_018Dfoids5uxBz8TsBBPkZfi",
+     "content": "ERROR: HTTP 500 Internal Server Error\nRetry-After: 2\n{\"error\":\"internal_error\",\"request_id\":\"req_29843def518a\"}",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01MwoBCBSQUES9ncaX2ff5bF",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-00",
+      "amount": "100.00",
+      "memo": "invoice-163abbd6f0",
+      "idempotency_key": "invoice-163abbd6f0-vendor-00-100.00"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:37:31Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01MwoBCBSQUES9ncaX2ff5bF",
+     "content": "ok-6ce0559f"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Payment of $100.00 to vendor-00 for invoice-163abbd6f0 was successfully processed (confirmation: ok-6ce0559f). The first attempt hit a transient server error, but a retry using the same idempotency key succeeded without risk of duplicate payment.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T07:37:33Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-6",
+ "episode_id": "claude-sonnet-5__base__none__error_500_body_after_commit__payments-74f7376314__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_body_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3840408353,
+ "finished_utc": "2026-10-26T07:37:33Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-00",
+    "amount": "100.00",
+    "memo": "invoice-163abbd6f0"
+   },
+   "key": "invoice-163abbd6f0-vendor-00-100.00",
+   "seq": 1
+  },
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-00",
+    "amount": "100.00",
+    "memo": "invoice-163abbd6f0"
+   },
+   "key": "invoice-163abbd6f0-vendor-00-100.00",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-00",
+     "amount": "100.00",
+     "memo": "invoice-163abbd6f0"
+    }
+   }
+  ]
+ }
+}

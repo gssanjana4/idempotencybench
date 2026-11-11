@@ -1,0 +1,171 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-31T23:12:55Z",
+ "usage": {
+  "input": 8,
+  "output": 325,
+  "cache_write": 337,
+  "cache_read": 4989
+ },
+ "task_id": "payments-74f7376314",
+ "family": "atomic",
+ "instruction": "Pay vendor-00 $100.00 for invoice-163abbd6f0.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_019Y6JCT8QjifRBYBE93sL3a",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-31T23:12:56Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1172
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_019Y6JCT8QjifRBYBE93sL3a",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01GV4gwXGNn35gqtMond9EZt",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-00",
+      "amount": "100.00",
+      "memo": "invoice-163abbd6f0",
+      "idempotency_key": "invoice-163abbd6f0-vendor-00-100.00"
+     }
+    }
+   ],
+   "at_utc": "2026-10-31T23:12:57Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 63,
+    "cache_read": 1172
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01GV4gwXGNn35gqtMond9EZt",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01UmG27TCzYKVV1e2yaMdZLU",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-31T23:12:59Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 175,
+    "cache_read": 1235
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01UmG27TCzYKVV1e2yaMdZLU",
+     "content": "send_payment(payee=vendor-00, amount=100.00, memo=invoice-163abbd6f0)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment was successfully processed (confirmed via list_effects despite the initial timeout response). Paid vendor-00 $100.00 for invoice-163abbd6f0.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-31T23:13:00Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 99,
+    "cache_read": 1410
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R2",
+ "episode_id": "claude-sonnet-5__base__none__timeout_after_commit__payments-74f7376314__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2877360947,
+ "finished_utc": "2026-10-31T23:13:00Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-00",
+    "amount": "100.00",
+    "memo": "invoice-163abbd6f0"
+   },
+   "key": "invoice-163abbd6f0-vendor-00-100.00",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-00",
+     "amount": "100.00",
+     "memo": "invoice-163abbd6f0"
+    }
+   }
+  ]
+ }
+}

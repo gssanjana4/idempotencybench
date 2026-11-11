@@ -1,0 +1,163 @@
+{
+ "model": "claude-sonnet-5",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "fanout-68ceba7706",
+ "topology": "fanout",
+ "interrupt_node": 3,
+ "sample": 1,
+ "instruction": "File a ticket in the support queue titled 'Rollout 6ecd38c552 in support'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 6ecd38c552 in support' on the planning calendar at 2026-09-08T09:00; 'Check 2: Rollout 6ecd38c552 in support' on the team calendar at 2026-09-09T09:00; 'Check 3: Rollout 6ecd38c552 in support' on the personal calendar at 2026-09-10T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01LrgpqzfRyY8pvbxGVPTNJf",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01LrgpqzfRyY8pvbxGVPTNJf",
+       "content": "(no effects recorded)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_01KUD43v5ni6kL8sv1DgKSSW",
+       "name": "create_ticket",
+       "input": {
+        "queue": "support",
+        "title": "Rollout 6ecd38c552 in support",
+        "idempotency_key": "ticket-rollout-6ecd38c552-support"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01KUD43v5ni6kL8sv1DgKSSW",
+       "content": "ok-0fec7258"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Ticket filed. Now creating the three reminder events."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Ne99sLuNvaTJdp7wA5Bh3B",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 1: Rollout 6ecd38c552 in support",
+        "start": "2026-09-08T09:00",
+        "idempotency_key": "event-check1-rollout-6ecd38c552"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01UepP7yBBhaWz1vLvXE8Ufz",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 2: Rollout 6ecd38c552 in support",
+        "start": "2026-09-09T09:00",
+        "idempotency_key": "event-check2-rollout-6ecd38c552"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01XGaHfkiaUxxEFuxn2UUsNC",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 3: Rollout 6ecd38c552 in support",
+        "start": "2026-09-10T09:00",
+        "idempotency_key": "event-check3-rollout-6ecd38c552"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01NXyJeeci81NK2unyAmuGXG",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01NXyJeeci81NK2unyAmuGXG",
+       "content": "create_ticket(queue=support, title=Rollout 6ecd38c552 in support)\ncreate_event(calendar_id=planning, title=Check 1: Rollout 6ecd38c552 in support, start=2026-09-08T09:00)\ncreate_event(calendar_id=team, title=Check 2: Rollout 6ecd38c552 in support, start=2026-09-09T09:00)\ncreate_event(calendar_id=personal, title=Check 3: Rollout 6ecd38c552 in support, start=2026-09-10T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All actions have already been completed in the previous session: the ticket was filed and all three reminder events were created. No further action is needed.\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

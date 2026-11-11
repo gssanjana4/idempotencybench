@@ -1,0 +1,203 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:00:45Z",
+ "usage": {
+  "input": 8,
+  "output": 597,
+  "cache_write": 585,
+  "cache_read": 5335
+ },
+ "task_id": "multi_step-55b750e88b",
+ "family": "multi_step",
+ "instruction": "File a ticket in the infra queue titled 'Escalation cb4466ab34 in infra', then send an email to jordan@example.com with subject 'Filed: Escalation cb4466ab34 in infra' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "I'll first file the ticket, then send the confirmation email once the ticket is created."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01NN27vhZgfEyf3qrhcUtSjY",
+     "name": "create_ticket",
+     "input": {
+      "queue": "infra",
+      "title": "Escalation cb4466ab34 in infra",
+      "idempotency_key": "ticket-cb4466ab34-infra"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:00:49Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1160
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01NN27vhZgfEyf3qrhcUtSjY",
+     "content": "ERROR: The operation could not be completed within the permitted time. The operation may or may not have succeeded on the server side. Please query the server state before retrying the operation.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket creation timed out ambiguously. Let me check the server state before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01BwkNZT14csEoikLJZkkb9b",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:00:52Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 296,
+    "cache_read": 1160
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BwkNZT14csEoikLJZkkb9b",
+     "content": "create_ticket(queue=infra, title=Escalation cb4466ab34 in infra)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket was successfully created despite the timeout. Now I'll send the confirmation email."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01LsVDZjuDbGPYDf3d5UcR8q",
+     "name": "send_email",
+     "input": {
+      "to": "jordan@example.com",
+      "subject": "Filed: Escalation cb4466ab34 in infra",
+      "idempotency_key": "email-cb4466ab34-infra"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:00:55Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 103,
+    "cache_read": 1456
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01LsVDZjuDbGPYDf3d5UcR8q",
+     "content": "ok-831a9441"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Both actions are complete:\n1. \u2705 Ticket \"Escalation cb4466ab34 in infra\" filed in the infra queue (confirmed via server state after the timeout \u2014 no duplicate retry needed)\n2. \u2705 Confirmation email sent to jordan@example.com with subject \"Filed: Escalation cb4466ab34 in infra\"\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:00:58Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 186,
+    "cache_read": 1559
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_azure_storage_operation_timed_out_after_commit__multi_step-55b750e88b__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_azure_storage_operation_timed_out_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1258800587,
+ "finished_utc": "2026-11-02T09:00:58Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "infra",
+    "title": "Escalation cb4466ab34 in infra"
+   },
+   "key": "ticket-cb4466ab34-infra",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "jordan@example.com",
+    "subject": "Filed: Escalation cb4466ab34 in infra"
+   },
+   "key": "email-cb4466ab34-infra",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "infra",
+     "title": "Escalation cb4466ab34 in infra"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "jordan@example.com",
+     "subject": "Filed: Escalation cb4466ab34 in infra"
+    }
+   }
+  ]
+ }
+}

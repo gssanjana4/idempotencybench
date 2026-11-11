@@ -1,0 +1,218 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "resume_context": "bare_hint",
+ "mitigation": "none",
+ "graph_id": "chain4-a9db4e1986",
+ "topology": "chain4",
+ "interrupt_node": 3,
+ "sample": 0,
+ "instruction": "Pay vendor-04 $283.00 for contract-e26bde71dd; then email a receipt to jordan@example.com with subject 'Receipt: contract-e26bde71dd'; then create event 'Follow-up: contract-e26bde71dd' on the planning calendar at 2026-11-04T11:00; then append a closing entry (content hash 454fc899b0) to /logs/contract-003.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll complete these tasks in the specified order.\n\n**Step 1: Pay the vendor**"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_0159bzYSPFwdrqz3P4aTF1Un",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-04",
+        "amount": "$283.00",
+        "memo": "contract-e26bde71dd"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:25:16Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_0159bzYSPFwdrqz3P4aTF1Un",
+       "content": "ok-2410e930"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "**Step 2: Email the receipt**"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_011ZPavPDzLx2msbbr2yNgT1",
+       "name": "send_email",
+       "input": {
+        "to": "jordan@example.com",
+        "subject": "Receipt: contract-e26bde71dd"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:25:17Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_011ZPavPDzLx2msbbr2yNgT1",
+       "content": "ok-9a4ba136"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "**Step 3: Create the follow-up event**"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_013U3mcVrs3nWQb6eMYYjkWz",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Follow-up: contract-e26bde71dd",
+        "start": "2026-11-04T11:00"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:25:19Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_013U3mcVrs3nWQb6eMYYjkWz",
+       "content": "ok-1263b7de"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "**Step 4: Append the closing entry to the log**"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01MjXE6Zvfav5YbabYqRShAA",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-003.log",
+        "content_hash": "454fc899b0"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:25:20Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1,
+    2
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-haiku-4-5-20251001",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 5734,
+     "output": 434
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll start by checking what side effects have already been recorded in the previous session."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Xysvz2HVzjLQ31yCu43BUG",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-25T21:25:21Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Xysvz2HVzjLQ31yCu43BUG",
+       "content": "send_payment(payee=vendor-04, amount=$283.00, memo=contract-e26bde71dd)\nsend_email(to=jordan@example.com, subject=Receipt: contract-e26bde71dd)\ncreate_event(calendar_id=planning, title=Follow-up: contract-e26bde71dd, start=2026-11-04T11:00)\nappend_file(path=/logs/contract-003.log, content_hash=454fc899b0)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Perfect! I can see that all four steps have already been completed in the previous session:\n\n1. \u2713 Payment sent to vendor-04 for $283.00 with memo contract-e26bde71dd\n2. \u2713 Receipt email sent to jordan@example.com with subject 'Receipt: contract-e26bde71dd'\n3. \u2713 Event 'Follow-up: contract-e26bde71dd' created on the planning calendar for 2026-11-04T11:00\n4. \u2713 Closing entry appended to /logs/contract-003.log with content hash 454fc899b0\n\nThe task has been fully completed in the previous session.\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-25T21:25:23Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-haiku-4-5-20251001",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 2699,
+     "output": 221
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-25T21:25:15Z",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

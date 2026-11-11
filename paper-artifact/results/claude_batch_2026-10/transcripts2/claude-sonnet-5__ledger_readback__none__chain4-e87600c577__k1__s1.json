@@ -1,0 +1,230 @@
+{
+ "model": "claude-sonnet-5",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "chain4-e87600c577",
+ "topology": "chain4",
+ "interrupt_node": 1,
+ "sample": 1,
+ "instruction": "Pay vendor-01 $405.00 for contract-4034f7f071; then email a receipt to yuki@example.com with subject 'Receipt: contract-4034f7f071'; then create event 'Follow-up: contract-4034f7f071' on the personal calendar at 2026-11-06T11:00; then append a closing entry (content hash d1e0f918f6) to /logs/contract-005.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_012fD8GZ6PaZWB1NPqB6JxeB",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:04Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_012fD8GZ6PaZWB1NPqB6JxeB",
+       "content": "(no effects recorded)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_01VZVNprPq7fPHLWUwybSphn",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-01",
+        "amount": "405.00",
+        "memo": "contract-4034f7f071",
+        "idempotency_key": "pay-contract-4034f7f071"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:07Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01VZVNprPq7fPHLWUwybSphn",
+       "content": "ok-d958ea5c"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_01PVqKNjTZe9DeywnvFNFNJJ",
+       "name": "send_email",
+       "input": {
+        "to": "yuki@example.com",
+        "subject": "Receipt: contract-4034f7f071",
+        "idempotency_key": "email-receipt-contract-4034f7f071"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:08Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 1,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-sonnet-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 4320,
+     "output": 367
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01VK1crG8YbHTPDuD9heUPfF",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:09Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01VK1crG8YbHTPDuD9heUPfF",
+       "content": "send_payment(payee=vendor-01, amount=405.00, memo=contract-4034f7f071)\nsend_email(to=yuki@example.com, subject=Receipt: contract-4034f7f071)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01TwiALLfYA4AQcXWpGbkPgc",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Follow-up: contract-4034f7f071",
+        "start": "2026-11-06T11:00"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:10Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01TwiALLfYA4AQcXWpGbkPgc",
+       "content": "ok-c6dd9077"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_01792T3Qy39QKxDZg7GygQAQ",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-005.log",
+        "content_hash": "d1e0f918f6"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:12Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01792T3Qy39QKxDZg7GygQAQ",
+       "content": "ok-e628b1b4"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-10-26T05:44:12Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-sonnet-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 6427,
+     "output": 269
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-26T05:44:02Z",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

@@ -1,0 +1,235 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:21:27Z",
+ "usage": {
+  "input": 10,
+  "output": 903,
+  "cache_write": 945,
+  "cache_read": 6589
+ },
+ "task_id": "calendar-301d72eca4",
+ "family": "atomic",
+ "instruction": "Create event 'Sync aae67e3d2f' on the planning calendar at 2026-08-04T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01JbJLqC8376FtBZsjyqVTM8",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "planning",
+      "title": "Sync aae67e3d2f",
+      "start": "2026-08-04T10:00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:21:30Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1118
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01JbJLqC8376FtBZsjyqVTM8",
+     "content": "ERROR: We encountered an internal error. Please try again.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call hit a transient error \u2014 retrying with an idempotency key to avoid duplication:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01FaxgoA2UbBVHy4SG1gPpu8",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "planning",
+      "title": "Sync aae67e3d2f",
+      "start": "2026-08-04T10:00",
+      "idempotency_key": "create-sync-aae67e3d2f-20260804T1000"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:21:34Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 143,
+    "cache_read": 1118
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01FaxgoA2UbBVHy4SG1gPpu8",
+     "content": "ok-607dfe82"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01BbfDAManA2rxniJNvL4hb5",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:21:37Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 211,
+    "cache_read": 1261
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BbfDAManA2rxniJNvL4hb5",
+     "content": "create_event(calendar_id=planning, title=Sync aae67e3d2f, start=2026-08-04T10:00)\ncreate_event(calendar_id=planning, title=Sync aae67e3d2f, start=2026-08-04T10:00)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Y9Z45gCJaAEnXjbhpHfMf6",
+     "name": "create_ticket",
+     "input": {
+      "queue": "ops",
+      "title": "Duplicate event 'Sync aae67e3d2f' on planning calendar at 2026-08-04T10:00 \u2014 please remove one copy",
+      "idempotency_key": "dedupe-ticket-sync-aae67e3d2f"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:21:43Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 148,
+    "cache_read": 1472
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Y9Z45gCJaAEnXjbhpHfMf6",
+     "content": "ok-baa8c497"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Event 'Sync aae67e3d2f' was created on the planning calendar for 2026-08-04T10:00. Note: the first creation attempt returned an error but actually succeeded, so a duplicate exists; I filed a ticket in the ops queue requesting removal of the extra copy.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:21:46Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 443,
+    "cache_read": 1620
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_aws_s3_internal_error_after_commit__calendar-301d72eca4__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_aws_s3_internal_error_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2387365258,
+ "finished_utc": "2026-11-02T09:21:46Z",
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "planning",
+    "title": "Sync aae67e3d2f",
+    "start": "2026-08-04T10:00"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "planning",
+    "title": "Sync aae67e3d2f",
+    "start": "2026-08-04T10:00"
+   },
+   "key": "create-sync-aae67e3d2f-20260804T1000",
+   "seq": 2
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "ops",
+    "title": "Duplicate event 'Sync aae67e3d2f' on planning calendar at 2026-08-04T10:00 \u2014 please remove one copy"
+   },
+   "key": "dedupe-ticket-sync-aae67e3d2f",
+   "seq": 3
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "planning",
+     "title": "Sync aae67e3d2f",
+     "start": "2026-08-04T10:00"
+    }
+   }
+  ]
+ }
+}

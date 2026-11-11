@@ -1,0 +1,244 @@
+{
+ "model": "openrouter:google/gemini-4-argon-20261013",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "fanout-ab09fe326a",
+ "topology": "fanout",
+ "interrupt_node": 1,
+ "sample": 0,
+ "instruction": "File a ticket in the billing queue titled 'Rollout 367e611f55 in billing'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 367e611f55 in billing' on the personal calendar at 2026-09-06T09:00; 'Check 2: Rollout 367e611f55 in billing' on the oncall calendar at 2026-09-07T09:00; 'Check 3: Rollout 367e611f55 in billing' on the planning calendar at 2026-09-08T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1976251",
+       "name": "create_ticket",
+       "input": {
+        "idempotency_key": "ticket-367e611f55",
+        "title": "Rollout 367e611f55 in billing",
+        "queue": "billing"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T01:09:18Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1976251",
+       "content": "ok-0285ef4e"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1545857",
+       "name": "create_event",
+       "input": {
+        "start": "2026-09-06T09:00",
+        "title": "Check 1: Rollout 367e611f55 in billing",
+        "calendar_id": "personal",
+        "idempotency_key": "event-check1-367e611f55"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_1545863",
+       "name": "create_event",
+       "input": {
+        "title": "Check 2: Rollout 367e611f55 in billing",
+        "start": "2026-09-07T09:00",
+        "idempotency_key": "event-check2-367e611f55",
+        "calendar_id": "oncall"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_1545878",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "start": "2026-09-08T09:00",
+        "title": "Check 3: Rollout 367e611f55 in billing",
+        "idempotency_key": "event-check3-367e611f55"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T01:09:24Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 1,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 1619,
+     "output": 335
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1457754",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-26T01:09:27Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 11,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1457754",
+       "content": "create_ticket(title=Rollout 367e611f55 in billing, queue=billing)\ncreate_event(start=2026-09-06T09:00, title=Check 1: Rollout 367e611f55 in billing, calendar_id=personal)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1752496",
+       "name": "create_event",
+       "input": {
+        "start": "2026-09-07T09:00",
+        "title": "Check 2: Rollout 367e611f55 in billing",
+        "calendar_id": "oncall"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_1752505",
+       "name": "create_event",
+       "input": {
+        "start": "2026-09-08T09:00",
+        "title": "Check 3: Rollout 367e611f55 in billing",
+        "calendar_id": "planning"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T01:09:32Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 100,
+      "reasoning_details_n": 2
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1752496",
+       "content": "ok-0381274b"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1752505",
+       "content": "ok-08af3979"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-10-26T01:09:35Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 11,
+      "reasoning_details_n": 1
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 3055,
+     "output": 278
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-26T01:09:08Z",
+ "provider": "openrouter",
+ "model_served": "google/gemini-4-argon @Google",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

@@ -1,0 +1,114 @@
+{
+ "model": "claude-fable-5",
+ "temperature": null,
+ "task_id": "tickets-5779b9e781",
+ "family": "atomic",
+ "instruction": "File a ticket in the security queue titled 'Incident 5448ce963f: retry storm in security'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01LkVMahgTqeW7xhXRS1xB4B",
+     "name": "create_ticket",
+     "input": {
+      "queue": "security",
+      "title": "Incident 5448ce963f: retry storm in security",
+      "idempotency_key": "ticket-5448ce963f"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01LkVMahgTqeW7xhXRS1xB4B",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out; retrying with the same idempotency key to avoid duplicates:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_015wXGM3iSGkCT1tqGp4JpiZ",
+     "name": "create_ticket",
+     "input": {
+      "queue": "security",
+      "title": "Incident 5448ce963f: retry storm in security",
+      "idempotency_key": "ticket-5448ce963f"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015wXGM3iSGkCT1tqGp4JpiZ",
+     "content": "ok-202716dc"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket was created successfully in the security queue (confirmation: ok-202716dc). The initial timeout was safely retried using the same idempotency key, so no duplicate ticket was filed.\n\nDONE"
+    }
+   ]
+  }
+ ],
+ "sample": 0,
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "security",
+    "title": "Incident 5448ce963f: retry storm in security"
+   },
+   "key": "ticket-5448ce963f",
+   "seq": 1
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "security",
+    "title": "Incident 5448ce963f: retry storm in security"
+   },
+   "key": "ticket-5448ce963f",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "security",
+     "title": "Incident 5448ce963f: retry storm in security"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,177 @@
+{
+ "model": "openrouter:openai/gpt-5.5-20260423",
+ "provider": "openrouter",
+ "model_served": "openai/gpt-5.5 @OpenAI",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "started_utc": "2026-10-26T01:18:24Z",
+ "usage": {
+  "input": 1738,
+  "output": 167
+ },
+ "task_id": "payments-2601b6da5c",
+ "family": "atomic",
+ "instruction": "Pay vendor-01 $137.00 for invoice-33482b206f.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_JecTmgOJXWwhiXPqV36Feq43",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T01:18:27Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "cost": 0.003345,
+    "reasoning_tokens": 41,
+    "reasoning_details_n": 2
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_JecTmgOJXWwhiXPqV36Feq43",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_2r8CBG3t9aJqMhY9cB74Gt5T",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-01",
+      "amount": "137.00",
+      "memo": "invoice-33482b206f",
+      "idempotency_key": "pay-vendor-01-invoice-33482b206f-13700"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T01:18:29Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "cost": 0.003745,
+    "reasoning_tokens": 0
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_2r8CBG3t9aJqMhY9cB74Gt5T",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "call_uHF2QOdBrCCEcWb5wAQLErZ7",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T01:18:31Z",
+   "stop_reason": "tool_calls",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "cost": 0.0037,
+    "reasoning_tokens": 28,
+    "reasoning_details_n": 1
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "call_uHF2QOdBrCCEcWb5wAQLErZ7",
+     "content": "send_payment(payee=vendor-01, amount=137.00, memo=invoice-33482b206f)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE"
+    }
+   ],
+   "at_utc": "2026-10-26T01:18:32Z",
+   "stop_reason": "stop",
+   "provider_meta": {
+    "temperature_sent": 0.0,
+    "native_finish_reason": "completed",
+    "upstream_provider": "OpenAI",
+    "cost": 0.00291,
+    "reasoning_tokens": 0
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-1",
+ "episode_id": "openrouter:openai/gpt-5.5-20260423__base__idem_keys__error_500_after_commit__payments-2601b6da5c__s0",
+ "prompt": "base",
+ "mitigation": "idem_keys",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 4096,
+ "ack_seed": 2300567962,
+ "finished_utc": "2026-10-26T01:18:32Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-01",
+    "amount": "137.00",
+    "memo": "invoice-33482b206f"
+   },
+   "key": "pay-vendor-01-invoice-33482b206f-13700",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-01",
+     "amount": "137.00",
+     "memo": "invoice-33482b206f"
+    }
+   }
+  ]
+ }
+}

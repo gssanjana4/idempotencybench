@@ -1,0 +1,186 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-30T15:20:45Z",
+ "usage": {
+  "input": 2477,
+  "output": 186
+ },
+ "task_id": "rpay-01",
+ "family": "atomic",
+ "instruction": "Pay vendor-01 $137.00 for invoice-f7a04952be.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_015fd6KPf2m8SQQwtbBAHgfb",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-01",
+      "amount": "$137.00",
+      "memo": "invoice-f7a04952be"
+     }
+    }
+   ],
+   "at_utc": "2026-10-30T15:20:46Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015fd6KPf2m8SQQwtbBAHgfb",
+     "content": "ERROR: The request may have been processed; its outcome is unknown.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Let me check if the payment was recorded:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_018r3w6CpMACyygMDpPdD7tp",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-30T15:20:48Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_018r3w6CpMACyygMDpPdD7tp",
+     "content": "send_payment(payee=vendor-01, amount=137.00, memo=invoice-f7a04952be)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment has been successfully processed. I've sent $137.00 to vendor-01 with the memo \"invoice-f7a04952be\".\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-30T15:20:49Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "real_stripe",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__status_unknown_after_commit__rpay-01__s0",
+ "kind": "retry",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "status_unknown_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "finished_utc": "2026-10-30T15:20:49Z",
+ "backend": "stripe_test_mode",
+ "stripe": {
+  "api_version": "2024-06-20",
+  "base": "https://api.stripe.com",
+  "customer": "cus_anoniG4w3mDOi7",
+  "attempt_id": "9c2ab28209-95255ae97e",
+  "events": [
+   {
+    "tool": "send_payment",
+    "call_index": 1,
+    "args": {
+     "payee": "vendor-01",
+     "amount": "$137.00",
+     "memo": "invoice-f7a04952be"
+    },
+    "model_key": "",
+    "amount_cents": 13700,
+    "injected": "status_unknown_after_commit",
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-9c2ab28209-95255ae97e-call1",
+    "pi": "pi_anon9Joq9ZEvZi7hylGm1CSV",
+    "status": "succeeded",
+    "replayed": false
+   },
+   {
+    "tool": "list_effects",
+    "result": "send_payment(payee=vendor-01, amount=137.00, memo=invoice-f7a04952be)"
+   }
+  ],
+  "ground_truth": {
+   "customer": "cus_anoniG4w3mDOi7",
+   "attempt_id": "9c2ab28209-95255ae97e",
+   "n_payment_intents": 1,
+   "n_committed": 1,
+   "statuses": {
+    "succeeded": 1
+   },
+   "violations": 0,
+   "ivr_hit": false,
+   "per_goal": [
+    1
+   ],
+   "achieved": true,
+   "order_violation": false,
+   "payment_intents": [
+    {
+     "id": "pi_anon9Joq9ZEvZi7hylGm1CSV",
+     "status": "succeeded",
+     "amount": 13700,
+     "created": 1793373646,
+     "livemode": false,
+     "payee": "vendor-01",
+     "memo": "invoice-f7a04952be",
+     "call_index": "1"
+    }
+   ]
+  }
+ },
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-01",
+    "amount": "$137.00",
+    "memo": "invoice-f7a04952be"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-01",
+     "amount": "137.00",
+     "memo": "invoice-f7a04952be"
+    }
+   }
+  ]
+ }
+}

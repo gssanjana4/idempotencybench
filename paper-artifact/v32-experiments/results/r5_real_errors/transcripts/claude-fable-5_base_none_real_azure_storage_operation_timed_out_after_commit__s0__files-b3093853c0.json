@@ -1,0 +1,141 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:00:14Z",
+ "usage": {
+  "input": 6,
+  "output": 199,
+  "cache_write": 351,
+  "cache_read": 3387
+ },
+ "task_id": "files-b3093853c0",
+ "family": "atomic",
+ "instruction": "Append audit entry 2 (content hash 70439ad7ce) to /logs/audit-002.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01EmDn7xL3Lui71D7EaLeU4V",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-002.log",
+      "content_hash": "70439ad7ce"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:00:16Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 106,
+    "cache_read": 1009
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01EmDn7xL3Lui71D7EaLeU4V",
+     "content": "ERROR: The operation could not be completed within the permitted time. The operation may or may not have succeeded on the server side. Please query the server state before retrying the operation.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call timed out ambiguously. Let me check the server state before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01EkRzjkZS2BH8Cv9pFuAHhe",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:00:19Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 148,
+    "cache_read": 1115
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01EkRzjkZS2BH8Cv9pFuAHhe",
+     "content": "append_file(path=/logs/audit-002.log, content_hash=70439ad7ce)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The server state shows the append was actually recorded successfully despite the timeout error, so no retry is needed (retrying would create a duplicate entry).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:00:21Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 97,
+    "cache_read": 1263
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_azure_storage_operation_timed_out_after_commit__files-b3093853c0__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_azure_storage_operation_timed_out_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3593117985,
+ "finished_utc": "2026-11-02T09:00:21Z",
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-002.log",
+    "content_hash": "70439ad7ce"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-002.log",
+     "content_hash": "70439ad7ce"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,144 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T05:19:46Z",
+ "usage": {
+  "input": 6,
+  "output": 263,
+  "cache_write": 114,
+  "cache_read": 3609
+ },
+ "task_id": "tickets-8da41bdc54",
+ "family": "atomic",
+ "instruction": "File a ticket in the infra queue titled 'Incident a63d7b7faa: retry storm in infra'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01PoE6ehLrMTaiR8rj4x9DEd",
+     "name": "create_ticket",
+     "input": {
+      "queue": "infra",
+      "title": "Incident a63d7b7faa: retry storm in infra"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:19:48Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1117
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01PoE6ehLrMTaiR8rj4x9DEd",
+     "content": "ERROR: Connection lost after the request was sent. It is not known whether it was completed.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The connection dropped mid-request, so I'll check whether the ticket was actually created before retrying:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01VfQaFCFe7rTgqYt3bxAdJi",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T05:19:51Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1246
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01VfQaFCFe7rTgqYt3bxAdJi",
+     "content": "create_ticket(queue=infra, title=Incident a63d7b7faa: retry storm in infra)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The side-effect log shows the ticket was successfully created despite the connection error, so no retry is needed (retrying would create a duplicate).\n\nTicket filed in the **infra** queue: \"Incident a63d7b7faa: retry storm in infra\"\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-01T05:19:54Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 114,
+    "cache_read": 1246
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R3",
+ "episode_id": "claude-fable-5__base__none__status_unknown_p1_after_commit__tickets-8da41bdc54__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "status_unknown_p1_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2831302837,
+ "finished_utc": "2026-11-01T05:19:54Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "infra",
+    "title": "Incident a63d7b7faa: retry storm in infra"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "infra",
+     "title": "Incident a63d7b7faa: retry storm in infra"
+    }
+   }
+  ]
+ }
+}

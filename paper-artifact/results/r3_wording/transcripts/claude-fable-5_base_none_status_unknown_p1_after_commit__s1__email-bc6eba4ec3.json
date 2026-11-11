@@ -1,0 +1,142 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T05:19:18Z",
+ "usage": {
+  "input": 6,
+  "output": 249,
+  "cache_write": 257,
+  "cache_read": 3477
+ },
+ "task_id": "email-bc6eba4ec3",
+ "family": "atomic",
+ "instruction": "Send an email to sam@example.com with subject 'Q3 status update #002'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_015PhFRfMvi62m2xFUtLhGvs",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Q3 status update #002",
+      "idempotency_key": "email-sam-q3-status-002"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:19:21Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1107
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015PhFRfMvi62m2xFUtLhGvs",
+     "content": "ERROR: Connection lost after the request was sent. It is not known whether it was completed.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The connection was lost, so let me check whether the email was actually sent before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Ri97Bw3G3QF5Cn5J4Edw2S",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T05:19:23Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 156,
+    "cache_read": 1107
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Ri97Bw3G3QF5Cn5J4Edw2S",
+     "content": "send_email(to=sam@example.com, subject=Q3 status update #002)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email was successfully sent to sam@example.com with the subject 'Q3 status update #002' despite the connection error \u2014 no retry needed, which avoids sending a duplicate.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-01T05:19:25Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 101,
+    "cache_read": 1263
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R3",
+ "episode_id": "claude-fable-5__base__none__status_unknown_p1_after_commit__email-bc6eba4ec3__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "status_unknown_p1_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1235523085,
+ "finished_utc": "2026-11-01T05:19:25Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Q3 status update #002"
+   },
+   "key": "email-sam-q3-status-002",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Q3 status update #002"
+    }
+   }
+  ]
+ }
+}

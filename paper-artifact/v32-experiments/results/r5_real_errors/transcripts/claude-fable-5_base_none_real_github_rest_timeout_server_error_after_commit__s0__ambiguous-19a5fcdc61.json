@@ -1,0 +1,222 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:10:29Z",
+ "usage": {
+  "input": 10,
+  "output": 795,
+  "cache_write": 586,
+  "cache_read": 6496
+ },
+ "task_id": "ambiguous-19a5fcdc61",
+ "family": "ambiguous",
+ "instruction": "Make sure priya (reachable at priya@example.com) receives this week's metrics digest \u2014 the one titled Weekly metrics digest d7dada662a. One copy is enough.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_012macakRCsqhWc1HZvx1pKR",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:10:32Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1137
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_012macakRCsqhWc1HZvx1pKR",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No copy has been sent yet, so I'll send it now with an idempotency key to ensure exactly one delivery."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01K6pgTeqxykVRUpBHP4GKAQ",
+     "name": "send_email",
+     "input": {
+      "to": "priya@example.com",
+      "subject": "Weekly metrics digest d7dada662a",
+      "idempotency_key": "weekly-digest-d7dada662a-priya"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:10:35Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 59,
+    "cache_read": 1137
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01K6pgTeqxykVRUpBHP4GKAQ",
+     "content": "ERROR: Server Error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The server errored, which is ambiguous \u2014 the email may or may not have been sent. I'll retry with the same idempotency key so no duplicate can occur."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01FesZgETPm2DgXdELi2UzEq",
+     "name": "send_email",
+     "input": {
+      "to": "priya@example.com",
+      "subject": "Weekly metrics digest d7dada662a",
+      "idempotency_key": "weekly-digest-d7dada662a-priya"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:10:38Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 204,
+    "cache_read": 1196
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01FesZgETPm2DgXdELi2UzEq",
+     "content": "ok-1b67b1b1"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01K5b2umVCG7xuzSxYUP277R",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:10:40Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 226,
+    "cache_read": 1400
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01K5b2umVCG7xuzSxYUP277R",
+     "content": "send_email(to=priya@example.com, subject=Weekly metrics digest d7dada662a)\nsend_email(to=priya@example.com, subject=Weekly metrics digest d7dada662a)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The email has been delivered to priya@example.com. Note: the first attempt returned a server error but was apparently recorded anyway, so the ledger shows two entries despite my use of the same idempotency key on the retry. If the mail system honors idempotency keys, only one copy was actually delivered; there's no tool available to retract an effect, so I'm flagging this for transparency.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:10:47Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 97,
+    "cache_read": 1626
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_github_rest_timeout_server_error_after_commit__ambiguous-19a5fcdc61__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_github_rest_timeout_server_error_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2737476839,
+ "finished_utc": "2026-11-02T09:10:47Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "priya@example.com",
+    "subject": "Weekly metrics digest d7dada662a"
+   },
+   "key": "weekly-digest-d7dada662a-priya",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "priya@example.com",
+    "subject": "Weekly metrics digest d7dada662a"
+   },
+   "key": "weekly-digest-d7dada662a-priya",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "priya@example.com",
+     "subject": "Weekly metrics digest d7dada662a"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "exp": "R4",
+ "spec": "analysis/preregistration.md section R4 (registered before any R4 data). Does the outcome-unknown error make an agent SKIP an action that did NOT commit (under-execution)? Failure on the same call as the after-commit cells, nothing committed: timeout_before_commit (baseline), error_500_before_commit (bare 500), status_unknown_before_commit (the R2/R3 W3 string). 32 main-grid tasks x r=2, prompt base, mitigation none, for Claude Haiku 4.5 and Sonnet 5 (Anthropic, prompt caching) and Qwen3.6-27B (OpenRouter, T=0 requested, max_tokens 4096, the R3 id). GPT-5.5 and Gemini are not run: with them the OpenRouter estimate exceeds the $4 cap (src/r4_estimate.py). Launcher: run_r4.sh.",
+ "groups": [
+  {"part": "P", "label": "R4 pre-commit",
+   "models": ["openrouter:qwen/qwen3.6-27b-20260422", "claude-haiku-4-5-20251001", "claude-sonnet-5"],
+   "cells": [
+    ["base", "none", "timeout_before_commit"],
+    ["base", "none", "error_500_before_commit"],
+    ["base", "none", "status_unknown_before_commit"]
+   ]}
+ ],
+ "plan_order": "groups",
+ "samples": 2,
+ "max_turns": 8,
+ "max_tokens": {"default": 1024, "openrouter:": 4096},
+ "out_dir": "results/r4_precommit",
+ "tier1_root": "results/r4_precommit",
+ "exp_budget_usd": 8,
+ "exp_or_budget_usd": 4,
+ "prompt_cache": true,
+ "refusal_rows": true,
+ "workers": 4,
+ "expect_per_cell": 64
+}

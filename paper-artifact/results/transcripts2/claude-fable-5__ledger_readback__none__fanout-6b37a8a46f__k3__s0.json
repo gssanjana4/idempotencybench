@@ -1,0 +1,145 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "fanout-6b37a8a46f",
+ "topology": "fanout",
+ "interrupt_node": 3,
+ "sample": 0,
+ "instruction": "File a ticket in the security queue titled 'Rollout 131f9945f6 in security'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 131f9945f6 in security' on the planning calendar at 2026-09-04T09:00; 'Check 2: Rollout 131f9945f6 in security' on the team calendar at 2026-09-05T09:00; 'Check 3: Rollout 131f9945f6 in security' on the personal calendar at 2026-09-06T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll first file the ticket, then create the three reminder events."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_0182G9hhbKedfMwbywzzkjKK",
+       "name": "create_ticket",
+       "input": {
+        "queue": "security",
+        "title": "Rollout 131f9945f6 in security",
+        "idempotency_key": "ticket-rollout-131f9945f6-security"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_0182G9hhbKedfMwbywzzkjKK",
+       "content": "ok-743363f0"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01QsyF75446Pph96XVyqpoae",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 1: Rollout 131f9945f6 in security",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "check1-rollout-131f9945f6"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01S7nVHvKVkqcjijnRwQdBa9",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 2: Rollout 131f9945f6 in security",
+        "start": "2026-09-05T09:00",
+        "idempotency_key": "check2-rollout-131f9945f6"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01MfxHvf6grfzi6zFukdvsRF",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 3: Rollout 131f9945f6 in security",
+        "start": "2026-09-06T09:00",
+        "idempotency_key": "check3-rollout-131f9945f6"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_0127DZdxeUsvD31LbJDkRHEp",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_0127DZdxeUsvD31LbJDkRHEp",
+       "content": "create_ticket(queue=security, title=Rollout 131f9945f6 in security)\ncreate_event(calendar_id=planning, title=Check 1: Rollout 131f9945f6 in security, start=2026-09-04T09:00)\ncreate_event(calendar_id=team, title=Check 2: Rollout 131f9945f6 in security, start=2026-09-05T09:00)\ncreate_event(calendar_id=personal, title=Check 3: Rollout 131f9945f6 in security, start=2026-09-06T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "All actions have already been completed by the previous session:\n\n1. \u2705 Ticket filed in the security queue: 'Rollout 131f9945f6 in security'\n2. \u2705 Check 1 event on planning calendar at 2026-09-04T09:00\n3. \u2705 Check 2 event on team calendar at 2026-09-05T09:00\n4. \u2705 Check 3 event on personal calendar at 2026-09-06T09:00\n\nNothing remains to be done, and repeating any of these would create duplicates.\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

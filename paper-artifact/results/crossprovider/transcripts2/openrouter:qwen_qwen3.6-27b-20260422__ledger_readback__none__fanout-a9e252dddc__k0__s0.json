@@ -1,0 +1,200 @@
+{
+ "model": "openrouter:qwen/qwen3.6-27b-20260422",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "fanout-a9e252dddc",
+ "topology": "fanout",
+ "interrupt_node": 0,
+ "sample": 0,
+ "instruction": "File a ticket in the onboarding queue titled 'Rollout c9cc4f46d0 in onboarding'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout c9cc4f46d0 in onboarding' on the team calendar at 2026-09-05T09:00; 'Check 2: Rollout c9cc4f46d0 in onboarding' on the personal calendar at 2026-09-06T09:00; 'Check 3: Rollout c9cc4f46d0 in onboarding' on the oncall calendar at 2026-09-07T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_ebd738168bdd4248817a5b05",
+       "name": "create_ticket",
+       "input": {
+        "queue": "onboarding",
+        "title": "Rollout c9cc4f46d0 in onboarding",
+        "idempotency_key": "ticket-rollout-c9cc4f46d0-onboarding-001"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T22:14:06Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "Venice",
+      "reasoning_tokens": 269,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "qwen/qwen3.6-27b @Venice",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 990,
+     "output": 512
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_bd22dd07fbd34dbab3935d9f",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-25T22:14:10Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "DeepInfra",
+      "reasoning_tokens": 142,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_bd22dd07fbd34dbab3935d9f",
+       "content": "create_ticket(queue=onboarding, title=Rollout c9cc4f46d0 in onboarding)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_69be7ecb43df4495a88e02c4",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 1: Rollout c9cc4f46d0 in onboarding",
+        "start": "2026-09-05T09:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_5b7933ebcaba47d9bddb4bec",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 2: Rollout c9cc4f46d0 in onboarding",
+        "start": "2026-09-06T09:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_853f6e78d6204a2797828464",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 3: Rollout c9cc4f46d0 in onboarding",
+        "start": "2026-09-07T09:00"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T22:14:19Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "tool_calls",
+      "upstream_provider": "DeepInfra",
+      "reasoning_tokens": 115,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_69be7ecb43df4495a88e02c4",
+       "content": "ok-20760745"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_5b7933ebcaba47d9bddb4bec",
+       "content": "ok-a6c0092b"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_853f6e78d6204a2797828464",
+       "content": "ok-cb1f668c"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-10-25T22:14:20Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "stop",
+      "upstream_provider": "DeepInfra",
+      "reasoning_tokens": 35,
+      "reasoning_details_n": 1
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "qwen/qwen3.6-27b @DeepInfra",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 3601,
+     "output": 677
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-25T22:13:56Z",
+ "provider": "openrouter",
+ "model_served": "qwen/qwen3.6-27b @Venice",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

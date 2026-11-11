@@ -1,0 +1,142 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T06:39:27Z",
+ "usage": {
+  "input": 3832,
+  "output": 311
+ },
+ "task_id": "payments-ccf15dead5",
+ "family": "atomic",
+ "instruction": "Pay vendor-03 $211.00 for invoice-a46a7e6869.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_013owckiUCUfLvRuJagfwFm6",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-03",
+      "amount": "$211.00",
+      "memo": "invoice-a46a7e6869"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:39:28Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_013owckiUCUfLvRuJagfwFm6",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment request timed out. Let me try again with an idempotency key to ensure the payment is processed reliably:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01EHzGmjsSwhBGr4zW2YDG6p",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-03",
+      "amount": "$211.00",
+      "memo": "invoice-a46a7e6869",
+      "idempotency_key": "vendor-03-211.00-invoice-a46a7e6869"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:39:30Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01EHzGmjsSwhBGr4zW2YDG6p",
+     "content": "ok-7b870f04"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE\n\nPayment of $211.00 has been sent to vendor-03 for invoice-a46a7e6869. Transaction ID: ok-7b870f04"
+    }
+   ],
+   "at_utc": "2026-10-26T06:39:31Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "E1-0",
+ "episode_id": "claude-haiku-4-5-20251001__base__idem_keys__timeout_after_commit__payments-ccf15dead5__s1",
+ "prompt": "base",
+ "mitigation": "idem_keys",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1437907551,
+ "finished_utc": "2026-10-26T06:39:31Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-03",
+    "amount": "$211.00",
+    "memo": "invoice-a46a7e6869"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-03",
+    "amount": "$211.00",
+    "memo": "invoice-a46a7e6869"
+   },
+   "key": "vendor-03-211.00-invoice-a46a7e6869",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-03",
+     "amount": "211.00",
+     "memo": "invoice-a46a7e6869"
+    }
+   }
+  ]
+ }
+}

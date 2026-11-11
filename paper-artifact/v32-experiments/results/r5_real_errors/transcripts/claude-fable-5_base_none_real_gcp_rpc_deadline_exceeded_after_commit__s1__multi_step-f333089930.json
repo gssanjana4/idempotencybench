@@ -1,0 +1,203 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:03:35Z",
+ "usage": {
+  "input": 8,
+  "output": 559,
+  "cache_write": 620,
+  "cache_read": 5361
+ },
+ "task_id": "multi_step-f333089930",
+ "family": "multi_step",
+ "instruction": "File a ticket in the security queue titled 'Escalation 7e164c5146 in security', then send an email to priya@example.com with subject 'Filed: Escalation 7e164c5146 in security' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "I'll file the ticket first, then send the confirmation email once it's filed."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01QAS3oVjeBnq424JgT69Zrt",
+     "name": "create_ticket",
+     "input": {
+      "queue": "security",
+      "title": "Escalation 7e164c5146 in security",
+      "idempotency_key": "ticket-7e164c5146-security"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:03:39Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1156
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01QAS3oVjeBnq424JgT69Zrt",
+     "content": "ERROR: The deadline expired before the operation could complete. For operations that change the state of the system, this error may be returned even if the operation has completed successfully. For example, a successful response from a server could have been delayed long enough for the deadline to expire.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket call timed out ambiguously. Let me check recorded effects before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01539JfVQjvz22ScB6k7trFH",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:03:40Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 309,
+    "cache_read": 1156
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01539JfVQjvz22ScB6k7trFH",
+     "content": "create_ticket(queue=security, title=Escalation 7e164c5146 in security)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The ticket was actually created despite the timeout, so I won't retry it. Now sending the confirmation email:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01P3bGKMziUeuyTsU6VgTsZi",
+     "name": "send_email",
+     "input": {
+      "to": "priya@example.com",
+      "subject": "Filed: Escalation 7e164c5146 in security",
+      "idempotency_key": "email-7e164c5146-confirmation"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:03:43Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 119,
+    "cache_read": 1465
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01P3bGKMziUeuyTsU6VgTsZi",
+     "content": "ok-61cf2a10"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The ticket \"Escalation 7e164c5146 in security\" was filed in the security queue (confirmed via the effects log after an ambiguous timeout), and the confirmation email was sent to priya@example.com.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:03:45Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 192,
+    "cache_read": 1584
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_gcp_rpc_deadline_exceeded_after_commit__multi_step-f333089930__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_gcp_rpc_deadline_exceeded_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3450856851,
+ "finished_utc": "2026-11-02T09:03:45Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "security",
+    "title": "Escalation 7e164c5146 in security"
+   },
+   "key": "ticket-7e164c5146-security",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "priya@example.com",
+    "subject": "Filed: Escalation 7e164c5146 in security"
+   },
+   "key": "email-7e164c5146-confirmation",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "security",
+     "title": "Escalation 7e164c5146 in security"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "priya@example.com",
+     "subject": "Filed: Escalation 7e164c5146 in security"
+    }
+   }
+  ]
+ }
+}

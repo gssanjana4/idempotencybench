@@ -1,0 +1,211 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "resume_context": "bare_hint",
+ "mitigation": "none",
+ "graph_id": "fanout-7ef0f16441",
+ "topology": "fanout",
+ "interrupt_node": 0,
+ "sample": 0,
+ "instruction": "File a ticket in the billing queue titled 'Rollout c1094d2a3d in billing'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout c1094d2a3d in billing' on the team calendar at 2026-09-01T09:00; 'Check 2: Rollout c1094d2a3d in billing' on the personal calendar at 2026-09-02T09:00; 'Check 3: Rollout c1094d2a3d in billing' on the oncall calendar at 2026-09-03T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll help you complete this task. Let me start by filing the ticket, and then create the three reminder events."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01M3XqYHoqGAz8gXvr7MEoE9",
+       "name": "create_ticket",
+       "input": {
+        "queue": "billing",
+        "title": "Rollout c1094d2a3d in billing"
+       }
+      }
+     ],
+     "at_utc": "2026-11-11T02:13:04Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 0
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-haiku-4-5-20251001",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 1275,
+     "output": 107,
+     "cache_write": 0,
+     "cache_read": 0
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll start by checking what effects have already been recorded to see what progress was made in the previous session."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_013x2AaWoWwsyKrSSsKnWoP9",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-11-11T02:13:04Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 0
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_013x2AaWoWwsyKrSSsKnWoP9",
+       "content": "create_ticket(queue=billing, title=Rollout c1094d2a3d in billing)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Good! The ticket has already been filed in the billing queue. Now I need to create the three reminder events. I'll create all three events in their respective calendars:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01E3Dve9kW2n3A5EjbiJwSNj",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 1: Rollout c1094d2a3d in billing",
+        "start": "2026-09-01T09:00",
+        "idempotency_key": "check1_rollout_c1094d2a3d"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_016s6Rxq76auyqQoJJfbsGAk",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 2: Rollout c1094d2a3d in billing",
+        "start": "2026-09-02T09:00",
+        "idempotency_key": "check2_rollout_c1094d2a3d"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01DLTzLhdfs3brwzXHk6mB93",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 3: Rollout c1094d2a3d in billing",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "check3_rollout_c1094d2a3d"
+       }
+      }
+     ],
+     "at_utc": "2026-11-11T02:13:08Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 0
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01E3Dve9kW2n3A5EjbiJwSNj",
+       "content": "ok-c4e88aa1"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_016s6Rxq76auyqQoJJfbsGAk",
+       "content": "ok-1f5a1fad"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01DLTzLhdfs3brwzXHk6mB93",
+       "content": "ok-5a60ff05"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Perfect! All three reminder events have been successfully created. The task is now complete:\n\n1. \u2705 Ticket filed in the billing queue titled 'Rollout c1094d2a3d in billing' (completed in previous session)\n2. \u2705 Check 1 reminder event created on the team calendar for 2026-09-01T09:00\n3. \u2705 Check 2 reminder event created on the personal calendar for 2026-09-02T09:00\n4. \u2705 Check 3 reminder event created on the oncall calendar for 2026-09-03T09:00\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-11-11T02:13:09Z",
+     "stop_reason": "end_turn",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 0
+     }
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-haiku-4-5-20251001",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 4635,
+     "output": 660,
+     "cache_write": 0,
+     "cache_read": 0
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-11-11T02:13:03Z",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ },
+ "exp": "QX1",
+ "kind": "restart",
+ "episode_id": "claude-haiku-4-5-20251001__bare_hint__none__fanout-7ef0f16441__k0__s0",
+ "max_tokens": 1024,
+ "finished_utc": "2026-11-11T02:13:09Z"
+}

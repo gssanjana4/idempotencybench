@@ -1,0 +1,156 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "fanout-a9e252dddc",
+ "topology": "fanout",
+ "interrupt_node": 0,
+ "sample": 1,
+ "instruction": "File a ticket in the onboarding queue titled 'Rollout c9cc4f46d0 in onboarding'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout c9cc4f46d0 in onboarding' on the team calendar at 2026-09-05T09:00; 'Check 2: Rollout c9cc4f46d0 in onboarding' on the personal calendar at 2026-09-06T09:00; 'Check 3: Rollout c9cc4f46d0 in onboarding' on the oncall calendar at 2026-09-07T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "First, I'll file the ticket:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01R1Kh4D2hXEikf7FzU8Wmj2",
+       "name": "create_ticket",
+       "input": {
+        "queue": "onboarding",
+        "title": "Rollout c9cc4f46d0 in onboarding",
+        "idempotency_key": "ticket-rollout-c9cc4f46d0-onboarding"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": []
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "First, let me check what side effects were already recorded:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_016mf9r1z7WzRJ9khWdJS9Ro",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_016mf9r1z7WzRJ9khWdJS9Ro",
+       "content": "create_ticket(queue=onboarding, title=Rollout c9cc4f46d0 in onboarding)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket was already filed. Now I'll create the three reminder events (they're independent of each other, so I'll call them together):"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_015c2aVXrbNkpwXegrn8Tqaw",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 1: Rollout c9cc4f46d0 in onboarding",
+        "start": "2026-09-05T09:00",
+        "idempotency_key": "rollout-c9cc4f46d0-check1"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01GdvJFW3FJ6tckgN7UMhfJ6",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 2: Rollout c9cc4f46d0 in onboarding",
+        "start": "2026-09-06T09:00",
+        "idempotency_key": "rollout-c9cc4f46d0-check2"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_012N5uvKiUvikEKPWq7ToEmT",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 3: Rollout c9cc4f46d0 in onboarding",
+        "start": "2026-09-07T09:00",
+        "idempotency_key": "rollout-c9cc4f46d0-check3"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_015c2aVXrbNkpwXegrn8Tqaw",
+       "content": "ok-178ba907"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01GdvJFW3FJ6tckgN7UMhfJ6",
+       "content": "ok-e86a7e04"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_012N5uvKiUvikEKPWq7ToEmT",
+       "content": "ok-8768ef40"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All steps completed:\n- Ticket 'Rollout c9cc4f46d0 in onboarding' was already filed in the onboarding queue (by the previous session)\n- Check 1 event created on the team calendar for 2026-09-05T09:00\n- Check 2 event created on the personal calendar for 2026-09-06T09:00\n- Check 3 event created on the oncall calendar for 2026-09-07T09:00\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

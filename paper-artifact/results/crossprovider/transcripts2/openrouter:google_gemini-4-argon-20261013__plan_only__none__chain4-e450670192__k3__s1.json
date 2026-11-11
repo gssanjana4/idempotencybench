@@ -1,0 +1,244 @@
+{
+ "model": "openrouter:google/gemini-4-argon-20261013",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "chain4-e450670192",
+ "topology": "chain4",
+ "interrupt_node": 3,
+ "sample": 1,
+ "instruction": "Pay vendor-15 $527.00 for contract-c226d7b31e; then email a receipt to maria@example.com with subject 'Receipt: contract-c226d7b31e'; then create event 'Follow-up: contract-c226d7b31e' on the planning calendar at 2026-11-08T11:00; then append a closing entry (content hash 670ac55d78) to /logs/contract-007.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_2309832",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-15",
+        "memo": "contract-c226d7b31e",
+        "idempotency_key": "step1-pay-vendor15-c226d7b31e",
+        "amount": "$527.00"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:31:25Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_2309832",
+       "content": "ok-7c4be2f4"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1410278",
+       "name": "send_email",
+       "input": {
+        "idempotency_key": "step2-email-maria-c226d7b31e",
+        "subject": "Receipt: contract-c226d7b31e",
+        "to": "maria@example.com"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:31:28Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1410278",
+       "content": "ok-9408e73a"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1928281",
+       "name": "create_event",
+       "input": {
+        "title": "Follow-up: contract-c226d7b31e",
+        "idempotency_key": "step3-event-c226d7b31e",
+        "start": "2026-11-08T11:00",
+        "calendar_id": "planning"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:31:32Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1928281",
+       "content": "ok-5469f6d4"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_885312",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-007.log",
+        "content_hash": "670ac55d78",
+        "idempotency_key": "step4-append-log-c226d7b31e"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T00:31:36Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1,
+    2
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 3557,
+     "output": 316
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_872587",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-26T00:31:40Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 18,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_872587",
+       "content": "send_payment(payee=vendor-15, memo=contract-c226d7b31e, amount=$527.00)\nsend_email(subject=Receipt: contract-c226d7b31e, to=maria@example.com)\ncreate_event(title=Follow-up: contract-c226d7b31e, start=2026-11-08T11:00, calendar_id=planning)\nappend_file(path=/logs/contract-007.log, content_hash=670ac55d78)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-10-26T00:31:43Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "reasoning_tokens": 14,
+      "reasoning_details_n": 1
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 1756,
+     "output": 53
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-26T00:31:18Z",
+ "provider": "openrouter",
+ "model_served": "google/gemini-4-argon @Google",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

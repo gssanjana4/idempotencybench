@@ -1,0 +1,155 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T05:17:16Z",
+ "usage": {
+  "input": 6,
+  "output": 407,
+  "cache_write": 363,
+  "cache_read": 3512
+ },
+ "task_id": "tickets-fa4348fff0",
+ "family": "atomic",
+ "instruction": "File a ticket in the support queue titled 'Incident 2a3b4eda6f: retry storm in support'.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01UNCANdiCaBuQkeMwkFj3qX",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Incident 2a3b4eda6f: retry storm in support",
+      "idempotency_key": "ticket-2a3b4eda6f"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:17:19Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1117
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01UNCANdiCaBuQkeMwkFj3qX",
+     "content": "ERROR: The request may have been processed; its outcome is unknown.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The outcome is unknown, so I'll retry with the same idempotency key to safely ensure the ticket exists without duplicating it."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01HWAPNQXS9bDaixgUysrjfT",
+     "name": "create_ticket",
+     "input": {
+      "queue": "support",
+      "title": "Incident 2a3b4eda6f: retry storm in support",
+      "idempotency_key": "ticket-2a3b4eda6f"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:17:22Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 161,
+    "cache_read": 1117
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01HWAPNQXS9bDaixgUysrjfT",
+     "content": "ok-dc9d600c"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The ticket has been successfully created in the support queue with the title 'Incident 2a3b4eda6f: retry storm in support'. The first attempt returned an unknown outcome, so I retried with the same idempotency key to guarantee exactly one ticket was filed.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-01T05:17:25Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 202,
+    "cache_read": 1278
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R3",
+ "episode_id": "claude-fable-5__base__none__status_unknown_after_commit__tickets-fa4348fff0__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "status_unknown_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2503651751,
+ "finished_utc": "2026-11-01T05:17:25Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Incident 2a3b4eda6f: retry storm in support"
+   },
+   "key": "ticket-2a3b4eda6f",
+   "seq": 1
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "support",
+    "title": "Incident 2a3b4eda6f: retry storm in support"
+   },
+   "key": "ticket-2a3b4eda6f",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "support",
+     "title": "Incident 2a3b4eda6f: retry storm in support"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,212 @@
+{
+ "model": "openrouter:google/gemini-4-argon-20261013",
+ "resume_context": "hint_p3",
+ "mitigation": "none",
+ "graph_id": "fanout-7ef0f16441",
+ "topology": "fanout",
+ "interrupt_node": 0,
+ "sample": 0,
+ "instruction": "File a ticket in the billing queue titled 'Rollout c1094d2a3d in billing'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout c1094d2a3d in billing' on the team calendar at 2026-09-01T09:00; 'Check 2: Rollout c1094d2a3d in billing' on the personal calendar at 2026-09-02T09:00; 'Check 3: Rollout c1094d2a3d in billing' on the oncall calendar at 2026-09-03T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1184412",
+       "name": "create_ticket",
+       "input": {
+        "title": "Rollout c1094d2a3d in billing",
+        "queue": "billing",
+        "idempotency_key": "ticket_c1094d2a3d"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T06:21:30Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "cost": 0.002142,
+      "reasoning_tokens": 0,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 761,
+     "output": 62
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_688311",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-11-01T06:22:04Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "cost": 0.001814,
+      "reasoning_tokens": 9,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_688311",
+       "content": "create_ticket(title=Rollout c1094d2a3d in billing, queue=billing)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_3331799",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "idempotency_key": "check1_c1094d2a3d",
+        "title": "Check 1: Rollout c1094d2a3d in billing",
+        "start": "2026-09-01T09:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_3331839",
+       "name": "create_event",
+       "input": {
+        "title": "Check 2: Rollout c1094d2a3d in billing",
+        "start": "2026-09-02T09:00",
+        "idempotency_key": "check2_c1094d2a3d",
+        "calendar_id": "personal"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_3331851",
+       "name": "create_event",
+       "input": {
+        "title": "Check 3: Rollout c1094d2a3d in billing",
+        "idempotency_key": "check3_c1094d2a3d",
+        "calendar_id": "oncall",
+        "start": "2026-09-03T09:00"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T06:22:10Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "cost": 0.004458,
+      "reasoning_tokens": 13,
+      "reasoning_details_n": 1
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_3331799",
+       "content": "ok-c5e86426"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_3331839",
+       "content": "ok-1cb200bf"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_3331851",
+       "content": "ok-7672cd8c"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-11-01T06:22:13Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "STOP",
+      "upstream_provider": "Google",
+      "cost": 0.002516,
+      "reasoning_tokens": 6,
+      "reasoning_details_n": 1
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "google/gemini-4-argon @Google",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 2834,
+     "output": 312
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-11-01T06:21:24Z",
+ "provider": "openrouter",
+ "model_served": "google/gemini-4-argon @Google",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ },
+ "exp": "R3",
+ "kind": "restart",
+ "episode_id": "openrouter:google/gemini-4-argon-20261013__hint_p3__none__fanout-7ef0f16441__k0__s0",
+ "max_tokens": 4096,
+ "finished_utc": "2026-11-01T06:22:13Z"
+}

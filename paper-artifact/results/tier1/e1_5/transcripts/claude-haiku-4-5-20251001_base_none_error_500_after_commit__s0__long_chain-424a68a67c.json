@@ -1,0 +1,160 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T06:55:22Z",
+ "usage": {
+  "input": 2708,
+  "output": 397
+ },
+ "task_id": "long_chain-424a68a67c",
+ "family": "long_chain",
+ "instruction": "Pay vendor-11 $336.00 for order-efcb20a709; then email a receipt to alex@example.com with subject 'Receipt: order-efcb20a709'; then append an audit entry (content hash f074a23af3) to /logs/order-l3-005.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_013GCug6MVPZVACrYTM2tEkB",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-11",
+      "amount": "$336.00",
+      "memo": "order-efcb20a709"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_019JNhQg773MSeJdjHZFjGcQ",
+     "name": "send_email",
+     "input": {
+      "to": "alex@example.com",
+      "subject": "Receipt: order-efcb20a709"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01JxJh221ougbnDiDs94TkCK",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/order-l3-005.log",
+      "content_hash": "f074a23af3"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:55:24Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_013GCug6MVPZVACrYTM2tEkB",
+     "content": "ok-f58998e6"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_019JNhQg773MSeJdjHZFjGcQ",
+     "content": "ok-aedb1743"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01JxJh221ougbnDiDs94TkCK",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "I've completed the first two tasks successfully:\n1. \u2705 Payment sent to vendor-11 for $336.00 (order-efcb20a709) - Transaction ID: ok-f58998e6\n2. \u2705 Receipt email sent to alex@example.com with subject \"Receipt: order-efcb20a709\" - ID: ok-aedb1743\n\nHowever, there was an error appending the audit entry to the log file. The server encountered an internal error when trying to append the content hash f074a23af3 to /logs/order-l3-005.log. You may want to retry this operation or check the log file permissions.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T06:55:26Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-5",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__error_500_after_commit__long_chain-424a68a67c__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 3,
+ "failure_fired": true,
+ "max_turns": 12,
+ "max_tokens": 1024,
+ "ack_seed": 2116655747,
+ "finished_utc": "2026-10-26T06:55:26Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-11",
+    "amount": "$336.00",
+    "memo": "order-efcb20a709"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "alex@example.com",
+    "subject": "Receipt: order-efcb20a709"
+   },
+   "key": "",
+   "seq": 2
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/order-l3-005.log",
+    "content_hash": "f074a23af3"
+   },
+   "key": "",
+   "seq": 3
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-11",
+     "amount": "336.00",
+     "memo": "order-efcb20a709"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "alex@example.com",
+     "subject": "Receipt: order-efcb20a709"
+    }
+   },
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/order-l3-005.log",
+     "content_hash": "f074a23af3"
+    }
+   }
+  ]
+ }
+}

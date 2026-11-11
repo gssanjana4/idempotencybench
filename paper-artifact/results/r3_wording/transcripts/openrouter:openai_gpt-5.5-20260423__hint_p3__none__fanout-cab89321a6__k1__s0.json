@@ -1,0 +1,254 @@
+{
+ "model": "openrouter:openai/gpt-5.5-20260423",
+ "resume_context": "hint_p3",
+ "mitigation": "none",
+ "graph_id": "fanout-cab89321a6",
+ "topology": "fanout",
+ "interrupt_node": 1,
+ "sample": 0,
+ "instruction": "File a ticket in the infra queue titled 'Rollout 530d50bc64 in infra'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 530d50bc64 in infra' on the personal calendar at 2026-09-02T09:00; 'Check 2: Rollout 530d50bc64 in infra' on the oncall calendar at 2026-09-03T09:00; 'Check 3: Rollout 530d50bc64 in infra' on the planning calendar at 2026-09-04T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_j8B8JCtmPzM9qEqUCAE6Zmyo",
+       "name": "create_ticket",
+       "input": {
+        "queue": "infra",
+        "title": "Rollout 530d50bc64 in infra",
+        "idempotency_key": "ticket-infra-rollout-530d50bc64"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T16:45:04Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "cost": 0.005715,
+      "reasoning_tokens": 65,
+      "reasoning_details_n": 2
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_j8B8JCtmPzM9qEqUCAE6Zmyo",
+       "content": "ok-af7e6e7e"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_JWCHpUtTx3dBOX3WnU6H2xLx",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 1: Rollout 530d50bc64 in infra",
+        "start": "2026-09-02T09:00",
+        "idempotency_key": "event-personal-check1-rollout-530d50bc64-infra"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_vaWiuyljJeeyZuxUSvE1aZce",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 2: Rollout 530d50bc64 in infra",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "event-oncall-check2-rollout-530d50bc64-infra"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_7L1QanO4DPREMIeOWQ9whzg0",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 3: Rollout 530d50bc64 in infra",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "event-planning-check3-rollout-530d50bc64-infra"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T16:45:06Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "cost": 0.009505,
+      "reasoning_tokens": 0
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 1,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "openai/gpt-5.5 @OpenAI",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 1040,
+     "output": 334
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_Z1WOb7sfWMhTPAHcwbACEcQr",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-11-01T16:45:09Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "cost": 0.003235,
+      "reasoning_tokens": 12,
+      "reasoning_details_n": 2
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_Z1WOb7sfWMhTPAHcwbACEcQr",
+       "content": "create_ticket(queue=infra, title=Rollout 530d50bc64 in infra)\ncreate_event(calendar_id=personal, title=Check 1: Rollout 530d50bc64 in infra, start=2026-09-02T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "call_1ueScY6AChZBq8cTLwWrZnoK",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 2: Rollout 530d50bc64 in infra",
+        "start": "2026-09-03T09:00",
+        "idempotency_key": "rollout-530d50bc64-infra-check2"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "call_0ypnZXiOF4Dswe7ZcW91Hws2",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 3: Rollout 530d50bc64 in infra",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "rollout-530d50bc64-infra-check3"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T16:45:11Z",
+     "stop_reason": "tool_calls",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "cost": 0.00858,
+      "reasoning_tokens": 42,
+      "reasoning_details_n": 2
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_1ueScY6AChZBq8cTLwWrZnoK",
+       "content": "ok-44774735"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "call_0ypnZXiOF4Dswe7ZcW91Hws2",
+       "content": "ok-3a1d6a56"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-11-01T16:45:13Z",
+     "stop_reason": "stop",
+     "provider_meta": {
+      "temperature_sent": 0.0,
+      "native_finish_reason": "completed",
+      "upstream_provider": "OpenAI",
+      "cost": 0.004125,
+      "reasoning_tokens": 0
+     }
+    }
+   ],
+   "meta": {
+    "provider": "openrouter",
+    "model_served": "openai/gpt-5.5 @OpenAI",
+    "temperature_requested": 0.0,
+    "temperature": "unverified",
+    "usage": {
+     "input": 1838,
+     "output": 225
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-11-01T16:44:47Z",
+ "provider": "openrouter",
+ "model_served": "openai/gpt-5.5 @OpenAI",
+ "temperature_requested": 0.0,
+ "temperature": "unverified",
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ },
+ "exp": "R3",
+ "kind": "restart",
+ "episode_id": "openrouter:openai/gpt-5.5-20260423__hint_p3__none__fanout-cab89321a6__k1__s0",
+ "max_tokens": 4096,
+ "finished_utc": "2026-11-01T16:45:13Z"
+}

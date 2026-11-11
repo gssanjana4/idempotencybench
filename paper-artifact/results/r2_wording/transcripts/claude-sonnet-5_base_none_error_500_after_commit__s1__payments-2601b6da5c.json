@@ -1,0 +1,199 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-31T23:14:15Z",
+ "usage": {
+  "input": 10,
+  "output": 425,
+  "cache_write": 464,
+  "cache_read": 6642
+ },
+ "task_id": "payments-2601b6da5c",
+ "family": "atomic",
+ "instruction": "Pay vendor-01 $137.00 for invoice-33482b206f.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01VmiJv7CBtQWztvrdgFRVhD",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-31T23:14:17Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1170
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01VmiJv7CBtQWztvrdgFRVhD",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01MehWF3htHmkipWLfQdhEFF",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-01",
+      "amount": "137.00",
+      "memo": "invoice-33482b206f",
+      "idempotency_key": "invoice-33482b206f-vendor-01-137.00"
+     }
+    }
+   ],
+   "at_utc": "2026-10-31T23:14:19Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 128,
+    "cache_read": 1170
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01MehWF3htHmkipWLfQdhEFF",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01KuDryzanfkkhS333GrcQyD",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-31T23:14:19Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 171,
+    "cache_read": 1298
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01KuDryzanfkkhS333GrcQyD",
+     "content": "send_payment(payee=vendor-01, amount=137.00, memo=invoice-33482b206f)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment was actually recorded despite the error response. Let me verify no duplicate exists before concluding."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01CfnosFQNBfRdsUGvK8L2de",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-31T23:14:21Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 66,
+    "cache_read": 1469
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01CfnosFQNBfRdsUGvK8L2de",
+     "content": "send_payment(payee=vendor-01, amount=137.00, memo=invoice-33482b206f)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment of $137.00 to vendor-01 for invoice-33482b206f has been successfully processed (confirmed in the effects log, despite an initial error response \u2014 it was recorded only once, no duplicates).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-31T23:14:22Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 99,
+    "cache_read": 1535
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R2",
+ "episode_id": "claude-sonnet-5__base__none__error_500_after_commit__payments-2601b6da5c__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 1031372395,
+ "finished_utc": "2026-10-31T23:14:22Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-01",
+    "amount": "137.00",
+    "memo": "invoice-33482b206f"
+   },
+   "key": "invoice-33482b206f-vendor-01-137.00",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-01",
+     "amount": "137.00",
+     "memo": "invoice-33482b206f"
+    }
+   }
+  ]
+ }
+}

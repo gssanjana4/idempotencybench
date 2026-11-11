@@ -1,0 +1,144 @@
+{
+ "model": "claude-sonnet-5",
+ "resume_context": "amnesiac",
+ "mitigation": "runtime_receipts",
+ "graph_id": "fanout-a9e252dddc",
+ "topology": "fanout",
+ "interrupt_node": 0,
+ "sample": 0,
+ "instruction": "File a ticket in the onboarding queue titled 'Rollout c9cc4f46d0 in onboarding'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout c9cc4f46d0 in onboarding' on the team calendar at 2026-09-05T09:00; 'Check 2: Rollout c9cc4f46d0 in onboarding' on the personal calendar at 2026-09-06T09:00; 'Check 3: Rollout c9cc4f46d0 in onboarding' on the oncall calendar at 2026-09-07T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01NKHdHYzUV8HL5ahboA7J72",
+       "name": "create_ticket",
+       "input": {
+        "queue": "onboarding",
+        "title": "Rollout c9cc4f46d0 in onboarding",
+        "idempotency_key": "ticket-rollout-c9cc4f46d0"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": []
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01R65dL3n6Bg3kWt7AuvER2z",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01R65dL3n6Bg3kWt7AuvER2z",
+       "content": "create_ticket(queue=onboarding, title=Rollout c9cc4f46d0 in onboarding)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01M275EHbYUfnusnwyrj7c6t",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 1: Rollout c9cc4f46d0 in onboarding",
+        "start": "2026-09-05T09:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01HzVRbtTix9nV9qNkWo1znN",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 2: Rollout c9cc4f46d0 in onboarding",
+        "start": "2026-09-06T09:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_015wYYQmXw4PzgEqPGaAJZYC",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 3: Rollout c9cc4f46d0 in onboarding",
+        "start": "2026-09-07T09:00"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01M275EHbYUfnusnwyrj7c6t",
+       "content": "ok-e098203e"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01HzVRbtTix9nV9qNkWo1znN",
+       "content": "ok-42d5a8f7"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_015wYYQmXw4PzgEqPGaAJZYC",
+       "content": "ok-daaaa4a6"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "The ticket \"Rollout c9cc4f46d0 in onboarding\" was already filed in the onboarding queue, and I've created all three reminder events:\n\n1. 'Check 1: Rollout c9cc4f46d0 in onboarding' \u2014 team calendar, 2026-09-05T09:00\n2. 'Check 2: Rollout c9cc4f46d0 in onboarding' \u2014 personal calendar, 2026-09-06T09:00\n3. 'Check 3: Rollout c9cc4f46d0 in onboarding' \u2014 oncall calendar, 2026-09-07T09:00\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

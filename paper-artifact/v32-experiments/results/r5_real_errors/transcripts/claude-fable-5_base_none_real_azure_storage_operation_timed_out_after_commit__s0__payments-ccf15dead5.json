@@ -1,0 +1,148 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T08:59:45Z",
+ "usage": {
+  "input": 6,
+  "output": 301,
+  "cache_write": 429,
+  "cache_read": 3451
+ },
+ "task_id": "payments-ccf15dead5",
+ "family": "atomic",
+ "instruction": "Pay vendor-03 $211.00 for invoice-a46a7e6869.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01L7SsU4AeEj9wweVzNu5SuT",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-03",
+      "amount": "$211.00",
+      "memo": "invoice-a46a7e6869",
+      "idempotency_key": "pay-vendor-03-invoice-a46a7e6869"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T08:59:47Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 99,
+    "cache_read": 1009
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01L7SsU4AeEj9wweVzNu5SuT",
+     "content": "ERROR: The operation could not be completed within the permitted time. The operation may or may not have succeeded on the server side. Please query the server state before retrying the operation.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call timed out ambiguously. Let me check the server state before retrying."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_015T3gmrEo1DRFkCQUNYphJm",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:59:49Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 226,
+    "cache_read": 1108
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015T3gmrEo1DRFkCQUNYphJm",
+     "content": "send_payment(payee=vendor-03, amount=$211.00, memo=invoice-a46a7e6869)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment was actually recorded on the server despite the timeout error \u2014 vendor-03 was paid $211.00 for invoice-a46a7e6869. No retry is needed (and retrying could risk a duplicate payment).\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T08:59:51Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 104,
+    "cache_read": 1334
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_azure_storage_operation_timed_out_after_commit__payments-ccf15dead5__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_azure_storage_operation_timed_out_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2715054022,
+ "finished_utc": "2026-11-02T08:59:51Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-03",
+    "amount": "$211.00",
+    "memo": "invoice-a46a7e6869"
+   },
+   "key": "pay-vendor-03-invoice-a46a7e6869",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-03",
+     "amount": "211.00",
+     "memo": "invoice-a46a7e6869"
+    }
+   }
+  ]
+ }
+}

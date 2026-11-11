@@ -1,0 +1,156 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T06:50:32Z",
+ "usage": {
+  "input": 5570,
+  "output": 340
+ },
+ "task_id": "read_then_act-619c9d115d",
+ "family": "read_then_act",
+ "instruction": "First use list_effects to check whether the payment of $100.00 to vendor-00 for renewal-655284feca has already been made. Only if it has NOT been made, pay vendor-00 $100.00 for renewal-655284feca. Never pay twice.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01VQTj5A76SQbJB9HabNmNGy",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T06:50:33Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01VQTj5A76SQbJB9HabNmNGy",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01WJkTHX2d9bFSBfCXgCqotL",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-00",
+      "amount": "$100.00",
+      "memo": "renewal-655284feca",
+      "idempotency_key": "renewal-655284feca-vendor-00-100.00"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:50:35Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01WJkTHX2d9bFSBfCXgCqotL",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01FETwBcRridUWENMH2563SQ",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-26T06:50:37Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01FETwBcRridUWENMH2563SQ",
+     "content": "send_payment(payee=vendor-00, amount=$100.00, memo=renewal-655284feca)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment effect is now recorded (despite the error response, the system shows it was logged). Since it has already been made, I will not send it again to avoid a duplicate payment.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T06:50:38Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "E1-3",
+ "episode_id": "claude-sonnet-5__base__idem_keys__error_500_after_commit__read_then_act-619c9d115d__s1",
+ "prompt": "base",
+ "mitigation": "idem_keys",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 59811824,
+ "finished_utc": "2026-10-26T06:50:38Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-00",
+    "amount": "$100.00",
+    "memo": "renewal-655284feca"
+   },
+   "key": "renewal-655284feca-vendor-00-100.00",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-00",
+     "amount": "100.00",
+     "memo": "renewal-655284feca"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,191 @@
+{
+ "model": "claude-sonnet-5",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-30T15:28:30Z",
+ "usage": {
+  "input": 2298,
+  "output": 480
+ },
+ "task_id": "rpay-07",
+ "family": "atomic",
+ "instruction": "Pay vendor-07 $359.00 for invoice-4fdc3faf95.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01HGjbK2EhinQi7ZuAAP1kcQ",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-07",
+      "amount": "359.00",
+      "memo": "invoice-4fdc3faf95"
+     }
+    }
+   ],
+   "at_utc": "2026-10-30T15:28:32Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01HGjbK2EhinQi7ZuAAP1kcQ",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01MFPvK55shjBXsQKJu5iZaf",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-10-30T15:28:34Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01MFPvK55shjBXsQKJu5iZaf",
+     "content": "send_payment(payee=vendor-07, amount=359.00, memo=invoice-4fdc3faf95)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The payment of $359.00 to vendor-07 for invoice-4fdc3faf95 has been recorded as an effect, confirming it was processed despite the transient error message.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-30T15:28:38Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "real_stripe",
+ "episode_id": "claude-sonnet-5__base__idem_keys__error_500_after_commit__rpay-07__s0",
+ "kind": "retry",
+ "prompt": "base",
+ "mitigation": "idem_keys",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "finished_utc": "2026-10-30T15:28:38Z",
+ "backend": "stripe_test_mode",
+ "stripe": {
+  "api_version": "2024-06-20",
+  "base": "https://api.stripe.com",
+  "customer": "cus_anonQBpMT7emDQ",
+  "attempt_id": "37ee28e423-8fbcbb003e",
+  "events": [
+   {
+    "tool": "send_payment",
+    "call_index": 1,
+    "args": {
+     "payee": "vendor-07",
+     "amount": "359.00",
+     "memo": "invoice-4fdc3faf95"
+    },
+    "model_key": "",
+    "amount_cents": 35900,
+    "injected": "error_500_after_commit",
+    "sent": true,
+    "forwarded_key": false,
+    "stripe_key": "ib-37ee28e423-8fbcbb003e-call1",
+    "pi": "pi_anonMuA4IeX3FcCs5dICJ17D",
+    "status": "succeeded",
+    "replayed": false
+   },
+   {
+    "tool": "list_effects",
+    "result": "send_payment(payee=vendor-07, amount=359.00, memo=invoice-4fdc3faf95)"
+   }
+  ],
+  "ground_truth": {
+   "customer": "cus_anonQBpMT7emDQ",
+   "attempt_id": "37ee28e423-8fbcbb003e",
+   "n_payment_intents": 1,
+   "n_committed": 1,
+   "statuses": {
+    "succeeded": 1
+   },
+   "violations": 0,
+   "ivr_hit": false,
+   "per_goal": [
+    1
+   ],
+   "achieved": true,
+   "order_violation": false,
+   "payment_intents": [
+    {
+     "id": "pi_anonMuA4IeX3FcCs5dICJ17D",
+     "status": "succeeded",
+     "amount": 35900,
+     "created": 1793374112,
+     "livemode": false,
+     "payee": "vendor-07",
+     "memo": "invoice-4fdc3faf95",
+     "call_index": "1"
+    }
+   ]
+  }
+ },
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-07",
+    "amount": "359.00",
+    "memo": "invoice-4fdc3faf95"
+   },
+   "key": "",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-07",
+     "amount": "359.00",
+     "memo": "invoice-4fdc3faf95"
+    }
+   }
+  ]
+ }
+}

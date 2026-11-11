@@ -1,0 +1,164 @@
+{
+ "model": "claude-sonnet-5",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "chain4-a9db4e1986",
+ "topology": "chain4",
+ "interrupt_node": 3,
+ "sample": 0,
+ "instruction": "Pay vendor-04 $283.00 for contract-e26bde71dd; then email a receipt to jordan@example.com with subject 'Receipt: contract-e26bde71dd'; then create event 'Follow-up: contract-e26bde71dd' on the planning calendar at 2026-11-04T11:00; then append a closing entry (content hash 454fc899b0) to /logs/contract-003.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_018ENA7324yr8UMB48SLdTz7",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-04",
+        "amount": "283.00",
+        "memo": "contract-e26bde71dd",
+        "idempotency_key": "pay-vendor-04-contract-e26bde71dd"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_018ENA7324yr8UMB48SLdTz7",
+       "content": "ok-640ac8f4"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_019cnoR6Rj27zPYxAyXGPwfB",
+       "name": "send_email",
+       "input": {
+        "to": "jordan@example.com",
+        "subject": "Receipt: contract-e26bde71dd",
+        "idempotency_key": "email-receipt-contract-e26bde71dd"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_019cnoR6Rj27zPYxAyXGPwfB",
+       "content": "ok-e4c7d4b8"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_01KVhtzvKBgzug4Q53JdbBMj",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Follow-up: contract-e26bde71dd",
+        "start": "2026-11-04T11:00",
+        "idempotency_key": "event-followup-contract-e26bde71dd"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01KVhtzvKBgzug4Q53JdbBMj",
+       "content": "ok-bcf874ad"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_01Ngbe2ubRhN1YPcx2ymajTD",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-003.log",
+        "content_hash": "454fc899b0",
+        "idempotency_key": "append-closing-contract-003"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_015mAx66j4oLB3fWUbWuM88Y",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_015mAx66j4oLB3fWUbWuM88Y",
+       "content": "send_payment(payee=vendor-04, amount=283.00, memo=contract-e26bde71dd)\nsend_email(to=jordan@example.com, subject=Receipt: contract-e26bde71dd)\ncreate_event(calendar_id=planning, title=Follow-up: contract-e26bde71dd, start=2026-11-04T11:00)\nappend_file(path=/logs/contract-003.log, content_hash=454fc899b0)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All four steps have already been completed in the previous session:\n\n1. \u2705 Payment of $283.00 to vendor-04 for contract-e26bde71dd\n2. \u2705 Receipt email sent to jordan@example.com\n3. \u2705 Follow-up event created on planning calendar for 2026-11-04T11:00\n4. \u2705 Closing entry appended to /logs/contract-003.log\n\nNo further action is needed.\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

@@ -1,0 +1,226 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:13:46Z",
+ "usage": {
+  "input": 10,
+  "output": 917,
+  "cache_write": 641,
+  "cache_read": 6644
+ },
+ "task_id": "ambiguous-19a5fcdc61",
+ "family": "ambiguous",
+ "instruction": "Make sure priya (reachable at priya@example.com) receives this week's metrics digest \u2014 the one titled Weekly metrics digest d7dada662a. One copy is enough.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "I'll first check whether this digest was already sent to avoid a duplicate."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_012K2sjFX5G3EuwrNEJAXtfN",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:13:48Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1137
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_012K2sjFX5G3EuwrNEJAXtfN",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No copy has been sent yet, so I'll send it now with an idempotency key to guarantee only one copy goes out."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_018BrXPbARUdmoR3Ggqcomjq",
+     "name": "send_email",
+     "input": {
+      "to": "priya@example.com",
+      "subject": "Weekly metrics digest d7dada662a",
+      "idempotency_key": "weekly-metrics-digest-d7dada662a-priya"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:13:52Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 99,
+    "cache_read": 1137
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_018BrXPbARUdmoR3Ggqcomjq",
+     "content": "ERROR: The server had an error while processing your request",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The server errored, which is ambiguous \u2014 the email may or may not have been sent. I'll retry with the same idempotency key so no duplicate is created."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Xy3XkzhmGyJ6tjrEE2NgBh",
+     "name": "send_email",
+     "input": {
+      "to": "priya@example.com",
+      "subject": "Weekly metrics digest d7dada662a",
+      "idempotency_key": "weekly-metrics-digest-d7dada662a-priya"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:13:55Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 217,
+    "cache_read": 1236
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Xy3XkzhmGyJ6tjrEE2NgBh",
+     "content": "ok-ef5266c6"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01M7aNHsMGQNjpt5JswLsd3x",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:13:57Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 228,
+    "cache_read": 1453
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01M7aNHsMGQNjpt5JswLsd3x",
+     "content": "send_email(to=priya@example.com, subject=Weekly metrics digest d7dada662a)\nsend_email(to=priya@example.com, subject=Weekly metrics digest d7dada662a)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "Priya has received the digest. Note on what happened:\n\n- The first send attempt returned a server error, so I retried with the **same idempotency key** to avoid a duplicate.\n- The retry succeeded, but the effects log shows the first attempt actually went through despite the error \u2014 so the server recorded two sends even though the identical idempotency key should have deduplicated them.\n\nPriya definitely has the \"Weekly metrics digest d7dada662a\" email. Unfortunately emails can't be unsent, so if the server's idempotency deduplication truly failed, she may have received two copies \u2014 this appears to be a server-side bug (duplicate side effect despite matching idempotency keys), which may be worth flagging to the platform team.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:14:05Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 97,
+    "cache_read": 1681
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_openai_500_after_commit__ambiguous-19a5fcdc61__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_openai_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3192384886,
+ "finished_utc": "2026-11-02T09:14:05Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "priya@example.com",
+    "subject": "Weekly metrics digest d7dada662a"
+   },
+   "key": "weekly-metrics-digest-d7dada662a-priya",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "priya@example.com",
+    "subject": "Weekly metrics digest d7dada662a"
+   },
+   "key": "weekly-metrics-digest-d7dada662a-priya",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "priya@example.com",
+     "subject": "Weekly metrics digest d7dada662a"
+    }
+   }
+  ]
+ }
+}

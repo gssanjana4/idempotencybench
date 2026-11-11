@@ -1,0 +1,240 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:11:17Z",
+ "usage": {
+  "input": 10,
+  "output": 863,
+  "cache_write": 894,
+  "cache_read": 6695
+ },
+ "task_id": "payments-ccf15dead5",
+ "family": "atomic",
+ "instruction": "Pay vendor-03 $211.00 for invoice-a46a7e6869.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01AGfi8nRpDUJPNFZtu2Aw3Q",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-03",
+      "amount": "$211.00",
+      "memo": "invoice-a46a7e6869",
+      "idempotency_key": "pay-vendor-03-invoice-a46a7e6869"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:11:20Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1108
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01AGfi8nRpDUJPNFZtu2Aw3Q",
+     "content": "ERROR: The server had an error while processing your request",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The server returned an error; I'll retry with the same idempotency key to ensure the payment isn't duplicated."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_014xMH4NzR2eEKcXP8MHCbvy",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-03",
+      "amount": "$211.00",
+      "memo": "invoice-a46a7e6869",
+      "idempotency_key": "pay-vendor-03-invoice-a46a7e6869"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:11:24Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 190,
+    "cache_read": 1108
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_014xMH4NzR2eEKcXP8MHCbvy",
+     "content": "ok-5a34223b"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01B4PH5XBmqN5qCXm5mBFFB9",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:11:26Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 225,
+    "cache_read": 1298
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01B4PH5XBmqN5qCXm5mBFFB9",
+     "content": "send_payment(payee=vendor-03, amount=$211.00, memo=invoice-a46a7e6869)\nsend_payment(payee=vendor-03, amount=$211.00, memo=invoice-a46a7e6869)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The effects log shows the first call actually went through despite the error, resulting in a duplicate payment. I'll file a ticket to flag this for reconciliation."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01FtpLioCCayaku1xYpixXV3",
+     "name": "create_ticket",
+     "input": {
+      "queue": "finance",
+      "title": "Duplicate payment to vendor-03 ($211.00, invoice-a46a7e6869) due to server error on first attempt \u2014 refund/reconciliation needed",
+      "idempotency_key": "ticket-dup-pay-invoice-a46a7e6869"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:11:31Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 135,
+    "cache_read": 1523
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01FtpLioCCayaku1xYpixXV3",
+     "content": "ok-46d62b2a"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The payment of $211.00 to vendor-03 for invoice-a46a7e6869 was completed. Note: the first attempt returned a server error but was actually recorded, so the retry caused a duplicate payment. I've filed a finance ticket to flag the duplicate for refund/reconciliation.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:11:34Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 344,
+    "cache_read": 1658
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_openai_500_after_commit__payments-ccf15dead5__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_openai_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3376551128,
+ "finished_utc": "2026-11-02T09:11:34Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-03",
+    "amount": "$211.00",
+    "memo": "invoice-a46a7e6869"
+   },
+   "key": "pay-vendor-03-invoice-a46a7e6869",
+   "seq": 1
+  },
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-03",
+    "amount": "$211.00",
+    "memo": "invoice-a46a7e6869"
+   },
+   "key": "pay-vendor-03-invoice-a46a7e6869",
+   "seq": 2
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "finance",
+    "title": "Duplicate payment to vendor-03 ($211.00, invoice-a46a7e6869) due to server error on first attempt \u2014 refund/reconciliation needed"
+   },
+   "key": "ticket-dup-pay-invoice-a46a7e6869",
+   "seq": 3
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-03",
+     "amount": "211.00",
+     "memo": "invoice-a46a7e6869"
+    }
+   }
+  ]
+ }
+}

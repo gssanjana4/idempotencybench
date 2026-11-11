@@ -1,0 +1,160 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "amnesiac",
+ "mitigation": "none",
+ "graph_id": "fanout-a9e252dddc",
+ "topology": "fanout",
+ "interrupt_node": 0,
+ "sample": 0,
+ "instruction": "File a ticket in the onboarding queue titled 'Rollout c9cc4f46d0 in onboarding'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout c9cc4f46d0 in onboarding' on the team calendar at 2026-09-05T09:00; 'Check 2: Rollout c9cc4f46d0 in onboarding' on the personal calendar at 2026-09-06T09:00; 'Check 3: Rollout c9cc4f46d0 in onboarding' on the oncall calendar at 2026-09-07T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll first file the ticket, then create the three reminder events."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01KzjZ5qSKgWB7zKzb5LphxN",
+       "name": "create_ticket",
+       "input": {
+        "queue": "onboarding",
+        "title": "Rollout c9cc4f46d0 in onboarding",
+        "idempotency_key": "ticket-rollout-c9cc4f46d0-onboarding"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": []
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll first file the ticket, then create the three reminder events once it's filed."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Eu9cw8GoZfu6HEb4E5x5p7",
+       "name": "create_ticket",
+       "input": {
+        "queue": "onboarding",
+        "title": "Rollout c9cc4f46d0 in onboarding",
+        "idempotency_key": "ticket-rollout-c9cc4f46d0-onboarding"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Eu9cw8GoZfu6HEb4E5x5p7",
+       "content": "ok-8548a4e1"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket is filed. Now I'll create the three reminder events, which are independent of each other:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01LYrR553cUUp5GgvsXjjM6i",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 1: Rollout c9cc4f46d0 in onboarding",
+        "start": "2026-09-05T09:00",
+        "idempotency_key": "check1-rollout-c9cc4f46d0"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01URHDVZR1ZYW3fqvsGeWx96",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 2: Rollout c9cc4f46d0 in onboarding",
+        "start": "2026-09-06T09:00",
+        "idempotency_key": "check2-rollout-c9cc4f46d0"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_0165FG386CXw3RiqXApz3Qqs",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 3: Rollout c9cc4f46d0 in onboarding",
+        "start": "2026-09-07T09:00",
+        "idempotency_key": "check3-rollout-c9cc4f46d0"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01LYrR553cUUp5GgvsXjjM6i",
+       "content": "ok-7bc55b7d"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01URHDVZR1ZYW3fqvsGeWx96",
+       "content": "ok-08f88f36"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_0165FG386CXw3RiqXApz3Qqs",
+       "content": "ok-c0aa0a14"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All steps completed successfully:\n1. \u2705 Ticket \"Rollout c9cc4f46d0 in onboarding\" filed in the onboarding queue\n2. \u2705 'Check 1' event created on team calendar at 2026-09-05T09:00\n3. \u2705 'Check 2' event created on personal calendar at 2026-09-06T09:00\n4. \u2705 'Check 3' event created on oncall calendar at 2026-09-07T09:00\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "givr_hit": 1,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

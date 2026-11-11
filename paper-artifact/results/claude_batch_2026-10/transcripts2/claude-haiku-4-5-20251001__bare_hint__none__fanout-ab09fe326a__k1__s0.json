@@ -1,0 +1,225 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "resume_context": "bare_hint",
+ "mitigation": "none",
+ "graph_id": "fanout-ab09fe326a",
+ "topology": "fanout",
+ "interrupt_node": 1,
+ "sample": 0,
+ "instruction": "File a ticket in the billing queue titled 'Rollout 367e611f55 in billing'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 367e611f55 in billing' on the personal calendar at 2026-09-06T09:00; 'Check 2: Rollout 367e611f55 in billing' on the oncall calendar at 2026-09-07T09:00; 'Check 3: Rollout 367e611f55 in billing' on the planning calendar at 2026-09-08T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll start by filing the ticket in the billing queue, then create the three reminder events."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_011EDLkAjYZSAbk1LoA5XUoZ",
+       "name": "create_ticket",
+       "input": {
+        "queue": "billing",
+        "title": "Rollout 367e611f55 in billing",
+        "idempotency_key": "ticket-rollout-367e611f55-billing"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:27:48Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_011EDLkAjYZSAbk1LoA5XUoZ",
+       "content": "ok-0ed4c9a9"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Great! The ticket has been filed. Now I'll create the three reminder events on their respective calendars."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_019hP35dxyzuNhTuCBMyNojz",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 1: Rollout 367e611f55 in billing",
+        "start": "2026-09-06T09:00",
+        "idempotency_key": "event-check1-rollout-367e611f55"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01QM9Vx9vjfPrVdkASBk1Yos",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 2: Rollout 367e611f55 in billing",
+        "start": "2026-09-07T09:00",
+        "idempotency_key": "event-check2-rollout-367e611f55"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_019ar1AAEptfcyNb26cVhBX2",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 3: Rollout 367e611f55 in billing",
+        "start": "2026-09-08T09:00",
+        "idempotency_key": "event-check3-rollout-367e611f55"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:27:51Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 1,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-haiku-4-5-20251001",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 2697,
+     "output": 565
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll help you complete this task. Let me first check what work has already been done."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01UrwhNv4MBe6Lq3fQKSLsBM",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-25T21:27:52Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01UrwhNv4MBe6Lq3fQKSLsBM",
+       "content": "create_ticket(queue=billing, title=Rollout 367e611f55 in billing)\ncreate_event(calendar_id=personal, title=Check 1: Rollout 367e611f55 in billing, start=2026-09-06T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Good! I can see that the ticket has already been filed and the first reminder event has been created. I need to complete the task by creating the remaining two reminder events:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Cz3jEaLo85F2xhexu6gE3U",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 2: Rollout 367e611f55 in billing",
+        "start": "2026-09-07T09:00"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_012q99T3yqfovDLmrWDnT3WL",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 3: Rollout 367e611f55 in billing",
+        "start": "2026-09-08T09:00"
+       }
+      }
+     ],
+     "at_utc": "2026-10-25T21:27:54Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Cz3jEaLo85F2xhexu6gE3U",
+       "content": "ok-7b59f655"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_012q99T3yqfovDLmrWDnT3WL",
+       "content": "ok-2704fe9d"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Perfect! I have successfully completed the task:\n\n\u2705 **Ticket filed** (already done in previous session): 'Rollout 367e611f55 in billing' in the billing queue\n\n\u2705 **Three reminder events created**:\n1. 'Check 1: Rollout 367e611f55 in billing' on the personal calendar at 2026-09-06T09:00 (already created)\n2. 'Check 2: Rollout 367e611f55 in billing' on the oncall calendar at 2026-09-07T09:00 (just created)\n3. 'Check 3: Rollout 367e611f55 in billing' on the planning calendar at 2026-09-08T09:00 (just created)\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-25T21:27:56Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-haiku-4-5-20251001",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 4462,
+     "output": 493
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-25T21:27:47Z",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

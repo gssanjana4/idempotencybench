@@ -1,0 +1,260 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "chain4-54f1e096fc",
+ "topology": "chain4",
+ "interrupt_node": 0,
+ "sample": 0,
+ "instruction": "Pay vendor-11 $344.00 for contract-c29a430575; then email a receipt to chen@example.com with subject 'Receipt: contract-c29a430575'; then create event 'Follow-up: contract-c29a430575' on the team calendar at 2026-11-05T11:00; then append a closing entry (content hash 21cf92fe97) to /logs/contract-004.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll complete these steps in order, waiting for each to finish before the next.\n\n**Step 1: Send payment**"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01H8WMyDVe7Qf8sf8gAZt23u",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-11",
+        "amount": "$344.00",
+        "memo": "contract-c29a430575",
+        "idempotency_key": "pay-c29a430575-v11"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T03:53:03Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 1245
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 2,
+     "output": 200,
+     "cache_write": 0,
+     "cache_read": 1245
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "I'll first check what side effects have already been recorded, since a previous session may have done some work."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Prdd1hcfXsvGbUQmjed5NV",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-11-01T03:53:05Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 268,
+      "cache_read": 1033
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Prdd1hcfXsvGbUQmjed5NV",
+       "content": "send_payment(payee=vendor-11, amount=$344.00, memo=contract-c29a430575)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The payment was already completed by the previous session, so I'll skip it to avoid a duplicate. Now the email (step 2):"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01EXfZpghRmmEoyoUgDuu9wg",
+       "name": "send_email",
+       "input": {
+        "to": "chen@example.com",
+        "subject": "Receipt: contract-c29a430575",
+        "idempotency_key": "receipt-contract-c29a430575"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T03:53:09Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 110,
+      "cache_read": 1301
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01EXfZpghRmmEoyoUgDuu9wg",
+       "content": "ok-cab6a5f9"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Email sent. Next, the calendar event (step 3):"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_016TnUwiXcfGkGSTSTAFurLc",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Follow-up: contract-c29a430575",
+        "start": "2026-11-05T11:00",
+        "idempotency_key": "followup-contract-c29a430575"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T03:53:12Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 237,
+      "cache_read": 1411
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_016TnUwiXcfGkGSTSTAFurLc",
+       "content": "ok-08a41caa"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Event created. Finally, the log append (step 4):"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_017uy8f6KawThHAqih6wHuqp",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-004.log",
+        "content_hash": "21cf92fe97",
+        "idempotency_key": "close-contract-c29a430575"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T03:53:15Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 183,
+      "cache_read": 1648
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_017uy8f6KawThHAqih6wHuqp",
+       "content": "ok-9b89fea3"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All steps are complete:\n1. \u2705 Payment to vendor-11 ($344.00) \u2014 already done by previous session, not duplicated\n2. \u2705 Receipt emailed to chen@example.com\n3. \u2705 Follow-up event created on team calendar for 2026-11-05T11:00\n4. \u2705 Closing entry appended to /logs/contract-004.log\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-11-01T03:53:18Z",
+     "stop_reason": "end_turn",
+     "provider_meta": {
+      "cache_write": 152,
+      "cache_read": 1831
+     }
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 10,
+     "output": 727,
+     "cache_write": 950,
+     "cache_read": 7224
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-11-01T03:53:00Z",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ },
+ "exp": "R2",
+ "kind": "restart",
+ "episode_id": "claude-fable-5__plan_only__none__chain4-54f1e096fc__k0__s0",
+ "max_tokens": 1024,
+ "finished_utc": "2026-11-01T03:53:18Z"
+}

@@ -1,0 +1,264 @@
+{
+ "model": "claude-sonnet-5",
+ "resume_context": "plan_only",
+ "mitigation": "none",
+ "graph_id": "chain4-54f1e096fc",
+ "topology": "chain4",
+ "interrupt_node": 0,
+ "sample": 1,
+ "instruction": "Pay vendor-11 $344.00 for contract-c29a430575; then email a receipt to chen@example.com with subject 'Receipt: contract-c29a430575'; then create event 'Follow-up: contract-c29a430575' on the team calendar at 2026-11-05T11:00; then append a closing entry (content hash 21cf92fe97) to /logs/contract-004.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01AvhMgnco72pg8dYEqUjvQ6",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-11-01T03:52:11Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 1309
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01AvhMgnco72pg8dYEqUjvQ6",
+       "content": "(no effects recorded)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_01AFhP67q2WMYsMkYdwMzGA8",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-11",
+        "amount": "344.00",
+        "memo": "contract-c29a430575",
+        "idempotency_key": "pay-vendor-11-c29a430575"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T03:52:13Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 117,
+      "cache_read": 1309
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 0,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-sonnet-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 4,
+     "output": 250,
+     "cache_write": 117,
+     "cache_read": 2618
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01RuMkYRqbPfkysYaMhoEKtz",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-11-01T03:52:14Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 1365
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01RuMkYRqbPfkysYaMhoEKtz",
+       "content": "send_payment(payee=vendor-11, amount=344.00, memo=contract-c29a430575)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01AG6oDPCxzih6woWY1GoM5o",
+       "name": "send_email",
+       "input": {
+        "to": "chen@example.com",
+        "subject": "Receipt: contract-c29a430575"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T03:52:16Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 121,
+      "cache_read": 1365
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01AG6oDPCxzih6woWY1GoM5o",
+       "content": "ok-0e4504f5"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_01Ak4Lr6wFsh1ZKB9oTaG9G5",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Follow-up: contract-c29a430575",
+        "start": "2026-11-05T11:00"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T03:52:17Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 128,
+      "cache_read": 1486
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Ak4Lr6wFsh1ZKB9oTaG9G5",
+       "content": "ok-c2fe58b0"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "tool_use",
+       "id": "toolu_01CFH1zZG34xXkzFaSE6hy77",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-004.log",
+        "content_hash": "21cf92fe97"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T03:52:18Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 130,
+      "cache_read": 1614
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01CFH1zZG34xXkzFaSE6hy77",
+       "content": "ok-29c4c5f2"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "DONE"
+      }
+     ],
+     "at_utc": "2026-11-01T03:52:18Z",
+     "stop_reason": "end_turn",
+     "provider_meta": {
+      "cache_write": 101,
+      "cache_read": 1744
+     }
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-sonnet-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 10,
+     "output": 403,
+     "cache_write": 480,
+     "cache_read": 7574
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-11-01T03:52:09Z",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ },
+ "exp": "R2",
+ "kind": "restart",
+ "episode_id": "claude-sonnet-5__plan_only__none__chain4-54f1e096fc__k0__s1",
+ "max_tokens": 1024,
+ "finished_utc": "2026-11-01T03:52:18Z"
+}

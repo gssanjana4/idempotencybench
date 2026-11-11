@@ -1,0 +1,245 @@
+{
+ "model": "claude-sonnet-5",
+ "resume_context": "amnesiac",
+ "mitigation": "none",
+ "graph_id": "chain4-27d504eba1",
+ "topology": "chain4",
+ "interrupt_node": 2,
+ "sample": 1,
+ "instruction": "Pay vendor-14 $222.00 for contract-fb2be04dc0; then email a receipt to tunde@example.com with subject 'Receipt: contract-fb2be04dc0'; then create event 'Follow-up: contract-fb2be04dc0' on the oncall calendar at 2026-11-03T11:00; then append a closing entry (content hash e9b14f4304) to /logs/contract-002.log. Each step exactly once, in that order.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01C2kpbyhuWWW8Kc8ndrSDP7",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-26T05:36:57Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01C2kpbyhuWWW8Kc8ndrSDP7",
+       "content": "(no effects recorded)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "No prior effects recorded. Proceeding with step 1."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Xy8UvbiR65neSeKn7cStje",
+       "name": "send_payment",
+       "input": {
+        "payee": "vendor-14",
+        "amount": "222.00",
+        "memo": "contract-fb2be04dc0",
+        "idempotency_key": "pay-vendor-14-contract-fb2be04dc0"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:36:59Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01Xy8UvbiR65neSeKn7cStje",
+       "content": "ok-99d7f2b2"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Payment sent. Proceeding with step 2."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01NDck83P8zvjvDsRd3ZH8c2",
+       "name": "send_email",
+       "input": {
+        "to": "tunde@example.com",
+        "subject": "Receipt: contract-fb2be04dc0",
+        "idempotency_key": "email-receipt-contract-fb2be04dc0"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:37:01Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01NDck83P8zvjvDsRd3ZH8c2",
+       "content": "ok-c4e8f2ae"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Email sent. Proceeding with step 3."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Tisa9JWitqdxuS8SQx6h55",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Follow-up: contract-fb2be04dc0",
+        "start": "2026-11-03T11:00",
+        "idempotency_key": "event-followup-contract-fb2be04dc0"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:37:03Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 2,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-sonnet-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 6296,
+     "output": 642
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01ECTwYY5Kz9mVZNEJNrDcYT",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-26T05:37:04Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01ECTwYY5Kz9mVZNEJNrDcYT",
+       "content": "send_payment(payee=vendor-14, amount=222.00, memo=contract-fb2be04dc0)\nsend_email(to=tunde@example.com, subject=Receipt: contract-fb2be04dc0)\ncreate_event(calendar_id=oncall, title=Follow-up: contract-fb2be04dc0, start=2026-11-03T11:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All steps except the final one have already been completed. I'll proceed with the remaining step: appending the closing entry to the log file."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01TELDxv3EP8rk4thqbAHt5K",
+       "name": "append_file",
+       "input": {
+        "path": "/logs/contract-002.log",
+        "content_hash": "e9b14f4304"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:37:06Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01TELDxv3EP8rk4thqbAHt5K",
+       "content": "ok-7dae263d"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All four steps have been completed in order:\n\n1. \u2705 Payment of $222.00 to vendor-14 for contract-fb2be04dc0 (already done)\n2. \u2705 Receipt email sent to tunde@example.com (already done)\n3. \u2705 Follow-up event created on oncall calendar for 2026-11-03T11:00 (already done)\n4. \u2705 Closing entry appended to /logs/contract-002.log (just completed)\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-26T05:37:08Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-sonnet-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 4564,
+     "output": 382
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-26T05:36:55Z",
+ "provider": "anthropic",
+ "model_served": "claude-sonnet-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

@@ -1,0 +1,210 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "fanout-bda1830e69",
+ "topology": "fanout",
+ "interrupt_node": 2,
+ "sample": 0,
+ "instruction": "File a ticket in the infra queue titled 'Rollout 37a5b0c1b3 in infra'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 37a5b0c1b3 in infra' on the oncall calendar at 2026-09-07T09:00; 'Check 2: Rollout 37a5b0c1b3 in infra' on the planning calendar at 2026-09-08T09:00; 'Check 3: Rollout 37a5b0c1b3 in infra' on the team calendar at 2026-09-09T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll help you file the ticket and then create the three reminder events. Let me start by filing the ticket."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01X2Z5nnBrczeksorxf5xywr",
+       "name": "create_ticket",
+       "input": {
+        "queue": "infra",
+        "title": "Rollout 37a5b0c1b3 in infra",
+        "idempotency_key": "ticket-37a5b0c1b3-infra"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:56:13Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01X2Z5nnBrczeksorxf5xywr",
+       "content": "ok-70cd1fa3"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Great! The ticket has been filed. Now I'll create the three reminder events on their respective calendars."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Dn6xzm2q848Bkt2tzs1DVF",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 1: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-07T09:00",
+        "idempotency_key": "event-check1-37a5b0c1b3"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01Lg9hG9pvGXpPNHRLqchnNr",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 2: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-08T09:00",
+        "idempotency_key": "event-check2-37a5b0c1b3"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01H9RD4jaw9Vh7EJ3BMwRzCb",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-09T09:00",
+        "idempotency_key": "event-check3-37a5b0c1b3"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:56:17Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "interrupt",
+     "at_node": 2,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-haiku-4-5-20251001",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 2749,
+     "output": 595
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll start by checking what actions have already been completed."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01GgZC2QX1AJMq7wGK4ky5a6",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-10-26T05:56:18Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01GgZC2QX1AJMq7wGK4ky5a6",
+       "content": "create_ticket(queue=infra, title=Rollout 37a5b0c1b3 in infra)\ncreate_event(calendar_id=oncall, title=Check 1: Rollout 37a5b0c1b3 in infra, start=2026-09-07T09:00)\ncreate_event(calendar_id=planning, title=Check 2: Rollout 37a5b0c1b3 in infra, start=2026-09-08T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Good! I can see that the previous session completed:\n1. \u2705 Filed the ticket in the infra queue\n2. \u2705 Created the first reminder event on oncall calendar\n3. \u2705 Created the second reminder event on planning calendar\n\nI need to complete the remaining task:\n- Create the third reminder event on the team calendar\n\nLet me create the final reminder event:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01JV5sG6ZbBKbzdWJekMGVyP",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-09T09:00"
+       }
+      }
+     ],
+     "at_utc": "2026-10-26T05:56:20Z",
+     "stop_reason": "tool_use"
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01JV5sG6ZbBKbzdWJekMGVyP",
+       "content": "ok-7883a8b1"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Perfect! I have successfully completed all the required tasks:\n\n1. \u2705 Ticket filed in the infra queue with title \"Rollout 37a5b0c1b3 in infra\"\n2. \u2705 Reminder event \"Check 1: Rollout 37a5b0c1b3 in infra\" created on oncall calendar at 2026-09-07T09:00\n3. \u2705 Reminder event \"Check 2: Rollout 37a5b0c1b3 in infra\" created on planning calendar at 2026-09-08T09:00\n4. \u2705 Reminder event \"Check 3: Rollout 37a5b0c1b3 in infra\" created on team calendar at 2026-09-09T09:00\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-10-26T05:56:21Z",
+     "stop_reason": "end_turn"
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-haiku-4-5-20251001",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 4707,
+     "output": 455
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-10-26T05:56:12Z",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

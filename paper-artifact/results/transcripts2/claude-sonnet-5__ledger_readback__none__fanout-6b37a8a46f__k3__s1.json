@@ -1,0 +1,142 @@
+{
+ "model": "claude-sonnet-5",
+ "resume_context": "ledger_readback",
+ "mitigation": "none",
+ "graph_id": "fanout-6b37a8a46f",
+ "topology": "fanout",
+ "interrupt_node": 3,
+ "sample": 1,
+ "instruction": "File a ticket in the security queue titled 'Rollout 131f9945f6 in security'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 131f9945f6 in security' on the planning calendar at 2026-09-04T09:00; 'Check 2: Rollout 131f9945f6 in security' on the team calendar at 2026-09-05T09:00; 'Check 3: Rollout 131f9945f6 in security' on the personal calendar at 2026-09-06T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_014nwomauRrxNhq8Ho45R1C1",
+       "name": "create_ticket",
+       "input": {
+        "queue": "security",
+        "title": "Rollout 131f9945f6 in security",
+        "idempotency_key": "ticket-rollout-131f9945f6-security"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_014nwomauRrxNhq8Ho45R1C1",
+       "content": "ok-8fd031a2"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "Ticket filed. Now creating the three reminder events."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01T3t48EiBH4xWZnjgMkTBqN",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 1: Rollout 131f9945f6 in security",
+        "start": "2026-09-04T09:00",
+        "idempotency_key": "event-check1-rollout-131f9945f6-security"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01EH4C7xxuTT8MgwnvGVtqWp",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 2: Rollout 131f9945f6 in security",
+        "start": "2026-09-05T09:00",
+        "idempotency_key": "event-check2-rollout-131f9945f6-security"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01XNwWfcCA24GUAxbT2jGQc3",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 3: Rollout 131f9945f6 in security",
+        "start": "2026-09-06T09:00",
+        "idempotency_key": "event-check3-rollout-131f9945f6-security"
+       }
+      }
+     ]
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01T3Wm1bjAqeGEhgV697jUJd",
+       "name": "list_effects",
+       "input": {}
+      }
+     ]
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01T3Wm1bjAqeGEhgV697jUJd",
+       "content": "create_ticket(queue=security, title=Rollout 131f9945f6 in security)\ncreate_event(calendar_id=planning, title=Check 1: Rollout 131f9945f6 in security, start=2026-09-04T09:00)\ncreate_event(calendar_id=team, title=Check 2: Rollout 131f9945f6 in security, start=2026-09-05T09:00)\ncreate_event(calendar_id=personal, title=Check 3: Rollout 131f9945f6 in security, start=2026-09-06T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All actions have already been completed in the previous session:\n- Ticket filed in security queue \u2713\n- Check 1 event on planning calendar \u2713\n- Check 2 event on team calendar \u2713\n- Check 3 event on personal calendar \u2713\n\nNo further action is needed.\n\nDONE"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ }
+}

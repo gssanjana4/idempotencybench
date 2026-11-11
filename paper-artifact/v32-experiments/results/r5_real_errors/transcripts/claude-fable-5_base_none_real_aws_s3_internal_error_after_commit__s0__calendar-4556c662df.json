@@ -1,0 +1,235 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:21:14Z",
+ "usage": {
+  "input": 10,
+  "output": 849,
+  "cache_write": 885,
+  "cache_read": 6584
+ },
+ "task_id": "calendar-4556c662df",
+ "family": "atomic",
+ "instruction": "Create event 'Sync feeb37d468' on the personal calendar at 2026-08-02T10:00.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01SdpsHFSoBA85DFWnAJDiMW",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "personal",
+      "title": "Sync feeb37d468",
+      "start": "2026-08-02T10:00"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:21:16Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1116
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01SdpsHFSoBA85DFWnAJDiMW",
+     "content": "ERROR: We encountered an internal error. Please try again.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call hit an internal error. Let me retry with an idempotency key to avoid duplication."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Wj6P1cfvDjPYSKwc1gpt3a",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "personal",
+      "title": "Sync feeb37d468",
+      "start": "2026-08-02T10:00",
+      "idempotency_key": "sync-feeb37d468-20260802T1000"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:21:20Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 141,
+    "cache_read": 1116
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Wj6P1cfvDjPYSKwc1gpt3a",
+     "content": "ok-e7f366b1"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01M1rh2P694JH8fqQt24LSdw",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:21:23Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 208,
+    "cache_read": 1257
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01M1rh2P694JH8fqQt24LSdw",
+     "content": "create_event(calendar_id=personal, title=Sync feeb37d468, start=2026-08-02T10:00)\ncreate_event(calendar_id=personal, title=Sync feeb37d468, start=2026-08-02T10:00)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01BBy6wcVyTPrE3WcBwpWLcG",
+     "name": "create_ticket",
+     "input": {
+      "queue": "calendar-support",
+      "title": "Duplicate event 'Sync feeb37d468' on personal calendar at 2026-08-02T10:00 \u2014 please remove one copy",
+      "idempotency_key": "dup-sync-feeb37d468-cleanup"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:21:28Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 165,
+    "cache_read": 1465
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01BBy6wcVyTPrE3WcBwpWLcG",
+     "content": "ok-d01a8125"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The event 'Sync feeb37d468' was created on the personal calendar at 2026-08-02T10:00. Note: the initial API call returned an error but still recorded the event, resulting in a duplicate. Since no delete tool is available, I filed a cleanup ticket to have the duplicate removed.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:21:31Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 371,
+    "cache_read": 1630
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_aws_s3_internal_error_after_commit__calendar-4556c662df__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_aws_s3_internal_error_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 628667848,
+ "finished_utc": "2026-11-02T09:21:31Z",
+ "ledger": [
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "personal",
+    "title": "Sync feeb37d468",
+    "start": "2026-08-02T10:00"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "personal",
+    "title": "Sync feeb37d468",
+    "start": "2026-08-02T10:00"
+   },
+   "key": "sync-feeb37d468-20260802T1000",
+   "seq": 2
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "calendar-support",
+    "title": "Duplicate event 'Sync feeb37d468' on personal calendar at 2026-08-02T10:00 \u2014 please remove one copy"
+   },
+   "key": "dup-sync-feeb37d468-cleanup",
+   "seq": 3
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "personal",
+     "title": "Sync feeb37d468",
+     "start": "2026-08-02T10:00"
+    }
+   }
+  ]
+ }
+}

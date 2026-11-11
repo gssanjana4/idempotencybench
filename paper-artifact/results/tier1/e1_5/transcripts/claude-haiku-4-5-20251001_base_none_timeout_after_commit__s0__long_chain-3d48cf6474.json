@@ -1,0 +1,236 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T06:53:30Z",
+ "usage": {
+  "input": 4699,
+  "output": 620
+ },
+ "task_id": "long_chain-3d48cf6474",
+ "family": "long_chain",
+ "instruction": "Pay vendor-09 $171.00 for order-52128032c0; then email a receipt to maria@example.com with subject 'Receipt: order-52128032c0'; then create event 'Review: order-52128032c0' on the planning calendar at 2026-12-02T15:00; then append an audit entry (content hash 9792874131) to /logs/order-l4-001.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "I'll execute all four tasks for you in the proper sequence."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01PrJbqibFNyvLQXKNzRxJYk",
+     "name": "send_payment",
+     "input": {
+      "payee": "vendor-09",
+      "amount": "171.00",
+      "memo": "order-52128032c0"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01HtcoCJKFBqnYj6kV3jQ32E",
+     "name": "send_email",
+     "input": {
+      "to": "maria@example.com",
+      "subject": "Receipt: order-52128032c0"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01A38BPkE5rYsu2ttdgzkupJ",
+     "name": "create_event",
+     "input": {
+      "calendar_id": "planning",
+      "title": "Review: order-52128032c0",
+      "start": "2026-12-02T15:00"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01NJuos2KCu9WT6KmUZRHwVx",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/order-l4-001.log",
+      "content_hash": "9792874131"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:53:33Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01PrJbqibFNyvLQXKNzRxJYk",
+     "content": "ok-12f86c27"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01HtcoCJKFBqnYj6kV3jQ32E",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01A38BPkE5rYsu2ttdgzkupJ",
+     "content": "ok-e835f8f4"
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01NJuos2KCu9WT6KmUZRHwVx",
+     "content": "ok-e3df81db"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email send operation timed out. Let me retry that one:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01HHxgqDG2Y4KTu6kd3WXQih",
+     "name": "send_email",
+     "input": {
+      "to": "maria@example.com",
+      "subject": "Receipt: order-52128032c0"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T06:53:34Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01HHxgqDG2Y4KTu6kd3WXQih",
+     "content": "ok-add78c7f"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Perfect! All tasks completed successfully:\n\n1. \u2705 **Payment sent** to vendor-09 for $171.00 (order-52128032c0) - Reference: ok-12f86c27\n2. \u2705 **Email sent** to maria@example.com with subject \"Receipt: order-52128032c0\" - Reference: ok-add78c7f\n3. \u2705 **Event created** \"Review: order-52128032c0\" on planning calendar for 2026-12-02T15:00 - Reference: ok-e835f8f4\n4. \u2705 **Audit entry appended** to /logs/order-l4-001.log (content hash: 9792874131) - Reference: ok-e3df81db\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-10-26T06:53:36Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-5",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__timeout_after_commit__long_chain-3d48cf6474__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 2,
+ "failure_fired": true,
+ "max_turns": 12,
+ "max_tokens": 1024,
+ "ack_seed": 306193084,
+ "finished_utc": "2026-10-26T06:53:36Z",
+ "ledger": [
+  {
+   "tool": "send_payment",
+   "args": {
+    "payee": "vendor-09",
+    "amount": "171.00",
+    "memo": "order-52128032c0"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "maria@example.com",
+    "subject": "Receipt: order-52128032c0"
+   },
+   "key": "",
+   "seq": 2
+  },
+  {
+   "tool": "create_event",
+   "args": {
+    "calendar_id": "planning",
+    "title": "Review: order-52128032c0",
+    "start": "2026-12-02T15:00"
+   },
+   "key": "",
+   "seq": 3
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/order-l4-001.log",
+    "content_hash": "9792874131"
+   },
+   "key": "",
+   "seq": 4
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "maria@example.com",
+    "subject": "Receipt: order-52128032c0"
+   },
+   "key": "",
+   "seq": 5
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_payment",
+    "canon_args": {
+     "payee": "vendor-09",
+     "amount": "171.00",
+     "memo": "order-52128032c0"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "maria@example.com",
+     "subject": "Receipt: order-52128032c0"
+    }
+   },
+   {
+    "tool": "create_event",
+    "canon_args": {
+     "calendar_id": "planning",
+     "title": "Review: order-52128032c0",
+     "start": "2026-12-02T15:00"
+    }
+   },
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/order-l4-001.log",
+     "content_hash": "9792874131"
+    }
+   }
+  ]
+ }
+}

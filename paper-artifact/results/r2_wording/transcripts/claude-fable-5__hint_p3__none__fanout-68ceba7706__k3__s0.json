@@ -1,0 +1,213 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "hint_p3",
+ "mitigation": "none",
+ "graph_id": "fanout-68ceba7706",
+ "topology": "fanout",
+ "interrupt_node": 3,
+ "sample": 0,
+ "instruction": "File a ticket in the support queue titled 'Rollout 6ecd38c552 in support'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 6ecd38c552 in support' on the planning calendar at 2026-09-08T09:00; 'Check 2: Rollout 6ecd38c552 in support' on the team calendar at 2026-09-09T09:00; 'Check 3: Rollout 6ecd38c552 in support' on the personal calendar at 2026-09-10T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll start by filing the ticket, since the events depend on it being filed first."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01MN2uoGvf8bv2dciF375eT7",
+       "name": "create_ticket",
+       "input": {
+        "queue": "support",
+        "title": "Rollout 6ecd38c552 in support",
+        "idempotency_key": "ticket-rollout-6ecd38c552-support"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T03:51:13Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 1285
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01MN2uoGvf8bv2dciF375eT7",
+       "content": "ok-e780412d"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket is filed. Now I'll create the three reminder events, which are independent of each other:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_013ajM4oQeHgsSdnkka4ZRk3",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 1: Rollout 6ecd38c552 in support",
+        "start": "2026-09-08T09:00",
+        "idempotency_key": "check1-rollout-6ecd38c552"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01KR7xCGwYku5D4jxnHvCjAh",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 2: Rollout 6ecd38c552 in support",
+        "start": "2026-09-09T09:00",
+        "idempotency_key": "check2-rollout-6ecd38c552"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01EaPyKo7iRnAUuoC5oJxJhC",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "personal",
+        "title": "Check 3: Rollout 6ecd38c552 in support",
+        "start": "2026-09-10T09:00",
+        "idempotency_key": "check3-rollout-6ecd38c552"
+       }
+      }
+     ],
+     "at_utc": "2026-11-01T03:51:19Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 164,
+      "cache_read": 1285
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 3,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 4,
+     "output": 678,
+     "cache_write": 164,
+     "cache_read": 2570
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "First, let me check what's already been done:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01WvhWwCFqcNo5KsSd2oFYSf",
+       "name": "list_effects",
+       "input": {}
+      }
+     ],
+     "at_utc": "2026-11-01T03:51:21Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 282,
+      "cache_read": 1033
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01WvhWwCFqcNo5KsSd2oFYSf",
+       "content": "create_ticket(queue=support, title=Rollout 6ecd38c552 in support)\ncreate_event(calendar_id=planning, title=Check 1: Rollout 6ecd38c552 in support, start=2026-09-08T09:00)\ncreate_event(calendar_id=team, title=Check 2: Rollout 6ecd38c552 in support, start=2026-09-09T09:00)\ncreate_event(calendar_id=personal, title=Check 3: Rollout 6ecd38c552 in support, start=2026-09-10T09:00)"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "All steps have already been completed by the previous session:\n\n- \u2705 Ticket filed in the support queue: 'Rollout 6ecd38c552 in support'\n- \u2705 Check 1 event created on planning calendar at 2026-09-08T09:00\n- \u2705 Check 2 event created on team calendar at 2026-09-09T09:00\n- \u2705 Check 3 event created on personal calendar at 2026-09-10T09:00\n\nSince each event must be created exactly once, no further actions are needed.\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-11-01T03:51:24Z",
+     "stop_reason": "end_turn",
+     "provider_meta": {
+      "cache_write": 232,
+      "cache_read": 1315
+     }
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 4,
+     "output": 233,
+     "cache_write": 514,
+     "cache_read": 2348
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-11-01T03:51:11Z",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 0,
+  "givr_hit": 0,
+  "completion": 1,
+  "order_violation": 0
+ },
+ "exp": "R2",
+ "kind": "restart",
+ "episode_id": "claude-fable-5__hint_p3__none__fanout-68ceba7706__k3__s0",
+ "max_tokens": 1024,
+ "finished_utc": "2026-11-01T03:51:24Z"
+}

@@ -1,0 +1,158 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:08:37Z",
+ "usage": {
+  "input": 6,
+  "output": 347,
+  "cache_write": 188,
+  "cache_read": 3641
+ },
+ "task_id": "files-6936671904",
+ "family": "atomic",
+ "instruction": "Append audit entry 1 (content hash eb425e5f5c) to /logs/audit-001.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01FMNWNMoh8c5RSgxZUMcGRK",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-001.log",
+      "content_hash": "eb425e5f5c",
+      "idempotency_key": "audit-001-entry-1"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:08:40Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1115
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01FMNWNMoh8c5RSgxZUMcGRK",
+     "content": "ERROR: Server Error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The first attempt failed with a server error. Retrying with the same idempotency key to avoid duplicate appends:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01HEEZGYECHLqb8k8Js5jw9z",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-001.log",
+      "content_hash": "eb425e5f5c",
+      "idempotency_key": "audit-001-entry-1"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:08:44Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1263
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01HEEZGYECHLqb8k8Js5jw9z",
+     "content": "ok-e4b1d83c"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Audit entry 1 (content hash eb425e5f5c) has been successfully appended to /logs/audit-001.log.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:08:47Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 188,
+    "cache_read": 1263
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_github_rest_timeout_server_error_after_commit__files-6936671904__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_github_rest_timeout_server_error_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 2867192561,
+ "finished_utc": "2026-11-02T09:08:47Z",
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-001.log",
+    "content_hash": "eb425e5f5c"
+   },
+   "key": "audit-001-entry-1",
+   "seq": 1
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-001.log",
+    "content_hash": "eb425e5f5c"
+   },
+   "key": "audit-001-entry-1",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-001.log",
+     "content_hash": "eb425e5f5c"
+    }
+   }
+  ]
+ }
+}

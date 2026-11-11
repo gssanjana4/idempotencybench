@@ -1,0 +1,235 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-01T05:11:51Z",
+ "usage": {
+  "input": 10,
+  "output": 803,
+  "cache_write": 927,
+  "cache_read": 6343
+ },
+ "task_id": "files-c5c13dc477",
+ "family": "atomic",
+ "instruction": "Append audit entry 0 (content hash 9b5daa1752) to /logs/audit-000.log.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01GMowg1MAqkmLqFEDzLsX2Q",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:11:53Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 106,
+    "cache_read": 1009
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01GMowg1MAqkmLqFEDzLsX2Q",
+     "content": "ERROR: request timed out",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The request timed out; I'll retry with an idempotency key to avoid a duplicate append in case the first call actually went through."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01ES1cDbW5XN8GnTBkjjrW3b",
+     "name": "append_file",
+     "input": {
+      "path": "/logs/audit-000.log",
+      "content_hash": "9b5daa1752",
+      "idempotency_key": "audit-000-entry-0-9b5daa1752"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:11:57Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 106,
+    "cache_read": 1115
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01ES1cDbW5XN8GnTBkjjrW3b",
+     "content": "ok-5373bfdc"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "Let me verify no duplicate was recorded from the timed-out call:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01QjPfQtKkcrhdCrAqePT5zw",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-01T05:12:00Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 205,
+    "cache_read": 1221
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01QjPfQtKkcrhdCrAqePT5zw",
+     "content": "append_file(path=/logs/audit-000.log, content_hash=9b5daa1752)\nappend_file(path=/logs/audit-000.log, content_hash=9b5daa1752)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The first call actually succeeded despite the timeout, so the entry was appended twice. I have no tool to remove an append, so I'll file a ticket to flag the duplicate for cleanup:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_011EhwEwq6Eurw4PGjBP59bi",
+     "name": "create_ticket",
+     "input": {
+      "queue": "ops",
+      "title": "Duplicate audit entry 0 (hash 9b5daa1752) in /logs/audit-000.log due to timed-out append retry \u2014 needs dedup",
+      "idempotency_key": "dup-audit-000-entry-0"
+     }
+    }
+   ],
+   "at_utc": "2026-11-01T05:12:06Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 146,
+    "cache_read": 1426
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_011EhwEwq6Eurw4PGjBP59bi",
+     "content": "ok-cfab9616"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The audit entry was appended to /logs/audit-000.log. Note: the initial attempt timed out but actually succeeded, so the retry created a duplicate entry. Since appends can't be undone with my tools, I filed an ops ticket to have the duplicate cleaned up.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-01T05:12:08Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 364,
+    "cache_read": 1572
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 1,
+ "exp": "R3",
+ "episode_id": "claude-fable-5__base__none__timeout_after_commit__files-c5c13dc477__s1",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "timeout_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 776552225,
+ "finished_utc": "2026-11-01T05:12:08Z",
+ "ledger": [
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "append_file",
+   "args": {
+    "path": "/logs/audit-000.log",
+    "content_hash": "9b5daa1752"
+   },
+   "key": "audit-000-entry-0-9b5daa1752",
+   "seq": 2
+  },
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "ops",
+    "title": "Duplicate audit entry 0 (hash 9b5daa1752) in /logs/audit-000.log due to timed-out append retry \u2014 needs dedup"
+   },
+   "key": "dup-audit-000-entry-0",
+   "seq": 3
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "append_file",
+    "canon_args": {
+     "path": "/logs/audit-000.log",
+     "content_hash": "9b5daa1752"
+    }
+   }
+  ]
+ }
+}

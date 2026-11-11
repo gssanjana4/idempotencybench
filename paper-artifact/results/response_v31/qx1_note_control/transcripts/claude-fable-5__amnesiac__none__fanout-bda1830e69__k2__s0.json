@@ -1,0 +1,282 @@
+{
+ "model": "claude-fable-5",
+ "resume_context": "amnesiac",
+ "mitigation": "none",
+ "graph_id": "fanout-bda1830e69",
+ "topology": "fanout",
+ "interrupt_node": 2,
+ "sample": 0,
+ "instruction": "File a ticket in the infra queue titled 'Rollout 37a5b0c1b3 in infra'. Once it is filed, create these three reminder events (each exactly once): 'Check 1: Rollout 37a5b0c1b3 in infra' on the oncall calendar at 2026-09-07T09:00; 'Check 2: Rollout 37a5b0c1b3 in infra' on the planning calendar at 2026-09-08T09:00; 'Check 3: Rollout 37a5b0c1b3 in infra' on the team calendar at 2026-09-09T09:00.",
+ "sessions": [
+  {
+   "n": 1,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll first file the ticket, then create the three reminder events once it's filed."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01JYKibtUyCVtT76us5x6YNx",
+       "name": "create_ticket",
+       "input": {
+        "queue": "infra",
+        "title": "Rollout 37a5b0c1b3 in infra",
+        "idempotency_key": "ticket-rollout-37a5b0c1b3-infra"
+       }
+      }
+     ],
+     "at_utc": "2026-11-11T02:18:19Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 266,
+      "cache_read": 1033
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01JYKibtUyCVtT76us5x6YNx",
+       "content": "ok-0930a411"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket is filed. Now I'll create the three reminder events, which are independent of each other:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01AZhSnLLuqYg6cmDTWwZ3vp",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 1: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-07T09:00",
+        "idempotency_key": "check1-rollout-37a5b0c1b3"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01TxYKnZwiUSdub9S8Euwotj",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 2: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-08T09:00",
+        "idempotency_key": "check2-rollout-37a5b0c1b3"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_017jNtnrqknCcrJvrnfEEquB",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-09T09:00",
+        "idempotency_key": "check3-rollout-37a5b0c1b3"
+       }
+      }
+     ],
+     "at_utc": "2026-11-11T02:18:25Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 171,
+      "cache_read": 1299
+     }
+    },
+    {
+     "role": "interrupt",
+     "at_node": 2,
+     "note": "session cut after commit; result never returned to model"
+    }
+   ],
+   "interrupted": true,
+   "acknowledged": [
+    0
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 4,
+     "output": 712,
+     "cache_write": 437,
+     "cache_read": 2332
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  },
+  {
+   "n": 2,
+   "turns": [
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "I'll first file the ticket, since the events depend on it being filed."
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_017oAqLhZbJPvnrdnh5hSwYZ",
+       "name": "create_ticket",
+       "input": {
+        "queue": "infra",
+        "title": "Rollout 37a5b0c1b3 in infra",
+        "idempotency_key": "ticket-rollout-37a5b0c1b3-infra"
+       }
+      }
+     ],
+     "at_utc": "2026-11-11T02:18:28Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 0,
+      "cache_read": 1299
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_017oAqLhZbJPvnrdnh5hSwYZ",
+       "content": "ok-0e3f9c56"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "thinking"
+      },
+      {
+       "type": "text",
+       "text": "The ticket is filed. Now I'll create the three reminder events \u2014 they're independent of each other, so I'll create them all at once:"
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01FBTamEXyJNmUnkXBZGfNZU",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "oncall",
+        "title": "Check 1: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-07T09:00",
+        "idempotency_key": "event-check1-rollout-37a5b0c1b3"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01PV3iSWbQykwWRe5p1zqnEg",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "planning",
+        "title": "Check 2: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-08T09:00",
+        "idempotency_key": "event-check2-rollout-37a5b0c1b3"
+       }
+      },
+      {
+       "type": "tool_use",
+       "id": "toolu_01JhPDj26zXp1PbPEMhSYbpx",
+       "name": "create_event",
+       "input": {
+        "calendar_id": "team",
+        "title": "Check 3: Rollout 37a5b0c1b3 in infra",
+        "start": "2026-09-09T09:00",
+        "idempotency_key": "event-check3-rollout-37a5b0c1b3"
+       }
+      }
+     ],
+     "at_utc": "2026-11-11T02:18:34Z",
+     "stop_reason": "tool_use",
+     "provider_meta": {
+      "cache_write": 171,
+      "cache_read": 1299
+     }
+    },
+    {
+     "role": "tool_results",
+     "content": [
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01FBTamEXyJNmUnkXBZGfNZU",
+       "content": "ok-70809bc3"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01PV3iSWbQykwWRe5p1zqnEg",
+       "content": "ok-3fdd0e14"
+      },
+      {
+       "type": "tool_result",
+       "tool_use_id": "toolu_01JhPDj26zXp1PbPEMhSYbpx",
+       "content": "ok-9bf279b7"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "All steps completed successfully:\n1. \u2705 Ticket 'Rollout 37a5b0c1b3 in infra' filed in the infra queue\n2. \u2705 'Check 1' event created on the oncall calendar for 2026-09-07T09:00\n3. \u2705 'Check 2' event created on the planning calendar for 2026-09-08T09:00\n4. \u2705 'Check 3' event created on the team calendar for 2026-09-09T09:00\n\nDONE"
+      }
+     ],
+     "at_utc": "2026-11-11T02:18:38Z",
+     "stop_reason": "end_turn",
+     "provider_meta": {
+      "cache_write": 666,
+      "cache_read": 1470
+     }
+    }
+   ],
+   "meta": {
+    "provider": "anthropic",
+    "model_served": "claude-fable-5",
+    "temperature_requested": 0.0,
+    "temperature": null,
+    "usage": {
+     "input": 6,
+     "output": 874,
+     "cache_write": 837,
+     "cache_read": 4068
+    },
+    "truncated": false,
+    "invalid_calls": []
+   }
+  }
+ ],
+ "started_utc": "2026-11-11T02:18:16Z",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "score": {
+  "violations": 3,
+  "givr_hit": 1,
+  "completion": 1,
+  "order_violation": 1
+ },
+ "exp": "QX1",
+ "kind": "restart",
+ "episode_id": "claude-fable-5__amnesiac__none__fanout-bda1830e69__k2__s0",
+ "max_tokens": 1024,
+ "finished_utc": "2026-11-11T02:18:38Z"
+}

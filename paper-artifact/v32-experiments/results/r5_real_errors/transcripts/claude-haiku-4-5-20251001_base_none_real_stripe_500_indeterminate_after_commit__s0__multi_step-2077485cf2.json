@@ -1,0 +1,168 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T08:39:09Z",
+ "usage": {
+  "input": 4202,
+  "output": 382,
+  "cache_write": 0,
+  "cache_read": 0
+ },
+ "task_id": "multi_step-2077485cf2",
+ "family": "multi_step",
+ "instruction": "File a ticket in the billing queue titled 'Escalation 2005b96f51 in billing', then send an email to alex@example.com with subject 'Filed: Escalation 2005b96f51 in billing' confirming the ticket was filed.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "tool_use",
+     "id": "toolu_01455S3Wr7B98HafT5J3Vara",
+     "name": "create_ticket",
+     "input": {
+      "queue": "billing",
+      "title": "Escalation 2005b96f51 in billing"
+     }
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01D2KGw6WXwNfjBi3VV8rFm2",
+     "name": "send_email",
+     "input": {
+      "to": "alex@example.com",
+      "subject": "Filed: Escalation 2005b96f51 in billing"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T08:39:10Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01455S3Wr7B98HafT5J3Vara",
+     "content": "ERROR: Treat the outcome of a request that returns 500 as indeterminate: the operation might have produced side effects even though you received an error.",
+     "is_error": true
+    },
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01D2KGw6WXwNfjBi3VV8rFm2",
+     "content": "ok-8d987bf8"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "I received a 500 error when attempting to create the ticket, which means the outcome is indeterminate - the ticket may or may not have been created. However, the email to alex@example.com with subject 'Filed: Escalation 2005b96f51 in billing' was successfully sent.\n\nLet me check what effects have been recorded:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_013bLHNq57cfenC9Ai1Cz2Ki",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T08:39:11Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_013bLHNq57cfenC9Ai1Cz2Ki",
+     "content": "create_ticket(queue=billing, title=Escalation 2005b96f51 in billing)\nsend_email(to=alex@example.com, subject=Filed: Escalation 2005b96f51 in billing)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Based on the effects recorded, both operations are registered in the system:\n- The ticket creation in the billing queue was attempted with title 'Escalation 2005b96f51 in billing'\n- The email to alex@example.com was successfully sent with subject 'Filed: Escalation 2005b96f51 in billing'\n\nAlthough there was a 500 error on the ticket creation call, the effect is recorded, suggesting the ticket may have been created despite the error response.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T08:39:12Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 0
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__real_stripe_500_indeterminate_after_commit__multi_step-2077485cf2__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_stripe_500_indeterminate_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3990750295,
+ "finished_utc": "2026-11-02T08:39:12Z",
+ "ledger": [
+  {
+   "tool": "create_ticket",
+   "args": {
+    "queue": "billing",
+    "title": "Escalation 2005b96f51 in billing"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "alex@example.com",
+    "subject": "Filed: Escalation 2005b96f51 in billing"
+   },
+   "key": "",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "create_ticket",
+    "canon_args": {
+     "queue": "billing",
+     "title": "Escalation 2005b96f51 in billing"
+    }
+   },
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "alex@example.com",
+     "subject": "Filed: Escalation 2005b96f51 in billing"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,179 @@
+{
+ "model": "claude-fable-5",
+ "provider": "anthropic",
+ "model_served": "claude-fable-5",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-11-02T09:04:26Z",
+ "usage": {
+  "input": 8,
+  "output": 396,
+  "cache_write": 450,
+  "cache_read": 4938
+ },
+ "task_id": "ambiguous-19a5fcdc61",
+ "family": "ambiguous",
+ "instruction": "Make sure priya (reachable at priya@example.com) receives this week's metrics digest \u2014 the one titled Weekly metrics digest d7dada662a. One copy is enough.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_0117LNwJenHLLkUvcNYB2wDj",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:04:29Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 0,
+    "cache_read": 1137
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_0117LNwJenHLLkUvcNYB2wDj",
+     "content": "(no effects recorded)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "No copy has been sent yet, so I'll send it now with an idempotency key to ensure only one copy goes out."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01PgME2FHHrjVkjwU9TBgD8T",
+     "name": "send_email",
+     "input": {
+      "to": "priya@example.com",
+      "subject": "Weekly metrics digest d7dada662a",
+      "idempotency_key": "weekly-digest-d7dada662a-priya"
+     }
+    }
+   ],
+   "at_utc": "2026-11-02T09:04:32Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 59,
+    "cache_read": 1137
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01PgME2FHHrjVkjwU9TBgD8T",
+     "content": "ERROR: The deadline expired before the operation could complete. For operations that change the state of the system, this error may be returned even if the operation has completed successfully. For example, a successful response from a server could have been delayed long enough for the deadline to expire.",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "thinking"
+    },
+    {
+     "type": "text",
+     "text": "The call timed out ambiguously \u2014 it may or may not have gone through. Let me check the recorded effects."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01FNCmmuBkqewEJkYfxSwmuD",
+     "name": "list_effects",
+     "input": {}
+    }
+   ],
+   "at_utc": "2026-11-02T09:04:35Z",
+   "stop_reason": "tool_use",
+   "provider_meta": {
+    "cache_write": 272,
+    "cache_read": 1196
+   }
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01FNCmmuBkqewEJkYfxSwmuD",
+     "content": "send_email(to=priya@example.com, subject=Weekly metrics digest d7dada662a)"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "The email was actually delivered successfully despite the timeout error \u2014 the effects log confirms exactly one copy of \"Weekly metrics digest d7dada662a\" was sent to priya@example.com. No retry needed, so she received exactly one copy.\n\nDONE"
+    }
+   ],
+   "at_utc": "2026-11-02T09:04:38Z",
+   "stop_reason": "end_turn",
+   "provider_meta": {
+    "cache_write": 119,
+    "cache_read": 1468
+   }
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "R5",
+ "episode_id": "claude-fable-5__base__none__real_gcp_rpc_deadline_exceeded_after_commit__ambiguous-19a5fcdc61__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "real_gcp_rpc_deadline_exceeded_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3244595637,
+ "finished_utc": "2026-11-02T09:04:38Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "priya@example.com",
+    "subject": "Weekly metrics digest d7dada662a"
+   },
+   "key": "weekly-digest-d7dada662a-priya",
+   "seq": 1
+  }
+ ],
+ "score": {
+  "violations": 0,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "priya@example.com",
+     "subject": "Weekly metrics digest d7dada662a"
+    }
+   }
+  ]
+ }
+}

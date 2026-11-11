@@ -1,0 +1,141 @@
+{
+ "model": "claude-haiku-4-5-20251001",
+ "provider": "anthropic",
+ "model_served": "claude-haiku-4-5-20251001",
+ "temperature_requested": 0.0,
+ "temperature": null,
+ "started_utc": "2026-10-26T07:17:40Z",
+ "usage": {
+  "input": 3846,
+  "output": 268
+ },
+ "task_id": "ambiguous-0f00714b41",
+ "family": "ambiguous",
+ "instruction": "Make sure sam (reachable at sam@example.com) receives this week's metrics digest \u2014 the one titled Weekly metrics digest 31288f9f5c. One copy is enough.",
+ "system": "You are an assistant that completes one task using the tools provided. Complete the task, then reply DONE.",
+ "turns": [
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "I'll send the weekly metrics digest email to Sam."
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_015g8YjPdVG3Nq3bxqEzC4fy",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Weekly metrics digest 31288f9f5c"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:17:41Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_015g8YjPdVG3Nq3bxqEzC4fy",
+     "content": "ERROR: internal server error",
+     "is_error": true
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "Let me try again with an idempotency key to ensure reliable delivery:"
+    },
+    {
+     "type": "tool_use",
+     "id": "toolu_01Kg4zaSv9JsNxndQFbqavff",
+     "name": "send_email",
+     "input": {
+      "to": "sam@example.com",
+      "subject": "Weekly metrics digest 31288f9f5c",
+      "idempotency_key": "sam-metrics-digest-31288f9f5c"
+     }
+    }
+   ],
+   "at_utc": "2026-10-26T07:17:42Z",
+   "stop_reason": "tool_use"
+  },
+  {
+   "role": "tool_results",
+   "content": [
+    {
+     "type": "tool_result",
+     "tool_use_id": "toolu_01Kg4zaSv9JsNxndQFbqavff",
+     "content": "ok-34e2fc90"
+    }
+   ]
+  },
+  {
+   "role": "assistant",
+   "content": [
+    {
+     "type": "text",
+     "text": "DONE. The weekly metrics digest email (titled \"Weekly metrics digest 31288f9f5c\") has been successfully sent to sam@example.com."
+    }
+   ],
+   "at_utc": "2026-10-26T07:17:43Z",
+   "stop_reason": "end_turn"
+  }
+ ],
+ "truncated": false,
+ "invalid_calls": [],
+ "retry_mode": "agent_retry",
+ "sample": 0,
+ "exp": "E1-4",
+ "episode_id": "claude-haiku-4-5-20251001__base__none__error_500_after_commit__ambiguous-0f00714b41__s0",
+ "prompt": "base",
+ "mitigation": "none",
+ "failure_mode": "error_500_after_commit",
+ "fail_on_call": 1,
+ "failure_fired": true,
+ "max_turns": 8,
+ "max_tokens": 1024,
+ "ack_seed": 3618667499,
+ "finished_utc": "2026-10-26T07:17:43Z",
+ "ledger": [
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Weekly metrics digest 31288f9f5c"
+   },
+   "key": "",
+   "seq": 1
+  },
+  {
+   "tool": "send_email",
+   "args": {
+    "to": "sam@example.com",
+    "subject": "Weekly metrics digest 31288f9f5c"
+   },
+   "key": "sam-metrics-digest-31288f9f5c",
+   "seq": 2
+  }
+ ],
+ "score": {
+  "violations": 1,
+  "achieved": true,
+  "omission": false,
+  "misorder": false,
+  "goals": [
+   {
+    "tool": "send_email",
+    "canon_args": {
+     "to": "sam@example.com",
+     "subject": "Weekly metrics digest 31288f9f5c"
+    }
+   }
+  ]
+ }
+}
