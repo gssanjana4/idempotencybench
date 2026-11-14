@@ -8,6 +8,8 @@ retries — timeouts, transport re-issues, orchestrator re-runs.
 
 📄 Paper: *Exactly Once Across Retries and Restarts: Measuring Duplicate and Stale Side Effects in Tool-Using LLM Agents* (arXiv link coming) · 📊 Metric: **IVR** (Idempotency Violation Rate)
 
+📄 Earlier version (July 2026): [*Do LLM Agents Act Exactly Once? Measuring Idempotency Violations Under Retries*](papers/2026-07_Do-LLM-Agents-Act-Exactly-Once.pdf) ([doi:10.5281/zenodo.24166027](https://doi.org/10.5281/zenodo.24166027)). Superseded by the paper above. Correction: its Claude Haiku 4.5 idempotency-keys result (IVR up to 0.27) is 0.92 after a scoring fix (keyless calls were wrongly deduplicated).
+
 ## Paper artifact
 
 [`paper-artifact/`](paper-artifact/) holds what is behind the paper: the code as it was run,
